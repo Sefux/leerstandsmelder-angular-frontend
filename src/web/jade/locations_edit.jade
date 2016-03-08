@@ -1,0 +1,18 @@
+include ../../modules/mixins/jade/_mixin_form
+include ../../modules/mixins/jade/_mixin_buttons
+include ../../modules/mixins/jade/_mixin_layout
+include ../../modules/mixins/jade/_mixin_style
+// variables for the templates
+- mapFlex="50"
+//- mapStyle="height:calc(100% - 88px);width:100%;"
+- sideWidth="width:33%"
+- sideModel="newest"
+
+md-content
+	div(layout="row" layout-sm="column" layout-wrap layout-fill)
+		div(flex="30")
+			#mapContainer()
+				#secondcontainer
+					#map(ito-map ng-model='location' locations='locations')
+		div(flex="70")
+			include ../../modules/dataviewer/jade/templates/asset-editor

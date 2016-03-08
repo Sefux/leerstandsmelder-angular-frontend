@@ -1,0 +1,26 @@
+include ../../../mixins/jade/_mixin_form
+include ../../../mixins/jade/_mixin_media
+include ../../../mixins/jade/_mixin_buttons
+include ../../../mixins/jade/_mixin_layout
+include ../../../mixins/jade/_mixin_style
+
++layout('column','center start',true)
+	+content('row','center center')
+		h2(ng-if="posts") {{ "Latest Activity" | translate }}
+		h2(ng-if="!posts") {{ "No Recent Activity" | translate }}
+	div(ng-repeat="post in posts")
+		+content('row','start start')
+			a(ng-href="/post/{{post.id}}")
+				p
+					strong {{asset.title}}&nbsp;
+					span {{"by" | translate}} {{asset.owner}}
+					img.thumb.pull-left(ng-src="{{asset.urlLoc.thumb}}" alt="{{asset.title}}" width="50px" height="50px")
+				p {{asset.body}}
+
+
+			//md-virtual-repeat-container(ng-model="assets")
+					div.repeated-item( md-virtual-repeat="thing in assets.latest")
+						h3
+							strong {{thing.title}}
+							span {{"by" | translate}} {{thing.owner}}
+						//img.thumb(ng-src="{{thing.urlLoc.thumb}}" alt="{{thing.title}}")

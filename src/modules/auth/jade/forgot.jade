@@ -1,0 +1,20 @@
+include ../../mixins/jade/_mixin_form
+include ../../mixins/jade/_mixin_buttons
+include ../../mixins/jade/_mixin_layout
+include ../../mixins/jade/_mixin_style
+
++layout('column','center center',true)
+	md-card(layout-margin layout-padding)
+		md-toolbar(md-scroll-shrink)
+			+layout('row','center center','padding')
+				+headline("Forgot?")
+		md-card-content
+			+layout('row','center center')
+				+content('column','start center')
+					+input('email','user.email', null, null)
+		.md-actions(layout="row" layout-align="end center")
+			span(flex="10")
+			span(flex="50")
+				+button('cancel','cancel("login")','md-raised','',null,'/')
+			span(flex="40")
+				+button_fab('submit','forgot(user.email)','md-primary','fa-send','user.email')

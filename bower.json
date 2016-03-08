@@ -1,0 +1,44 @@
+{
+  "name": "leerstandsmelder-frontend",
+  "version": "0.1.0",
+  "authors": [
+    "A. Koch <antonymousfeedback@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.0",
+    "angular-route": "^1.5.0",
+    "angular-animate": "^1.5.0",
+    "angular-aria": "^1.5.0",
+    "angular-messages": "^1.5.0",
+    "angular-sanitize": "^1.5.0",
+    "angular-translate": "^2.10.0",
+    "font-awesome": "fontawesome#^4.5.0",
+    "angular-material": "^1.0.6",
+    "async": "^1.5.2",
+    "ng-file-upload": "^12.0.1",
+    "angular-busy": "^4.1.3",
+    "angular-locker": "^2.0.4",
+    "angular-pubsub": "^1.0.0",
+    "leaflet": "^0.7.7",
+    "bluebird": "^3.3.4",
+    "angular-translate-storage-cookie": "^2.10.0",
+    "angular-translate-storage-local": "^2.10.0",
+    "angular-translate-loader-static-files": "^2.10.0",
+    "PruneCluster": "^1.1.0",
+    "leaflet-minimap": "Norkart/Leaflet-MiniMap#^3.1.0",
+    "L.GeoSearch": "smeijer/L.GeoSearch",
+    "leerstandsmelder-apiclient": "git@bitbucket.org:ito-suite/node-leerstandsmelder-apiclient.git"
+  },
+  "resolutions": {
+    "angular": "^1.5.0",
+    "angular-animate": "^1.5.0"
+  }
+}

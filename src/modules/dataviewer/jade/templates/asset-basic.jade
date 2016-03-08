@@ -1,0 +1,81 @@
+include ../../../mixins/jade/_mixin_form
+include ../../../mixins/jade/_mixin_media
+include ../../../mixins/jade/_mixin_buttons
+include ../../../mixins/jade/_mixin_layout
+include ../../../mixins/jade/_mixin_style
+
+div.asset-basic(layout='column')
+	//div asset-basic.jade
+	div(name="test" action='asset-basic', method='put' ng-repeat='asset in assets')
+		div(layout='column')
+			md-whiteframe(class="md-whiteframe-z2")
+				md-toolbar
+					div.md-toolbar-tools
+						div(flex)
+							//, '$scope.form.dirty'
+							div(layout='row' layout-align='start center')
+								div(flex='40' ng-if='!asset.disabled')
+									+button('cancel','put(asset._id)','btn-default btn-small','fa-times')
+									+button('delete','delete(asset._id)','btn-danger btn-small','fa-trash')
+								//+button('undisabled','asset.disabled = false','btn-default btn-small','fa-unlock')
+
+								//div(flex='15')
+									//+button_fab(null,'put(asset._id)','md-primary','fa-check fa-2x')
+
+								div(flex='40')
+
+								div(flex)
+									+lockswitch('disabled','asset.disabled','asset.disabled = !asset.disabled','fa-lock',false)
+									//+inlineswitch('undisabled','asset.disabled = true','fa-unlock','!asset.disabled')
+
+
+				md-content(layout="row" layout-padding flex class="md-padding")
+					div(flex)
+					div( flex='20' )
+
+						div(layout='row' layout-align='left start')
+							+input('fileimage','asset.file', null, null)
+					div(flex='40')
+						+input('text','asset.title', null, null)
+						+input('textarea','asset.description', null, null)
+						+input('chip','asset.category', '_sys.visibility', null)
+						+input('radio','asset.visibility', '_sys.visibility', null)
+						+input('select','asset.license', '_sys.licenses' ,null)
+
+						+input('checkbox','asset.category', '_sys.categories' ,null)
+
+					div(flex)
+					//div(flex='5')
+					//div(flex='35')
+						// just our mixin declares so its easier later.
+						div mixin input(field_type, field_key, resource_list, sys_val)
+							li field_type > file
+							li field_type > slider
+							li field_type > textarea
+							li field_type > checkbox
+							li field_type > switch
+							li field_type > select
+							li field_type > radio
+							li field_type > chip
+							li field_type > autocomplete
+							li field_type > text,email,number, etc.
+						div mixin button(text, action, style, icon, when)
+						div mixin button_fab(text, action, style, icon, when)
+						div mixin media(field_type, width, height, clickaction)
+						li input[type=color]
+						li input[type=date]
+						li input[type=datetime-local]
+						li input[type=datetime]
+						li input[type=email]
+						li input[type=month]
+						li input[type=number]
+						li input[type=password]
+						li input[type=search]
+						li input[type=tel],
+						li input[type=text]
+						li input[type=time]
+						li input[type=url]
+						li input[type=week]
+						li textarea
+
+

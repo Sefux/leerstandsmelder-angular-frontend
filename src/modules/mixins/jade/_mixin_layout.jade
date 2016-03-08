@@ -1,0 +1,9 @@
+mixin layout(layout, align, fill)
+	div(layout=layout layout-align=align layout-fill=fill layout-padding)
+		if block
+			block
+
+mixin content(layout, align)
+	div(flex layout=layout layout-align=align)
+		if block
+			block

@@ -1,0 +1,20 @@
+doctype html
+html(lang='en' ng-app='ito-dataviewer' ng-controller='Site.Welcome as ctrl')
+	head
+		meta(http-equiv='X-UA-Compatible' content='IE=edge')
+		meta(http-equiv='Content-Type' content='text/html; charset=utf-8')
+		meta(http-equiv='X-Frame-Options' content='DENY')
+		meta(name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no')
+		//base(href='/')
+		title {{site.title}}
+		link(rel='stylesheet', href='./css/ng-ito-dataviewer.css')
+	body(layout='column' spellcheck='false' )
+		//include templates/asset-navbar
+		h2 hello
+		block content
+		footer
+			div( flex )
+				div(layout='row' layout-align='center start') {{site.copyrightnotice}}
+		scripts
+			script(src='/js/ng-ito-dataviewer-dependencies.min.js')
+			script(src='/js/ng-ito-dataviewer-frontend.js')

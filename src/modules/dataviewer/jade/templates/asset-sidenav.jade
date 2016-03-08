@@ -1,0 +1,11 @@
+include ../../../mixins/jade/_mixin_form
+include ../../../mixins/jade/_mixin_media
+include ../../../mixins/jade/_mixin_buttons
+
+div(layout='row' )
+	md-sidenav.md-sidenav-right(md-component-id='right' )
+		h2 SIDENAV
+		form
+			md-input-container
+				label(for='testInput') Test input
+				input#testInput(ng-model='data' md-sidenav-focus='' type='text')

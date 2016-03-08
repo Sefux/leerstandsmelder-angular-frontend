@@ -1,0 +1,39 @@
+//
+	- $scope.mixins.push('star','stars','ratingCount','ratingValue','userViews')
+
+mixin star
+	span.star.activeLowVote(ng-if="asset.userRatingValue =='1'")
+	span.star.activeMedVote(ng-if="asset.userRatingValue >='2' && asset.userRatingValue <='4'")
+	span.star.activeHighVote(ng-if="asset.userRatingValue =='5'")
+
+mixin stars
+	.rating
+		span.star(
+			ng-click="rate(5,asset._id)"
+			ng-class="{'active':asset.userRatingValue =='5'}"
+		)
+		span.star(
+			ng-click="rate(4,asset._id)"
+			ng-class="{'active':asset.userRatingValue =='4'}"
+		)
+		span.star(
+			ng-click="rate(3,asset._id)"
+			ng-class="{'active':asset.userRatingValue =='3'}"
+		)
+		span.star(
+			ng-click="rate(2,asset._id)"
+			ng-class="{'active':asset.userRatingValue =='2'}"
+		)
+		span.star(
+			ng-click="rate(1,asset._id)"
+			ng-class="{'active':asset.userRatingValue =='1'}"
+		)
+
+mixin ratingCount
+	span.rated_by {{asset.ratingCount || 0}}
+
+mixin ratingValue
+	span.rating {{asset.ratingValue || 0}}
+
+mixin userViews
+	span.views {{asset.userViews || 0}}
