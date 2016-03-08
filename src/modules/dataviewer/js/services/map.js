@@ -1,6 +1,7 @@
-angular.module('ito.angular.services.dataviewer.api', []).
-    factory('featureService', ['$http', function ($http) {
-        'use strict';
+'use strict';
+
+define([], function () {
+    return angular.module('ito.angular.services.dataviewer.api', []).factory('featureService', ['$http', function ($http) {
         return {
             initMap: function (el, config, addMiniMap) {
                 var map, geoConf = config.geoSearch.main;
@@ -37,29 +38,29 @@ angular.module('ito.angular.services.dataviewer.api', []).
 
             createMarker: function (data, config) {
                 /*
-                if (image) {
-                    scope.markers[image._id] = {
-                        _id: image._id,
-                        location: image.location,
-                        lat: image.location[0],
-                        lng: image.location[1],
-                        //icon: scope.extraMarker,
-                        draggable: false,
-                        //group: 'hamburg',
-                        url: '/api/image/' + image._id,
-                        thumburl: '/api/thumb/' + image._id,
-                        author: image.contributor_id,
-                        message: false, //'<img src="/api/image/' + image._id +'" alt="'+image.author+'" width="250px" />',
-                        contributor_id: image.contributor_id,
-                        updated_at: addCreatedAtReadable(image.updated_at),
-                        created_at: addCreatedAtReadable(image.created_at),
-                        offset: offset,
-                        visible: visibility,
-                        category: image.category || "Uncategorized"
-                    }
+                 if (image) {
+                 scope.markers[image._id] = {
+                 _id: image._id,
+                 location: image.location,
+                 lat: image.location[0],
+                 lng: image.location[1],
+                 //icon: scope.extraMarker,
+                 draggable: false,
+                 //group: 'hamburg',
+                 url: '/api/image/' + image._id,
+                 thumburl: '/api/thumb/' + image._id,
+                 author: image.contributor_id,
+                 message: false, //'<img src="/api/image/' + image._id +'" alt="'+image.author+'" width="250px" />',
+                 contributor_id: image.contributor_id,
+                 updated_at: addCreatedAtReadable(image.updated_at),
+                 created_at: addCreatedAtReadable(image.created_at),
+                 offset: offset,
+                 visible: visibility,
+                 category: image.category || "Uncategorized"
+                 }
 
-                }
-                */
+                 }
+                 */
                 var marker;
 
                 if (config.isPruneCluster) {
@@ -81,13 +82,14 @@ angular.module('ito.angular.services.dataviewer.api', []).
                 }
                 return marker;
             },
-            debounce : function (func, threshold, execAsap) {
-            // via http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
+            debounce: function (func, threshold, execAsap) {
+                // via http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
                 window.timeout;
 
-                return function debounced () {
+                return function debounced() {
                     var obj = this, args = arguments;
-                    function delayed () {
+
+                    function delayed() {
                         if (!execAsap) {
                             func.apply(obj, args);
                         }
@@ -105,7 +107,7 @@ angular.module('ito.angular.services.dataviewer.api', []).
                 };
 
             },
-            rewriteDate: function(months,callback){
+            rewriteDate: function (months, callback) {
                 // this is a general purpose helper that should probably
                 // be somewhere else
                 // most definitely must fix the translation keys...
@@ -120,11 +122,11 @@ angular.module('ito.angular.services.dataviewer.api', []).
                     } else if (months < 12) {
                         callback(null, "less than 1 year");
                     } else if (months == 121) {
-                            callback(null, "more than 10 years");
+                        callback(null, "more than 10 years");
                     } else {
                         var years = parseFloat(months) / 12;
                         var year = Math.floor(years);
-                        var months =  years - year;
+                        var months = years - year;
                         var portion = null;
                         switch (true) {
                             case (months >= 0.00001 && months <= 0.3):
@@ -140,38 +142,37 @@ angular.module('ito.angular.services.dataviewer.api', []).
                                 year++;
                                 break;
                         }
-                        if (years==1 && months==0){
-                            callback(null, year+" year" );
+                        if (years == 1 && months == 0) {
+                            callback(null, year + " year");
                         }
-                        else if(portion){
-                            callback(null, year+" and " + portion + " years");
+                        else if (portion) {
+                            callback(null, year + " and " + portion + " years");
                         } else {
-                            callback(null, year+" years" );
+                            callback(null, year + " years");
                         }
                     }
                 } else {
                     callback(null, "less than 1 year");
                 }
             },
-            reverseGeoCode: function(lat,lon,callback) {
+            reverseGeoCode: function (lat, lon, callback) {
                 // well structured
                 // https://nominatim.openstreetmap.org/reverse?format=json&lat=53.60695729613987&lon=9.942927360534668&zoom=18&addressdetails=1
                 // the service requests adding '&email=' to the requests if there are
                 // going to be many of them
-                $http({method: 'GET', url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat
-                + '&lon=' + lon
-                + '&zoom=18&addressdetails=1'
-                }).
-                    success(function (message) {
-                        console.log("apiMessage",message);
-                        callback(null, message);
-                    }).
-                    error(function (data, status) {
-                        callback(new Error('Could not get address:'));
-                    });
+                $http({
+                    method: 'GET', url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat
+                    + '&lon=' + lon
+                    + '&zoom=18&addressdetails=1'
+                }).success(function (message) {
+                    console.log("apiMessage", message);
+                    callback(null, message);
+                }).error(function (data, status) {
+                    callback(new Error('Could not get address:'));
+                });
             },
-            geoCode: function(address, callback) {
-                if (!address.country) address.country="de";
+            geoCode: function (address, callback) {
+                if (!address.country) address.country = "de";
                 // well structured
                 //https://nominatim.openstreetmap.org/search?q=135+pilkington+avenue,+birmingham&format=json
                 // the service requests adding '&email=' to the requests if there are
@@ -179,19 +180,17 @@ angular.module('ito.angular.services.dataviewer.api', []).
                 $http({
                     method: 'GET',
                     url: 'https://nominatim.openstreetmap.org/search?format=json&q='
-                        + address.street + '+'
-                        + address.city + '+'
-                        + address.country
-                }).
-                success(function (message) {
-                    console.log("apiMessage",message);
+                    + address.street + '+'
+                    + address.city + '+'
+                    + address.country
+                }).success(function (message) {
+                    console.log("apiMessage", message);
                     callback(null, message);
-                }).
-                error(function (data, status) {
+                }).error(function (data, status) {
                     callback(new Error('Service error starring image:', data, status), null);
                 });
             },
-            geo : function() {
+            geo: function () {
                 //determine if the handset has client side geo location capabilities
                 /*function successCallback(p){
                  //Global.GPSlatlong = {"latitude":p.latitude,"longitude":p.longitude};
@@ -213,85 +212,86 @@ angular.module('ito.angular.services.dataviewer.api', []).
                  }*/
             },
             getUser: function (image_id, contributor_id, stars, callback) {
-                $http({method: 'POST', url: '/api/stars/' + image_id + '/' + contributor_id + '/' + stars}).
-                    success(function (message) {
-                        //console.log("apiMessage",message);
-                        callback(null, message);
-                    }).
-                    error(function (data, status) {
-                        callback(new Error('Service error starring image:', data, status), null);
-                    });
+                $http({
+                    method: 'POST',
+                    url: '/api/stars/' + image_id + '/' + contributor_id + '/' + stars
+                }).success(function (message) {
+                    //console.log("apiMessage",message);
+                    callback(null, message);
+                }).error(function (data, status) {
+                    callback(new Error('Service error starring image:', data, status), null);
+                });
             }
         }
     }])
     .factory('mapApiService', ['$http', function ($http) {
         'use strict';
         return {
-            starImage : function(image_id, contributor_id, stars, callback) {
-                $http({ method: 'POST', url: '/api/stars/'+image_id+'/'+contributor_id+'/'+stars }).
-                    success(function (message) {
-                        callback(null, message);
-                    }).
-                    error(function (data, status) {
-                        callback(new Error('Service error starring image:', data, status), null);
-                    });
+            starImage: function (image_id, contributor_id, stars, callback) {
+                $http({
+                    method: 'POST',
+                    url: '/api/stars/' + image_id + '/' + contributor_id + '/' + stars
+                }).success(function (message) {
+                    callback(null, message);
+                }).error(function (data, status) {
+                    callback(new Error('Service error starring image:', data, status), null);
+                });
             },
-            getUserStars : function(contributor_id, callback) {
-                $http({ method: 'GET', url: '/api/userstars/'+contributor_id }).
-                    success(function (message) {
-                        callback(null, message);
-                    }).
-                    error(function (data, status) {
-                        callback(new Error('Service error getting stars:', data, status), null);
-                    });
+            getUserStars: function (contributor_id, callback) {
+                $http({method: 'GET', url: '/api/userstars/' + contributor_id}).success(function (message) {
+                    callback(null, message);
+                }).error(function (data, status) {
+                    callback(new Error('Service error getting stars:', data, status), null);
+                });
             },
 
-            getAllImages : function (callback) {
-                $http({ method: 'GET', url: '/api/images' }).
-                    success(function (images) {
-                        callback(null, images);
-                    }).
-                    error(function (data, status) {
-                        callback(new Error('error fetching images list with status: ' + status), null);
-                    });
+            getAllImages: function (callback) {
+                $http({method: 'GET', url: '/api/images'}).success(function (images) {
+                    callback(null, images);
+                }).error(function (data, status) {
+                    callback(new Error('error fetching images list with status: ' + status), null);
+                });
             },
-            get10Images : function (offset, callback) {
-                $http({ method: 'GET', url: '/api/images', params: { limit: 10, offset: offset} }).
-                    success(function (images) {
-                        callback(null, images);
-                    }).
-                    error(function (data, status) {
-                        callback(new Error('error fetching images list with status: ' + status), null);
-                    });
+            get10Images: function (offset, callback) {
+                $http({
+                    method: 'GET',
+                    url: '/api/images',
+                    params: {limit: 10, offset: offset}
+                }).success(function (images) {
+                    callback(null, images);
+                }).error(function (data, status) {
+                    callback(new Error('error fetching images list with status: ' + status), null);
+                });
             },
-            getImageData : function (id, callback) {
-                $http({ method: 'GET', url: '/api/imagedata/'+id, params: { limit: 1, offset: 0} }).
-                    success(function (image) {
-                        callback(null, image);
-                    }).
-                    error(function (data, status) {
-                        callback(new Error('error fetching images list with status: ' + status), null);
-                    });
+            getImageData: function (id, callback) {
+                $http({
+                    method: 'GET',
+                    url: '/api/imagedata/' + id,
+                    params: {limit: 1, offset: 0}
+                }).success(function (image) {
+                    callback(null, image);
+                }).error(function (data, status) {
+                    callback(new Error('error fetching images list with status: ' + status), null);
+                });
             },
-            getLatestImages : function (callback) {
-                $http({ method: 'GET', url: '/api/images', params: { limit: 7 } }).
-                    success(function (images) {
-                        callback(null, images);
-                    }).
-                    error(function (data, status) {
-                        callback(new Error('error fetching images list with status: ' + status), null);
-                    });
+            getLatestImages: function (callback) {
+                $http({method: 'GET', url: '/api/images', params: {limit: 7}}).success(function (images) {
+                    callback(null, images);
+                }).error(function (data, status) {
+                    callback(new Error('error fetching images list with status: ' + status), null);
+                });
             },
-            imageUnload : function (image_id, username, callback) {
-                $http({ method: 'POST', url: '/api/imageunload/' + image_id + '/' + username }).
-                    success(function (matches) {
-                        // should remove from $scope too...
-                        callback(null, matches);
-                    }).
-                    error(function (data, status) {
-                        callback(new Error('error unloading image: ' + status), null);
-                    });
+            imageUnload: function (image_id, username, callback) {
+                $http({
+                    method: 'POST',
+                    url: '/api/imageunload/' + image_id + '/' + username
+                }).success(function (matches) {
+                    // should remove from $scope too...
+                    callback(null, matches);
+                }).error(function (data, status) {
+                    callback(new Error('error unloading image: ' + status), null);
+                });
             }
         };
     }]);
-
+});

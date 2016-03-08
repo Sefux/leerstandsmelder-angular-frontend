@@ -1,9 +1,12 @@
 /* global console,angular */
-angular.module('ito.auth.angular.directives.helpers', [
-    'ito.angular.services.api',
-    'ito.angular.services.auth'
-]).
-    directive('checkLogin', ['apiService', 'authService', function (apiService, authService) {
+
+'use strict';
+
+define([], function () {
+    return angular.module('ito.auth.angular.directives.helpers', [
+        'ito.angular.services.api',
+        'ito.angular.services.auth'
+    ]).directive('checkLogin', ['apiService', 'authService', function (apiService, authService) {
         'use strict';
         return {
             link: function (scope) {
@@ -24,3 +27,4 @@ angular.module('ito.auth.angular.directives.helpers', [
             }
         };
     }]);
+});

@@ -1,7 +1,9 @@
 /* global angular */
-(function () {
-    'use strict';
-    angular.module(
+
+'use strict';
+
+define([], function () {
+    return angular.module(
         'ito.auth.angular.controllers.users',
         [
             'ito.angular.services.api',
@@ -184,4 +186,4 @@
             authService.clearCredentials();
             window.location = '/';
         }]);
-}());
+});

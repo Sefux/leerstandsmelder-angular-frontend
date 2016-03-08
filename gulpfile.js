@@ -25,6 +25,7 @@ var banner = ['/**',
 
 gulp.task('js-deps', function () {
     return gulp.src([
+        // TODO: think about if all this isn't a bit bloated...
         'bower_components/ng-file-upload/ng-file-upload-shim.min.js',
         'bower_components/angular/angular.min.js',
         'bower_components/angular-animate/angular-animate.min.js',
@@ -38,7 +39,6 @@ gulp.task('js-deps', function () {
         'bower_components/angular-translate/angular-translate.min.js',
         'bower_components/async/dist/async.min.js',
         'bower_components/bluebird/js/browser/bluebird.min.js',
-        'bower_components/angular-animate/angular-animate.min.js',
         'bower_components/ng-file-upload/ng-file-upload.min.js',
         'bower_components/angular-pubsub/dist/angular-pubsub.js',
         'bower_components/leaflet/dist/leaflet.js',
@@ -92,6 +92,23 @@ gulp.task('js-mobile', function () {
 //
 // CSS building
 
+gulp.task('css-deps', function () {
+    return gulp.src([
+            'bower_components/angular-material/angular-material.min.css',
+            'bower_components/angular-busy/dist/angular-busy.min.css',
+            'bower_components/font-awesome/css/font-awesome.min.css',
+            'bower_components/leaflet/dist/leaflet.css',
+            'bower_components/PruneCluster/dist/LeafletStyleSheet.css',
+            //'bower_components/leaflet-control-geocoder/Control.Geocoder.css',
+            'bower_components/leaflet-minimap/dist/Control.MiniMap.min.css',
+            'bower_components/L.GeoSearch/src/css/l.geosearch.css'
+        ])
+        .pipe(concat('leerstandsmelder-frontend-dependencies.min.css'))
+        .pipe(header(banner, {pkg: pkg}))
+        .pipe(gulp.dest('./dist/web/css/'))
+        .pipe(gulp.dest('./dist/mobile/css/'));
+});
+
 function cssPipe(src, destPath) {
     return src.pipe(less())
         .pipe(minify())
@@ -141,13 +158,25 @@ gulp.task('copy-js', function () {
     return copyPipe(gulp.src(['./bower_components/PruneCluster/dist/PruneCluster.js.map']), './dist/web/js/', 3);
 });
 
+gulp.task('copy-requirejs', function () {
+    return copyPipe(gulp.src(['./bower_components/requirejs/require.js']), './dist/web/js/', 2);
+});
+
+gulp.task('copy-js-src', function () {
+    return copyPipe(gulp.src(['./src/**/*.js']), './dist/web/src/', 1);
+});
+
+gulp.task('copy-js-config', function () {
+    return copyPipe(gulp.src(['./configuration.js']), './dist/web/js/');
+});
+
 gulp.task('copy-web', function () {
-    copyPipe(gulp.src(['./bower_components/fontawesome/fonts/*','./src/shared/fonts/*']), './dist/web/', 2);
+    copyPipe(gulp.src(['./bower_components/font-awesome/fonts/*','./src/shared/fonts/*']), './dist/web/', 2);
     copyPipe(gulp.src(['./bower_components/leaflet/dist/images/*','./bower_components/Leaflet-MiniMap/dist/images/*']), './dist/web/', 3);
 });
 
 gulp.task('copy-mobile', function () {
-    copyPipe(gulp.src(['./bower_components/fontawesome/fonts/*','./src/shared/fonts/*']), './dist/mobile/', 2);
+    copyPipe(gulp.src(['./bower_components/font-awesome/fonts/*','./src/shared/fonts/*']), './dist/mobile/', 2);
     copyPipe(gulp.src(['./bower_components/leaflet/dist/images/*','./bower_components/Leaflet-MiniMap/dist/images/*']), './dist/mobile/', 3);
 });
 
@@ -193,6 +222,9 @@ gulp.task('phonegap-build', function () {
 gulp.task('web', [
     'js-deps',
     'js-web',
+    'copy-js-config',
+    'copy-js-src',
+    'css-deps',
     'css-web',
     'html-web',
     'copy-web',
@@ -202,6 +234,9 @@ gulp.task('web', [
 gulp.task('mobile', [
     'js-deps',
     'js-mobile',
+    'copy-js-config',
+    'copy-js-src',
+    'css-deps',
     'css-mobile',
     'html-mobile',
     'copy-mobile',

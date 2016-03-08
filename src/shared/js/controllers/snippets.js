@@ -1,8 +1,9 @@
 /* global angular,async,console */
 
-(function () {
-    'use strict';
-    angular.module(
+'use strict';
+
+define([], function () {
+    return angular.module(
         'leerstandsmelder.controllers.widgets',[])
         .controller('Widgets.Navbar', ['$scope','$rootScope','$translate','$location','$timeout', '$q', '$log', function ($scope,$rootScope,$translate,$location,$timeout, $q, $log) {
             $scope.siteLocation = $rootScope.siteLocation;
@@ -115,6 +116,4 @@
             };
             PubSub.subscribe('alert', $scope.addAlert);
         }]);
-}());
-
-
+});

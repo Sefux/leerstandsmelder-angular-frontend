@@ -1,6 +1,7 @@
-(function () {
-    'use strict';
-    angular.module(
+'use strict';
+
+define([], function () {
+    return angular.module(
         'ito.angular.controllers.dataviewer.maps',[])
         .controller('Maps.Sidebar',  ['$scope', '$q', '$location','mapApiService','featureService','$routeParams','$route', function ($scope, $q,$location, mapApiService, featureService, $routeParams, $route) {
 
@@ -664,4 +665,4 @@
 
 
         }])
-})();
+});

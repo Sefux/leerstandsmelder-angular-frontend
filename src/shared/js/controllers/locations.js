@@ -1,8 +1,7 @@
 /* global angular,async,PIECEMETA_API_HOST,console */
 
-(function () {
-    'use strict';
-    angular.module(
+define([], function () {
+    return angular.module(
         'leerstandsmelder.controllers.locations',
         [
             'ito.angular.services.api'
@@ -310,4 +309,4 @@
                 });
             });
         }]);
-}());
+});

@@ -1,5 +1,7 @@
 # Leerstandsmelder Angular Frontend #
 
+[![Dependency Status](https://gemnasium.com/Leerstandsmelder/leerstandsmelder-angular-frontend.svg)](https://gemnasium.com/Leerstandsmelder/leerstandsmelder-angular-frontend) [![bitHound Code](https://www.bithound.io/github/Leerstandsmelder/leerstandsmelder-angular-frontend/badges/code.svg)](https://www.bithound.io/github/Leerstandsmelder/leerstandsmelder-angular-frontend)
+
 The Web and (coming soon) Phonegap frontend based on [AngularJS](https://angularjs.org/) for the [Leerstandsmelder](http://lm.htmhell.de) service.
 
 ## Web Frontend ##

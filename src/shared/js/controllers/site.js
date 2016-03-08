@@ -1,8 +1,9 @@
 /* global angular,async,console */
 
-(function () {
-    'use strict';
-    angular.module(
+'use strict';
+
+define([], function () {
+    return angular.module(
         'leerstandsmelder.controllers.site', [
             'ito.angular.services.api'
         ])
@@ -26,4 +27,4 @@
                 $scope.$apply();
             });
         }])
-}());
+});

@@ -1,8 +1,19 @@
-// initialize angular app for web here
-(function () {
-    'use strict';
+'use strict';
 
-    angular.module('leerstandsmelder', [
+define([
+    'config',
+    'controllers_snippets',
+    'controllers_site',
+    'controllers_users',
+    'controllers_locations',
+    'controllers_dataviewer_maps',
+    'directives_helpers',
+    'services_api',
+    'services_auth',
+    'directives_dataviewer_maps',
+    'services_dataviewer_maps'
+], function () {
+    return angular.module('leerstandsmelder', [
         'ngAria',
         'ngMaterial',
         'ngRoute',
@@ -161,5 +172,4 @@
                 $rootScope.pageDefer.reject();
             });
         }]);
-}());
-
+});

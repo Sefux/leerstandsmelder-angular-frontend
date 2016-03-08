@@ -35,7 +35,8 @@
     "PruneCluster": "^1.1.0",
     "leaflet-minimap": "Norkart/Leaflet-MiniMap#^3.1.0",
     "L.GeoSearch": "smeijer/L.GeoSearch",
-    "leerstandsmelder-apiclient": "git@bitbucket.org:ito-suite/node-leerstandsmelder-apiclient.git"
+    "leerstandsmelder-apiclient": "git@bitbucket.org:ito-suite/node-leerstandsmelder-apiclient.git",
+    "requirejs": "^2.1.22"
   },
   "resolutions": {
     "angular": "^1.5.0",

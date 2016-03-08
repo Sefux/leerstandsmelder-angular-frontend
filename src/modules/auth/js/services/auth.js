@@ -1,7 +1,9 @@
 /* global angular */
-(function () {
-    'use strict';
-    angular.module('ito.angular.services.auth', []).
+
+'use strict';
+
+define([], function () {
+    return angular.module('ito.angular.services.auth', []).
         factory('authService', ['$http', function () {
             var auth = {
                 api_key: null,
