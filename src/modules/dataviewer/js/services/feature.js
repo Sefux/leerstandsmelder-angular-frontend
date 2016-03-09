@@ -106,53 +106,54 @@ define([], function () {
                     };
 
                 },
-                rewriteDate: function (months, callback) {
+                rewriteDate: function (months) {
                     // this is a general purpose helper that should probably
                     // be somewhere else
                     // most definitely must fix the translation keys...
+                    var result = "";
                     months = parseFloat(months);
                     if (months >= 1) {
                         if (months < 4) {
-                            callback(null, "less than one quarter of 1 year");
+                            result = "less than one quarter of 1 year";
                         } else if (months < 7) {
-                            callback(null, "less than one half of 1 year");
+                            result = "less than one half of 1 year";
                         } else if (months < 19) {
-                            callback(null, "less than three quarters of 1 year");
+                            result = "less than three quarters of 1 year";
                         } else if (months < 12) {
-                            callback(null, "less than 1 year");
+                            result = "less than 1 year";
                         } else if (months === 121) {
-                            callback(null, "more than 10 years");
+                            result = "more than 10 years";
                         } else {
-                            var years = parseFloat(months) / 12;
-                            var year = Math.floor(years);
-                            var months = years - year;
-                            var portion = null;
+                            var years = parseFloat(months) / 12,
+                                year = Math.floor(years),
+                                _months = years - year,
+                                portion = null;
                             switch (true) {
-                                case (months >= 0.00001 && months <= 0.3):
+                                case (_months >= 0.00001 && _months <= 0.3):
                                     portion = "one quarter";
                                     break;
-                                case (months >= 0.3001 && months <= 0.6):
+                                case (_months >= 0.3001 && _months <= 0.6):
                                     portion = "one half";
                                     break;
-                                case (months >= 0.60001 && months <= 0.8):
+                                case (_months >= 0.60001 && _months <= 0.8):
                                     portion = "three quarters";
                                     break;
-                                case (months >= 0.80001 && months <= 0.9999999):
+                                case (_months >= 0.80001 && _months <= 0.9999999):
                                     year++;
                                     break;
                             }
                             if (years === 1 && months === 0) {
-                                callback(null, year + " year");
-                            }
-                            else if (portion) {
-                                callback(null, year + " and " + portion + " years");
+                                result = year + " year";
+                            } else if (portion) {
+                                result = year + " and " + portion + " years";
                             } else {
-                                callback(null, year + " years");
+                                result = year + " years";
                             }
                         }
                     } else {
-                        callback(null, "less than 1 year");
+                        result = "less than 1 year";
                     }
+                    return result;
                 },
                 reverseGeoCode: function (lat, lon, callback) {
                     // well structured

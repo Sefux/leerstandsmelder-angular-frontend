@@ -19,6 +19,23 @@ define(['ITOMapConfig'], function (ITOMapConfig) {
                         el[0].style.height = ($window.innerHeight - 88) + "px";
                     };
 
+                    var updatedMapData = function (data, callback) {
+                        async.map(data, function (entry, cb) {
+                            if (entry.lonlat) {
+                                var marker = featureService.createMarker(null, {
+                                    view_url: '/location/' + entry.uuid,
+                                    draggable: false,
+                                    latlon: [entry.lonlat[1], entry.lonlat[0]]
+                                });
+                                marker.on('click', function () {
+                                    window.location = this.options.view_url;
+                                });
+                                marker.addTo(map);
+                                cb(null);
+                            }
+                        }, callback);
+                    };
+
                     angular.element($window).bind('resize', function () {
                         resizeMap(element);
                     });
@@ -64,19 +81,11 @@ define(['ITOMapConfig'], function (ITOMapConfig) {
                         } else {
                             scope.$watch(attrs.locations, function (data) {
                                 if (data) {
-                                    for (var i = 0; i < data.length; i += 1) {
-                                        if (data[i].lonlat) {
-                                            var marker = featureService.createMarker(null, {
-                                                view_url: '/location/' + data[i].uuid,
-                                                draggable: false,
-                                                latlon: [data[i].lonlat[1], data[i].lonlat[0]]
-                                            });
-                                            marker.on('click', function () {
-                                                window.location = this.options.view_url;
-                                            });
-                                            marker.addTo(map);
+                                    updatedMapData(data, function (err) {
+                                        if (err) {
+                                            console.log('error creating markers', err);
                                         }
-                                    }
+                                    });
                                 }
                             });
                         }

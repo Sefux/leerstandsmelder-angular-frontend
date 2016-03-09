@@ -145,12 +145,7 @@ define([], function () {
             };
 
             $scope.$watch('location.emptySince', function(newVal) {
-                featureService.rewriteDate(newVal,function(err, data){
-                    if (err) throw err;
-                    if (!data.error) {
-                        $scope.location.emptySinceParsed = data;
-                    }
-                });
+                $scope.location.emptySinceParsed = featureService.rewriteDate(newVal);
             });
 
             $scope.$watchCollection('address', function (newVal, oldVal) {
@@ -210,20 +205,22 @@ define([], function () {
                         return;
                     }
                     if ($scope.files && $scope.files.length) {
-                        for (var i = 0; i < $scope.files.length; i++) {
-                            var file = $scope.files[i];
-                            apiService('photos').actions.upload({ file: file, fields: {location_uuid: location.uuid} }, function (err, data) {
-                                console.log(err, data);
-                                $scope.alerts = [
-                                    {
-                                        type: 'success',
-                                        msg: 'Successfully saved Location.'
-                                    }
-                                ];
-                                deferred.resolve();
-                                //$location.path('/locations/' + location.uuid + '/edit');
-                            });
-                        }
+                        async.mapSeries($scope.files, function (file, cb) {
+                            apiService('photos').actions.upload({
+                                file: file,
+                                fields: {location_uuid: location.uuid}
+                            }, cb);
+                        }, function (err, data) {
+                            console.log(err, data);
+                            $scope.alerts = [
+                                {
+                                    type: 'success',
+                                    msg: 'Successfully saved Location.'
+                                }
+                            ];
+                            deferred.resolve();
+                            //$location.path('/locations/' + location.uuid + '/edit');
+                        });
                     }
                 });
             };
@@ -285,18 +282,6 @@ define([], function () {
                         return console.log('error getting photos', err);
                     }
                     $scope.photos = photos;
-                    if (photos.length > 0) {
-                        /*
-                        $scope.photos = photos.sort(function (a, b) {
-                            if (a.title < b.title) {
-                                return -1;
-                            } else if (a.title > b.title) {
-                                return 1;
-                            }
-                            return 0;
-                        });
-                        */
-                    }
                     deferred.resolve();
                     $scope.$apply();
                 });
