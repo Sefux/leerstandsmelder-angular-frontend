@@ -171,13 +171,15 @@ gulp.task('copy-js-config', function () {
 });
 
 gulp.task('copy-web', function () {
-    copyPipe(gulp.src(['./bower_components/font-awesome/fonts/*','./src/shared/fonts/*']), './dist/web/', 2);
-    copyPipe(gulp.src(['./bower_components/leaflet/dist/images/*','./bower_components/Leaflet-MiniMap/dist/images/*']), './dist/web/', 3);
+    copyPipe(gulp.src(['./bower_components/font-awesome/fonts/*','./assets/fonts/*']), './dist/web/fonts/', 3);
+    copyPipe(gulp.src(['./bower_components/leaflet/dist/images/*']), './dist/web/', 3);
+    copyPipe(gulp.src(['./bower_components/leaflet-minimap/dist/images/*']), './dist/web/');
 });
 
 gulp.task('copy-mobile', function () {
-    copyPipe(gulp.src(['./bower_components/font-awesome/fonts/*','./src/shared/fonts/*']), './dist/mobile/', 2);
-    copyPipe(gulp.src(['./bower_components/leaflet/dist/images/*','./bower_components/Leaflet-MiniMap/dist/images/*']), './dist/mobile/', 3);
+    copyPipe(gulp.src(['./bower_components/font-awesome/fonts/*','./assets/fonts/*']), './dist/mobile/fonts/', 3);
+    copyPipe(gulp.src(['./bower_components/leaflet/dist/images/*']), './dist/mobile/', 3);
+    copyPipe(gulp.src(['./bower_components/leaflet-minimap/dist/images/*']), './dist/web/');
 });
 
 
@@ -222,6 +224,8 @@ gulp.task('phonegap-build', function () {
 gulp.task('web', [
     'js-deps',
     'js-web',
+    'copy-requirejs',
+    'copy-web',
     'copy-js-config',
     'copy-js-src',
     'css-deps',
@@ -234,6 +238,8 @@ gulp.task('web', [
 gulp.task('mobile', [
     'js-deps',
     'js-mobile',
+    'copy-requirejs',
+    'copy-web',
     'copy-js-config',
     'copy-js-src',
     'css-deps',

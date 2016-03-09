@@ -1,4 +1,4 @@
-/* global angular,async,PIECEMETA_API_HOST,console */
+/* global angular,define,async,PIECEMETA_API_HOST,console */
 
 define([], function () {
     return angular.module(
@@ -137,7 +137,9 @@ define([], function () {
                 $scope.marker = latlon;
 
                 featureService.reverseGeoCode(latlon.lat,latlon.lng,function(err, data){
-                    if (err) throw err;
+                    if (err) {
+                        throw err;
+                    }
                     lockUpdate = true;
                     if (!data.error) {
                         $scope.address = createAddressFromGeo(data.address);
@@ -150,8 +152,7 @@ define([], function () {
                 $scope.$apply();
             };
 
-            $scope.$watch('location.emptySince', function(newVal){
-
+            $scope.$watch('location.emptySince', function(newVal) {
                 featureService.rewriteDate(newVal,function(err, data){
                     if (err) throw err;
                     if (!data.error) {
@@ -229,7 +230,7 @@ define([], function () {
                                 ];
                                 deferred.resolve();
                                 //$location.path('/locations/' + location.uuid + '/edit');
-                            })
+                            });
                         }
                     }
                 });

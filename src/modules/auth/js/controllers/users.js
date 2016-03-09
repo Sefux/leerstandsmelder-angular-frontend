@@ -1,6 +1,4 @@
-/* global angular */
-
-'use strict';
+/* global angular,define */
 
 define([], function () {
     return angular.module(
@@ -26,7 +24,7 @@ define([], function () {
                     return false;
                 }
 
-                if ($scope.user.password != $scope.user.password_confirm) {
+                if ($scope.user.password !== $scope.user.password_confirm) {
                     PubSub.publish('alert', 'error', 'Passwords do not match.');
                     return false;
                 }

@@ -1,12 +1,11 @@
-'use strict';
+/* global Global,PruneCluster,PruneClusterForLeaflet,L,angular,define,async,PIECEMETA_API_HOST,console */
 
 define([], function () {
     return angular.module(
         'ito.angular.controllers.dataviewer.maps',[])
         .controller('Maps.Sidebar',  ['$scope', '$q', '$location','mapApiService','featureService','$routeParams','$route', function ($scope, $q,$location, mapApiService, featureService, $routeParams, $route) {
 
-            }
-        ])
+        }])
         .controller('Maps.Mapview',  ['$scope', '$window','$q', '$location','mapApiService','featureService','$routeParams','$log', function ($scope,$window, $q,$location, mapApiService, featureService, $routeParams, $log) {
 
             // because the map is in a flexbox
@@ -20,7 +19,8 @@ define([], function () {
             };
             $scope.initializeWindowSize = function() {
                 $scope.windowHeight = $window.innerHeight;
-                return $scope.windowWidth = $window.innerWidth;
+                $scope.windowWidth = $window.innerWidth;
+                return;
             };
             $scope.initializeWindowSize();
             angular.element($window).bind('resize', function() {
@@ -301,7 +301,7 @@ define([], function () {
                         offset: offset,
                         visible: visibility,
                         category: image.category || "Andere Tags"
-                }
+                };
 
                 }
 
@@ -353,7 +353,7 @@ define([], function () {
                             angular.extend($scope, markers);
                             featureService.geo($scope);
 
-                            if (localStorage.user == null) {
+                            if (localStorage.user === null) {
                                 var waitForID = setInterval(function(){
                                     if ($scope.user !== null) {
                                         clearInterval(waitForID);
@@ -401,16 +401,16 @@ define([], function () {
                             // movezooms map and shows
                             // the item if available in the url
                             var focused = $routeParams._id;
-                            if (focused != null) {
+                            if (focused !== null) {
                                 $scope.openMarker($routeParams._id);
-                                cb(null)
+                                cb(null);
                             } else {
-                                cb(null)
+                                cb(null);
                             }
                         },
                         function (cb) {
                             resizeForScrollbars();
-                            cb;
+                            cb(null);
                         }
                     ], function (err) {
                         if (err) {
@@ -418,7 +418,6 @@ define([], function () {
                             deferred.reject();
                         }
                     });
-
 
                     $scope.isInitialized = true;
                 }
@@ -593,14 +592,12 @@ define([], function () {
                     //messages = markers[properties._id].messages;
                     markers[properties._id] = null;
                 }
-                console.log();
                 leafletView.RegisterMarker(new PruneCluster.Marker(properties.location[0], properties.location[1], {title: properties.contributor_id}));
-
             };
 
 
             function handleBookmarkOpen(event, latlng, zoom) {
-                map.setView(latlng, zoom)
+                map.setView(latlng, zoom);
             }
             $scope.newMarker = function() {
                 //$scope.markers[ _id ].draggable=true;
@@ -620,7 +617,7 @@ define([], function () {
                     $scope.$apply(function() {
                         $scope.activeMarker.lat = result.lat;
                         $scope.activeMarker.lng = result.lng;
-                    })
+                    });
                 });
             };
             $scope.moveMarker = function(_id) {
@@ -640,7 +637,7 @@ define([], function () {
                     $scope.$apply(function() {
                         $scope.activeMarker.lat = result.lat;
                         $scope.activeMarker.lng = result.lng;
-                    })
+                    });
                 });
             };
             $scope.updateMarker = function(_id) {
@@ -651,7 +648,7 @@ define([], function () {
                 $scope.map.removeLayer($scope.markerMv);
                 $scope.markerMv=null;
             };
-            $scope.apply;
+            $scope.$apply();
             // Turns a store object's createdAt attribute into a nice date string
             var addCreatedAtReadable = function(properties) {
                 //var weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -664,5 +661,5 @@ define([], function () {
 
 
 
-        }])
+        }]);
 });

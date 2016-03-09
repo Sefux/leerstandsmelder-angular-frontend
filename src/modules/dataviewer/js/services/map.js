@@ -1,4 +1,4 @@
-'use strict';
+/* global PruneCluster,L,angular,define,async,PIECEMETA_API_HOST,console */
 
 define([], function () {
     return angular.module('ito.angular.services.dataviewer.api', []).factory('featureService', ['$http', function ($http) {
@@ -78,14 +78,12 @@ define([], function () {
                     if (config.view_url) {
                         options.view_url = config.view_url;
                     }
-                    var marker = L.marker(config.latlon, options);
+                    marker = L.marker(config.latlon, options);
                 }
                 return marker;
             },
             debounce: function (func, threshold, execAsap) {
                 // via http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
-                window.timeout;
-
                 return function debounced() {
                     var obj = this, args = arguments;
 
@@ -121,7 +119,7 @@ define([], function () {
                         callback(null, "less than three quarters of 1 year");
                     } else if (months < 12) {
                         callback(null, "less than 1 year");
-                    } else if (months == 121) {
+                    } else if (months === 121) {
                         callback(null, "more than 10 years");
                     } else {
                         var years = parseFloat(months) / 12;
@@ -142,7 +140,7 @@ define([], function () {
                                 year++;
                                 break;
                         }
-                        if (years == 1 && months == 0) {
+                        if (years === 1 && months === 0) {
                             callback(null, year + " year");
                         }
                         else if (portion) {
@@ -161,9 +159,8 @@ define([], function () {
                 // the service requests adding '&email=' to the requests if there are
                 // going to be many of them
                 $http({
-                    method: 'GET', url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat
-                    + '&lon=' + lon
-                    + '&zoom=18&addressdetails=1'
+                    method: 'GET', url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat +
+                    '&lon=' + lon + '&zoom=18&addressdetails=1'
                 }).success(function (message) {
                     console.log("apiMessage", message);
                     callback(null, message);
@@ -172,17 +169,17 @@ define([], function () {
                 });
             },
             geoCode: function (address, callback) {
-                if (!address.country) address.country = "de";
+                if (!address.country) {
+                    address.country = "de";
+                }
                 // well structured
                 //https://nominatim.openstreetmap.org/search?q=135+pilkington+avenue,+birmingham&format=json
                 // the service requests adding '&email=' to the requests if there are
                 // going to be many of them
                 $http({
                     method: 'GET',
-                    url: 'https://nominatim.openstreetmap.org/search?format=json&q='
-                    + address.street + '+'
-                    + address.city + '+'
-                    + address.country
+                    url: 'https://nominatim.openstreetmap.org/search?format=json&q=' +
+                    address.street + '+' + address.city + '+' + address.country
                 }).success(function (message) {
                     console.log("apiMessage", message);
                     callback(null, message);
@@ -222,7 +219,7 @@ define([], function () {
                     callback(new Error('Service error starring image:', data, status), null);
                 });
             }
-        }
+        };
     }])
     .factory('mapApiService', ['$http', function ($http) {
         'use strict';

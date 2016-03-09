@@ -1,31 +1,36 @@
-'use strict';
+/* global require,angular,document */
 
-require.config({
-    paths: {
-        config: '/js/configuration',
+(function () {
+    'use strict';
 
-        services_api: '/src/modules/api/js/services/api',
-        services_auth: '/src/modules/auth/js/services/auth',
+    require.config({
+        paths: {
+            config: '/js/configuration',
 
-        controllers_users: '/src/modules/auth/js/controllers/users',
-        controllers_locations: '/src/shared/js/controllers/locations',
-        controllers_site: '/src/shared/js/controllers/site',
-        controllers_snippets: '/src/shared/js/controllers/snippets',
+            services_api: '/src/modules/api/js/services/api',
+            services_auth: '/src/modules/auth/js/services/auth',
 
-        directives_helpers: '/src/modules/auth/js/directives/helpers',
+            controllers_users: '/src/modules/auth/js/controllers/users',
+            controllers_locations: '/src/shared/js/controllers/locations',
+            controllers_site: '/src/shared/js/controllers/site',
+            controllers_snippets: '/src/shared/js/controllers/snippets',
 
-        ITOMapConfig: '/src/modules/dataviewer/js/mapconfig',
-        controllers_dataviewer_maps: '/src/modules/dataviewer/js/controllers/map',
-        directives_dataviewer_maps: '/src/modules/dataviewer/js/directives/map',
-        services_dataviewer_maps: '/src/modules/dataviewer/js/services/map',
+            directives_helpers: '/src/modules/auth/js/directives/helpers',
 
-        leerstandsmelder: '/src/web/js/site'
-    }
-});
+            ITOMapConfig: '/src/modules/dataviewer/js/mapconfig',
+            controllers_dataviewer_maps: '/src/modules/dataviewer/js/controllers/map',
+            directives_dataviewer_maps: '/src/modules/dataviewer/js/directives/map',
+            services_dataviewer_maps: '/src/modules/dataviewer/js/services/map',
 
-require([
-        'leerstandsmelder'
-    ], function (leerstandsmelder) {
-        angular.bootstrap(document, ['leerstandsmelder']);
-    }
-);
+            leerstandsmelder: '/src/web/js/site'
+        }
+    });
+
+    require([
+            'leerstandsmelder'
+        ], function (leerstandsmelder) {
+            angular.bootstrap(document, ['leerstandsmelder']);
+        }
+    );
+
+})();

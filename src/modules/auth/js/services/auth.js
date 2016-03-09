@@ -1,6 +1,4 @@
-/* global angular */
-
-'use strict';
+/* global angular,define */
 
 define([], function () {
     return angular.module('ito.angular.services.auth', []).

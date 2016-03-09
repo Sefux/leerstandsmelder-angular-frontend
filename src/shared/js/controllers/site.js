@@ -1,6 +1,4 @@
-/* global angular,async,console */
-
-'use strict';
+/* global angular,define,async,PIECEMETA_API_HOST,console */
 
 define([], function () {
     return angular.module(
@@ -26,5 +24,5 @@ define([], function () {
                 deferred.resolve();
                 $scope.$apply();
             });
-        }])
+        }]);
 });

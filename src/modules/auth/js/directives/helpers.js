@@ -1,6 +1,4 @@
-/* global console,angular */
-
-'use strict';
+/* global console,angular,define */
 
 define([], function () {
     return angular.module('ito.auth.angular.directives.helpers', [

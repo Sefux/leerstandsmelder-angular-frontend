@@ -1,9 +1,8 @@
-'use strict';
+/* global L,PruneClusterForLeaflet,angular,define,async,PIECEMETA_API_HOST,console */
 
 define(['ITOMapConfig'], function (ITOMapConfig) {
     return angular.module('ito.angular.directives.dataviewer.maps', [])
         .directive('itoMap', ['$window', '$timeout', 'featureService', '$q', function ($window, $timeout, featureService, $q) {
-            'use strict';
             return {
                 restrict: 'A',
                 scope: {
@@ -65,7 +64,6 @@ define(['ITOMapConfig'], function (ITOMapConfig) {
                         } else {
                             scope.$watch(attrs.locations, function (data) {
                                 if (data) {
-                                    console.log(data);
                                     for (var i = 0; i < data.length; i += 1) {
                                         if (data[i].lonlat) {
                                             var marker = featureService.createMarker(null, {
@@ -76,7 +74,6 @@ define(['ITOMapConfig'], function (ITOMapConfig) {
                                             marker.on('click', function () {
                                                 window.location = this.options.view_url;
                                             });
-                                            console.log(marker);
                                             marker.addTo(map);
                                         }
                                     }
@@ -85,12 +82,11 @@ define(['ITOMapConfig'], function (ITOMapConfig) {
                         }
                     });
                 }
-            }
+            };
         }])
 
 
-        .directive('whenScrolled', function () {
-            'use strict';
+        .directive('whenScrolled', ['$window', function ($window) {
             // this is the infinite scroller described at
             // https://stackoverflow.com/questions/18204473/progressive-loading-in-ng-repeat-for-images-angular-js
             return function (scope, elm, attr) {
@@ -111,9 +107,8 @@ define(['ITOMapConfig'], function (ITOMapConfig) {
                     });
                 }
             };
-        })
+        }])
         .directive('clickJacker', function () {
-            'use strict';
             // general purpose click pass-thru from angular view to controller
             return function (scope, elm, attr) {
                 var raw = elm[0];

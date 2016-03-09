@@ -1,6 +1,4 @@
-/* global angular,LEERSTANDSMELDER_API_HOST,PMApi */
-
-'use strict';
+/* global console,angular,define,LEERSTANDSMELDER_API_HOST,LMApi */
 
 define([], function () {
     return angular.module('ito.angular.services.api', []).
@@ -45,10 +43,14 @@ define([], function () {
                                 }
                             }).success(function (data, status, headers, config) {
                                 console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
-                                if (typeof callback === 'function') callback(null, data);
+                                if (typeof callback === 'function') {
+                                    callback(null, data);
+                                }
                             }).error(function (data, status, headers, config) {
                                 console.log('error status: ' + status);
-                                if (typeof callback === 'function') callback(new Error('upload error status ' + status), data);
+                                if (typeof callback === 'function') {
+                                    callback(new Error('upload error status ' + status), data);
+                                }
                             });
                         }
                     },
