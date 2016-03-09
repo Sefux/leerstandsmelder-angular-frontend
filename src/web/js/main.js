@@ -5,6 +5,8 @@
 
     require.config({
         paths: {
+            lang_en: '/src/shared/lang/en',
+            lang_de: '/src/shared/lang/de',
             config: '/js/configuration',
 
             services_api: '/src/modules/api/js/services/api',
@@ -18,9 +20,8 @@
             directives_helpers: '/src/modules/auth/js/directives/helpers',
 
             ITOMapConfig: '/src/modules/dataviewer/js/mapconfig',
-            controllers_dataviewer_maps: '/src/modules/dataviewer/js/controllers/map',
             directives_dataviewer_maps: '/src/modules/dataviewer/js/directives/map',
-            services_dataviewer_maps: '/src/modules/dataviewer/js/services/map',
+            services_dataviewer_feature: '/src/modules/dataviewer/js/services/feature',
 
             leerstandsmelder: '/src/web/js/site'
         }

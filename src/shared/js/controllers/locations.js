@@ -125,14 +125,6 @@ define([], function () {
                 ]
             };
 
-            var createAddressFromGeo = function (address) {
-                return {
-                    city: address.city || address.town || address.village || address.hamlet || "City not found",
-                    street: (address.road || address.path || address.footway || address.pedestrian || address.cycleway ||"")+ " " +(address.house_number || ""),
-                    postcode: address.postcode || ""
-                };
-            };
-
             $scope.updateLocation = function (latlon) {
                 $scope.marker = latlon;
 
@@ -142,7 +134,7 @@ define([], function () {
                     }
                     lockUpdate = true;
                     if (!data.error) {
-                        $scope.address = createAddressFromGeo(data.address);
+                        $scope.address = featureService.createAddressFromGeo(data.address);
                         $scope.location.display_name = data.display_name || "";
 
                     }

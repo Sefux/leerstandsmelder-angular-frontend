@@ -200,6 +200,12 @@ gulp.task('watch-web', function () {
     });
 });
 
+gulp.task('watch-web-src', function () {
+    watch(['src/web/js/**/*.js', 'src/shared/js/**/*.js', 'src/modules/**/js/*.js', 'src/modules/**/js/**/*.js', 'configuration.js'], function () {
+        gulp.start('copy-js-src');
+    });
+});
+
 
 //
 //
