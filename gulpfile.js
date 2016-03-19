@@ -43,7 +43,7 @@ gulp.task('js-deps', function () {
         'bower_components/angular-pubsub/dist/angular-pubsub.js',
         'bower_components/leaflet/dist/leaflet.js',
         'bower_components/PruneCluster/dist/PruneCluster.js',
-        'bower_components/Leaflet-MiniMap/dist/Control.MiniMap.min.js',
+        'bower_components/leaflet-minimap/dist/Control.MiniMap.min.js',
         'bower_components/L.GeoSearch/src/js/l.control.geosearch.js',
         'bower_components/L.GeoSearch/src/js/l.geosearch.provider.openstreetmap.js',
         'bower_components/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.min.js',
