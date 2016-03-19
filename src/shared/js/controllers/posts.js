@@ -1,25 +1,31 @@
-/* global angular,define,async,PIECEMETA_API_HOST,console */
+/* global angular,define,async,console */
 
 define([], function () {
     return angular.module(
-        'leerstandsmelder.controllers.site', [
+        'leerstandsmelder.controllers.posts',
+        [
             'ito.angular.services.api'
         ])
-        .controller('Site.Welcome', ['$scope', '$q', '$translate', 'apiService', function ($scope, $q, $translate, apiService) {
+        .controller('Posts.Show', ['$scope', '$q', '$routeParams', 'apiService', function ($scope, $q, $routeParams, apiService) {
             var deferred = $q.defer();
-            $scope.promiseString = 'Loading Locations...';
+            $scope.promiseString = 'Loading Post...';
             $scope.promise = deferred.promise;
             async.waterfall([
                 function (cb) {
-                    apiService('locations?page=0&pagesize=1000&radius=2000&latitude=53.5653&longitude=10.0014')
-                        .actions.all(function (err, locations) {
-                        $scope.locations = locations.results;
+                    apiService('posts?sort=-created').actions.all(function (err, posts) {
+                        $scope.posts = posts;
                         cb();
                     });
                 },
                 function (cb) {
-                    apiService('posts?limit=6&sort=-created').actions.all(function (err, posts) {
-                        $scope.posts = posts;
+                    apiService('posts').actions.find($routeParams.uuid, function (err, post) {
+                        $scope.post = post;
+                        cb();
+                    });
+                },
+                function (cb) {
+                    apiService('posts/' + $scope.post.uuid + '/comments').actions.all(function (err, comments) {
+                        $scope.post.comments = comments;
                         cb();
                     });
                 }

@@ -7,13 +7,21 @@ define(['ITOMapConfig'], function (ITOMapConfig) {
                 restrict: 'A',
                 scope: {
                     locations: '=',
-                    cities: '=',
+                    urlbase: '=',
+                    zoom: '=',
+                    mapType: '=',
+                    center: '=',
                     selectMode: '=',
                     selectHandler: '&',
                     selectMarker: '='
                 },
                 link: function (scope, element, attrs) {
-                    var map, leafletView;
+                    var map, leafletView, markers = [],
+                        customMarker = L.Marker.extend({
+                            options: {
+                                data: null
+                            }
+                        });
 
                     var resizeMap = function (el) {
                         el[0].style.height = ($window.innerHeight - 88) + "px";
@@ -22,15 +30,27 @@ define(['ITOMapConfig'], function (ITOMapConfig) {
                     var updatedMapData = function (data, callback) {
                         async.map(data, function (entry, cb) {
                             if (entry.lonlat) {
-                                var marker = featureService.createMarker(null, {
-                                    view_url: '/location/' + entry.uuid,
-                                    draggable: false,
-                                    latlon: [entry.lonlat[1], entry.lonlat[0]]
-                                });
-                                marker.on('click', function () {
-                                    window.location = this.options.view_url;
-                                });
+                                var marker = new customMarker([entry.lonlat[1], entry.lonlat[0]], {
+                                        data: entry,
+                                        draggable: false
+                                    }
+                                );
                                 marker.addTo(map);
+                                marker.on('click', function (e) {
+                                    var data = e.target.options.data;
+                                    var popup = "";
+                                    popup += "<strong>" + data.title + "</strong><br />";
+                                    if (data.locations) {
+                                        popup += data.locations + " Einträge<br />";
+                                    } else {
+                                        popup += data.street + "<br />";
+                                        popup += data.buildingType + " / " + data.owner + "<br />";
+                                    }
+                                    popup += "<a href='" + scope.urlbase + (data.slug || data.uuid) + "'>ansehen</a>";
+                                    e.target.unbindPopup();
+                                    e.target.bindPopup(popup).openPopup();
+                                });
+                                markers.push(marker);
                                 cb(null);
                             }
                         }, callback);
@@ -42,7 +62,12 @@ define(['ITOMapConfig'], function (ITOMapConfig) {
 
                     angular.element($window).ready(function () {
                         resizeMap(element);
-                        map = featureService.initMap(element, ITOMapConfig, true);
+                        map = featureService.initMap(
+                            element,
+                            ITOMapConfig,
+                            {latlon: scope.center, zoom: scope.zoom},
+                            true
+                        );
                         leafletView = new PruneClusterForLeaflet();
                         leafletView.BuildLeafletClusterIcon = function (cluster) {
                             var e = new L.Icon.MarkerCluster();
@@ -75,13 +100,13 @@ define(['ITOMapConfig'], function (ITOMapConfig) {
                                 if (changed) {
                                     var mapCoords = new L.LatLng(newVal.lat, newVal.lng);
                                     marker.setLatLng(mapCoords);
-                                    map.setView(mapCoords, 16);
+                                    map.setView(mapCoords, scope.zoom || 16);
                                 }
                             });
                         } else {
                             scope.$watch(attrs.locations, function (data) {
-                                if (data) {
-                                    updatedMapData(data, function (err) {
+                                if (scope.$eval(attrs.locations)) {
+                                    updatedMapData(scope.$eval(attrs.locations), function (err) {
                                         if (err) {
                                             console.log('error creating markers', err);
                                         }
@@ -89,6 +114,16 @@ define(['ITOMapConfig'], function (ITOMapConfig) {
                                 }
                             });
                         }
+                        scope.$watch(attrs.zoom, function (data) {
+                            if (scope.$eval(attrs.zoom)) {
+                                map.setView(scope.center, scope.zoom || 16);
+                            }
+                        });
+                        scope.$watch(attrs.center, function (data) {
+                            if (scope.$eval(attrs.center)) {
+                                map.setView(scope.center, scope.zoom || 16);
+                            }
+                        });
                     });
                 }
             };

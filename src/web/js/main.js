@@ -14,6 +14,8 @@
 
             controllers_users: '/src/modules/auth/js/controllers/users',
             controllers_locations: '/src/shared/js/controllers/locations',
+            controllers_posts: '/src/shared/js/controllers/posts',
+            controllers_regions: '/src/shared/js/controllers/regions',
             controllers_site: '/src/shared/js/controllers/site',
             controllers_snippets: '/src/shared/js/controllers/snippets',
 

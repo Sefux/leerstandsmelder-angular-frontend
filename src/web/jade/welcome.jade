@@ -7,16 +7,13 @@ include ../../modules/mixins/jade/_mixin_style
 - mapModel="cities"
 //- mapStyle="height:calc(100% - 88px);width:100%;"
 - sideWidth="width:33%"
-- sideModel="newest"
+
 
 	//include ../../modules/dataviewer/jade/templates/asset-scroller
 div(layout="row" layout-sm="column" layout-wrap layout-fill)
 	div(flex="66")
 		#mapContainer()
 			#secondcontainer
-				#map(ito-map ng-model=mapModel style=mapStyle locations='locations')
+				#map(ito-map ng-model=mapModel zoom=6 urlbase='urlbase' center='mapcenter' style=mapStyle mapType='mapType' locations='locations')
 	div(flex="33")
-		div(layout="row" layout-sm="column" layout-wrap layout-fill layout-align="space-between start")
-			span(flex ng-repeat="photo in photos")
-				img(ng-src="{{ photo.thumb_url }}" height="120px")
-		include ../../modules/dataviewer/jade/templates/assets-latest
+		include ../../shared/jade/partials/recent_posts

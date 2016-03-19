@@ -1,0 +1,31 @@
+include ../../modules/mixins/jade/_mixin_form
+include ../../modules/mixins/jade/_mixin_buttons
+include ../../modules/mixins/jade/_mixin_layout
+include ../../modules/mixins/jade/_mixin_style
+// variables for the templates
+- mapFlex="50"
+//- mapStyle="height:calc(100% - 88px);width:100%;"
+- sideWidth="width:33%"
+md-content
+    div(layout="row" layout-sm="column" layout-wrap layout-fill)
+        div(flex="66")
+            .md-padding
+                h1 {{post.title}}
+                div(ng-bind-html="post.body")
+                hr
+                p
+                    strong {{ "COMMENTS" | translate }}
+                div(ng-if="post.comments" ng-repeat="comment in post.comments")
+                    p.smalltext
+                        strong {{ comment.user.nickname }}
+                        | {{ ' ' }}
+                        span am {{ comment.created | date : 'dd.MM.yy HH:mm' }}
+                    p {{comment.body}}
+                p(ng-if="!post.comments")
+                    small {{ "No comments yet." | translate }}
+                hr
+                p
+                    strong {{ "NEW COMMENT" | translate }}
+                +input('textarea','newComment', null, null)
+        div(flex="33")
+            include ../../shared/jade/partials/recent_posts

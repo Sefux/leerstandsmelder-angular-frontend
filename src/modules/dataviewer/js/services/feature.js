@@ -4,8 +4,11 @@ define([], function () {
     return angular.module('ito.angular.services.dataviewer.feature', [])
         .factory('featureService', ['$http', function ($http) {
             return {
-                initMap: function (el, config, addMiniMap) {
+                initMap: function (el, config, settings, addMiniMap) {
                     var map, geoConf = config.geoSearch.main;
+
+                    if (!settings.latlon) settings.latlon = [53.5653,10.0014];
+                    if (!settings.zoom) settings.zoom = 6;
 
                     // Basic Leaflet marker icon that other marker types will inherit from
                     L.Icon.extend(config.markers.baseMarker);
@@ -13,7 +16,7 @@ define([], function () {
 
                     // Set up the Leaflet map
                     map = L.map('map', config.mainMap.mapConfig);
-                    map.setView(config.mainMap.defaults.latlon, config.mainMap.defaults.zoom);
+                    map.setView(settings.latlon, settings.zoom);
 
                     // Load tiles from OpenStreetMap
                     new L.tileLayer(config.mainMap.osmUrl, config.mainMap.tileLayer).addTo(map);
@@ -80,6 +83,7 @@ define([], function () {
                             options.view_url = config.view_url;
                         }
                         marker = L.marker(config.latlon, options);
+                        marker.popup = config.popup;
                     }
                     return marker;
                 },

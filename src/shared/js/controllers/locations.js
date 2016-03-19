@@ -11,7 +11,34 @@ define([], function () {
             $scope.promiseString = 'Loading Location...';
             $scope.promise = deferred.promise;
             $scope.formTitle = 'Edit location';
-            apiService('locations').actions.find($routeParams.uuid, function (err, location) {
+            $scope.urlbase = '/locations/';
+            async.waterfall([
+                function (cb) {
+                    apiService('locations').actions.find($routeParams.uuid, cb);
+                },
+                function (location, cb) {
+                    $scope.locations = [location];
+                    $scope.location = location;
+                    $scope.mapcenter = [$scope.location.lonlat[1], $scope.location.lonlat[0]];
+                    $scope.zoom = 17;
+                    $scope.formTitle = 'Edit "' + $scope.location.title + '"';
+                    apiService('locations/' + $scope.location.uuid + '/photos').actions.all(cb);
+                },
+                function (photos, cb) {
+                    console.log($scope.location.uuid);
+                    $scope.photos = photos;
+                    apiService('locations/' + $scope.location.uuid + '/comments').actions.all(cb);
+                },
+                function (comments, cb) {
+                    if (comments.length > 0) {
+                        comments.sort(function (a, b) {
+                            return new Date(a.created).getTime() - new Date(b.created).getTime();
+                        });
+                        $scope.location.comments = comments;
+                    }
+                    cb();
+                }
+            ], function (err) {
                 if (err) {
                     $scope.alerts = [
                         {
@@ -22,25 +49,8 @@ define([], function () {
                     deferred.reject(err);
                     return console.log('error getting location', err);
                 }
-                $scope.locations = [location];
-                $scope.location = location;
-                $scope.formTitle = 'Edit "' + location.title + '"';
-                apiService('locations/' + location.uuid + '/photos').actions.all(function (err, photos) {
-                    if (err) {
-                        $scope.alerts = [
-                            {
-                                type: 'danger',
-                                msg: 'Failed to load photos.'
-                            }
-                        ];
-                        deferred.reject(err);
-                        return console.log('error getting photos', err);
-                    }
-                    console.log(photos);
-                    $scope.photos = photos;
-                    deferred.resolve();
-                    $scope.$apply();
-                });
+                deferred.resolve();
+                $scope.$apply();
             });
         }])
         .controller('Locations.List', ['$scope', 'apiService', function ($scope, apiService) {

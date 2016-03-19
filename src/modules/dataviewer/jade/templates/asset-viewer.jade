@@ -5,40 +5,41 @@ include ../../../mixins/jade/_mixin_layout
 include ../../../mixins/jade/_mixin_style
 
 md-content.md-padding
-	p.pull-right
-		// todo: turn on iff ACL permission
-		+button_fab('edit','edit()','md-primary','fa-edit','location')
+    p.pull-right
+        // todo: turn on iff ACL permission
+        +button_fab('edit','edit()','md-primary','fa-edit','location')
 
-	p
-		strong {{location.title || "No Title"}}
-	div(layout="row" layout-align="space-between start")
-		h2(flex ng-if="!photos") No image found.
-		span(flex ng-repeat="photo in photos")
-			img(ng-src="{{ photo.thumb_url }}" height="120px")
-	p
-		small {{location.description || "No Description"}}
+    p
+        strong {{location.title || "No Title"}}
+    div(layout="row" layout-align="space-between start")
+        h2(flex ng-if="!photos") No image found.
+        span(flex ng-repeat="photo in photos")
+            img(ng-src="{{ photo.thumb_url }}" height="120px")
+    p
+        small {{location.description || "No Description"}}
 
-	hr
-	small
-		// todo: translation!!!
-		p(ng-if="location.emptySinceParsed") Empty for {{location.emptySinceParsed}}
-		p ADDRESS: {{location.street || "Unknown"}}
-		p CITY: {{location.postcode}} {{location.city || "Unknown"}}
-		p DEGREE OF EMPTINESS: {{location.degree || "Unknown"}}
-		p RUMORED DEMOLITION: {{location.rumor || "Unknown"}}
-		p BUILDING TYPE: {{location.buildingType || "Unknown"}}
-		p OWNER: {{location.owner || "Unknown"}}
-	hr
-	p
-		strong {{ "COMMENTS" | translate }}
-	p(ng-if="location.comments" ng-repeat="comment in location.comments")
-		p() {{comment}}
-	p(ng-if="!location.comments")
-		small {{ "No comments yet." | translate }}
-	hr
-	p
-		strong {{ "NEW COMMENT" | translate }}
-	+input('textarea','location.comment', null, null)
-
-
-
+    hr
+    small
+        // todo: translation!!!
+        p(ng-if="location.emptySinceParsed") Empty for {{location.emptySinceParsed}}
+        p ADDRESS: {{location.street || "Unknown"}}
+        p CITY: {{location.postcode}} {{location.city || "Unknown"}}
+        p DEGREE OF EMPTINESS: {{location.degree || "Unknown"}}
+        p RUMORED DEMOLITION: {{location.rumor || "Unknown"}}
+        p BUILDING TYPE: {{location.buildingType || "Unknown"}}
+        p OWNER: {{location.owner || "Unknown"}}
+    hr
+    p
+        strong {{ "COMMENTS" | translate }}
+    div(ng-if="location.comments" ng-repeat="comment in location.comments")
+        p.smalltext
+            strong {{ comment.user.nickname }}
+            | {{ ' ' }}
+            span am {{ comment.created | date : 'dd.MM.yy HH:mm' }}
+        p {{comment.body}}
+    p(ng-if="!location.comments")
+        small {{ "No comments yet." | translate }}
+    hr
+    p
+        strong {{ "NEW COMMENT" | translate }}
+    +input('textarea','newComment', null, null)
