@@ -111,7 +111,7 @@ gulp.task('css-deps', function () {
 
 function cssPipe(src, destPath) {
     return src.pipe(less())
-        //.pipe(minify())
+        .pipe(minify())
         .pipe(header(banner, {pkg: pkg}))
         .pipe(rename({
             basename: 'leerstandsmelder-frontend'

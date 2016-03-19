@@ -17,7 +17,7 @@ define([], function () {
         },
         mainMap: {
             //osmUrl: 'http://a.tiles.mapbox.com/v3/examples.map-i86nkdio/{z}/{x}/{y}.png',
-            osmUrl: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            osmUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             tileLayer: {
                 minZoom: 3,
                 maxZoom: 19,
@@ -35,7 +35,7 @@ define([], function () {
         },
         miniMap: {
             //osmUrl: 'http://a.tiles.mapbox.com/v3/examples.map-i86nkdio/{z}/{x}/{y}.png',
-            osmUrl: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            osmUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             tileLayer: {
                 minZoom: 3,
                 maxZoom: 15,
