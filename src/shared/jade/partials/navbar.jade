@@ -50,16 +50,7 @@ md-toolbar.md-medium-tall(md-scroll-shrink md-shrink-speed-factor='0.5' ng-contr
 							md-menu-class="autocomplete-custom-template")
 								md-item-template
 									span.item-title
-										md-icon.fa.fa-star()
-										span {{item.name}}
-									br
-									span.item-metadata
-										span.item-metastat
-											strong {{item.locations}}
-											|  views
-										span.item-metastat
-											strong {{item.views}}
-											|  views
+										span {{item.title}}
 
 			div(flex="5" layout="row" layout-align="end center")
 				md-menu(ng-if="!userSession")

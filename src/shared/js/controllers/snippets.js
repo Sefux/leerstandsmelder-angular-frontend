@@ -3,7 +3,7 @@
 define([], function () {
     return angular.module(
         'leerstandsmelder.controllers.widgets',[])
-        .controller('Widgets.Navbar', ['$scope','$rootScope','$translate','$location','$timeout', '$q', '$log', function ($scope,$rootScope,$translate,$location,$timeout, $q, $log) {
+        .controller('Widgets.Navbar', ['$scope','$rootScope','$translate','$location','$timeout', '$q', '$log', 'apiService', function ($scope,$rootScope,$translate,$location,$timeout, $q, $log, apiService) {
             $scope.siteLocation = $rootScope.siteLocation;
             $scope.useLanguage = function (langKey) {
                $translate.use(langKey);
@@ -25,68 +25,29 @@ define([], function () {
             var self = this;
             self.simulateQuery = false;
             self.isDisabled    = false;
-            self.repos         = loadAll();
+            self.repos         = [];
             self.querySearch   = querySearch;
             self.selectedItemChange = selectedItemChange;
             self.searchTextChange   = searchTextChange;
             // ******************************
             // Internal methods
             // ******************************
-            /**
-             * Search for repos... use $timeout to simulate
-             * remote dataservice call.
-             */
             function querySearch (query) {
-                var results = query ? self.repos.filter( createFilterFor(query) ) : self.repos,
-                    deferred;
-                if (self.simulateQuery) {
-                    deferred = $q.defer();
-                    $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
-                    return deferred.promise;
-                } else {
-                    return results;
-                }
+                var deferred = $q.defer();
+                apiService('search/locations', null, {q: query}).actions.all(function (err, results) {
+                    if (err) {
+                        deferred.reject(err);
+                    }
+                    deferred.resolve(results);
+                });
+                return deferred.promise;
             }
             function searchTextChange(text) {
                 $log.info('Text changed to ' + text);
             }
             function selectedItemChange(item) {
                 $log.info('Item changed to ' + JSON.stringify(item));
-            }
-            /**
-             * Build `components` list of key/value pairs
-             */
-            function loadAll() {
-                var repos = [
-                    {
-                        'name'      : 'Hamburg',
-                        'url'       : '/city/hamburg',
-                        'locations'  : '634',
-                        'views'     : '16175'
-                    },
-                    {
-                        'name'      : 'Berlin',
-                        'url'       : '/city/berlin',
-                        'locations'  : '469',
-                        'views'     : '72360'
-                    },
-                    {
-                        'name'      : 'Bremen',
-                        'url'       : '/city/bremen',
-                        'locations'  : '727',
-                        'views'     : '1241'
-                    },
-                    {
-                        'name'      : 'Leipzig',
-                        'url'       : '/city/leipzig',
-                        'locations'  : '42',
-                        'views'     : '8324'
-                    }
-                ];
-                return repos.map( function (repo) {
-                    repo.value = repo.name.toLowerCase();
-                    return repo;
-                });
+                $location.path('/locations/' + item.slug);
             }
             /**
              * Create filter function for a query string
@@ -97,6 +58,21 @@ define([], function () {
                     return (item.value.indexOf(lowercaseQuery) === 0);
                 };
             }
+
+            apiService('regions').actions.all(function (err, regions) {
+                self.repos = regions.sort(function (a, b) {
+                    if (a.title < b.title) {
+                        return -1;
+                    } else if (a.title > b.title) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                self.repos.map(function (repo) {
+                    repo.value = repo.slug;
+                    return repo;
+                });
+            });
 
         }])
         .controller('Widgets.Alerts', ['$scope', '$mdToast', 'PubSub', function ($scope,$mdToast, PubSub) {
