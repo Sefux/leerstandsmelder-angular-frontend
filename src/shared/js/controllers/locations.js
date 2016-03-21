@@ -8,7 +8,6 @@ define([], function () {
         ])
         .controller('Locations.Show', ['$scope', '$q', '$routeParams', 'apiService', function ($scope, $q, $routeParams, apiService) {
             var deferred = $q.defer();
-            $scope.promiseString = 'Loading Location...';
             $scope.promise = deferred.promise;
             $scope.formTitle = 'Edit location';
             $scope.urlbase = '/locations/';
@@ -34,6 +33,8 @@ define([], function () {
                             return new Date(a.created).getTime() - new Date(b.created).getTime();
                         });
                         $scope.location.comments = comments;
+                    } else {
+                        $scope.location.comments = [];
                     }
                     cb();
                 }
@@ -52,10 +53,13 @@ define([], function () {
                 $scope.$apply();
             });
         }])
-        .controller('Locations.List', ['$scope', 'apiService', function ($scope, apiService) {
+        .controller('Locations.List', ['$scope', 'apiService', '$q', function ($scope, apiService, $q) {
+            var deferred = $q.defer();
+            $scope.promise = deferred.promise;
             $scope.data = {};
             apiService('locations?page=0&pagesize=1000&radius=2000&latitude=53.5653&longitude=10.0014').actions.all(function (err, locations) {
                 if (err) {
+                    deferred.reject(err);
                     return console.log('error getting locations', err);
                 }
                 $scope.data.locations = locations.results.sort(function (a, b) {
@@ -66,6 +70,7 @@ define([], function () {
                     }
                     return 0;
                 });
+                deferred.resolve();
                 $scope.$apply();
             });
         }])

@@ -17,7 +17,7 @@
             controllers_posts: '/src/shared/js/controllers/posts',
             controllers_regions: '/src/shared/js/controllers/regions',
             controllers_site: '/src/shared/js/controllers/site',
-            controllers_snippets: '/src/shared/js/controllers/snippets',
+            controllers_widgets: '/src/shared/js/controllers/widgets',
 
             directives_helpers: '/src/modules/auth/js/directives/helpers',
 

@@ -44,6 +44,9 @@ md-toolbar.md-medium-tall(md-scroll-shrink md-shrink-speed-factor='0.5' ng-contr
                                 md-item-template
                                     span.item-title
                                         span {{item.title}}
+                                    span.item-metadata
+                                        span.item-metastat {{item.street}}, {{item.postcode}} {{item.city}}
+                                md-not-found {{'locations.none_found' | translate}}
 
             div(flex="5" layout="row" layout-align="end center")
                 md-menu(ng-if="!userSession")

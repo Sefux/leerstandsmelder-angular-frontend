@@ -8,7 +8,6 @@ define([], function () {
         ])
         .controller('Regions.List', ['$scope', '$q', 'apiService', function ($scope, $q, apiService) {
             var deferred = $q.defer();
-            $scope.promiseString = 'Loading Regions...';
             $scope.promise = deferred.promise;
             $scope.mapcenter = [51.0, 9.0];
             $scope.urlbase = '/regions/';
@@ -62,7 +61,6 @@ define([], function () {
         }])
         .controller('Regions.Show', ['$scope', '$q', '$routeParams', 'apiService', function ($scope, $q, $routeParams, apiService) {
             var deferred = $q.defer();
-            $scope.promiseString = 'Loading Region...';
             $scope.promise = deferred.promise;
             $scope.urlbase = '/locations/';
             async.waterfall([

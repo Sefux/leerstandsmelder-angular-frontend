@@ -52,7 +52,7 @@ define([], function () {
             location_plural: 'Locations',
             no_recent_activity: 'No Recent Activity',
             no_photos: 'No Photos',
-            no_title: 'Untitled',
+            none_found: 'No locations found.',
             owner: 'Owner',
             recent_activity: 'Latest Activity',
             search: 'Search',

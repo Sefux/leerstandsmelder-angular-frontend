@@ -52,7 +52,7 @@ define([], function () {
             location_plural: 'Leerstände',
             no_recent_activity: 'Keine Leerstände',
             no_photos: 'Keine Bilder',
-            no_title: 'Ohne Titel',
+            none_found: 'Keine Leerstände gefunden.',
             owner: 'Eigentümer',
             recent_activity: 'Neueste Leerstände',
             search: 'Suchen',

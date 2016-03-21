@@ -20,12 +20,14 @@ define([], function () {
             };
 
             function querySearch (query) {
+                this.loading = true;
                 var deferred = $q.defer();
                 apiService('search/locations', null, {q: query}).actions.all(function (err, results) {
                     if (err) {
                         deferred.reject(err);
                     }
                     deferred.resolve(results);
+                    this.loading = false;
                 });
                 return deferred.promise;
             }

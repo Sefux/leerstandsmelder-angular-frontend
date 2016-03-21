@@ -8,7 +8,6 @@ define([], function () {
         ])
         .controller('Posts.Show', ['$scope', '$q', '$routeParams', 'apiService', function ($scope, $q, $routeParams, apiService) {
             var deferred = $q.defer();
-            $scope.promiseString = 'Loading Post...';
             $scope.promise = deferred.promise;
             async.waterfall([
                 function (cb) {

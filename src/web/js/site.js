@@ -6,7 +6,7 @@ define([
     'config',
     'services_api',
     'services_auth',
-    'controllers_snippets',
+    'controllers_widgets',
     'controllers_site',
     'controllers_users',
     'controllers_locations',

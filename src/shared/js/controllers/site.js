@@ -7,7 +7,6 @@ define([], function () {
         ])
         .controller('Site.Welcome', ['$scope', '$q', '$translate', 'apiService', function ($scope, $q, $translate, apiService) {
             var deferred = $q.defer();
-            $scope.promiseString = 'Loading Locations...';
             $scope.promise = deferred.promise;
             async.waterfall([
                 function (cb) {

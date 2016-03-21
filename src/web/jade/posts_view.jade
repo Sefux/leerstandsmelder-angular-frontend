@@ -21,7 +21,7 @@ md-content
                         | {{ ' ' }}
                         span {{ "author.on" | translate }} {{ comment.created | date : 'dd.MM.yy HH:mm' }}
                     p {{comment.body}}
-                p(ng-if="!post.comments")
+                p(ng-if="post.comments.length === 0")
                     small {{ "comments.no_comments" | translate }}
                 hr
                 p
