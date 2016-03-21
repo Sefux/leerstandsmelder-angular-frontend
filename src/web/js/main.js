@@ -5,8 +5,8 @@
 
     require.config({
         paths: {
-            lang_en: '/src/shared/lang/en',
-            lang_de: '/src/shared/lang/de',
+            lang_en: '/src/shared/js/lang/en',
+            lang_de: '/src/shared/js/lang/de',
             config: '/js/configuration',
 
             services_api: '/src/modules/api/js/services/api',

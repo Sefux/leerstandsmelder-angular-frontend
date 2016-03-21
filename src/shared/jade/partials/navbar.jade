@@ -2,73 +2,63 @@ include ../../../modules/mixins/jade/_mixin_form
 include ../../../modules/mixins/jade/_mixin_buttons
 
 md-toolbar.md-medium-tall(md-scroll-shrink md-shrink-speed-factor='0.5' ng-controller="Widgets.Navbar as ctrl" check-login)
-	div#navbar(name="navbar" layout='column' layout-align='center end' layout-fill)
-		div.md-toolbar-tools(layout='row' layout-align='space-between center')
-			div(flex="90" layout='row' layout-align='start center')
-				div(flex ng-if='!site.logo')
-					h2
-						a(href='/') {{ site.title }}
-						span &nbsp;&nbsp;&#183;&nbsp;&nbsp;{{_sys.activeCity || "Welcome" }} &nbsp;&nbsp;&#183;&nbsp;&nbsp;
-						span(ng-content=siteLocation)
+    div#navbar(name="navbar" layout='column' layout-align='center end' layout-fill)
+        div.md-toolbar-tools(layout='row' layout-align='space-between center')
+            div(flex="90" layout='row' layout-align='start center')
+                h2
+                    a(href='/') {{ 'site.title' | translate }}
+            div(flex)
 
-				div(flex ng-if='site.logo')
-					a(href='/')
-						img(src='{{site.logo}}' alt='{{ site.title }}')
-						s
-			div(flex)
+            div(flex="5" layout="row" layout-align="end center")
+                md-menu()
+                    +button_fab(null,'$mdOpenMenu()',null,'fa-language')
+                    md-menu-content(width='4')
+                        // todo: loop through available languages
+                        md-menu-item(layout="row" layout-align="start center")
+                            +button('site.lang_de','useLanguage("de")','btn-default btn-small','fa-sign-in',null, null)
 
-			div(flex="5" layout="row" layout-align="end center")
-				md-menu()
-					+button_fab(null,'$mdOpenMenu()',null,'fa-language')
-					md-menu-content(width='4')
-						// todo: loop through available languages
-						md-menu-item(layout="row" layout-align="start center")
-							+button('BUTTON_LANG_DE','useLanguage("de")','btn-default btn-small','fa-sign-in',null, null)
+                        md-menu-item(layout="row" layout-align="start center")
+                            +button('site.lang_en','useLanguage("en")','btn-default btn-small','fa-sign-in',null,null)
 
-						md-menu-item(layout="row" layout-align="start center")
-							+button('BUTTON_LANG_EN','useLanguage("en")','btn-default btn-small','fa-sign-in',null,null)
+            div(flex="5" layout="row" layout-align="end center")
+                md-menu()
+                    +button_fab(null,'$mdOpenMenu()',null,'fa-map-marker')
+                    md-menu-content(width='4')
 
-			div(flex="5" layout="row" layout-align="end center")
-				md-menu()
-					+button_fab(null,'$mdOpenMenu()',null,'fa-map-marker')
-					md-menu-content(width='4')
+                        md-menu-item()
+                            +button('locations.create_new',null,'','fa-plus-circle',null,'/location/new')
+                        md-menu-item(layout="row" layout-align="start center")
+                            md-autocomplete(
+                            ng-disabled="ctrl.isDisabled"
+                            md-no-cache="ctrl.noCache"
+                            md-selected-item="ctrl.selectedItem"
+                            md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                            md-search-text="ctrl.searchText"
+                            md-selected-item-change="ctrl.selectedItemChange(item)"
+                            md-items="item in ctrl.querySearch(ctrl.searchText)"
+                            md-item-text="item.title"
+                            md-min-length="3"
+                            md-delay="400"
+                            md-floating-label="{{ 'locations.search' | translate }}"
+                            md-menu-class="autocomplete-custom-template")
+                                md-item-template
+                                    span.item-title
+                                        span {{item.title}}
 
-						md-menu-item()
-							+button('_site.location.new',null,'','fa-plus-circle',null,'/location/new')
-						md-menu-item(layout="row" layout-align="start center")
-							md-autocomplete(
-							ng-disabled="ctrl.isDisabled"
-							md-no-cache="ctrl.noCache"
-							md-selected-item="ctrl.selectedItem"
-							md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
-							md-search-text="ctrl.searchText"
-							md-selected-item-change="ctrl.selectedItemChange(item)"
-							md-items="item in ctrl.querySearch(ctrl.searchText)"
-							md-item-text="item.title"
-							md-min-length="3"
-							md-delay="400"
-							md-floating-label="Search"
-							md-menu-class="autocomplete-custom-template")
-								md-item-template
-									span.item-title
-										span {{item.title}}
+            div(flex="5" layout="row" layout-align="end center")
+                md-menu(ng-if="!userSession")
+                    +button_fab(null,'$mdOpenMenu()',null,'fa-user')
+                    md-menu-content(width='4')
+                        md-menu-item(ng-if="!userSession")
+                            +button('users.login',null,'btn-default btn-small','fa-sign-in','!userSession', '/login')
+                        md-menu-item(ng-if="!userSession")
+                            +button('users.signup',null,'btn-default','fa-users','!userSession','/signup')
 
-			div(flex="5" layout="row" layout-align="end center")
-				md-menu(ng-if="!userSession")
-					+button_fab(null,'$mdOpenMenu()',null,'fa-user')
-					md-menu-content(width='4')
-						md-menu-item(ng-if="!userSession")
-							+button('Login',null,'btn-default btn-small','fa-sign-in','!userSession', '/login')
-						md-menu-item(ng-if="!userSession")
-							+button('Signup',null,'btn-default','fa-users','!userSession','/signup')
-
-				md-menu(ng-if="userSession")
-					+button_fab(null,'$mdOpenMenu()',null,'fa-user')
-					md-menu-content(width='4')
-						md-menu-item(ng-if="userSession")
-							+button_notranslate('userSession.login',null,'btn-default','fa-sign-in','userSession', '/profile')
-						md-menu-item(ng-if="userSession")
-							+button('Logout',null,'btn-default','fa-sign-out','userSession', '/locations/new')
-						//md-menu-item()
-							+select('City', '_sys.cities', true)
-		div(flex="10")
+                md-menu(ng-if="userSession")
+                    +button_fab(null,'$mdOpenMenu()',null,'fa-user')
+                    md-menu-content(width='4')
+                        md-menu-item(ng-if="userSession")
+                            +button_notranslate('userSession.login',null,'btn-default','fa-sign-in','userSession', '/profile')
+                        md-menu-item(ng-if="userSession")
+                            +button('users.logout',null,'btn-default','fa-sign-out','userSession', '/locations/new')
+        div(flex="10")

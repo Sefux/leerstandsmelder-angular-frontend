@@ -2,7 +2,7 @@
 
 define(['ITOMapConfig'], function (ITOMapConfig) {
     return angular.module('ito.angular.directives.dataviewer.maps', [])
-        .directive('itoMap', ['$window', '$timeout', 'featureService', '$q', function ($window, $timeout, featureService, $q) {
+        .directive('itoMap', ['$window', '$timeout', 'featureService', '$translate', function ($window, $timeout, featureService, $translate) {
             return {
                 restrict: 'A',
                 scope: {
@@ -41,7 +41,7 @@ define(['ITOMapConfig'], function (ITOMapConfig) {
                                     var popup = "";
                                     popup += "<strong>" + data.title + "</strong><br />";
                                     if (data.locations) {
-                                        popup += data.locations + " Einträge<br />";
+                                        popup += data.locations + " " + $translate.instant('locations.location_plural') +"<br />";
                                     } else {
                                         popup += data.street + "<br />";
                                         popup += data.buildingType + " / " + data.owner + "<br />";

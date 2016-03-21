@@ -18,11 +18,6 @@ define([], function () {
             $scope.register = function() {
                 $location.path('/register');
             };
-            $scope.site = {
-                title: "Leerstandsmelder",
-                copyrightnotice: "© ITO-Suite",
-                breadcrumb: "Berlin"
-            };
 
             function querySearch (query) {
                 var deferred = $q.defer();

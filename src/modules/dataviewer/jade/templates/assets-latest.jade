@@ -6,8 +6,8 @@ include ../../../mixins/jade/_mixin_style
 
 +layout('column','center start',true)
     +content('row','center center')
-        h2(ng-if="recentLocations") {{ "Latest Activity" | translate }}
-        h2(ng-if="!recentLocations") {{ "No Recent Activity" | translate }}
+        h2(ng-if="recentLocations") {{ "locations.recent_activity" | translate }}
+        h2(ng-if="!recentLocations") {{ "locations.no_recent_activity" | translate }}
     div(ng-repeat="location in recentLocations")
         +content('row','start start')
             a(ng-href="/locations/{{location.slug || location.uuid}}")
@@ -15,7 +15,7 @@ include ../../../mixins/jade/_mixin_style
                     img.thumb.pull-left(ng-src="{{location.thumb}}" alt="{{location.title}}" width="50px" height="50px")
                     strong {{location.title}}
                     br
-                    span.smalltext {{"by" | translate}} {{location.user.nickname}}
+                    span.smalltext {{"author.by" | translate}} {{location.user.nickname}}
                     br
                     span {{location.buildingType}}
                     | /

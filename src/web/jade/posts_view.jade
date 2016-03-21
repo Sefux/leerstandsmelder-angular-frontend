@@ -14,18 +14,18 @@ md-content
                 div(ng-bind-html="post.body")
                 hr
                 p
-                    strong {{ "COMMENTS" | translate }}
+                    strong {{ "comments.comment_plural" | translate }}
                 div(ng-if="post.comments" ng-repeat="comment in post.comments")
                     p.smalltext
-                        strong {{ comment.user.nickname }}
+                        strong {{ "author.by" | translate }} {{ comment.user.nickname }}
                         | {{ ' ' }}
-                        span am {{ comment.created | date : 'dd.MM.yy HH:mm' }}
+                        span {{ "author.on" | translate }} {{ comment.created | date : 'dd.MM.yy HH:mm' }}
                     p {{comment.body}}
                 p(ng-if="!post.comments")
-                    small {{ "No comments yet." | translate }}
+                    small {{ "comments.no_comments" | translate }}
                 hr
                 p
-                    strong {{ "NEW COMMENT" | translate }}
-                +input('textarea','newComment', null, null)
+                    strong {{ "comments.new_comment" | translate }}
+                +input('textarea','comments.comment_text', null, null)
         div(flex="33")
             include ../../shared/jade/partials/recent_posts
