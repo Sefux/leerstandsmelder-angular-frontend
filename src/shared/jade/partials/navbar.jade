@@ -44,8 +44,9 @@ md-toolbar.md-medium-tall(md-scroll-shrink md-shrink-speed-factor='0.5' ng-contr
 							md-search-text="ctrl.searchText"
 							md-selected-item-change="ctrl.selectedItemChange(item)"
 							md-items="item in ctrl.querySearch(ctrl.searchText)"
-							md-item-text="item.name"
-							md-min-length="0"
+							md-item-text="item.title"
+							md-min-length="3"
+							md-delay="400"
 							md-floating-label="Search"
 							md-menu-class="autocomplete-custom-template")
 								md-item-template

@@ -3,11 +3,14 @@
 define([], function () {
     return angular.module(
         'leerstandsmelder.controllers.widgets',[])
-        .controller('Widgets.Navbar', ['$scope','$rootScope','$translate','$location','$timeout', '$q', '$log', 'apiService', function ($scope,$rootScope,$translate,$location,$timeout, $q, $log, apiService) {
+        .controller('Widgets.Navbar', ['$scope','$rootScope','$translate','$location','$timeout', '$q', 'apiService', function ($scope,$rootScope,$translate,$location,$timeout, $q, apiService) {
+            var self = this;
+            self.currentSearchText = null;
+            self.repos = [];
+
             $scope.siteLocation = $rootScope.siteLocation;
             $scope.useLanguage = function (langKey) {
                $translate.use(langKey);
-
             };
             $scope.login = function() {
                $location.path('/login');
@@ -21,17 +24,6 @@ define([], function () {
                 breadcrumb: "Berlin"
             };
 
-
-            var self = this;
-            self.simulateQuery = false;
-            self.isDisabled    = false;
-            self.repos         = [];
-            self.querySearch   = querySearch;
-            self.selectedItemChange = selectedItemChange;
-            self.searchTextChange   = searchTextChange;
-            // ******************************
-            // Internal methods
-            // ******************************
             function querySearch (query) {
                 var deferred = $q.defer();
                 apiService('search/locations', null, {q: query}).actions.all(function (err, results) {
@@ -43,21 +35,18 @@ define([], function () {
                 return deferred.promise;
             }
             function searchTextChange(text) {
-                $log.info('Text changed to ' + text);
+                self.currentSearchText = text;
             }
             function selectedItemChange(item) {
-                $log.info('Item changed to ' + JSON.stringify(item));
-                $location.path('/locations/' + item.slug);
+                $scope.ctrl.searchText = self.currentSearchText;
+                if (item && item.slug) {
+                    $location.path('/locations/' + item.slug);
+                }
             }
-            /**
-             * Create filter function for a query string
-             */
-            function createFilterFor(query) {
-                var lowercaseQuery = angular.lowercase(query);
-                return function filterFn(item) {
-                    return (item.value.indexOf(lowercaseQuery) === 0);
-                };
-            }
+
+            self.querySearch = querySearch;
+            self.selectedItemChange = selectedItemChange;
+            self.searchTextChange = searchTextChange;
 
             apiService('regions').actions.all(function (err, regions) {
                 self.repos = regions.sort(function (a, b) {
