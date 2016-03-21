@@ -25,7 +25,7 @@ define([], function () {
                     apiService('locations/' + $scope.location.uuid + '/photos').actions.all(cb);
                 },
                 function (photos, cb) {
-                    $scope.photos = photos;
+                    $scope.photos = photos.results;
                     apiService('locations/' + $scope.location.uuid + '/comments').actions.all(cb);
                 },
                 function (comments, cb) {
