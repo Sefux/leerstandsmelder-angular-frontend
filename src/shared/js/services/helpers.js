@@ -32,14 +32,17 @@ define([], function () {
             return {
                 handleResponse: function (err, deferred, msgs) {
                     if (err) {
-                        if (err.status === 400 || err.status === 409) {
-                            var messages = JSON.parse(err.message);
-                            for (var field in messages) {
-                                if (typeof messages[field] === 'object') {
-                                    PubSub.publish('alert', 'error', messages[field].message);
+                        if ([400, 409, 422].indexOf(err.code) > -1) {
+                            if (err.errors instanceof Object) {
+                                for (var field in err.errors) {
+                                    if (typeof err.errors[field] === 'object') {
+                                        PubSub.publish('alert', 'error', err.errors[field].message);
+                                    }
                                 }
+                            } else {
+                                PubSub.publish('alert', 'error', $translate.instant(err.message));
                             }
-                        } else if (err.status === 403) {
+                        } else if (err.code === 403) {
                             PubSub.publish('alert', 'error', $translate.instant('errors.access_denied'));
                         } else {
                             if (msgs && msgs.error) {
