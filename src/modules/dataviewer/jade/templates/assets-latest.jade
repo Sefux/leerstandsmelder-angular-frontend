@@ -6,17 +6,14 @@ include ../../../mixins/jade/_mixin_style
 
 +layout('column','center start',true)
     +content('row','center center')
-        h2(ng-if="recentLocations") {{ "locations.recent_activity" | translate }}
-        h2(ng-if="recentLocations.length === 0") {{ "locations.no_recent_activity" | translate }}
-    div(ng-repeat="location in recentLocations")
-        +content('row','start start')
-            a(ng-href="/locations/{{location.slug || location.uuid}}")
-                p
-                    img.thumb.pull-left(ng-src="{{location.thumb}}" alt="{{location.title}}" width="50px" height="50px")
-                    strong {{location.title}}
-                    br
-                    span.smalltext {{"author.by" | translate}} {{location.user.nickname}}
-                    br
-                    span {{location.buildingType}}
-                    | /
-                    span {{location.owner}}
+        h2(ng-if="recentLocations.length > 0") {{ "locations.recent_activity" | translate }} {{author.in}} {{region.title}}
+        h2(ng-if="recentLocations.length === 0") {{ "locations.no_recent_activity" | translate }} {{author.in}} {{region.title}}
+
+md-list.md-dense(ng-if="recentLocations.length > 0")
+    md-list-item.md-2-line(ng-repeat='location in recentLocations')
+        img.md-avatar(ng-if='location.thumb_url' ng-src='{{location.thumb_url}}?{{$index}}', alt='{{location.title}}')
+        .md-list-item-text(layout='column')
+            h3 {{ location.title }}
+            p
+                | {{location.buildingType}} {{ ' ' }}
+                span(ng-if='location.owner') / {{location.owner}}

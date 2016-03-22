@@ -21,6 +21,7 @@ define([], function () {
         },
         author: {
             by: 'von',
+            in: 'in',
             on: 'am'
         },
         comments: {
