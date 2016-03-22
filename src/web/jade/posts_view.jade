@@ -27,6 +27,6 @@ md-content
                 hr
                 p
                     strong {{ "comments.new_comment" | translate }}
-                +input('textarea','comments.comment_text', null, null)
+                +input('textarea','newComment','comments.comment_text', null, null)
         div(flex="33")
             include ../../shared/jade/partials/recent_posts

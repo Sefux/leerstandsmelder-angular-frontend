@@ -11,8 +11,8 @@ include ../../mixins/jade/_mixin_style
 		md-card-content
 			+layout('row','center center')
 				+content('column','start center')
-					+input('text','users.username', null, null)
-					+input('password','users.password', null, null)
+					+input('text','user.login','users.username', null, null)
+					+input('password','user.password','users.password', null, null)
 		.md-actions(layout="row" layout-align="end center")
 			span(flex="10")
 			span(flex="50")

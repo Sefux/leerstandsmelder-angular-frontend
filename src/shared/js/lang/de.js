@@ -10,11 +10,6 @@ define([], function () {
             show: 'Ansehen',
             submit: 'Absenden'
         },
-        address: {
-            city: 'Stadt',
-            postcode: 'Postleitzahl',
-            street: 'Straße'
-        },
         asset: {
             description: 'Beschreibung',
             title: 'Titel'
@@ -55,18 +50,21 @@ define([], function () {
             no_photos: 'Keine Bilder',
             none_found: 'Keine Leerstände gefunden.',
             owner: 'Eigentümer',
+            postcode: 'Postleitzahl',
             recent_activity: 'Neueste Leerstände',
             search: 'Suchen',
+            street: 'Straße',
             title: 'Titel',
             unknown: 'Unbekannt'
         },
         site: {
             banned: 'Gesperrt',
+            lang: 'Sprache',
+            lang_de: 'Deutsch',
             lang_en: 'English',
             latest_posts: 'Neueste Einträge',
             no_latest_posts: 'Keine Neuesten Einträge',
-            title: 'Leerstandsmelder',
-            lang_de: 'Deutsch'
+            title: 'Leerstandsmelder'
         },
         users: {
             email: 'E-Mail',

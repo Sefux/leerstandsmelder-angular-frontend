@@ -62,11 +62,12 @@ define([], function () {
         },
         site: {
             banned: 'Banned',
+            lang: 'Language',
+            lang_de: 'Deutsch',
             lang_en: 'English',
             latest_posts: 'Recent Posts',
             no_latest_posts: 'No Recent Posts',
-            title: 'Leerstandsmelder',
-            lang_de: 'Deutsch'
+            title: 'Leerstandsmelder'
         },
         users: {
             email: 'Email',

@@ -13,10 +13,10 @@ md-tabs(class="md-primary"  md-dynamic-height md-border-bottom md-no-pagination=
 		md-content.md-padding
 			md-content(flex)
 				div(layout-gt-xs="row" flex="60")
-					+input('text','location.title', null, null)
+					+input('text','location.title','locations.title', null, null)
 			md-content()
 				div(layout-gt-xs="row")
-					+input('textarea','location.description', null, null)
+					+input('textarea','location.description','locations.description', null, null)
 
 
 	md-tab(label='{{"creator.tabs.location" | translate }}')
@@ -26,9 +26,9 @@ md-tabs(class="md-primary"  md-dynamic-height md-border-bottom md-no-pagination=
 
 		md-content.md-padding
 			//h2 {{"Location" | translate }}
-			+input('text','address.street', null, null)
-			+input('text','address.city', null, null)
-			+input('text','address.postcode', null, null)
+			+input('text','address.street','locations.street', null, null)
+			+input('text','address.city','locations.city', null, null)
+			+input('text','address.postcode','locations.postcode', null, null)
 			+button("Geodetails","showLatLng = !showLatLng",'md-raised',null,null)
 			+button("USE_DISPLAY_NAME_AS_TITLE","location.title = location.display_name; selectedIndex = 0",'md-raised',null,'showLatLng',null)
 			small(ng-show="showLatLng")
@@ -80,9 +80,9 @@ md-tabs(class="md-primary"  md-dynamic-height md-border-bottom md-no-pagination=
 			md-content(layout-gt-xs="row")
 				+select('location.buildingType', '_sys.buildingType', false)
 			md-content(layout-gt-xs="row")
-				+input('radio','location.degree', '_sys.degree', null)
+				+input('radio','location.degree','locations.degree', '_sys.degree', null)
 			md-content(layout-gt-xs="row")
-				+input('checkbox','location.rumor', '_sys.rumor', null)
+				+input('checkbox','location.rumor','locations.rumor', '_sys.rumor', null)
 
 	md-tab(label='{{"creator.tabs.preview" | translate }}')
 		md-content.md-padding
@@ -110,7 +110,7 @@ md-tabs(class="md-primary"  md-dynamic-height md-border-bottom md-no-pagination=
 			hr
 			p(ng-if="!files") {{ "You may choose one or more image files or take a picture with your device's camera." | translate }}
 
-				+input('fileimage','assets.file', null, null)
+				+input('fileimage','assets.file','assets.file', null, null)
 				+button('Take a Picture','camera()','md-raised md-disabled','fa-camera',null)
 
 

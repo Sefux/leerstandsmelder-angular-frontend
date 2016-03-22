@@ -25,7 +25,7 @@ sample-view.json
                 "background":"grey",
                 "color":"white"
             },
-            "+input" : "'text','asset.title', null, null",
+            "+input" : "'text','asset.title', 'asset.i18n_key', null, null",
 
         }
     }
