@@ -37,10 +37,13 @@ define([], function () {
         errors: {
             access_denied: 'You are not allowed to perform this action.',
             unknown: 'An unknown error occurred.',
+            authorization_failed: 'Login failed.',
             users: {
-                invalid_email: 'Invalid Email.',
+                email_exists: 'This email is already registered.',
+                invalid_email: 'Invalid email.',
                 password_confirm_mismatch: 'Passwords do not match.',
-                password_too_short: 'Password is too short (min. 8 characters).'
+                password_too_short: 'Password is too short (min. 8 characters).',
+                too_many_failed_logins: 'Too many failed logins. Please try again in five minutes.'
             }
         },
         locations: {

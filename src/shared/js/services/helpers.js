@@ -42,6 +42,8 @@ define([], function () {
                             } else {
                                 PubSub.publish('alert', 'error', $translate.instant(err.message));
                             }
+                        } else if (err.code === 401) {
+                            PubSub.publish('alert', 'error', $translate.instant('errors.authorization_failed'));
                         } else if (err.code === 403) {
                             PubSub.publish('alert', 'error', $translate.instant('errors.access_denied'));
                         } else {

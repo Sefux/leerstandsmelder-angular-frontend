@@ -36,11 +36,14 @@ define([], function () {
         },
         errors: {
             access_denied: 'Du hast keine Berechtigung, um diese Aktion auszuführen.',
+            authorization_failed: 'Anmeldung fehlgeschlagen.',
             unknown: 'Ein unbekannter Fehler ist aufgetreten.',
             users: {
+                email_exists: 'E-Mail Adresse ist bereits registriert.',
                 invalid_email: 'Ungültige E-Mail Adresse',
                 password_confirm_mismatch: 'Passwörter stimmen nicht überein.',
-                password_too_short: 'Passwort ist zu kurz (min. 8 Zeichen).'
+                password_too_short: 'Passwort ist zu kurz (min. 8 Zeichen).',
+                too_many_failed_logins: 'Zu viele fehlgeschlagene Anmeldungen. Versuche es in fünf Minuten wieder.'
             }
         },
         locations: {
