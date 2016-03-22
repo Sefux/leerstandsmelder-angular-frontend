@@ -10,8 +10,11 @@ md-content.md-padding
 
     p
         strong {{location.title}}
-    div(layout="row" layout-align="space-between start")
-        h2(flex ng-if="photos.length === 0") {{ "locations.no_photos" | translate }}
+    p.metatext
+        | {{ 'author.by' | translate }}&nbsp;
+        strong {{ location.user.nickname }}&nbsp;
+        span {{ 'author.on' | translate }} {{ location.created | date : 'dd.MM.yy' }}
+    div(layout="row" layout-align="space-between start" ng-if="photos.length > 0")
         span(flex ng-repeat="photo in photos")
             img(ng-src="{{ photo.thumb_url }}" height="120px")
     p(ng-if="location.description")
@@ -19,25 +22,25 @@ md-content.md-padding
 
     hr
     small
-        p(ng-if="location.emptySinceParsed") {{ "locations.empty_for" | translate }} {{location.emptySinceParsed}}
-        p {{ "locations.address" | translate }}: {{location.street || ("locations.unknown" | translate)}}
-        p {{ "locations.city" | translate }}: {{location.postcode}} {{location.city || ("locations.unknown" | translate)}}
-        p {{ "locations.degree" | translate }}: {{location.degree || ("locations.unknown" | translate)}}
-        p {{ "locations.demolition_rumor" | translate }}: {{location.rumor || ("locations.unknown" | translate)}}
-        p {{ "locations.building_type" | translate }}: {{location.buildingType || ("locations.unknown" | translate)}}
-        p {{ "locations.owner" | translate }}: {{location.owner || ("locations.unknown" | translate)}}
+        p(ng-if="location.emptySinceParsed") {{ 'locations.empty_for' | translate }} {{location.emptySinceParsed}}
+        p {{ 'locations.address' | translate }}: {{location.street || ('locations.unknown' | translate)}}
+        p {{ 'locations.city' | translate }}: {{location.postcode}} {{location.city || ('locations.unknown' | translate)}}
+        p {{ 'locations.degree' | translate }}: {{location.degree || ('locations.unknown' | translate)}}
+        p {{ 'locations.demolition_rumor' | translate }}: {{location.rumor || ('locations.unknown' | translate)}}
+        p {{ 'locations.building_type' | translate }}: {{location.buildingType || ('locations.unknown' | translate)}}
+        p {{ 'locations.owner' | translate }}: {{location.owner || ('locations.unknown' | translate)}}
     hr
     p
-        strong {{ "comments.comment_plural" | translate }}
+        strong {{ 'comments.comment_plural' | translate }}
     div(ng-if="location.comments" ng-repeat="comment in location.comments")
         p.smalltext
-            strong {{ author.by | translate }} {{ comment.user.nickname }}
-            | {{ ' ' }}
-            span {{ author.on | translate }} {{ comment.created | date : 'dd.MM.yy HH:mm' }}
+            | {{ 'author.by' | translate }}&nbsp;
+            strong {{ comment.user.nickname }}&nbsp;
+            span {{ 'author.on' | translate }} {{ comment.created | date : 'dd.MM.yy HH:mm' }}
         p {{comment.body}}
     p(ng-if="location.comments.length === 0")
-        small {{ "comments.no_comments" | translate }}
+        small {{ 'comments.no_comments' | translate }}
     hr
     p
-        strong {{ "comments.new_comment" | translate }}
+        strong {{ 'comments.new_comment' | translate }}
     +input('textarea','newComment','comments.comment_text', null, null)

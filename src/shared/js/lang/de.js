@@ -47,7 +47,6 @@ define([], function () {
             location: 'Leerstand',
             location_plural: 'Leerstände',
             no_recent_activity: 'Keine Leerstände',
-            no_photos: 'Keine Bilder',
             none_found: 'Keine Leerstände gefunden.',
             owner: 'Eigentümer',
             postcode: 'Postleitzahl',

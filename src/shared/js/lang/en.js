@@ -10,11 +10,6 @@ define([], function () {
             show: 'View',
             submit: 'Submit'
         },
-        address: {
-            city: 'City',
-            postcode: 'Postal Code',
-            street: 'Street'
-        },
         asset: {
             description: 'Description',
             title: 'Title'
@@ -52,7 +47,6 @@ define([], function () {
             location: 'Location',
             location_plural: 'Locations',
             no_recent_activity: 'No Recent Activity',
-            no_photos: 'No Photos',
             none_found: 'No locations found.',
             owner: 'Owner',
             recent_activity: 'Latest Activity',
