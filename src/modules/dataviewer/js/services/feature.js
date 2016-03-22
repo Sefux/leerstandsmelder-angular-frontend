@@ -4,11 +4,15 @@ define([], function () {
     return angular.module('ito.angular.services.dataviewer.feature', [])
         .factory('featureService', ['$http', function ($http) {
             return {
-                initMap: function (el, config, settings, addMiniMap) {
+                initMap: function (el, config, settings, addMiniMap, addGeoSearch) {
                     var map, geoConf = config.geoSearch.main;
 
-                    if (!settings.latlon) settings.latlon = [53.5653,10.0014];
-                    if (!settings.zoom) settings.zoom = 6;
+                    if (!settings.latlon) {
+                        settings.latlon = [53.5653,10.0014];
+                    }
+                    if (!settings.zoom) {
+                        settings.zoom = 6;
+                    }
 
                     // Basic Leaflet marker icon that other marker types will inherit from
                     L.Icon.extend(config.markers.baseMarker);
@@ -27,8 +31,10 @@ define([], function () {
                     // CONTROLS //
                     L.control.scale().addTo(map).setPosition('bottomleft');
 
-                    geoConf.provider = new L.GeoSearch.Provider.OpenStreetMap(config.geoSearch.provider);
-                    new L.Control.GeoSearch(geoConf).addTo(map);
+                    if (addGeoSearch) {
+                        geoConf.provider = new L.GeoSearch.Provider.OpenStreetMap(config.geoSearch.provider);
+                        new L.Control.GeoSearch(geoConf).addTo(map);
+                    }
 
                     map.zoomControl.setPosition('topleft');
 

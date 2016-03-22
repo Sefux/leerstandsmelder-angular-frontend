@@ -12,6 +12,7 @@ define(['ITOMapConfig'], function (ITOMapConfig) {
                     mapType: '=',
                     center: '=',
                     selectMode: '=',
+                    geosearch: '=',
                     selectHandler: '&',
                     selectMarker: '='
                 },
@@ -66,7 +67,8 @@ define(['ITOMapConfig'], function (ITOMapConfig) {
                             element,
                             ITOMapConfig,
                             {latlon: scope.center, zoom: scope.zoom},
-                            true
+                            true,
+                            scope.$eval(attrs.geosearch)
                         );
                         leafletView = new PruneClusterForLeaflet();
                         leafletView.BuildLeafletClusterIcon = function (cluster) {
