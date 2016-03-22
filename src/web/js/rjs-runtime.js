@@ -25,7 +25,7 @@
             directives_dataviewer_maps: '/src/modules/dataviewer/js/directives/map',
             services_dataviewer_feature: '/src/modules/dataviewer/js/services/feature',
 
-            leerstandsmelder: '/src/web/js/site'
+            leerstandsmelder: '/src/web/js/app-web'
         }
     });
 
