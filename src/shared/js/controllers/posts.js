@@ -41,6 +41,7 @@ define([], function () {
                 }
                 deferred.resolve();
                 $scope.$apply();
+                $scope.htmlReady();
             });
         }]);
 });

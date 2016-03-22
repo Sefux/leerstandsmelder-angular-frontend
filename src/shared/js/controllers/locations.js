@@ -51,6 +51,7 @@ define([], function () {
                 }
                 deferred.resolve();
                 $scope.$apply();
+                $scope.htmlReady();
             });
         }])
         .controller('Locations.List', ['$scope', 'apiService', '$q', function ($scope, apiService, $q) {
@@ -72,6 +73,7 @@ define([], function () {
                 });
                 deferred.resolve();
                 $scope.$apply();
+                $scope.htmlReady();
             });
         }])
         .controller('Locations.Create', ['$scope', '$rootScope','apiService', 'authService', '$q', '$location', 'featureService', 'Upload', function ($scope, $rootScope, apiService, authService, $q, $location, featureService, Upload) {

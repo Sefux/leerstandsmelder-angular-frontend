@@ -23,6 +23,7 @@ define([
         'ngSanitize',
         'ngAnimate',
         'ngFileUpload',
+        'seo',
         'cgBusy',
         'angularPubsub',
         'pascalprecht.translate',

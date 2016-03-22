@@ -37,6 +37,7 @@ gulp.task('js-deps', function () {
         'bower_components/angular-route/angular-route.min.js',
         'bower_components/angular-sanitize/angular-sanitize.min.js',
         'bower_components/angular-translate/angular-translate.min.js',
+        'bower_components/angular-seo/angular-seo.js',
         'bower_components/async/dist/async.min.js',
         'bower_components/bluebird/js/browser/bluebird.min.js',
         'bower_components/ng-file-upload/ng-file-upload.min.js',

@@ -59,6 +59,8 @@ define([], function () {
                     deferred.resolve();
                 });
             };
+
+            $scope.htmlReady();
         }])
         .controller('Users.Edit', ['$scope', '$q', 'apiService', 'PubSub', function ($scope, $q, apiService, PubSub) {
             var deferred = $q.defer();
@@ -176,9 +178,11 @@ define([], function () {
                     window.location = '/';
                 });
             };
+
+            $scope.htmlReady();
         }])
         .controller('Users.Forgot', ['$scope', 'authService', function ($scope, authService) {
-
+            $scope.htmlReady();
         }])
         .controller('Users.Logout', ['$scope', 'authService', function ($scope, authService) {
             authService.clearCredentials();

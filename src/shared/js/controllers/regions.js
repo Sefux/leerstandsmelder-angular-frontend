@@ -42,6 +42,7 @@ define([], function () {
                 }
                 deferred.resolve();
                 $scope.$apply();
+                $scope.htmlReady();
             });
             apiService('regions').actions.all(function (err, regions) {
                 if (err) {
@@ -93,6 +94,7 @@ define([], function () {
                 }
                 deferred.resolve();
                 $scope.$apply();
+                $scope.htmlReady();
             });
 
         }]);
