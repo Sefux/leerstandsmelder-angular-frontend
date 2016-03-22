@@ -22,6 +22,8 @@ define([], function () {
                             }
                             cb();
                         });
+                    } else {
+                        cb();
                     }
                 }
             };
