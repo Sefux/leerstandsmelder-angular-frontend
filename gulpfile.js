@@ -181,7 +181,7 @@ gulp.task('copy-mobile', function () {
 
 gulp.task('watch-web', function () {
     watch(['src/web/js/**/*.js', 'src/shared/js/**/*.js', 'configuration.js'], function () {
-        gulp.start('js-web');
+        //gulp.start('js-web');
     });
     watch(['src/web/less/**/*.less','src/shared/less/**/*.less'], function () {
         gulp.start('css-web');
