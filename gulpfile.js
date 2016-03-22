@@ -7,6 +7,8 @@ var gulp = require('gulp'),
     jade = require('gulp-jade'),
     less = require('gulp-less'),
     minify = require('gulp-minify-css'),
+    requirejsOptimize = require('gulp-requirejs-optimize'),
+    sourcemaps = require('gulp-sourcemaps'),
     watch = require('gulp-watch'),
     phonegapBuild = require('gulp-phonegap-build'),
     pkg = require('./package.json');
@@ -58,34 +60,22 @@ gulp.task('js-deps', function () {
         .pipe(gulp.dest('./dist/mobile/js/'));
 });
 
-function jsPipe(src, destPath) {
-    return src.pipe(concat('leerstandsmelder-angular-frontend.js'))
-        .pipe(header(banner, {pkg: pkg}))
-        .pipe(gulp.dest(destPath))
-        .pipe(rename({
-            extname: ".min.js"
-        }))
-        .pipe(uglify())
-        .pipe(header(banner, {pkg: pkg}))
-        .pipe(gulp.dest(destPath));
-}
-
 gulp.task('js-web', function () {
-    return jsPipe(gulp.src([
-        'configuration.js',
-        './src/modules/**/js/**/*.js',
-        './src/shared/js/**/*.js',
-        './src/web/js/**/*.js'
-    ]), './dist/web/js/');
+    return gulp.src('src/web/js/app.build.js')
+        .pipe(sourcemaps.init())
+        .pipe(requirejsOptimize())
+        .pipe(header(banner, {pkg: pkg}))
+        .pipe(rename('leerstandsmelder-angular-frontend.min.js'))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('dist/web/js/'));
 });
 
 gulp.task('js-mobile', function () {
-    return jsPipe(gulp.src([
-        'configuration.js',
-        './src/modules/**/js/**/*.js',
-        './src/shared/js/**/*.js',
-        './src/mobile/js/**/*.js'
-    ]), './dist/mobile/js/');
+    return gulp.src('src/mobile/js/main.js')
+        .pipe(requirejsOptimize())
+        .pipe(header(banner, {pkg: pkg}))
+        .pipe(rename('leerstandsmelder-angular-frontend.min.js'))
+        .pipe(gulp.dest('dist/mobile/js/'));
 });
 
 
@@ -121,11 +111,11 @@ function cssPipe(src, destPath) {
 }
 
 gulp.task('css-web', function () {
-    return cssPipe(gulp.src('./src/web/less/site.less'), './dist/web/css/');
+    return cssPipe(gulp.src('./src/web/less/web.less'), './dist/web/css/');
 });
 
 gulp.task('css-mobile', function () {
-    return cssPipe(gulp.src('./src/mobile/less/app.less'), './dist/mobile/css/');
+    return cssPipe(gulp.src('./src/mobile/less/mobile.less'), './dist/mobile/css/');
 });
 
 
@@ -139,12 +129,12 @@ function htmlPipe(src, destPath) {
 }
 
 gulp.task('html-web', function () {
-    return htmlPipe(gulp.src(['./src/shared/jade/**/*.jade', './src/web/jade/**/*.jade', 'src/modules/**/**/jade/*.jade','src/modules/**/jade/**/*.jade']), './dist/web/');
+    return htmlPipe(gulp.src(['./src/shared/jade/**/*.jade', './src/web/jade/**/*.jade']), './dist/web/');
 
 });
 
 gulp.task('html-mobile', function () {
-    return htmlPipe(gulp.src(['./src/shared/jade/**/*.jade', './src/mobile/jade/**/*.jade', './src/modules/**/jade/**/*.jade']), './dist/mobile/');
+    return htmlPipe(gulp.src(['./src/shared/jade/**/*.jade', './src/mobile/jade/**/*.jade']), './dist/mobile/');
 });
 
 
@@ -190,19 +180,19 @@ gulp.task('copy-mobile', function () {
 // Watch tasks
 
 gulp.task('watch-web', function () {
-    watch(['src/web/js/**/*.js', 'src/shared/js/**/*.js', 'src/modules/**/js/*.js','src/modules/**/js/**/*.js', 'configuration.js'], function () {
+    watch(['src/web/js/**/*.js', 'src/shared/js/**/*.js', 'configuration.js'], function () {
         gulp.start('js-web');
     });
-    watch(['src/web/less/*.less', 'src/web/less/**/*.less','src/shared/less/**/*.less', 'src/modules/**/less/*.less'], function () {
+    watch(['src/web/less/**/*.less','src/shared/less/**/*.less'], function () {
         gulp.start('css-web');
     });
-    watch(['src/web/jade/**/*.jade', 'src/web/jade/**/*.jade', 'src/shared/jade/*.jade','src/shared/jade/**/*.jade', 'src/modules/**/jade/*.jade','src/modules/**/**/jade/*.jade','src/modules/**/jade/**/*.jade'], function () {
+    watch(['src/web/jade/**/*.jade', 'src/shared/jade/**/*.jade'], function () {
         gulp.start('html-web');
     });
 });
 
 gulp.task('watch-web-src', function () {
-    watch(['src/web/js/**/*.js', 'src/shared/js/**/*.js', 'src/modules/**/js/*.js', 'src/modules/**/js/**/*.js', 'configuration.js'], function () {
+    watch(['src/web/js/**/*.js', 'src/shared/js/**/*.js', 'configuration.js'], function () {
         gulp.start('copy-js-src');
     });
 });
@@ -230,7 +220,7 @@ gulp.task('phonegap-build', function () {
 
 gulp.task('web', [
     'js-deps',
-    'js-web',
+    //'js-web',
     'copy-requirejs',
     'copy-web',
     'copy-js-config',
@@ -244,7 +234,7 @@ gulp.task('web', [
 
 gulp.task('mobile', [
     'js-deps',
-    'js-mobile',
+    //'js-mobile',
     'copy-requirejs',
     'copy-web',
     'copy-js-config',

@@ -1,0 +1,19 @@
+include ../mixins/_form
+include ../mixins/_media
+include ../mixins/_buttons
+include ../mixins/_layout
+include ../mixins/_style
+
++layout('column','center start',true)
+    +content('row','center center')
+        h2(ng-if="recentLocations.length > 0") {{ "locations.recent_activity" | translate }} {{author.in}} {{region.title}}
+        h2(ng-if="recentLocations.length === 0") {{ "locations.no_recent_activity" | translate }} {{author.in}} {{region.title}}
+
+md-list.md-dense(ng-if="recentLocations.length > 0")
+    md-list-item.md-2-line(ng-href='{{ "/locations/" + location.slug }}' ng-repeat='location in recentLocations')
+        img.md-avatar(ng-if='location.thumb_url' ng-src='{{location.thumb_url}}', alt='{{location.title}}')
+        .md-list-item-text(layout='column')
+            h3 {{ location.title }}
+            p
+                | {{location.buildingType}} {{ ' ' }}
+                span(ng-if='location.owner') / {{location.owner}}

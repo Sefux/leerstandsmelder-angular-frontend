@@ -1,4 +1,28 @@
-extends layout
+doctype html
+html(lang='en')
+    head
+        meta(http-equiv='X-UA-Compatible' content='IE=edge')
+        meta(http-equiv='Content-Type' content='text/html; charset=utf-8')
+        meta(http-equiv='X-Frame-Options' content='DENY')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no')
+        base(href='/')
 
-block content
-	#content(ng-view)
+        title Leerstandsmelder
+        link(rel='stylesheet', href='./css/leerstandsmelder-frontend-dependencies.min.css')
+        link(rel='stylesheet', href='./css/leerstandsmelder-frontend.css')
+        style(type='text/css').
+            .ng-cloak {
+                display: none !important;
+            }
+    body.ng-cloak(layout='column' spellcheck='false' cg-busy="{promise:pagePromise,message:'Loading page...',templateUrl:'partials/_busy.html',minDuration:0}" ng-cloak)
+        include ../../shared/jade/partials/_navbar
+        div(ng-controller="Widgets.Alerts")
+            div(ng-repeat="alert in alerts" type="alert.status" close="closeAlert($index)")
+                span {{ alert.message }}
+        #content(ng-view)
+        footer
+            div( flex )
+                div(layout='row' layout-align='center start') {{site.copyrightnotice}}
+        scripts
+            script(src='/js/leerstandsmelder-angular-dependencies.min.js')
+            script(data-main="/src/web/js/rjs-runtime" src='/js/require.js')

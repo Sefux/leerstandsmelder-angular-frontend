@@ -1,0 +1,21 @@
+include mixins/_form
+include mixins/_buttons
+include mixins/_layout
+include mixins/_style
+// variables for the templates
+- mapFlex="66"
+- mapModel="cities"
+//- mapStyle="height:calc(100% - 88px);width:100%;"
+- sideWidth="width:33%"
+- sideModel="newest"
+
+div(layout="row" layout-sm="column" layout-wrap layout-fill)
+    div(flex="66")
+        #mapContainer()
+            #secondcontainer
+                #map(ito-map ng-model=mapModel style=mapStyle geosearch=0 urlbase='urlbase' center='mapcenter' zoom='zoom' locations='locations')
+    div(flex="33")
+        div(layout="row" layout-sm="column" layout-wrap layout-fill layout-align="space-between start")
+            span(flex ng-repeat="photo in photos")
+                img(ng-src="{{ photo.thumb_url }}" height="120px")
+        include partials/_recent_locations

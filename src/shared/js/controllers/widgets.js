@@ -71,14 +71,10 @@ define([], function () {
 
         }])
         .controller('Widgets.Alerts', ['$scope', '$mdToast', 'PubSub', function ($scope,$mdToast, PubSub) {
-
             $scope.alerts = [];
-
             $scope.addAlert = function (status, message) {
                 $mdToast.hide();
                 $mdToast.show($mdToast.simple().textContent(message));
-
-                //$scope.alerts.push({'status': status, 'message': message});
             };
             $scope.closeAlert = function (index) {
                 $scope.alerts.splice(index, 1);
