@@ -6,6 +6,7 @@ define([
     'config',
     'services_api',
     'services_auth',
+    'services_regions',
     'controllers_widgets',
     'controllers_site',
     'controllers_users',
@@ -36,7 +37,8 @@ define([
         'ito.angular.directives.dataviewer.maps',
         'leerstandsmelder.controllers.locations',
         'leerstandsmelder.controllers.posts',
-        'leerstandsmelder.controllers.regions'
+        'leerstandsmelder.controllers.regions',
+        'leerstandsmelder.services.regions'
     ])
         .config([
             '$routeProvider',

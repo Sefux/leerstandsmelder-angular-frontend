@@ -6,12 +6,15 @@ define([], function () {
         [
             'ito.angular.services.api'
         ])
-        .controller('Regions.List', ['$scope', '$q', 'apiService', function ($scope, $q, apiService) {
+        .controller('Regions.List', ['$scope', '$q', 'apiService', 'regionService', function ($scope, $q, apiService, regionService) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
             $scope.mapcenter = [51.0, 9.0];
             $scope.urlbase = '/regions/';
             async.waterfall([
+                function (cb) {
+                    regionService.setCurrentRegion(null, cb);
+                },
                 function (cb) {
                     apiService('regions').actions.all(cb);
                 },
@@ -60,7 +63,7 @@ define([], function () {
                 $scope.$apply();
             });
         }])
-        .controller('Regions.Show', ['$scope', '$q', '$routeParams', 'apiService', function ($scope, $q, $routeParams, apiService) {
+        .controller('Regions.Show', ['$scope', 'regionService', '$q', '$routeParams', 'apiService', function ($scope, regionService, $q, $routeParams, apiService) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
             $scope.urlbase = '/locations/';
@@ -72,6 +75,9 @@ define([], function () {
                     $scope.region = region;
                     $scope.mapcenter = [$scope.region.lonlat[1], $scope.region.lonlat[0]];
                     $scope.zoom = $scope.region.zoom;
+                    regionService.setCurrentRegion(region.uuid, cb);
+                },
+                function (cb) {
                     apiService('regions/' + $scope.region.uuid + '/locations').actions.all(cb);
                 },
                 function (locations, cb) {

@@ -11,6 +11,7 @@
 
             services_api: '/src/modules/api/js/services/api',
             services_auth: '/src/modules/auth/js/services/auth',
+            services_regions: '/src/shared/js/services/regions',
 
             controllers_users: '/src/modules/auth/js/controllers/users',
             controllers_locations: '/src/shared/js/controllers/locations',

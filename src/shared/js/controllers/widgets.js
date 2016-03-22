@@ -3,12 +3,20 @@
 define([], function () {
     return angular.module(
         'leerstandsmelder.controllers.widgets',[])
-        .controller('Widgets.Navbar', ['$scope','$rootScope','$translate','$location','$timeout', '$q', 'apiService', function ($scope,$rootScope,$translate,$location,$timeout, $q, apiService) {
+        .controller('Widgets.Navbar', ['$scope','$rootScope','$translate','$location','$timeout', '$q', 'apiService', 'regionService',
+            function ($scope,$rootScope,$translate,$location,$timeout, $q, apiService, regionService) {
             var self = this;
             self.currentSearchText = null;
             self.repos = [];
 
+            $scope.$on('currentRegion:updated', function (event, region) {
+                $scope.currentRegion = region;
+                // TODO: check how to update floating label on autocomplete
+                // $scope.searchTitleAdd = $translate.instant('author.in') + ' ' + region.title;
+            });
+
             $scope.siteLocation = $rootScope.siteLocation;
+
             $scope.useLanguage = function (langKey) {
                $translate.use(langKey);
             };
@@ -22,7 +30,8 @@ define([], function () {
             function querySearch (query) {
                 this.loading = true;
                 var deferred = $q.defer();
-                apiService('search/locations', null, {q: query}).actions.all(function (err, results) {
+                apiService('search/locations' + ($scope.currentRegion ? '/' + $scope.currentRegion.uuid : ''),
+                    null, {q: query}).actions.all(function (err, results) {
                     if (err) {
                         deferred.reject(err);
                     }

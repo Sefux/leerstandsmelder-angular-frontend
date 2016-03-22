@@ -6,7 +6,7 @@ define([], function () {
         [
             'ito.angular.services.api'
         ])
-        .controller('Locations.Show', ['$scope', '$q', '$routeParams', 'apiService', function ($scope, $q, $routeParams, apiService) {
+        .controller('Locations.Show', ['$scope', 'regionService', '$q', '$routeParams', 'apiService', function ($scope, regionService, $q, $routeParams, apiService) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
             $scope.formTitle = 'Edit location';
@@ -21,6 +21,9 @@ define([], function () {
                     $scope.mapcenter = [$scope.location.lonlat[1], $scope.location.lonlat[0]];
                     $scope.zoom = 17;
                     $scope.formTitle = 'Edit "' + $scope.location.title + '"';
+                    regionService.setCurrentRegion(location.region_uuid, cb);
+                },
+                function (cb) {
                     apiService('locations/' + $scope.location.uuid + '/photos').actions.all(cb);
                 },
                 function (photos, cb) {

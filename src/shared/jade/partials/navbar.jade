@@ -5,8 +5,10 @@ md-toolbar.md-medium-tall(md-scroll-shrink md-shrink-speed-factor='0.5' ng-contr
     div#navbar(name="navbar" layout='column' layout-align='center end' layout-fill)
         div.md-toolbar-tools(layout='row' layout-align='space-between center')
             div(flex="90" layout='row' layout-align='start center')
-                h2
-                    a(href='/') {{ 'site.title' | translate }}
+                div
+                    h2
+                        a(href='/') {{ 'site.title' | translate }}
+                    p.meta {{ currentRegion.title }}&nbsp;
             div(flex)
 
             div(flex="5" layout="row" layout-align="end center")
@@ -39,7 +41,7 @@ md-toolbar.md-medium-tall(md-scroll-shrink md-shrink-speed-factor='0.5' ng-contr
                             md-item-text="item.title"
                             md-min-length="3"
                             md-delay="400"
-                            md-floating-label="{{ 'locations.search' | translate }}"
+                            md-floating-label="{{ 'locations.search' | translate }} {{ searchTitleAdd }}"
                             md-menu-class="autocomplete-custom-template")
                                 md-item-template
                                     span.item-title
