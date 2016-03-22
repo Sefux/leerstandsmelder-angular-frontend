@@ -20,4 +20,8 @@ bower install
 gulp
 ```
 
-Alternatively you can use ``gulp web`` or ``gulp mobile``, as well as ``gulp watch-web``.
+You need to run ``gulp watch-web-src`` to update the files used by the require.js runtime when developing. Use ``gulp watch-web`` to update all other files.
+
+In addition you can use ``gulp web`` or ``gulp mobile`` to build a specific environment.
+
+
