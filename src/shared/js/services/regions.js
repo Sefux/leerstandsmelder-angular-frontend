@@ -9,7 +9,8 @@ define([], function () {
                     var _self = this;
                     if (!uuid) {
                         _self.currentRegion = null;
-                        return $rootScope.$broadcast('currentRegion:updated', null);
+                        $rootScope.$broadcast('currentRegion:updated', null);
+                        return cb();
                     }
                     if (!this.currentRegion || this.currentRegion.uuid !== uuid) {
                         apiService('regions').actions.find(uuid, function (err, region) {
