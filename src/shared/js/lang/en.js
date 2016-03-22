@@ -34,6 +34,15 @@ define([], function () {
                 preview: 'Preview'
             }
         },
+        errors: {
+            access_denied: 'You are not allowed to perform this action.',
+            unknown: 'An unknown error occurred.',
+            users: {
+                invalid_email: 'Invalid Email.',
+                password_confirm_mismatch: 'Passwords do not match.',
+                password_too_short: 'Password is too short (min. 8 characters).'
+            }
+        },
         locations: {
             address: 'Address',
             building_type: 'Building Type',
@@ -53,6 +62,12 @@ define([], function () {
             search: 'Search',
             title: 'Title',
             unknown: 'Unknown'
+        },
+        messages: {
+            users: {
+                create_success: 'Your registration was successful. Please check your emails for the confirmation link!',
+                update_success: 'Account was successfully updated.'
+            }
         },
         site: {
             banned: 'Banned',

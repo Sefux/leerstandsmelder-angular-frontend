@@ -6,7 +6,8 @@ define([], function () {
         [
             'ito.angular.services.api'
         ])
-        .controller('Locations.Show', ['$scope', 'regionService', '$q', '$routeParams', 'apiService', function ($scope, regionService, $q, $routeParams, apiService) {
+        .controller('Locations.Show', ['$scope', 'regionService', '$q', '$routeParams', 'apiService', 'responseHandler',
+            function ($scope, regionService, $q, $routeParams, apiService, responseHandler) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
             $scope.formTitle = 'Edit location';
@@ -42,41 +43,30 @@ define([], function () {
                     cb();
                 }
             ], function (err) {
-                if (err) {
-                    $scope.alerts = [
-                        {
-                            type: 'danger',
-                            msg: 'Failed to load Location.'
-                        }
-                    ];
-                    deferred.reject(err);
-                    return console.log('error getting location', err);
+                if (responseHandler.handleResponse(err, deferred)) {
+                    $scope.$apply();
+                    $scope.htmlReady();
                 }
-                deferred.resolve();
-                $scope.$apply();
-                $scope.htmlReady();
             });
         }])
-        .controller('Locations.List', ['$scope', 'apiService', '$q', function ($scope, apiService, $q) {
+        .controller('Locations.List', ['$scope', 'apiService', '$q', 'responseHandler',
+            function ($scope, apiService, $q, responseHandler) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
             $scope.data = {};
             apiService('locations?page=0&pagesize=1000&radius=2000&latitude=53.5653&longitude=10.0014').actions.all(function (err, locations) {
-                if (err) {
-                    deferred.reject(err);
-                    return console.log('error getting locations', err);
+                if (responseHandler.handleResponse(err, deferred)) {
+                    $scope.data.locations = locations.results.sort(function (a, b) {
+                        if (a.title < b.title) {
+                            return -1;
+                        } else if (a.title > b.title) {
+                            return 1;
+                        }
+                        return 0;
+                    });
+                    $scope.$apply();
+                    $scope.htmlReady();
                 }
-                $scope.data.locations = locations.results.sort(function (a, b) {
-                    if (a.title < b.title) {
-                        return -1;
-                    } else if (a.title > b.title) {
-                        return 1;
-                    }
-                    return 0;
-                });
-                deferred.resolve();
-                $scope.$apply();
-                $scope.htmlReady();
             });
         }])
         .controller('Locations.Create', ['$scope', '$rootScope','apiService', 'authService', '$q', '$location', 'featureService', 'Upload', function ($scope, $rootScope, apiService, authService, $q, $location, featureService, Upload) {

@@ -6,7 +6,7 @@ define([
     'config',
     'services_api',
     'services_auth',
-    'services_regions',
+    'services_helpers',
     'controllers_widgets',
     'controllers_site',
     'controllers_users',
@@ -38,7 +38,7 @@ define([
         'leerstandsmelder.controllers.locations',
         'leerstandsmelder.controllers.posts',
         'leerstandsmelder.controllers.regions',
-        'leerstandsmelder.services.regions'
+        'leerstandsmelder.services.helpers'
     ])
         .config([
             '$routeProvider',
@@ -78,6 +78,7 @@ define([
                 $routeProvider.when('/signup', {templateUrl: '/auth/jade/signup.html', controller: 'Users.Create'});
                 $routeProvider.when('/forgot', {templateUrl: '/auth/jade/forgot.html', controller: 'Users.Forgot'});
                 $routeProvider.when('/profile', {templateUrl: '/auth/jade/profile.html', controller: 'Users.Edit'});
+                $routeProvider.when('/confirm/:token', {templateUrl: '/auth/jade/confirm.html', controller: 'Users.Confirm'});
                 $routeProvider.when('/locations/new', {templateUrl: '/locations_create.html', controller: 'Locations.Create'});
                 $routeProvider.when('/locations/edit/:uuid', {templateUrl: '/locations_edit.html', controller: 'Locations.Edit'});
                 $routeProvider.when('/locations/:uuid', {templateUrl: '/locations_view.html', controller: 'Locations.Show'});

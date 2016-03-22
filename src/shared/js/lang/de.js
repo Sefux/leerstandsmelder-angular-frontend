@@ -34,6 +34,15 @@ define([], function () {
                 preview: 'Vorschau'
             }
         },
+        errors: {
+            access_denied: 'Du hast keine Berechtigung, um diese Aktion auszuführen.',
+            unknown: 'Ein unbekannter Fehler ist aufgetreten.',
+            users: {
+                invalid_email: 'Ungültige E-Mail Adresse',
+                password_confirm_mismatch: 'Passwörter stimmen nicht überein.',
+                password_too_short: 'Passwort ist zu kurz (min. 8 Zeichen).'
+            }
+        },
         locations: {
             address: 'Adresse',
             building_type: 'Gebäudeart',
@@ -55,6 +64,12 @@ define([], function () {
             street: 'Straße',
             title: 'Titel',
             unknown: 'Unbekannt'
+        },
+        messages: {
+            users: {
+                create_success: 'Deine Registrierung war erfolgreich. Du solltest jetzt eine E-Mail mit einem Bestätigungslink erhalten.',
+                update_success: 'Konto wurde erfolgreich aktualisiert.'
+            }
         },
         site: {
             banned: 'Gesperrt',

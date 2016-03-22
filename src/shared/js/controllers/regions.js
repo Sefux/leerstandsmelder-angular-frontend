@@ -6,7 +6,8 @@ define([], function () {
         [
             'ito.angular.services.api'
         ])
-        .controller('Regions.List', ['$scope', '$q', 'apiService', 'regionService', function ($scope, $q, apiService, regionService) {
+        .controller('Regions.List', ['$scope', '$q', 'apiService', 'regionService', 'responseHandler',
+            function ($scope, $q, apiService, regionService, responseHandler) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
             $scope.mapcenter = [51.0, 9.0];
@@ -33,37 +34,14 @@ define([], function () {
                     cb();
                 }
             ], function (err) {
-                if (err) {
-                    $scope.alerts = [
-                        {
-                            type: 'danger',
-                            msg: 'Failed to load Regions.'
-                        }
-                    ];
-                    deferred.reject(err);
-                    return console.log('error getting regions', err);
+                if (responseHandler.handleResponse(err, deferred)) {
+                    $scope.$apply();
+                    $scope.htmlReady();
                 }
-                deferred.resolve();
-                $scope.$apply();
-                $scope.htmlReady();
-            });
-            apiService('regions').actions.all(function (err, regions) {
-                if (err) {
-                    $scope.alerts = [
-                        {
-                            type: 'danger',
-                            msg: 'Failed to load Regions.'
-                        }
-                    ];
-                    deferred.reject(err);
-                    return console.log('error getting regions', err);
-                }
-                $scope.locations = regions;
-                deferred.resolve();
-                $scope.$apply();
             });
         }])
-        .controller('Regions.Show', ['$scope', 'regionService', '$q', '$routeParams', 'apiService', function ($scope, regionService, $q, $routeParams, apiService) {
+        .controller('Regions.Show', ['$scope', 'regionService', '$q', '$routeParams', 'apiService', 'responseHandler',
+            function ($scope, regionService, $q, $routeParams, apiService, responseHandler) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
             $scope.urlbase = '/locations/';
@@ -88,19 +66,10 @@ define([], function () {
                     cb();
                 }
             ], function (err) {
-                if (err) {
-                    $scope.alerts = [
-                        {
-                            type: 'danger',
-                            msg: 'Failed to load page content.'
-                        }
-                    ];
-                    deferred.reject(err);
-                    return console.log('error getting page content', err);
+                if (responseHandler.handleResponse(err, deferred)) {
+                    $scope.$apply();
+                    $scope.htmlReady();
                 }
-                deferred.resolve();
-                $scope.$apply();
-                $scope.htmlReady();
             });
 
         }]);

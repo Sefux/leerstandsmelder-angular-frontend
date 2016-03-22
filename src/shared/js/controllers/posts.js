@@ -6,7 +6,8 @@ define([], function () {
         [
             'ito.angular.services.api'
         ])
-        .controller('Posts.Show', ['$scope', '$q', '$routeParams', 'apiService', function ($scope, $q, $routeParams, apiService) {
+        .controller('Posts.Show', ['$scope', '$q', '$routeParams', 'apiService', 'responseHandler',
+            function ($scope, $q, $routeParams, apiService, responseHandler) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
             async.waterfall([
@@ -29,19 +30,10 @@ define([], function () {
                     });
                 }
             ], function (err) {
-                if (err) {
-                    $scope.alerts = [
-                        {
-                            type: 'danger',
-                            msg: 'Failed to load page content.'
-                        }
-                    ];
-                    deferred.reject(err);
-                    return console.log('error loading content', err);
+                if (responseHandler.handleResponse(err, deferred)) {
+                    $scope.$apply();
+                    $scope.htmlReady();
                 }
-                deferred.resolve();
-                $scope.$apply();
-                $scope.htmlReady();
             });
         }]);
 });
