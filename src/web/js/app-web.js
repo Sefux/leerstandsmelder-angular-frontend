@@ -99,16 +99,5 @@ define([
 
                 $routeProvider.otherwise({redirectTo: '/'});
 
-            }]).run(['$rootScope', '$q', function ($rootScope, $q) {
-            $rootScope.$on('$routeChangeStart', function () {
-                $rootScope.pageDefer = $q.defer();
-                $rootScope.pagePromise = $rootScope.pageDefer.promise;
-            });
-            $rootScope.$on('$routeChangeSuccess', function () {
-                $rootScope.pageDefer.resolve();
-            });
-            $rootScope.$on('$routeChangeError', function () {
-                $rootScope.pageDefer.reject();
-            });
-        }]);
+            }]);
 });

@@ -14,7 +14,7 @@ html(lang='en')
             .ng-cloak {
                 display: none !important;
             }
-    body.ng-cloak(layout='column' spellcheck='false' cg-busy="{promise:pagePromise,message:'Loading page...',templateUrl:'partials/busy.html',minDuration:0}" ng-cloak)
+    body.ng-cloak(layout='column' spellcheck='false' ng-cloak)
         include ../../shared/jade/partials/_navbar
         div(ng-controller="Widgets.Alerts")
             div(ng-repeat="alert in alerts" type="alert.status" close="closeAlert($index)")
