@@ -37,7 +37,7 @@
     "L.GeoSearch": "smeijer/L.GeoSearch",
     "requirejs": "^2.1.22",
     "angular-seo": "*",
-    "leerstandsmelder-apiclient": "^0.1.1"
+    "leerstandsmelder-apiclient": "^0.1.2"
   },
   "resolutions": {
     "angular": "^1.5.0",
