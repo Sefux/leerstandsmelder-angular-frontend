@@ -1,8 +1,8 @@
 /* global angular,define */
 
 define([], function () {
-    return angular.module('lsm.services.auth', []).
-        factory('authService', ['$http', function () {
+    return angular.module('lsm.services.auth', [])
+        .factory('authService', [function () {
             var auth = {
                 api_key: null,
                 access_token: null,

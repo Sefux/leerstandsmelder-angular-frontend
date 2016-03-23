@@ -28,5 +28,7 @@ md-content
                 p
                     strong {{ "comments.new_comment" | translate }}
                 +input('textarea','newComment','comments.comment_text', null, null)
+                p
+                    img(captcha)
         div(flex="33")
             include partials/_recent_posts

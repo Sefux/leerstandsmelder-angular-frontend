@@ -7,6 +7,10 @@
   },
   "author": "Gängeviertel e.V. <info@das-gaengeviertel.info>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Leerstandsmelder/leerstandsmelder-angular-frontend.git"
+  },
   "devDependencies": {
     "bower": "^1.4.1",
     "gulp": "^3.9.0",
