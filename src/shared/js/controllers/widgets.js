@@ -2,7 +2,7 @@
 
 define([], function () {
     return angular.module(
-        'leerstandsmelder.controllers.widgets',[])
+        'lsm.controllers.widgets',[])
         .controller('Widgets.Navbar', ['$scope','$rootScope','$translate','$location','$timeout', '$q', 'apiService', 'regionService',
             function ($scope,$rootScope,$translate,$location,$timeout, $q, apiService, regionService) {
             var self = this;

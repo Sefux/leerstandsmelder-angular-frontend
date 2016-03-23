@@ -6,7 +6,7 @@ define([
     'config',
     'services_api',
     'services_auth',
-    'services_feature',
+    'services_map',
     'services_helpers',
     'controllers_widgets',
     'controllers_site',
@@ -15,7 +15,7 @@ define([
     'controllers_posts',
     'controllers_regions',
     'directives_helpers',
-    'directives_maps'
+    'directives_map'
 ], function (lang_de, lang_en) {
     return angular.module('leerstandsmelder', [
             'ngAria',
@@ -29,16 +29,16 @@ define([
             'angularPubsub',
             'pascalprecht.translate',
             'ngCookies',
-            'leerstandsmelder.controllers.widgets',
-            'leerstandsmelder.controllers.site',
-            'ito.auth.angular.controllers.users',
-            'ito.auth.angular.directives.helpers',
-            'ito.angular.services.dataviewer.feature',
-            'ito.angular.directives.dataviewer.maps',
-            'leerstandsmelder.controllers.locations',
-            'leerstandsmelder.controllers.posts',
-            'leerstandsmelder.controllers.regions',
-            'leerstandsmelder.services.helpers'
+            'lsm.services.helpers',
+            'lsm.services.map',
+            'lsm.directives.helpers',
+            'lsm.directives.map',
+            'lsm.controllers.locations',
+            'lsm.controllers.posts',
+            'lsm.controllers.regions',
+            'lsm.controllers.site',
+            'lsm.controllers.users',
+            'lsm.controllers.widgets'
         ])
         .config([
             '$routeProvider',

@@ -1,7 +1,7 @@
 /* global console,angular,define,LEERSTANDSMELDER_API_HOST,LMApi */
 
 define([], function () {
-    return angular.module('ito.angular.services.api', []).
+    return angular.module('lsm.services.api', []).
         factory('apiService', ['authService', 'Upload', function (authService, Upload) {
             return function (resourceName, host, query) {
                 var apiClient = new LMApi({

@@ -1,9 +1,9 @@
 /* global console,angular,define */
 
 define([], function () {
-    return angular.module('ito.auth.angular.directives.helpers', [
-        'ito.angular.services.api',
-        'ito.angular.services.auth'
+    return angular.module('lsm.directives.helpers', [
+        'lsm.services.api',
+        'lsm.services.auth'
     ]).directive('checkLogin', ['apiService', 'authService', function (apiService, authService) {
         'use strict';
         return {

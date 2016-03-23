@@ -2,9 +2,9 @@
 
 define([], function () {
     return angular.module(
-        'leerstandsmelder.controllers.posts',
+        'lsm.controllers.posts',
         [
-            'ito.angular.services.api'
+            'lsm.services.api'
         ])
         .controller('Posts.Show', ['$scope', '$q', '$routeParams', 'apiService', 'responseHandler',
             function ($scope, $q, $routeParams, apiService, responseHandler) {

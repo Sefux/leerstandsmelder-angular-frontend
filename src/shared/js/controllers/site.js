@@ -2,7 +2,7 @@
 
 define([], function () {
     return angular.module(
-        'leerstandsmelder.controllers.site', [
-            'ito.angular.services.api'
+        'lsm.controllers.site', [
+            'lsm.services.api'
         ]);
 });

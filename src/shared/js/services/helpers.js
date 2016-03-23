@@ -1,7 +1,7 @@
 /* global console,angular,define,JSON */
 
 define([], function () {
-    return angular.module('leerstandsmelder.services.helpers', [])
+    return angular.module('lsm.services.helpers', [])
         .factory('regionService', ['apiService', '$rootScope', function (apiService, $rootScope) {
             return {
                 currentRegion: null,

@@ -2,10 +2,10 @@
 
 define([], function () {
     return angular.module(
-        'ito.auth.angular.controllers.users',
+        'lsm.controllers.users',
         [
-            'ito.angular.services.api',
-            'ito.angular.services.auth'
+            'lsm.services.api',
+            'lsm.services.auth'
         ])
         .controller('Users.Create', ['$scope', '$q', 'apiService', 'PubSub', 'responseHandler',
             function ($scope, $q, apiService, PubSub, responseHandler) {

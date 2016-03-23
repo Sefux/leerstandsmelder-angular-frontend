@@ -1,7 +1,7 @@
 /* global angular,define */
 
 define([], function () {
-    return angular.module('ito.angular.services.auth', []).
+    return angular.module('lsm.services.auth', []).
         factory('authService', ['$http', function () {
             var auth = {
                 api_key: null,

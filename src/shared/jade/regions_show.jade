@@ -13,7 +13,7 @@ div(layout="row" layout-sm="column" layout-wrap layout-fill)
     div(flex="66")
         #mapContainer()
             #secondcontainer
-                #map(ito-map ng-model=mapModel style=mapStyle geosearch=0 urlbase='urlbase' center='mapcenter' zoom='zoom' locations='locations')
+                #map(lsm-map ng-model=mapModel style=mapStyle geosearch=0 urlbase='urlbase' center='mapcenter' zoom='zoom' locations='locations')
     div(flex="33")
         div(layout="row" layout-sm="column" layout-wrap layout-fill layout-align="space-between start")
             span(flex ng-repeat="photo in photos")

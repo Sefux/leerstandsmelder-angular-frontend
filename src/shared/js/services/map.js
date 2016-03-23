@@ -1,8 +1,8 @@
 /* global PruneCluster,L,angular,define,async,PIECEMETA_API_HOST,console */
 
 define([], function () {
-    return angular.module('ito.angular.services.dataviewer.feature', [])
-        .factory('featureService', ['$http', function ($http) {
+    return angular.module('lsm.services.map', [])
+        .factory('mapService', ['$http', function ($http) {
             return {
                 initMap: function (el, config, settings, addMiniMap, addGeoSearch) {
                     var map, geoConf = config.geoSearch.main;
@@ -47,30 +47,6 @@ define([], function () {
                 },
 
                 createMarker: function (data, config) {
-                    /*
-                     if (image) {
-                     scope.markers[image._id] = {
-                     _id: image._id,
-                     location: image.location,
-                     lat: image.location[0],
-                     lng: image.location[1],
-                     //icon: scope.extraMarker,
-                     draggable: false,
-                     //group: 'hamburg',
-                     url: '/api/image/' + image._id,
-                     thumburl: '/api/thumb/' + image._id,
-                     author: image.contributor_id,
-                     message: false, //'<img src="/api/image/' + image._id +'" alt="'+image.author+'" width="250px" />',
-                     contributor_id: image.contributor_id,
-                     updated_at: addCreatedAtReadable(image.updated_at),
-                     created_at: addCreatedAtReadable(image.created_at),
-                     offset: offset,
-                     visible: visibility,
-                     category: image.category || "Uncategorized"
-                     }
-
-                     }
-                     */
                     var marker;
 
                     if (config.isPruneCluster) {
@@ -114,12 +90,9 @@ define([], function () {
 
                         window.timeout = setTimeout(delayed, threshold || 100);
                     };
-
                 },
                 rewriteDate: function (months) {
-                    // this is a general purpose helper that should probably
-                    // be somewhere else
-                    // most definitely must fix the translation keys...
+                    // TODO: turn into filter, add translation
                     var result = "";
                     months = parseFloat(months);
                     if (months >= 1) {
@@ -185,7 +158,7 @@ define([], function () {
                         address.country = "de";
                     }
                     // well structured
-                    //https://nominatim.openstreetmap.org/search?q=135+pilkington+avenue,+birmingham&format=json
+                    // https://nominatim.openstreetmap.org/search?q=135+pilkington+avenue,+birmingham&format=json
                     // the service requests adding '&email=' to the requests if there are
                     // going to be many of them
                     $http({
@@ -199,44 +172,12 @@ define([], function () {
                         callback(new Error('Service error starring image:', data, status), null);
                     });
                 },
-                geo: function () {
-                    //determine if the handset has client side geo location capabilities
-                    /*function successCallback(p){
-                     //Global.GPSlatlong = {"latitude":p.latitude,"longitude":p.longitude};
-                     $scope.GPSlat = p.coords.latitude;
-                     $scope.GPSlong = p.coords.longitude;
-                     $scope.GPSaccuracy = p.coords.accuracy;
-                     $scope.city = "GPS Active";
-                     $scope.location = p;
-                     console.log($scope.location);
-                     }
-                     function errorCallback(){
-                     $scope.GPSlat = "Location Unknown";
-                     $scope.GPSlong = "Location Unknown";
-                     }
-                     if(geoPosition.init()){
-                     geoPosition.getCurrentPosition(successCallback,errorCallback,{enableHighAccuracy:true});
-                     } else {
-                     window.setMessage('Please enable GPS.', 2000);
-                     }*/
-                },
                 createAddressFromGeo: function (address) {
                     return {
                         city: address.city || address.town || address.village || address.hamlet || "City not found",
                         street: (address.road || address.path || address.footway || address.pedestrian || address.cycleway || "") + " " + (address.house_number || ""),
                         postcode: address.postcode || ""
                     };
-                },
-                getUser: function (image_id, contributor_id, stars, callback) {
-                    $http({
-                        method: 'POST',
-                        url: '/api/stars/' + image_id + '/' + contributor_id + '/' + stars
-                    }).success(function (message) {
-                        //console.log("apiMessage",message);
-                        callback(null, message);
-                    }).error(function (data, status) {
-                        callback(new Error('Service error starring image:', data, status), null);
-                    });
                 }
             };
         }]);

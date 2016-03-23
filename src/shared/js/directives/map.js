@@ -1,8 +1,9 @@
 /* global L,PruneClusterForLeaflet,angular,define,async,PIECEMETA_API_HOST,console */
 
-define(['ITOMapConfig'], function (ITOMapConfig) {
-    return angular.module('ito.angular.directives.dataviewer.maps', [])
-        .directive('itoMap', ['$window', '$timeout', 'featureService', '$translate', function ($window, $timeout, featureService, $translate) {
+define(['lsmMapconfig'], function (lsmMapconfig) {
+    return angular.module('lsm.directives.map', [])
+        .directive('lsmMap', ['$window', '$timeout', 'mapService', '$translate',
+            function ($window, $timeout, mapService, $translate) {
             return {
                 restrict: 'A',
                 scope: {
@@ -63,9 +64,9 @@ define(['ITOMapConfig'], function (ITOMapConfig) {
 
                     angular.element($window).ready(function () {
                         resizeMap(element);
-                        map = featureService.initMap(
+                        map = mapService.initMap(
                             element,
-                            ITOMapConfig,
+                            lsmMapconfig,
                             {latlon: scope.center, zoom: scope.zoom},
                             true,
                             scope.$eval(attrs.geosearch)
@@ -80,7 +81,7 @@ define(['ITOMapConfig'], function (ITOMapConfig) {
                         map.addLayer(leafletView);
 
                         if (attrs.selectMode) {
-                            var marker = featureService.createMarker(null, {draggable: true, latlon: map.getCenter()});
+                            var marker = mapService.createMarker(null, {draggable: true, latlon: map.getCenter()});
                             marker.on('dragend', function (event) {
                                 var marker = event.target;
                                 var result = marker.getLatLng();

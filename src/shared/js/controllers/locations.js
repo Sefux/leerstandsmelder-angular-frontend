@@ -2,9 +2,9 @@
 
 define([], function () {
     return angular.module(
-        'leerstandsmelder.controllers.locations',
+        'lsm.controllers.locations',
         [
-            'ito.angular.services.api'
+            'lsm.services.api'
         ])
         .controller('Locations.Show', ['$scope', 'regionService', '$q', '$routeParams', 'apiService', 'responseHandler',
             function ($scope, regionService, $q, $routeParams, apiService, responseHandler) {
