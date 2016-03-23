@@ -59,10 +59,11 @@ define([], function () {
                     apiService('regions/' + $scope.region.uuid + '/locations').actions.all(cb);
                 },
                 function (locations, cb) {
-                    $scope.locations = locations.results.sort(function (a, b) {
+                    locations.results.sort(function (a, b) {
                         return new Date(a.updated).getTime() - new Date(b.updated).getTime();
                     });
-                    $scope.recentLocations = $scope.locations.splice(0, 10);
+                    $scope.locations = locations.results;
+                    $scope.recentLocations = $scope.locations.slice(0, 10);
                     cb();
                 }
             ], function (err) {
