@@ -12,7 +12,7 @@ define([], function () {
                         if (authService.access_token) {
                             apiService('users').actions.find('me', function (err, res) {
                                 if (err) {
-                                    console.log('error fetching user', err);
+                                    console.log('error fetching user', err.message);
                                     scope.userSession = null;
                                     return;
                                 }

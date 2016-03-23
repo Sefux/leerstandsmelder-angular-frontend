@@ -49,7 +49,7 @@ gulp.task('js-deps', function () {
         'bower_components/leaflet-minimap/dist/Control.MiniMap.min.js',
         'bower_components/L.GeoSearch/src/js/l.control.geosearch.js',
         'bower_components/L.GeoSearch/src/js/l.geosearch.provider.openstreetmap.js',
-        'bower_components/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.min.js',
+        //'bower_components/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.min.js',
         'bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js',
         'bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js',
         'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js'
@@ -153,6 +153,10 @@ gulp.task('copy-requirejs', function () {
     return copyPipe(gulp.src(['./bower_components/requirejs/require.js']), './dist/web/js/', 2);
 });
 
+gulp.task('copy-apiclient', function () {
+    return copyPipe(gulp.src(['./bower_components/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.js']), './dist/web/js/', 3);
+});
+
 gulp.task('copy-js-src', function () {
     return copyPipe(gulp.src(['./src/**/*.js']), './dist/web/src/', 1);
 });
@@ -222,6 +226,7 @@ gulp.task('web', [
     'js-deps',
     //'js-web',
     'copy-requirejs',
+    'copy-apiclient',
     'copy-web',
     'copy-js-config',
     'copy-js-src',

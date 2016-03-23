@@ -98,7 +98,7 @@ define([], function () {
             async.waterfall([
                 function (cb) {
                     apiService('users/me/access_tokens').actions.create({
-                        single_access_token: $routeParams.single_access_token
+                        single_access_token: $routeParams.token
                     }, cb);
                 },
                 function (access_token, cb) {

@@ -55,7 +55,8 @@ define([], function () {
                         }
                     },
                     getCredentials: function (access_token, callback) {
-                        apiClient.setToken(access_token);
+                        var token = apiClient.setAccessToken(access_token);
+                        console.log(token);
                         apiClient.getCredentials(function (err, credentials) {
                             if (err) {
                                 return callback(err);
