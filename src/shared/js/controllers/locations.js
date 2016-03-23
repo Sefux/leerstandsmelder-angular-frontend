@@ -28,6 +28,9 @@ define([], function () {
                     apiService('locations/' + $scope.location.uuid + '/photos').actions.all(cb);
                 },
                 function (photos, cb) {
+                    photos.results.sort(function (a, b) {
+                        return a.position - b.position;
+                    });
                     $scope.photos = photos.results;
                     apiService('locations/' + $scope.location.uuid + '/comments').actions.all(cb);
                 },
@@ -69,10 +72,9 @@ define([], function () {
                 }
             });
         }])
-        .controller('Locations.Create', ['$scope', '$rootScope','apiService', 'authService', '$q', '$location', 'featureService', 'Upload', function ($scope, $rootScope, apiService, authService, $q, $location, featureService, Upload) {
+        .controller('Locations.Create', ['$scope','apiService', 'authService', '$q', '$location', 'mapService', 'responseHandler',
+            function ($scope, apiService, authService, $q, $location, mapService, responseHandler) {
             var changeTimer, lockUpdate;
-            $scope.siteLocation = "TEST";
-            $rootScope.siteLocation=$scope.siteLocation;
             $scope.location = {
                 title: null,
                 description: null,
@@ -137,13 +139,13 @@ define([], function () {
             $scope.updateLocation = function (latlon) {
                 $scope.marker = latlon;
 
-                featureService.reverseGeoCode(latlon.lat,latlon.lng,function(err, data){
+                mapService.reverseGeoCode(latlon.lat,latlon.lng,function(err, data){
                     if (err) {
                         throw err;
                     }
                     lockUpdate = true;
                     if (!data.error) {
-                        $scope.address = featureService.createAddressFromGeo(data.address);
+                        $scope.address = mapService.createAddressFromGeo(data.address);
                         $scope.location.display_name = data.display_name || "";
 
                     }
@@ -154,7 +156,7 @@ define([], function () {
             };
 
             $scope.$watch('location.emptySince', function(newVal) {
-                $scope.location.emptySinceParsed = featureService.rewriteDate(newVal);
+                $scope.location.emptySinceParsed = mapService.rewriteDate(newVal);
             });
 
             $scope.$watchCollection('address', function (newVal, oldVal) {
@@ -179,7 +181,7 @@ define([], function () {
                         changeTimer = null;
                     }
                     changeTimer = window.setTimeout(function () {
-                        featureService.geoCode($scope.address, function (err, data) {
+                        mapService.geoCode($scope.address, function (err, data) {
                             if (data.length > 0) {
                                 $scope.marker.lat = data[0].lat;
                                 $scope.marker.lng = data[0].lon;
@@ -191,50 +193,40 @@ define([], function () {
             });
 
             $scope.submit = function () {
-
                 var deferred = $q.defer();
-                $scope.promiseString = 'Saving...';
                 $scope.promise = deferred.promise;
+
                 var payload = $scope.location;
                 payload.lonlat = [$scope.marker.lng,$scope.marker.lat];
                 payload.city = $scope.address.city;
                 payload.street = $scope.address.street;
                 payload.postcode = $scope.address.postcode;
                 console.log('payload', payload);
-                apiService('locations').actions.create(payload, function (err, location) {
-                    console.log('location', location);
-                    if (err) {
-                        $scope.alerts = [
-                            {
-                                type: 'danger',
-                                msg: 'Failed to save Location.'
-                            }
-                        ];
-                        deferred.reject(err);
-                        return;
-                    }
-                    if ($scope.files && $scope.files.length) {
-                        async.mapSeries($scope.files, function (file, cb) {
-                            apiService('photos').actions.upload({
-                                file: file,
-                                fields: {location_uuid: location.uuid}
+
+                async.waterfall([
+                    function (cb) {
+                        apiService('locations').actions.create(payload, cb);
+                    },
+                    function (location, cb) {
+                        if ($scope.files && $scope.files.length) {
+                            async.mapSeries($scope.files, function (file, cb) {
+                                apiService('photos').actions.upload({
+                                    file: file,
+                                    fields: {location_uuid: location.uuid}
+                                }, cb);
                             }, cb);
-                        }, function (err, data) {
-                            console.log(err, data);
-                            $scope.alerts = [
-                                {
-                                    type: 'success',
-                                    msg: 'Successfully saved Location.'
-                                }
-                            ];
-                            deferred.resolve();
-                            //$location.path('/locations/' + location.uuid + '/edit');
-                        });
+                        }
                     }
+                ], function (err) {
+                    var msgs = {
+                        success: 'msgs.locations.create_success'
+                    };
+                    responseHandler.handleResponse(err, deferred, msgs);
                 });
             };
         }])
-        .controller('Locations.Edit', ['$scope', '$routeParams', '$q', '$location', 'apiService', function ($scope, $routeParams, $q, $location, apiService) {
+        .controller('Locations.Edit', ['$scope', '$routeParams', '$q', '$location', 'apiService', 'responseHandler',
+            function ($scope, $routeParams, $q, $location, apiService, responseHandler) {
             var deferred = $q.defer();
             $scope.promiseString = 'Loading Location...';
             $scope.promise = deferred.promise;
@@ -245,55 +237,30 @@ define([], function () {
                 $scope.promiseString = 'Saving...';
                 $scope.promise = deferred.promise;
                 apiService('locations').actions.update($routeParams.uuid, $scope.location, function (err) {
-                    if (err) {
-                        console.log(err);
-                        $scope.alerts = [
-                            {
-                                type: 'danger',
-                                msg: 'Failed to update Location.'
-                            }
-                        ];
-                        deferred.reject(err);
-                        return;
-                    }
-                    deferred.resolve();
-                    $scope.alerts = [
-                        {
-                            type: 'success',
-                            msg: 'Successfully updated Location.'
-                        }
-                    ];
+                    var msgs = {
+                        success: 'msgs.locations.update_success'
+                    };
+                    responseHandler.handleResponse(err, deferred, msgs);
                 });
             };
 
-            apiService('locations').actions.find($routeParams.uuid, function (err, location) {
-                if (err) {
-                    $scope.alerts = [
-                        {
-                            type: 'danger',
-                            msg: 'Failed to load Location.'
-                        }
-                    ];
-                    deferred.reject(err);
-                    return console.log('error getting location', err);
-                }
-                $scope.location = location;
-                $scope.formTitle = 'Edit "' + location.title + '"';
-                apiService('locations/' + location.uuid + '/photos').actions.all(function (err, photos) {
-                    if (err) {
-                        $scope.alerts = [
-                            {
-                                type: 'danger',
-                                msg: 'Failed to load photos.'
-                            }
-                        ];
-                        deferred.reject(err);
-                        return console.log('error getting photos', err);
-                    }
+            async.waterfall([
+                function (cb) {
+                    apiService('locations').actions.find($routeParams.uuid, cb);
+                },
+                function (location, cb) {
+                    $scope.location = location;
+                    $scope.formTitle = 'Edit "' + location.title + '"';
+                    apiService('locations/' + location.uuid + '/photos').actions.all(cb);
+                },
+                function (photos, cb) {
                     $scope.photos = photos;
-                    deferred.resolve();
+                    cb();
+                }
+            ], function (err) {
+                if (responseHandler.handleResponse(err, deferred)) {
                     $scope.$apply();
-                });
+                }
             });
         }]);
 });

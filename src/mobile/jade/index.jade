@@ -19,7 +19,7 @@ html(lang='en')
         div(ng-controller="Widgets.Alerts")
             div(ng-repeat="alert in alerts" type="alert.status" close="closeAlert($index)")
                 span {{ alert.message }}
-        #content(ng-view)
+        #content(ng-view cg-busy="{promise:promise,message:'Loading...',templateUrl:'partials/_busy.html',minDuration:0}")
         footer
             div( flex )
                 div(layout='row' layout-align='center start') {{site.copyrightnotice}}

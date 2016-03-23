@@ -28,7 +28,7 @@ md-toolbar.md-medium-tall(md-scroll-shrink md-shrink-speed-factor='0.5' ng-contr
                     md-menu-content(width='4')
 
                         md-menu-item()
-                            +button('locations.create_new',null,'','fa-plus-circle',null,'/location/new')
+                            +button('locations.create_new',null,'','fa-plus-circle',null,'/location/create')
                         md-menu-item(layout="row" layout-align="start center")
                             md-autocomplete(
                             ng-disabled="ctrl.isDisabled"
@@ -55,15 +55,15 @@ md-toolbar.md-medium-tall(md-scroll-shrink md-shrink-speed-factor='0.5' ng-contr
                     +button_fab(null,'$mdOpenMenu()',null,'fa-user')
                     md-menu-content(width='4')
                         md-menu-item(ng-if="!userSession")
-                            +button('users.login',null,'btn-default btn-small','fa-sign-in','!userSession', '/login')
+                            +button('users.login',null,'btn-default btn-small','fa-sign-in','!userSession', '/users/login')
                         md-menu-item(ng-if="!userSession")
-                            +button('users.signup',null,'btn-default','fa-users','!userSession','/signup')
+                            +button('users.signup',null,'btn-default','fa-users','!userSession','/users/create')
 
                 md-menu(ng-if="userSession")
                     +button_fab(null,'$mdOpenMenu()',null,'fa-user')
                     md-menu-content(width='4')
                         md-menu-item(ng-if="userSession")
-                            +button_notranslate('userSession.login',null,'btn-default','fa-sign-in','userSession', '/profile')
+                            +button_notranslate('userSession.login',null,'btn-default','fa-sign-in','userSession', '/users/me')
                         md-menu-item(ng-if="userSession")
-                            +button('users.logout',null,'btn-default','fa-sign-out','userSession', '/locations/new')
+                            +button('users.logout',null,'btn-default','fa-sign-out','userSession', '/locations/create')
         div(flex="10")
