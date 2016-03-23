@@ -113,14 +113,14 @@ define([], function () {
         .controller('Users.Login', ['$scope', '$q', '$location', 'apiService', 'responseHandler',
             function ($scope, $q, $location, apiService, responseHandler) {
             $scope.user = {
-                login: null,
+                email: null,
                 password: null
             };
             $scope.$parent.status = 'ready';
             $scope.submit = function () {
                 var deferred = $q.defer();
                 $scope.promise = deferred.promise;
-                apiService().authenticate($scope.user.login, $scope.user.password, function (err) {
+                apiService().authenticate($scope.user.email, $scope.user.password, function (err) {
                     if (responseHandler.handleResponse(err, deferred)) {
                         window.location = '/';
                     }

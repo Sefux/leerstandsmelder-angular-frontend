@@ -68,8 +68,8 @@ define([], function () {
                             }
                         });
                     },
-                    authenticate: function (login, password, callback) {
-                        apiClient.getToken({login: login, password: password}, function (err, token) {
+                    authenticate: function (email, password, callback) {
+                        apiClient.getToken({email: email, password: password}, function (err, token) {
                             if (err) {
                                 return callback(err);
                             }

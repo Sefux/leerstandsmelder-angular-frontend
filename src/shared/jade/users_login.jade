@@ -11,11 +11,11 @@ include mixins/_style
 		md-card-content
 			+layout('row','center center')
 				+content('column','start center')
-					+input('text','user.login','users.username', null, null)
+					+input('text','user.email','users.email', null, null)
 					+input('password','user.password','users.password', null, null)
 		.md-actions(layout="row" layout-align="end center")
 			span(flex="10")
 			span(flex="50")
 				+button('users.forgot','forgot()','md-raised','',null,'/users/forgot')
 			span(flex="40")
-				+button_fab('actions.submit','submit()','md-accent','fa-sign-in','user.login && user.password')
+				+button_fab('actions.submit','submit()','md-accent','fa-sign-in','user.email && user.password')
