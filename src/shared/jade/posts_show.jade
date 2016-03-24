@@ -9,7 +9,7 @@ include mixins/_style
 md-content
     div(layout="row" layout-sm="column" layout-wrap layout-fill)
         div(flex="66")
-            .md-padding
+            .md-padding.type-post
                 p.metatext-lg {{author.on | translate}} {{ post.created | date : 'dd.MM.yy' }}
                 h1 {{post.title}}
                 div(ng-bind-html="post.body")
