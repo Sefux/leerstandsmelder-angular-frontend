@@ -15,15 +15,21 @@ html(lang='en')
             .ng-cloak {
                 display: none !important;
             }
-    body.ng-cloak(layout='column' spellcheck='false' ng-cloak)
-        include ../../shared/jade/partials/_navbar
-        div(ng-controller="Widgets.Alerts")
-            div(ng-repeat="alert in alerts" type="alert.status" close="closeAlert($index)")
-                span {{ alert.message }}
-        #content(ng-view cg-busy="{promise:promise,message:'Loading...',templateUrl:'partials/_busy.html',minDuration:0}")
+    body.ng-cloak(layout='column' layout-fill spellcheck='false' ng-cloak)
+        header
+            include ../../shared/jade/partials/_navbar
+            div(ng-controller="Widgets.Alerts")
+                div(ng-repeat="alert in alerts" type="alert.status" close="closeAlert($index)")
+                    span {{ alert.message }}
+        md-content(role='main' flex layout="row" ng-view cg-busy="{promise:promise,message:'Loading...',templateUrl:'partials/_busy.html',minDuration:0}")
         footer
-            div( flex )
-                div(layout='row' layout-align='center start') {{site.copyrightnotice}}
+            md-content.metatext(layout='row' layout-align='start end' layout-padding)
+                span {{ 'site.copyright_notice' | translate }}
+                span(flex)
+                a(href='/') {{ 'site.subnav.about' | translate }}
+                a(href='/') {{ 'site.subnav.contact' | translate }}
+                a(href='/') {{ 'site.subnav.developers' | translate }}
+                a(href='/') {{ 'site.subnav.imprint' | translate }}
         scripts
             script(src='/js/leerstandsmelder-apiclient-web.js')
             script(src='/js/leerstandsmelder-angular-dependencies.min.js')

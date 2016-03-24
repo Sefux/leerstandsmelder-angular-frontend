@@ -14,8 +14,6 @@ div(layout="row" layout-sm="column" layout-wrap layout-fill)
         #mapContainer()
             #secondcontainer
                 #map(lsm-map ng-model=mapModel style=mapStyle geosearch=0 urlbase='urlbase' center='mapcenter' zoom='zoom' locations='locations')
-    div(flex="33")
-        div(layout="row" layout-sm="column" layout-wrap layout-fill layout-align="space-between start")
-            span(flex ng-repeat="photo in photos")
-                img(ng-src="{{ photo.thumb_url }}" height="120px")
-        include partials/_recent_locations
+    md-content(flex="33" layout='column')
+        div(flex)
+            include partials/_recent_locations

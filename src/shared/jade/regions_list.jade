@@ -9,9 +9,10 @@ include mixins/_style
 - sideWidth="width:33%"
 
 div(layout="row" layout-sm="column" layout-wrap layout-fill)
-	div(flex="66")
+	md-content(flex="66")
 		#mapContainer()
 			#secondcontainer
 				#map(lsm-map ng-model=mapModel geosearch=0 zoom=6 urlbase='urlbase' center='mapcenter' style=mapStyle mapType='mapType' locations='locations')
-	div(flex="33")
-		include partials/_recent_posts
+	md-content(flex="33" layout='column')
+		div(flex)
+			include partials/_recent_posts

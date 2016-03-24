@@ -84,11 +84,18 @@ define([], function () {
         },
         site: {
             banned: 'Gesperrt',
+            copyright_notice: 'Copyright 2016 Leerstandsmelder.de',
             lang: 'Sprache',
             lang_de: 'Deutsch',
             lang_en: 'English',
             latest_posts: 'Neueste Einträge',
             no_latest_posts: 'Keine Neuesten Einträge',
+            subnav: {
+                about: 'Über uns',
+                contact: 'Kontakt',
+                developers: 'Entwickler',
+                imprint: 'Impressum'
+            },
             title: 'Leerstandsmelder'
         },
         users: {

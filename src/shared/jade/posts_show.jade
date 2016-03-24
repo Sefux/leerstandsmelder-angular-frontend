@@ -30,5 +30,6 @@ md-content
                 +input('textarea','newComment','comments.comment_text', null, null)
                 p
                     img(captcha)
-        div(flex="33")
-            include partials/_recent_posts
+        md-content(flex="33" layout='column')
+            div(flex)
+                include partials/_recent_posts
