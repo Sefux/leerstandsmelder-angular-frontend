@@ -134,8 +134,46 @@ define([], function () {
 
             $scope.htmlReady();
         }])
-        .controller('Users.Forgot', ['$scope', 'authService', function ($scope, authService) {
+        .controller('Users.Forgot', ['$scope', '$q', 'apiService', 'responseHandler',
+            function ($scope, $q, apiService, responseHandler) {
+
+            $scope.submit = function () {
+                var deferred = $q.defer();
+                $scope.promise = deferred.promise;
+                apiService('users/me/reset').actions.create({email: $scope.user.email}, function (err) {
+                    var msgs = {
+                        success: 'messages.users.request_reset_success'
+                    };
+                    responseHandler.handleResponse(err, deferred, msgs);
+                });
+            };
+
             $scope.htmlReady();
+        }])
+        .controller('Users.Reset', ['$scope', '$q', '$location', '$routeParams', 'apiService', 'responseHandler',
+            function ($scope, $q, $location, $routeParams, apiService, responseHandler) {
+                // TODO: this is redundant, merge with Users.Confirm
+                var deferred = $q.defer();
+                $scope.promise = deferred.promise;
+                async.waterfall([
+                    function (cb) {
+                        apiService('users/me/access_tokens').actions.create({
+                            single_access_token: $routeParams.token
+                        }, cb);
+                    },
+                    function (access_token, cb) {
+                        apiService().getCredentials(access_token, cb);
+                    }
+                ], function (err) {
+                    if (responseHandler.handleResponse(err, deferred)) {
+                        $scope.success = true;
+                        $scope.updateUser();
+                        $scope.$apply();
+                    } else {
+                        $scope.success = false;
+                        $scope.$apply();
+                    }
+                });
         }])
         .controller('Users.Logout', ['$scope', 'authService', function ($scope, authService) {
             authService.clearCredentials();

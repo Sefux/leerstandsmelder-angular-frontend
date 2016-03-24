@@ -82,6 +82,10 @@ define([
                     templateUrl: '/users_confirm.html',
                     controller: 'Users.Confirm'
                 });
+                $routeProvider.when('/users/reset/:token', {
+                    templateUrl: '/users_reset.html',
+                    controller: 'Users.Reset'
+                });
                 $routeProvider.when('/locations/create', {
                     templateUrl: '/locations_create.html',
                     controller: 'Locations.Create'

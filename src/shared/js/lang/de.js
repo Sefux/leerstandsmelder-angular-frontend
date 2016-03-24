@@ -44,6 +44,7 @@ define([], function () {
                 invalid_email: 'Ungültige E-Mail Adresse',
                 password_confirm_mismatch: 'Passwörter stimmen nicht überein.',
                 password_too_short: 'Passwort ist zu kurz (min. 8 Zeichen).',
+                reset_failed: 'Passwort Zurücksetzen fehlgeschlagen. Dieser Link ist nicht (mehr) gültig.',
                 too_many_failed_logins: 'Zu viele fehlgeschlagene Anmeldungen. Versuche es in fünf Minuten wieder.'
             }
         },
@@ -71,7 +72,10 @@ define([], function () {
         },
         messages: {
             users: {
+                confirmation_success: 'Deine E-Mail wurde erfolgreich bestätigt. Du bist jetzt eingeloggt!',
                 create_success: 'Deine Registrierung war erfolgreich. Du solltest jetzt eine E-Mail mit einem Bestätigungslink erhalten.',
+                request_reset_success: 'Du solltest nun eine E-Mail erhalten, die einen Link zum Zurücksetzen Deines Passworts enthält.',
+                reset_success: 'Du bist nun eingeloggt und kannst Dein Passwort ändern.',
                 update_success: 'Konto wurde erfolgreich aktualisiert.'
             }
         },

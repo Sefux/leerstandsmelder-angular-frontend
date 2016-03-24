@@ -44,6 +44,7 @@ define([], function () {
                 invalid_email: 'Invalid email.',
                 password_confirm_mismatch: 'Passwords do not match.',
                 password_too_short: 'Password is too short (min. 8 characters).',
+                reset_failed: 'Password reset failed. This link is invalid and may have already been used.',
                 too_many_failed_logins: 'Too many failed logins. Please try again in five minutes.'
             }
         },
@@ -69,7 +70,10 @@ define([], function () {
         },
         messages: {
             users: {
+                confirmation_success: 'Successfully confirmed! You are now logged in.',
                 create_success: 'Your registration was successful. Please check your emails for the confirmation link!',
+                request_reset_success: 'Password reset requested. You should now get an email containing a link to reset your password.',
+                reset_success: 'You are now logged in and may change your password.',
                 update_success: 'Account was successfully updated.'
             }
         },
