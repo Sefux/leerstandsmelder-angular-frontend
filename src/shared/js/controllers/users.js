@@ -65,8 +65,8 @@ define([], function () {
                     $scope.user.password.length === 0 ||
                     $scope.user.password !== $scope.user.password_confirm) {
                     delete $scope.user.password;
-                    delete $scope.user.password_confirm;
                 }
+                delete $scope.user.password_confirm;
                 apiService('users').actions.update('me', $scope.user, function (err) {
                     var msgs = {
                         success: 'messages.users.update_success'

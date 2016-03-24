@@ -13,6 +13,7 @@ include mixins/_style
                 +content('column', 'start center')
                     +input('text', 'user.login', 'users.username', null, null)
                     +input('password', 'user.password', 'users.password', null, null)
+                    +input('password','user.password_confirm', 'users.password_confirm', null, null)
                     +input('email', 'user.email', 'users.email', null, null)
                     +button('site.lang', 'language()','','fa-language',null)
         .md-actions(layout="row" layout-align="end center")

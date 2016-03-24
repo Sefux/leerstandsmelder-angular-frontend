@@ -16,7 +16,7 @@ md-content.md-padding
         span {{ 'author.on' | translate }} {{ location.created | date : 'dd.MM.yy' }}
     div(layout="row" layout-align="space-between start" ng-if="photos.length > 0")
         span(flex ng-repeat="photo in photos")
-            img(ng-src="{{ photo.thumb_url }}" height="120px")
+            img(ng-src="{{ photo.thumb_url }}" lightbox height="120px")
     p(ng-if="location.description")
         small {{location.description}}
 
