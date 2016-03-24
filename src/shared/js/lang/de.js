@@ -39,6 +39,7 @@ define([], function () {
             authorization_failed: 'Anmeldung fehlgeschlagen.',
             unknown: 'Ein unbekannter Fehler ist aufgetreten.',
             users: {
+                confirmation_failed: 'Bestätigung fehlgeschlagen. Möglicherweise wurde dieser Link bereits verwendet.',
                 email_exists: 'E-Mail Adresse ist bereits registriert.',
                 invalid_email: 'Ungültige E-Mail Adresse',
                 password_confirm_mismatch: 'Passwörter stimmen nicht überein.',

@@ -8,4 +8,7 @@ include mixins/_style
         md-card-content
             +layout('row','center center')
                 +content('column','start center')
-                    p {{ 'errors.users.user_confirm_failed' | translate }}
+                    p(ng-if='success === true') {{ 'errors.users.confirmation_success' | translate }}
+                    p(ng-if='success === true')
+                        a(href='/') {{ 'actions.next' | translate }}
+                    p(ng-if='success === false') {{ 'errors.users.confirmation_failed' | translate }}

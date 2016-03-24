@@ -36,9 +36,10 @@ define([], function () {
         },
         errors: {
             access_denied: 'You are not allowed to perform this action.',
-            unknown: 'An unknown error occurred.',
             authorization_failed: 'Login failed.',
+            unknown: 'An unknown error occurred.',
             users: {
+                confirmation_failed: 'Confirmation failed. This link might already be used.',
                 email_exists: 'This email is already registered.',
                 invalid_email: 'Invalid email.',
                 password_confirm_mismatch: 'Passwords do not match.',

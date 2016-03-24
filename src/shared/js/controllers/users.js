@@ -106,7 +106,12 @@ define([], function () {
                 }
             ], function (err) {
                 if (responseHandler.handleResponse(err, deferred)) {
+                    $scope.success = true;
                     $scope.updateUser();
+                    $scope.$apply();
+                } else {
+                    $scope.success = false;
+                    $scope.$apply();
                 }
             });
         }])
