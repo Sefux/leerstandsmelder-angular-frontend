@@ -28,8 +28,10 @@ md-toolbar.md-medium-tall(md-scroll-shrink md-shrink-speed-factor='0.5' ng-contr
                     +button_fab(null,'$mdOpenMenu()',null,'fa-map-marker')
                     md-menu-content(width='4')
 
-                        md-menu-item()
+                        md-menu-item(ng-if="userSession")
                             +button('locations.create_new',null,'','fa-plus-circle',null,'/locations/create')
+                        md-menu-item(ng-if="!userSession")
+                            +button('locations.create_new',null,'','fa-plus-circle',null,'/users/login')
                         md-menu-item(layout="row" layout-align="start center")
                             md-autocomplete(
                             ng-disabled="ctrl.isDisabled"
