@@ -77,8 +77,8 @@ define([], function () {
                 }
             });
         }])
-        .controller('Users.Confirm', ['$scope', '$q', '$location', '$routeParams', 'apiService', 'responseHandler',
-            function ($scope, $q, $location, $routeParams, apiService, responseHandler) {
+        .controller('Users.Confirm', ['$scope', '$rootScope', '$q', '$location', '$routeParams', 'apiService', 'responseHandler',
+            function ($scope, $rootScope, $q, $location, $routeParams, apiService, responseHandler) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
             async.waterfall([
@@ -93,7 +93,7 @@ define([], function () {
             ], function (err) {
                 if (responseHandler.handleResponse(err, deferred)) {
                     $scope.success = true;
-                    $scope.updateUser();
+                    $rootScope.$broadcast('currentUser:updated', true);
                     $scope.$apply();
                 } else {
                     $scope.success = false;

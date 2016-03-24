@@ -8,6 +8,9 @@ define([], function () {
         .directive('checkLogin', ['apiService', 'authService', function (apiService, authService) {
             return {
                 link: function (scope) {
+                    scope.$parent.$on('currentUser:updated', function () {
+                        scope.updateUser();
+                    });
                     scope.updateUser = function () {
                         if (authService.access_token) {
                             apiService('users').actions.find('me', function (err, res) {
