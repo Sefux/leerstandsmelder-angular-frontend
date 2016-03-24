@@ -1,4 +1,5 @@
 include mixins/_form
+include mixins/_media
 include mixins/_buttons
 include mixins/_layout
 include mixins/_style
@@ -15,4 +16,113 @@ md-content
 				#secondcontainer
 					#map(lsm-map ng-model='location' select-mode select-handler='updateLocation(latlon)' select-marker='marker')
 		div(flex="50")
-			include partials/_location_create
+			md-tabs(class="md-primary"  md-dynamic-height md-border-bottom md-no-pagination="false" md-swipe-content md-selected="selectedIndex")
+				md-tab(label='{{"creator.tabs.info" | translate }}')
+					md-content.pull-right()
+						+button("NEXT",'selectedIndex = 1','md-raised',null,null)
+					md-content.md-padding
+						md-content(flex)
+							div(layout-gt-xs="row" flex="60")
+								+input('text','location.title','locations.title', null, null)
+						md-content()
+							div(layout-gt-xs="row")
+								+input('textarea','location.description','locations.description', null, null)
+
+
+				md-tab(label='{{"creator.tabs.location" | translate }}')
+					md-content.pull-right()
+						+button("PREVIOUS",'selectedIndex = 0','md-raised',null,null)
+						+button("NEXT",'selectedIndex = 2','md-raised',null,null)
+
+					md-content.md-padding
+						//h2 {{"Location" | translate }}
+						+input('text','address.street','locations.street', null, null)
+						+input('text','address.city','locations.city', null, null)
+						+input('text','address.postcode','locations.postcode', null, null)
+						+button("Geodetails","showLatLng = !showLatLng",'md-raised',null,null)
+						+button("USE_DISPLAY_NAME_AS_TITLE","location.title = location.display_name; selectedIndex = 0",'md-raised',null,'showLatLng',null)
+						small(ng-show="showLatLng")
+							p
+								strong Display Name:&nbsp;
+								span {{location.display_name}}
+							p
+								strong Lat:&nbsp;
+								span {{marker.lat}}
+							p
+								strong Lng:&nbsp;
+								span {{marker.lng}}
+							hr
+							p
+								strong Data:&nbsp;
+								span © OpenStreetMap contributors,&nbsp;
+									a(href='http://www.openstreetmap.org/copyright') ODbL 1.0.
+
+				md-tab(label='{{"creator.tabs.details" | translate }}')
+					md-content.pull-right()
+						+button("PREVIOUS",'selectedIndex = 1','md-raised',null,null)
+						+button("NEXT",'selectedIndex = 3','md-raised',null,null)
+					md-content.md-padding
+						md-content(layout-gt-xs="row" layout-align="space-between start" flex)
+
+							md-input-container(flex="80")
+								label='location.emptySinceParsed'
+								input(
+								type="text"
+								ng-model='location.emptySinceParsed'
+								i18n='location.emptySinceParsed'
+								ng-disabled="true"
+								)
+								md-tooltip(md-direction='below') Use the slider
+						md-content(layout-gt-xs="row" layout-align="space-between start" flex)
+							div(flex="5")
+							md-slider.md-primary(
+							flex="80"
+							min="1"
+							max="121"
+							ng-model="location.emptySince"
+							aria-label="location.emptySince"
+							)
+							div(flex)
+								// md-discrete is a worse interaction. :(
+
+						md-content(layout-gt-xs="row")
+							+select('location.owner', '_sys.owner', false)
+						md-content(layout-gt-xs="row")
+							+select('location.buildingType', '_sys.buildingType', false)
+						md-content(layout-gt-xs="row")
+							+input('radio','location.degree','locations.degree', '_sys.degree', null)
+						md-content(layout-gt-xs="row")
+							+input('checkbox','location.rumor','locations.rumor', '_sys.rumor', null)
+
+				md-tab(label='{{"creator.tabs.preview" | translate }}')
+					md-content.md-padding
+						div(layout-gt-xs="row" layout-align="space-between start")
+							span(flex)
+								+button("EDIT_DETAILS","selectedIndex = 0",'md-raised',null,"!location.title || !location.description",null)
+							span.pull-right(flex)
+								+button_fab('submit','submit()','md-warn','fa-check','location')
+
+						p
+							strong {{ "location.title" | translate }} : {{location.title || "No Title"}}
+						p(ng-if="!location.description") {{"No Description" | translate}}
+						p(ng-if="location.description") {{location.description }}
+
+						hr
+						+button("EDIT LOCATION","selectedIndex = 1",'md-raised',null,"!address.street",null)
+						small
+							p(ng-if="location.emptySinceParsed") Empty for {{location.emptySinceParsed}}
+							p ADDRESS: {{address.street || "Unknown"}}
+							p CITY: {{address.postcode}} {{address.city || "Unknown"}}
+							p DEGREE OF EMPTINESS: {{location.degree || "Unknown"}}
+							p RUMORED DEMOLITION: {{location.rumor || "Unknown"}}
+							p BUILDING TYPE: {{location.buildingType || "Unknown"}}
+							p OWNER: {{location.owner || "Unknown"}}
+						hr
+						p(ng-if="!files") {{ "You may choose one or more image files or take a picture with your device's camera." | translate }}
+
+							+input('fileimage','assets.file','assets.file', null, null)
+							+button('Take a Picture','camera()','md-raised md-disabled','fa-camera',null)
+
+
+
+
