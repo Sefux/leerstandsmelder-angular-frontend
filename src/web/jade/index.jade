@@ -23,13 +23,16 @@ html(lang='en')
                     span {{ alert.message }}
         md-content(role='main' flex layout="row" ng-view cg-busy="{promise:promise,message:'Loading...',templateUrl:'partials/_busy.html',minDuration:0}")
         footer
-            md-content.metatext(layout='row' layout-align='start end' layout-padding)
+            md-content.metatext.metatext-bl(layout='row' layout-align='start end' layout-padding)
                 span {{ 'site.copyright_notice' | translate }}
                 span(flex)
-                a(href='/') {{ 'site.subnav.about' | translate }}
-                a(href='/') {{ 'site.subnav.contact' | translate }}
-                a(href='/') {{ 'site.subnav.developers' | translate }}
-                a(href='/') {{ 'site.subnav.imprint' | translate }}
+                a(href='/site/about') {{ 'site.subnav.about' | translate }}
+                a(href='/site/howto') {{ 'site.subnav.howto' | translate }}
+                a(href='http://my.loopto.do/loop-form.html?key=agtzfmxvb3BhYmFja3IRCxIETG9vcBiAgMC80sifCQw', target='_blank') {{ 'site.subnav.feedback' | translate }}
+                a(href='/site/developers') {{ 'site.subnav.developers' | translate }}
+                a(href='/site/press') {{ 'site.subnav.press' | translate }}
+                a(href='/site/terms') {{ 'site.subnav.terms' | translate }}
+                a(href='/site/imprint') {{ 'site.subnav.imprint' | translate }}
         scripts
             script(src='/js/leerstandsmelder-apiclient-web.js')
             script(src='/js/leerstandsmelder-angular-dependencies.min.js')

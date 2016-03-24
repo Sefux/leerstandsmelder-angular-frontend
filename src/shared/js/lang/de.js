@@ -92,9 +92,12 @@ define([], function () {
             no_latest_posts: 'Keine Neuesten Einträge',
             subnav: {
                 about: 'Über uns',
-                contact: 'Kontakt',
                 developers: 'Entwickler',
-                imprint: 'Impressum'
+                feedback: 'Feedback',
+                howto: 'So geht\'s',
+                imprint: 'Impressum',
+                press: 'Presse',
+                terms: 'AGB'
             },
             title: 'Leerstandsmelder'
         },

@@ -69,5 +69,18 @@ define([], function () {
                     return true;
                 }
             };
+        }])
+        .factory('staticContent', ['$translate', '$http', function ($translate, $http) {
+            return {
+                getMarkdown: function (slug, cb) {
+                    var lang = $translate.use().toString(),
+                        url = '/static/md/' + slug + '_' + lang + '.md';
+                    $http.get(url).then(function success(response) {
+                        cb(null, response.data);
+                    }, function error(response) {
+                        cb(new Error(response.statusText), null);
+                    });
+                }
+            };
         }]);
 });

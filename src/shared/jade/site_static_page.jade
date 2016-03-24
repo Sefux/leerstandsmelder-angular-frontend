@@ -1,0 +1,16 @@
+include mixins/_form
+include mixins/_buttons
+include mixins/_layout
+include mixins/_style
+// variables for the templates
+- mapFlex="50"
+//- mapStyle="height:calc(100% - 88px);width:100%;"
+- sideWidth="width:33%"
+md-content
+    div(layout="row" layout-sm="column" layout-wrap layout-fill)
+        div(flex="66")
+            .md-padding.type-post(btf-markdown='page.content')
+
+        md-content(flex="33" layout='column')
+            div(flex)
+                include partials/_recent_posts

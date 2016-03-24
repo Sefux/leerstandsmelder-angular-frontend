@@ -90,9 +90,12 @@ define([], function () {
             no_latest_posts: 'No Recent Posts',
             subnav: {
                 about: 'About',
-                contact: 'Contact',
                 developers: 'Developers',
-                imprint: 'Imprint'
+                feedback: 'Feedback',
+                howto: 'Howto',
+                imprint: 'Imprint',
+                press: 'Press',
+                terms: 'Terms'
             },
             title: 'Leerstandsmelder'
         },

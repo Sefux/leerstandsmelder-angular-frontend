@@ -24,6 +24,7 @@ define([
             'ngSanitize',
             'ngAnimate',
             'ngFileUpload',
+            'btford.markdown',
             'seo',
             'cgBusy',
             'angularPubsub',
@@ -100,6 +101,7 @@ define([
                 });
                 $routeProvider.when('/posts/:uuid', {templateUrl: '/posts_show.html', controller: 'Posts.Show'});
                 $routeProvider.when('/regions/:uuid', {templateUrl: '/regions_show.html', controller: 'Regions.Show'});
+                $routeProvider.when('/site/:slug', {templateUrl: '/site_static_page.html', controller: 'Site.StaticPage'});
 
                 $routeProvider.otherwise({redirectTo: '/'});
 
