@@ -4,15 +4,18 @@ define([], function () {
     return {
         actions: {
             cancel: 'Abbrechen',
+            choose_images: 'Wähle eines oder mehrere Bilder aus, oder mache ein Bild mit einer am Gerät verfügbaren Kamera.',
             delete: 'Löschen',
+            edit_details: 'Details bearbeiten',
             next: 'Weiter',
             previous: 'Zurück',
             show: 'Ansehen',
-            submit: 'Absenden'
+            submit: 'Absenden',
+            take_picture: 'Mach ein Foto',
+            use_slider: 'Benutze den Schieberegler'
         },
-        asset: {
-            description: 'Beschreibung',
-            title: 'Titel'
+        assets: {
+            file: 'Datei'
         },
         author: {
             by: 'von',
