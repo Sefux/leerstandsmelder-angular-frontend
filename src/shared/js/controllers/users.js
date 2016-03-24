@@ -17,27 +17,11 @@ define([], function () {
             };
             $scope.$parent.status = 'ready';
             $scope.submit = function () {
-
-                // early exits
-                // TODO: move this into the api for consistency across implementations
-
-                if (!(/^[a-zA-Z0-9._+-<]+@[a-zA-Z0-9.-]+\.[a-zA-Z>]{2,9}$/.test($scope.user.email))) {
-                    PubSub.publish('alert', 'error', 'errors.users.invalid_email');
-                    return false;
-                }
-
+                var deferred = $q.defer();
                 if ($scope.user.password !== $scope.user.password_confirm) {
                     PubSub.publish('alert', 'error', 'errors.users.password_confirm_mismatch');
-                    return false;
+                    return deferred.reject();
                 }
-
-
-                if ( $scope.user.password.length < 9 - 1 ) {
-                    PubSub.publish('alert', 'error', 'errors.users.password_too_short');
-                    return false;
-                }
-
-                var deferred = $q.defer();
                 $scope.promise = deferred.promise;
                 apiService('users').actions.create($scope.user, function (err, res) {
                     var msgs = {
@@ -46,11 +30,10 @@ define([], function () {
                     responseHandler.handleResponse(err, deferred, msgs);
                 });
             };
-
             $scope.htmlReady();
         }])
-        .controller('Users.Edit', ['$scope', '$q', 'apiService', 'responseHandler',
-            function ($scope, $q, apiService, responseHandler) {
+        .controller('Users.Edit', ['$scope', '$q', 'apiService', 'responseHandler', 'PubSub',
+            function ($scope, $q, apiService, responseHandler, PubSub) {
             var deferred = $q.defer();
             $scope.user = {
                 login: null,
@@ -62,9 +45,13 @@ define([], function () {
                 var deferred = $q.defer();
                 $scope.promise = deferred.promise;
                 if (!$scope.user.password ||
-                    $scope.user.password.length === 0 ||
-                    $scope.user.password !== $scope.user.password_confirm) {
+                    $scope.user.password.length === 0) {
                     delete $scope.user.password;
+                } else {
+                    if ($scope.user.password !== $scope.user.password_confirm) {
+                        PubSub.publish('alert', 'error', 'errors.users.password_confirm_mismatch');
+                        return deferred.reject();
+                    }
                 }
                 delete $scope.user.password_confirm;
                 apiService('users').actions.update('me', $scope.user, function (err) {
@@ -78,7 +65,6 @@ define([], function () {
                     }
                 });
             };
-
             $scope.promise = deferred.promise;
             apiService('users').actions.find('me', function (err, user) {
                 if (responseHandler.handleResponse(err, deferred)) {
@@ -136,7 +122,6 @@ define([], function () {
         }])
         .controller('Users.Forgot', ['$scope', '$q', 'apiService', 'responseHandler',
             function ($scope, $q, apiService, responseHandler) {
-
             $scope.submit = function () {
                 var deferred = $q.defer();
                 $scope.promise = deferred.promise;
@@ -147,33 +132,7 @@ define([], function () {
                     responseHandler.handleResponse(err, deferred, msgs);
                 });
             };
-
             $scope.htmlReady();
-        }])
-        .controller('Users.Reset', ['$scope', '$q', '$location', '$routeParams', 'apiService', 'responseHandler',
-            function ($scope, $q, $location, $routeParams, apiService, responseHandler) {
-                // TODO: this is redundant, merge with Users.Confirm
-                var deferred = $q.defer();
-                $scope.promise = deferred.promise;
-                async.waterfall([
-                    function (cb) {
-                        apiService('users/me/access_tokens').actions.create({
-                            single_access_token: $routeParams.token
-                        }, cb);
-                    },
-                    function (access_token, cb) {
-                        apiService().getCredentials(access_token, cb);
-                    }
-                ], function (err) {
-                    if (responseHandler.handleResponse(err, deferred)) {
-                        $scope.success = true;
-                        $scope.updateUser();
-                        $scope.$apply();
-                    } else {
-                        $scope.success = false;
-                        $scope.$apply();
-                    }
-                });
         }])
         .controller('Users.Logout', ['$scope', 'authService', function ($scope, authService) {
             authService.clearCredentials();

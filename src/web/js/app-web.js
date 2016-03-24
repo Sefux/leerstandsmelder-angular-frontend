@@ -84,7 +84,7 @@ define([
                 });
                 $routeProvider.when('/users/reset/:token', {
                     templateUrl: '/users_reset.html',
-                    controller: 'Users.Reset'
+                    controller: 'Users.Confirm'
                 });
                 $routeProvider.when('/locations/create', {
                     templateUrl: '/locations_create.html',
