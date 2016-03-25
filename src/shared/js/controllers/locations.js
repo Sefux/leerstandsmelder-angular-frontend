@@ -21,7 +21,7 @@ define([], function () {
                 var obj = {
                     subject_uuid: $scope.location.uuid,
                     body: $scope.new_comment.body,
-                    captcha: $scope.new_comment.captcha
+                    captcha: $scope.new_comment.captcha ? $scope.new_comment.captcha : 'nocaptcha'
                 };
                 apiService('comments').actions.create(obj, function (err, comment) {
                     var msgs = {
