@@ -14,17 +14,6 @@ md-toolbar.md-medium-tall(md-scroll-shrink md-shrink-speed-factor='0.5' ng-contr
 
             div(flex="5" layout="row" layout-align="end center")
                 md-menu()
-                    +button_fab(null,'$mdOpenMenu()',null,'fa-language')
-                    md-menu-content(width='4')
-                        // todo: loop through available languages
-                        md-menu-item(layout="row" layout-align="start center")
-                            +button('site.lang_de','useLanguage("de")','btn-default btn-small','fa-sign-in',null, null)
-
-                        md-menu-item(layout="row" layout-align="start center")
-                            +button('site.lang_en','useLanguage("en")','btn-default btn-small','fa-sign-in',null,null)
-
-            div(flex="5" layout="row" layout-align="end center")
-                md-menu()
                     +button_fab(null,'$mdOpenMenu()',null,'fa-map-marker')
                     md-menu-content(width='4')
 
@@ -52,6 +41,17 @@ md-toolbar.md-medium-tall(md-scroll-shrink md-shrink-speed-factor='0.5' ng-contr
                                     span.item-metadata
                                         span.item-metastat {{item.street}}, {{item.postcode}} {{item.city}}
                                 md-not-found {{'locations.none_found' | translate}}
+
+            div(flex="5" layout="row" layout-align="end center")
+                md-menu()
+                    +button_fab(null,'$mdOpenMenu()',null,'fa-language')
+                    md-menu-content(width='4')
+                        // todo: loop through available languages
+                        md-menu-item(layout="row" layout-align="start center")
+                            +button('site.lang_de','useLanguage("de")','btn-default btn-small','fa-sign-in',null, null)
+
+                        md-menu-item(layout="row" layout-align="start center")
+                            +button('site.lang_en','useLanguage("en")','btn-default btn-small','fa-sign-in',null,null)
 
             div(flex="5" layout="row" layout-align="end center")
                 md-menu(ng-if="!userSession")
