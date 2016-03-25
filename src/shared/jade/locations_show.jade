@@ -42,6 +42,4 @@ md-content(layout="row" layout-wrap layout-fill)
         p(ng-if="location.comments.length === 0")
             small {{ 'comments.no_comments' | translate }}
         hr
-        p
-            strong {{ 'comments.new_comment' | translate }}
-        +input('textarea','newComment','comments.comment_text', null, null)
+        include partials/_comment_form

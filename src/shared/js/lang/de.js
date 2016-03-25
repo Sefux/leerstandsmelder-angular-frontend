@@ -23,11 +23,15 @@ define([], function () {
             in: 'in',
             on: 'am'
         },
+        captcha: {
+            enter_captcha: 'Gib den Code ein'
+        },
         comments: {
             comment: 'Kommentar',
             comment_plural: 'Kommentare',
             comment_text: 'Kommentartext',
             new_comment: 'Neuer Kommentar',
+            new_comment_login: 'Melde Dich an, um einen neuen Kommentar zu schreiben.',
             no_comments: 'Keine Kommentare'
         },
         creator: {

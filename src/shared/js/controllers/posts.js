@@ -10,6 +10,9 @@ define([], function () {
             function ($scope, $q, $routeParams, apiService, responseHandler) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
+            $scope.submitComment = function () {
+
+            };
             async.waterfall([
                 function (cb) {
                     apiService('posts?sort=-created').actions.all(function (err, posts) {

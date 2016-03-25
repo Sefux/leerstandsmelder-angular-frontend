@@ -12,6 +12,9 @@ define([], function () {
             $scope.promise = deferred.promise;
             $scope.formTitle = 'Edit location';
             $scope.urlbase = '/locations/';
+            $scope.submitComment = function () {
+
+            };
             async.waterfall([
                 function (cb) {
                     apiService('locations').actions.find($routeParams.uuid, cb);

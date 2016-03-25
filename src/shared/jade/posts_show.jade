@@ -21,11 +21,7 @@ md-content(layout="row" layout-wrap layout-fill)
             p(ng-if="post.comments.length === 0")
                 small {{ "comments.no_comments" | translate }}
             hr
-            p
-                strong {{ "comments.new_comment" | translate }}
-            +input('textarea','newComment','comments.comment_text', null, null)
-            p
-                img(captcha)
+            include partials/_comment_form
     md-content(flex="33" layout='column')
         div(flex)
             include partials/_recent_posts
