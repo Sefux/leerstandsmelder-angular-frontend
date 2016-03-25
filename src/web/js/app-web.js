@@ -15,7 +15,8 @@ define([
     'controllers_posts',
     'controllers_regions',
     'directives_helpers',
-    'directives_map'
+    'directives_map',
+    'directives_widgets'
 ], function (lang_de, lang_en) {
     return angular.module('leerstandsmelder', [
             'ngAria',
@@ -34,6 +35,7 @@ define([
             'lsm.services.map',
             'lsm.directives.helpers',
             'lsm.directives.map',
+            'lsm.directives.widgets',
             'lsm.controllers.locations',
             'lsm.controllers.posts',
             'lsm.controllers.regions',

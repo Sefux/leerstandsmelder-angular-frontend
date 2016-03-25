@@ -26,13 +26,9 @@ define([], function () {
                         next();
                     }, function () {
                         $scope.locations = regions;
-                        apiService('posts?limit=6&sort=-created').actions.all(cb);
+                        cb();
                     });
                 },
-                function (posts, cb) {
-                    $scope.posts = posts;
-                    cb();
-                }
             ], function (err) {
                 if (responseHandler.handleResponse(err, deferred)) {
                     $scope.$apply();
@@ -59,11 +55,7 @@ define([], function () {
                     apiService('regions/' + $scope.region.uuid + '/locations').actions.all(cb);
                 },
                 function (locations, cb) {
-                    locations.results.sort(function (a, b) {
-                        return new Date(a.updated).getTime() - new Date(b.updated).getTime();
-                    });
                     $scope.locations = locations.results;
-                    $scope.recentLocations = $scope.locations.slice(0, 10);
                     cb();
                 }
             ], function (err) {

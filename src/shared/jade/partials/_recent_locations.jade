@@ -6,11 +6,11 @@ include ../mixins/_style
 
 +layout('column','center start',true)
     +content('column','center center')
-        h2(ng-if="recentLocations.length > 0") {{ "locations.recent_activity" | translate }} {{author.in}} {{region.title}}
-        h2(ng-if="recentLocations.length === 0") {{ "locations.no_recent_activity" | translate }} {{author.in}} {{region.title}}
+        h2(ng-if="locations.length > 0") {{ "locations.recent_activity" | translate }} {{author.in}} {{region.title}}
+        h2(ng-if="locations.length === 0") {{ "locations.no_recent_activity" | translate }} {{author.in}} {{region.title}}
 
-        md-list.md-dense(ng-if="recentLocations.length > 0")
-            md-list-item.md-2-line(ng-href='{{ "/locations/" + location.slug }}' ng-repeat='location in recentLocations')
+        md-list.md-dense(ng-if="locations.length > 0")
+            md-list-item.md-2-line(ng-href='{{ "/locations/" + location.slug }}' ng-repeat='location in locations')
                 img.md-avatar(ng-if='location.thumb_url' ng-src='{{location.thumb_url}}')
                 .md-list-item-text(layout='column')
                     h3 {{ location.title }}

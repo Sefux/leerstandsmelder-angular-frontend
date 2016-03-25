@@ -24,6 +24,7 @@
 
             directives_helpers: '/src/shared/js/directives/helpers',
             directives_map: '/src/shared/js/directives/map',
+            directives_widgets: '/src/shared/js/directives/widgets',
 
             leerstandsmelder: '/src/web/js/app-web'
         }
