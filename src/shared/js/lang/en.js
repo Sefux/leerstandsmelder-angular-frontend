@@ -20,8 +20,10 @@ define([], function () {
         },
         author: {
             by: 'by',
+            created: 'Created',
             in: 'in',
-            on: 'on'
+            on: 'on',
+            updated: 'Updated'
         },
         captcha: {
             enter_captcha: 'Enter the code'
@@ -98,6 +100,7 @@ define([], function () {
             },
             location: 'Location',
             location_plural: 'Locations',
+            my_locations: 'My Locations',
             no_recent_activity: 'No Recent Activity',
             none_found: 'No locations found.',
             owner: 'Owner',
@@ -128,6 +131,9 @@ define([], function () {
                 update_success: 'Account was successfully updated.'
             }
         },
+        regions: {
+            region: 'Region'
+        },
         site: {
             banned: 'Banned',
             copyright_notice: '© 2016 Leerstandsmelder.de',
@@ -154,6 +160,7 @@ define([], function () {
             logout: 'Logout',
             password: 'Password',
             password_confirm: 'Confirm Password',
+            settings: 'Settings',
             signup: 'Sign up',
             username: 'Username',
             login: 'Login'

@@ -1,0 +1,12 @@
+md-content(layout='column' layout-align="start center" flex="100")
+    md-list(layout-fill)
+        md-subheader.md-no-sticky {{ page.list_title | translate }}
+        md-list-item.md-2-line(ng-href='{{ "/locations/" + location.slug }}' ng-repeat='location in locations')
+            img.md-avatar(ng-if='location.thumb_url' ng-src='{{location.thumb_url}}')
+            .md-list-item-text(layout='column')
+                h3 {{ location.title }}
+                div(layout="row" layout-align="start end")
+                    span.metatext(flex) {{ location.street }}, {{ location.postcode }}
+                    span.metatext(flex) {{ 'regions.region' | translate }}: {{ location.region.title }}
+                    span.metatext(flex) {{ 'author.created' | translate }}: {{ location.created | date : 'dd.MM.yy HH:mm' }}
+                    span.metatext(flex) {{ 'author.updated' | translate }}: {{ location.created | date : 'dd.MM.yy HH:mm' }}

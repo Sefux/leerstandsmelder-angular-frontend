@@ -1,13 +1,13 @@
-include mixins/_form
-include mixins/_buttons
-include mixins/_layout
-include mixins/_style
+include ../mixins/_form
+include ../mixins/_buttons
+include ../mixins/_layout
+include ../mixins/_style
 
 +layout('column','center center',true)
     md-card()
         md-toolbar(md-scroll-shrink)
             +layout('row','center center','padding')
-                +headline("Profile")
+                +headline('users.settings')
         md-card-content
             +layout('row','center center')
                 +content('column', 'start center')
@@ -17,6 +17,6 @@ include mixins/_style
                     +input('email', 'user.email', 'users.email', null, null)
                     +input('password','user.password_confirm', 'users.password_confirm', null, null)
         .md-actions(layout="row" layout-align="start end")
-            +button('cancel','cancel()','md-raised','')
+            +button('actions.cancel','cancel()','md-raised','')
             span(flex)
-            +button_fab('submit','submit()','md-warn','fa-check')
+            +button_fab('actions.submit','submit()','md-warn','fa-check')

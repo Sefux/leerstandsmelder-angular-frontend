@@ -40,14 +40,17 @@ define([], function () {
                 }
             });
         }])
-        .controller('Locations.List', ['$scope', 'apiService', '$q', 'responseHandler',
+        .controller('Locations.User', ['$scope', 'apiService', '$q', 'responseHandler',
             function ($scope, apiService, $q, responseHandler) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
-            $scope.data = {};
-            apiService('locations?page=0&pagesize=1000&radius=2000&latitude=53.5653&longitude=10.0014').actions.all(function (err, locations) {
+            $scope.page = {
+                list_title: 'locations.my_locations',
+                list_title_empty: 'locations.my_locations_empty'
+            };
+            apiService('users/me/locations').actions.all(function (err, locations) {
                 if (responseHandler.handleResponse(err, deferred)) {
-                    $scope.data.locations = locations.results.sort(function (a, b) {
+                    $scope.locations = locations.results.sort(function (a, b) {
                         if (a.title < b.title) {
                             return -1;
                         } else if (a.title > b.title) {

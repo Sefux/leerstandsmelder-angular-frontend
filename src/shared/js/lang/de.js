@@ -20,8 +20,10 @@ define([], function () {
         },
         author: {
             by: 'von',
+            created: 'Erstellt',
             in: 'in',
-            on: 'am'
+            on: 'am',
+            updated: 'Aktualisiert'
         },
         captcha: {
             enter_captcha: 'Gib den Code ein'
@@ -98,6 +100,7 @@ define([], function () {
             },
             location: 'Leerstand',
             location_plural: 'Leerstände',
+            my_locations: 'Meine Leerstände',
             no_recent_activity: 'Keine Leerstände',
             none_found: 'Keine Leerstände gefunden.',
             owner: 'Eigentümer',
@@ -130,6 +133,9 @@ define([], function () {
                 update_success: 'Konto wurde erfolgreich aktualisiert.'
             }
         },
+        regions: {
+            region: 'Region'
+        },
         site: {
             banned: 'Gesperrt',
             copyright_notice: '© 2016 Leerstandsmelder.de',
@@ -156,6 +162,7 @@ define([], function () {
             logout: 'Abmelden',
             password: 'Passwort',
             password_confirm: 'Passwort bestätigen',
+            settings: 'Einstellungen',
             signup: 'Registrieren',
             username: 'Benutzername',
             login: 'Anmelden'
