@@ -83,12 +83,11 @@ define([], function () {
                 emptySince: null,
                 buildingType: null,
                 contributor_uuid: null,
-                display_name: null
-            };
-            $scope.address = {
+                display_name: null,
                 street: null,
                 city: null,
-                postcode: null
+                postcode: null,
+                country: null
             };
             $scope.assets = {
                 file: null
@@ -144,9 +143,14 @@ define([], function () {
                     }
                     lockUpdate = true;
                     if (!data.error) {
-                        $scope.address = mapService.createAddressFromGeo(data.address);
-                        $scope.location.display_name = data.display_name || '';
-
+                        var address = mapService.createAddressFromGeo(data.address);
+                        if (address) {
+                            $scope.location.street = address.street;
+                            $scope.location.city = address.city;
+                            $scope.location.postcode = address.postcode;
+                            $scope.location.country = address.country;
+                            //$scope.location.display_name = data.display_name || '';
+                        }
                     }
                 });
                 $scope.showLatLng = false;
@@ -154,9 +158,9 @@ define([], function () {
                 $scope.$apply();
             };
 
-            $scope.$watchCollection('address', function (newVal, oldVal) {
+            $scope.$watchGroup(['location.street', 'location.city', 'location.postcode'], function (newValues, oldValues) {
                 var changed = false,
-                    keys = Object.keys(newVal);
+                    keys = Object.keys(newValues);
 
                 if (lockUpdate) {
                     lockUpdate = false;
@@ -164,7 +168,7 @@ define([], function () {
                 }
 
                 for (var i = 0; i < keys.length; i += 1) {
-                    if (newVal[keys[i]] !== oldVal[keys[i]]) {
+                    if (newValues[keys[i]] !== oldValues[keys[i]]) {
                         changed = true;
                     }
                 }
@@ -176,7 +180,12 @@ define([], function () {
                         changeTimer = null;
                     }
                     changeTimer = window.setTimeout(function () {
-                        mapService.geoCode($scope.address, function (err, data) {
+                        mapService.geoCode({
+                            street: $scope.location.street,
+                            city: $scope.location.city,
+                            postcode: $scope.location.postcode,
+                            country: $scope.location.country
+                        }, function (err, data) {
                             if (data.length > 0) {
                                 $scope.marker.lat = data[0].lat;
                                 $scope.marker.lng = data[0].lon;
@@ -188,21 +197,25 @@ define([], function () {
             });
 
             $scope.submit = function () {
-                var deferred = $q.defer();
+                var deferred = $q.defer(),
+                    payload = $scope.location;
                 $scope.promise = deferred.promise;
-
-                var payload = $scope.location;
                 payload.lonlat = [$scope.marker.lng,$scope.marker.lat];
-                payload.city = $scope.address.city;
-                payload.street = $scope.address.street;
-                payload.postcode = $scope.address.postcode;
-                console.log('payload', payload);
-
                 async.waterfall([
                     function (cb) {
-                        apiService('locations').actions.create(payload, cb);
+                        apiService('regions?lat=' + $scope.marker.lat + '&lon=' + $scope.marker.lng).actions.all(cb);
+                    },
+                    function (region, cb) {
+                        if (region && region.length > 0) {
+                            payload.region_uuid = region[0].uuid;
+                            apiService('locations').actions.create(payload, cb);
+                        } else {
+                            cb(new Error('errors.regions.fetch_failed'),null);
+                        }
                     },
                     function (location, cb) {
+                        $scope.location.uuid = location.uuid;
+                        $scope.location.slug = location.slug;
                         if ($scope.files && $scope.files.length) {
                             async.mapSeries($scope.files, function (file, cb) {
                                 apiService('photos').actions.upload({
@@ -210,13 +223,17 @@ define([], function () {
                                     fields: {location_uuid: location.uuid}
                                 }, cb);
                             }, cb);
+                        } else {
+                            cb();
                         }
                     }
                 ], function (err) {
                     var msgs = {
                         success: 'msgs.locations.create_success'
                     };
-                    responseHandler.handleResponse(err, deferred, msgs);
+                    if (responseHandler.handleResponse(err, deferred, msgs)) {
+                        $location.path('/locations/' + $scope.location.slug);
+                    };
                 });
             };
         }])
@@ -224,8 +241,6 @@ define([], function () {
             function ($scope, $routeParams, $q, $location, apiService, responseHandler) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
-            $scope.formTitle = 'Edit location';
-
             $scope.submit = function () {
                 var deferred = $q.defer();
                 $scope.promiseString = 'Saving...';

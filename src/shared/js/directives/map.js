@@ -81,7 +81,8 @@ define(['lsmMapconfig'], function (lsmMapconfig) {
                     };
 
                     angular.element($window).ready(function () {
-                        if (attrs.selectMode) {setupMap(true, true);
+                        if (attrs.selectMode) {
+                            setupMap(true, false);
                             var marker = mapService.createMarker(null, {draggable: true, latlon: map.getCenter()});
                             marker.on('dragend', function (event) {
                                 var marker = event.target;

@@ -64,6 +64,7 @@ define([], function () {
             },
             city: 'City',
             create_new: 'Submit location',
+            create_success: 'Location successfully submitted',
             degree: 'Degree of Emptiness',
             degree_options: {
                 complete: 'Complete',

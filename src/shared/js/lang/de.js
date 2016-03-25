@@ -64,6 +64,7 @@ define([], function () {
             },
             city: 'Stadt',
             create_new: 'Leerstand melden',
+            create_success: 'Leerstand erfolgreich eingetragen',
             degree: 'Grad des Leerstands',
             degree_options: {
                 complete: 'Vollständig',

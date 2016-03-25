@@ -99,7 +99,6 @@ define([], function () {
                         method: 'GET', url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat +
                         '&lon=' + lon + '&zoom=18&addressdetails=1'
                     }).success(function (message) {
-                        console.log("apiMessage", message);
                         callback(null, message);
                     }).error(function (data, status) {
                         callback(new Error('Could not get address:'));
@@ -118,7 +117,6 @@ define([], function () {
                         url: 'https://nominatim.openstreetmap.org/search?format=json&q=' +
                         address.street + '+' + address.city + '+' + address.country
                     }).success(function (message) {
-                        console.log("apiMessage", message);
                         callback(null, message);
                     }).error(function (data, status) {
                         callback(new Error('Service error starring image:', data, status), null);

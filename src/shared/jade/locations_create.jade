@@ -22,25 +22,19 @@ md-content(layout="row" layout-sm="column" layout-wrap layout-fill)
                     +button("actions.next",'selectedIndex = 1','md-raised',null,null)
 
             md-tab(label='{{"creator.tabs.location" | translate }}')
-                md-content.md-padding
-                    //h2 {{"Location" | translate }}
-                    +input('text','location.street','locations.street', null, null)
-                    +input('text','location.city','locations.city', null, null)
-                    +input('text','location.postcode','locations.postcode', null, null)
-                    +button("Geodetails","showLatLng = !showLatLng",'md-raised',null,null)
-                    +button("USE_DISPLAY_NAME_AS_TITLE","location.title = location.display_name; selectedIndex = 0",'md-raised',null,'showLatLng',null)
-                    small(ng-show="showLatLng")
-                        p
-                            strong Display Name:&nbsp;
-                            span {{location.display_name}}
+                md-content(layout="row" layout-padding)
+                    md-content(flex)
+                        +input('text','location.street','locations.street', null, null)
+                        +input('text','location.city','locations.city', null, null)
+                        +input('text','location.postcode','locations.postcode', null, null)
+                    md-content(flex)
                         p
                             strong Lat:&nbsp;
                             span {{marker.lat}}
                         p
                             strong Lng:&nbsp;
                             span {{marker.lng}}
-                        hr
-                        p
+                        p.metatext
                             strong Data:&nbsp;
                             span © OpenStreetMap contributors,&nbsp;
                                 a(href='http://www.openstreetmap.org/copyright', target='_blank') ODbL 1.0.
