@@ -31,6 +31,11 @@ define([], function () {
         .directive('captcha', function () {
             return {
                 link: function (scope, elem, attrs) {
+                    scope.$parent.$on('captcha:update', function () {
+                        attrs.$set('src', '');
+                        attrs.$set('reset', false);
+                        attrs.$set('src', LEERSTANDSMELDER_API_HOST + '/captchas.png?r=' + Date.now());
+                    });
                     attrs.$set('src', LEERSTANDSMELDER_API_HOST + '/captchas.png?r=' + Date.now());
                 }
             };

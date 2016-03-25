@@ -29,6 +29,8 @@ define([], function () {
                     };
                     if (responseHandler.handleResponse(err, deferred, msgs)) {
                         $scope.location.comments.push(comment);
+                        $scope.new_comment = {};
+                        $scope.$broadcast('captcha:update', true);
                         $scope.$apply();
                     }
                 });

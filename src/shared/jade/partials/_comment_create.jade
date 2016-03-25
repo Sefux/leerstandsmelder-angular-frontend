@@ -7,7 +7,7 @@ div(check-login flex="50")
     div(ng-if="userSession")
         +input('textarea','new_comment.body','comments.comment_text', null, null)
         div(layout="row" layout-align="end top")
-            img.captcha(captcha)
+            img.captcha(captcha reset='resetCaptcha()')
             div(flex layout-padding)
                 +input('text','new_comment.captcha','captcha.enter_captcha', null, null)
         hr

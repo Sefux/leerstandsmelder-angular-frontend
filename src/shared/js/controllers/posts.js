@@ -6,11 +6,14 @@ define([], function () {
         [
             'lsm.services.api'
         ])
-        .controller('Posts.Show', ['$scope', '$q', '$routeParams', 'apiService', 'responseHandler',
-            function ($scope, $q, $routeParams, apiService, responseHandler) {
+        .controller('Posts.Show', ['$scope', '$rootScope', '$q', '$routeParams', 'apiService', 'responseHandler',
+            function ($scope, $rootScope, $q, $routeParams, apiService, responseHandler) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
             $scope.new_comment = {};
+            $scope.captcha = {
+                reset: false
+            };
             $scope.submitComment = function () {
                 var deferred = $q.defer();
                 $scope.promise = deferred.promise;
@@ -28,6 +31,8 @@ define([], function () {
                     };
                     if (responseHandler.handleResponse(err, deferred, msgs)) {
                         $scope.post.comments.push(comment);
+                        $scope.new_comment = {};
+                        $scope.$broadcast('captcha:update', true);
                         $scope.$apply();
                     }
                 });
