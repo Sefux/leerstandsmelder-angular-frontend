@@ -47,7 +47,6 @@ define([], function () {
                 }
             ], function (err) {
                 if (responseHandler.handleResponse(err, deferred)) {
-                    $scope.$apply();
                     $scope.htmlReady();
                 }
             });
@@ -115,24 +114,24 @@ define([], function () {
                         text:"Empty at least right now"}
                 ],
                 degree: [
-                    "Complete",
-                    "Partial"
+                    'locations.degree_options.complete',
+                    'locations.degree_options.partial'
                 ],
                 rumor: [
-                    "Yes"
+                    'locations.demolition_rumor_yes'
                 ],
                 buildingType: [
-                    "Residential",
-                    "Commercial",
-                    "Industrial",
-                    "Historical",
-                    "Public Work"
+                    'locations.building_type_options.residential',
+                    'locations.building_type_options.commercial',
+                    'locations.building_type_options.industrial',
+                    'locations.building_type_options.historical',
+                    'locations.building_type_options.public_work'
                 ],
                 owner: [
-                    "private",
-                    "business",
-                    "public",
-                    "city"
+                    'locations.owner_options.private',
+                    'locations.owner_options.business',
+                    'locations.owner_options.public',
+                    'locations.owner_options.city'
                 ]
             };
 
@@ -146,7 +145,7 @@ define([], function () {
                     lockUpdate = true;
                     if (!data.error) {
                         $scope.address = mapService.createAddressFromGeo(data.address);
-                        $scope.location.display_name = data.display_name || "";
+                        $scope.location.display_name = data.display_name || '';
 
                     }
                 });
@@ -154,10 +153,6 @@ define([], function () {
 
                 $scope.$apply();
             };
-
-            $scope.$watch('location.emptySince', function(newVal) {
-                $scope.location.emptySinceParsed = mapService.rewriteDate(newVal);
-            });
 
             $scope.$watchCollection('address', function (newVal, oldVal) {
                 var changed = false,
@@ -228,7 +223,6 @@ define([], function () {
         .controller('Locations.Edit', ['$scope', '$routeParams', '$q', '$location', 'apiService', 'responseHandler',
             function ($scope, $routeParams, $q, $location, apiService, responseHandler) {
             var deferred = $q.defer();
-            $scope.promiseString = 'Loading Location...';
             $scope.promise = deferred.promise;
             $scope.formTitle = 'Edit location';
 

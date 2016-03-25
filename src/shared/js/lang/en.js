@@ -54,18 +54,49 @@ define([], function () {
         locations: {
             address: 'Address',
             building_type: 'Building Type',
+            building_type_options: {
+                residential: 'Residential',
+                commercial: 'Commercial',
+                industrial: 'Industrial',
+                historical: 'Historical',
+                public_work: 'Public Work'
+            },
             city: 'City',
             create_new: 'Submit location',
             degree: 'Degree of Emptiness',
+            degree_options: {
+                complete: 'Complete',
+                partial: 'Partial'
+            },
             description: 'Description',
             demolition_rumor: 'Rumors of Demolition',
+            demolition_rumor_yes: 'Yes',
             edit: 'Edit Location',
             empty_for: 'Empty for',
+            empty_options: {
+                less_than_one_quarter_year: 'less than one quarter of 1 year',
+                less_than_one_half_year: 'less than one half of 1 year',
+                less_than_three_quarters_year: 'less than three quarters of 1 year',
+                less_than_one_year: 'less than 1 year',
+                more_than_ten_years: 'more than 10 years',
+                one_quarter: 'one quarter',
+                one_half: 'one half',
+                three_quarters: 'three quarters',
+                year: 'year',
+                year_plural: 'years',
+                and: 'and'
+            },
             location: 'Location',
             location_plural: 'Locations',
             no_recent_activity: 'No Recent Activity',
             none_found: 'No locations found.',
             owner: 'Owner',
+            owner_options: {
+                private: 'Private',
+                business: 'Business',
+                public: 'Public',
+                city: 'City'
+            },
             recent_activity: 'Latest Activity',
             search: 'Search',
             title: 'Title',

@@ -25,6 +25,8 @@
             directives_helpers: '/src/shared/js/directives/helpers',
             directives_map: '/src/shared/js/directives/map',
 
+            filters_rewrite: '/src/shared/js/filters/rewrite',
+
             leerstandsmelder: '/src/web/js/app-web'
         }
     });

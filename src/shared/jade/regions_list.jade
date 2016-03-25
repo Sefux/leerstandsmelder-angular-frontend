@@ -2,17 +2,9 @@ include mixins/_form
 include mixins/_buttons
 include mixins/_layout
 include mixins/_style
-// variables for the templates
-- mapFlex="66"
-- mapModel="cities"
-//- mapStyle="height:calc(100% - 88px);width:100%;"
-- sideWidth="width:33%"
 
-div(layout="row" layout-sm="column" layout-wrap layout-fill)
-	md-content(flex="66")
-		#mapContainer()
-			#secondcontainer
-				#map(lsm-map ng-model=mapModel geosearch=0 zoom=6 urlbase='urlbase' center='mapcenter' style=mapStyle mapType='mapType' locations='locations')
+md-content(layout="row" layout-sm="column" layout-wrap layout-fill)
+	#map(flex="66" lsm-map ng-model=mapModel geosearch=0 zoom=6 urlbase='urlbase' center='mapcenter' style=mapStyle mapType='mapType' locations='locations')
 	md-content(flex="33" layout='column')
 		div(flex)
 			include partials/_recent_posts

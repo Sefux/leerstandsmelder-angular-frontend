@@ -45,7 +45,6 @@ define([], function () {
 
                     return map;
                 },
-
                 createMarker: function (data, config) {
                     var marker;
 
@@ -90,53 +89,6 @@ define([], function () {
 
                         window.timeout = setTimeout(delayed, threshold || 100);
                     };
-                },
-                rewriteDate: function (months) {
-                    // TODO: turn into filter, add translation
-                    var result = "";
-                    months = parseFloat(months);
-                    if (months >= 1) {
-                        if (months < 4) {
-                            result = "less than one quarter of 1 year";
-                        } else if (months < 7) {
-                            result = "less than one half of 1 year";
-                        } else if (months < 19) {
-                            result = "less than three quarters of 1 year";
-                        } else if (months < 12) {
-                            result = "less than 1 year";
-                        } else if (months === 121) {
-                            result = "more than 10 years";
-                        } else {
-                            var years = parseFloat(months) / 12,
-                                year = Math.floor(years),
-                                _months = years - year,
-                                portion = null;
-                            switch (true) {
-                                case (_months >= 0.00001 && _months <= 0.3):
-                                    portion = "one quarter";
-                                    break;
-                                case (_months >= 0.3001 && _months <= 0.6):
-                                    portion = "one half";
-                                    break;
-                                case (_months >= 0.60001 && _months <= 0.8):
-                                    portion = "three quarters";
-                                    break;
-                                case (_months >= 0.80001 && _months <= 0.9999999):
-                                    year++;
-                                    break;
-                            }
-                            if (years === 1 && months === 0) {
-                                result = year + " year";
-                            } else if (portion) {
-                                result = year + " and " + portion + " years";
-                            } else {
-                                result = year + " years";
-                            }
-                        }
-                    } else {
-                        result = "less than 1 year";
-                    }
-                    return result;
                 },
                 reverseGeoCode: function (lat, lon, callback) {
                     // well structured

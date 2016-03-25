@@ -15,7 +15,8 @@ define([
     'controllers_posts',
     'controllers_regions',
     'directives_helpers',
-    'directives_map'
+    'directives_map',
+    'filters_rewrite'
 ], function (lang_de, lang_en) {
     return angular.module('leerstandsmelder', [
             'ngAria',
@@ -39,7 +40,8 @@ define([
             'lsm.controllers.regions',
             'lsm.controllers.site',
             'lsm.controllers.users',
-            'lsm.controllers.widgets'
+            'lsm.controllers.widgets',
+            'lsm.filters.rewrite'
         ])
         .config([
             '$routeProvider',

@@ -62,7 +62,7 @@ define(['lsmMapconfig'], function (lsmMapconfig) {
                         resizeMap(element);
                     });
 
-                    angular.element($window).ready(function () {
+                    var setupMap = function () {
                         resizeMap(element);
                         map = mapService.initMap(
                             element,
@@ -79,8 +79,11 @@ define(['lsmMapconfig'], function (lsmMapconfig) {
                             return e;
                         };
                         map.addLayer(leafletView);
+                    };
 
+                    angular.element($window).ready(function () {
                         if (attrs.selectMode) {
+                            setupMap();
                             var marker = mapService.createMarker(null, {draggable: true, latlon: map.getCenter()});
                             marker.on('dragend', function (event) {
                                 var marker = event.target;
@@ -109,21 +112,26 @@ define(['lsmMapconfig'], function (lsmMapconfig) {
                         } else {
                             scope.$watch(attrs.locations, function (data) {
                                 if (scope.$eval(attrs.locations)) {
+                                    setupMap();
                                     updatedMapData(scope.$eval(attrs.locations), function (err) {
                                         if (err) {
                                             console.log('error creating markers', err);
                                         }
+                                        // TODO: temporary hack for issue #15, a proper solution would be nicer...
+                                        window.setTimeout(function () {
+                                            map.invalidateSize(false);
+                                        }, 500);
                                     });
                                 }
                             });
                         }
                         scope.$watch(attrs.zoom, function (data) {
-                            if (scope.$eval(attrs.zoom)) {
+                            if (map && scope.$eval(attrs.zoom)) {
                                 map.setView(scope.center, scope.zoom || 16);
                             }
                         });
                         scope.$watch(attrs.center, function (data) {
-                            if (scope.$eval(attrs.center)) {
+                            if (map && scope.$eval(attrs.center)) {
                                 map.setView(scope.center, scope.zoom || 16);
                             }
                         });

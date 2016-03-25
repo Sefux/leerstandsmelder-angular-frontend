@@ -54,18 +54,49 @@ define([], function () {
         locations: {
             address: 'Adresse',
             building_type: 'Gebäudeart',
+            building_type_options: {
+                residential: 'Wohngebäude',
+                commercial: 'Gewerblich',
+                industrial: 'Industriell',
+                historical: 'Historisch',
+                public_work: 'Öffentlich'
+            },
             city: 'Stadt',
             create_new: 'Leerstand melden',
             degree: 'Grad des Leerstands',
+            degree_options: {
+                complete: 'Vollständig',
+                partial: 'Teilweise'
+            },
             demolition_rumor: 'Abrissgerüchte',
+            demolition_rumor_yes: 'Ja',
             description: 'Beschreibung',
             edit: 'Leerstand bearbeiten',
             empty_for: 'Leer seit',
+            empty_options: {
+                less_than_one_quarter_year: 'weniger als ein viertel Jahr',
+                less_than_one_half_year: 'wengier als ein halbes Jahr',
+                less_than_three_quarters_year: 'weniger als ein dreiviertel Jahr',
+                less_than_one_year: 'weniger als ein Jahr',
+                more_than_ten_years: 'mehr als zehn Jahre',
+                one_quarter: 'ein viertel',
+                one_half: 'one halbes',
+                three_quarters: 'dreiviertel',
+                year: 'Jahr',
+                year_plural: 'Jahre',
+                and: 'und'
+            },
             location: 'Leerstand',
             location_plural: 'Leerstände',
             no_recent_activity: 'Keine Leerstände',
             none_found: 'Keine Leerstände gefunden.',
             owner: 'Eigentümer',
+            owner_options: {
+                private: 'Privat',
+                business: 'Gewerblich',
+                public: 'Öffentlich',
+                city: 'Stadt'
+            },
             postcode: 'Postleitzahl',
             recent_activity: 'Neueste Leerstände',
             search: 'Suchen',

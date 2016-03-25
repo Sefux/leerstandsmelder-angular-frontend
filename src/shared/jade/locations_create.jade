@@ -3,125 +3,112 @@ include mixins/_media
 include mixins/_buttons
 include mixins/_layout
 include mixins/_style
-// variables for the templates
-- mapFlex="50"
-//- mapStyle="height:calc(100% - 88px);width:100%;"
-- sideWidth="width:33%"
-- sideModel="newest"
 
-md-content
-	div(layout="row" layout-sm="column" layout-wrap layout-fill)
-		div(flex="50")
-			#mapContainer()
-				#secondcontainer
-					#map(lsm-map ng-model='location' select-mode select-handler='updateLocation(latlon)' select-marker='marker')
-		div(flex="50")
-			md-tabs(class="md-primary"  md-dynamic-height md-border-bottom md-no-pagination="false" md-swipe-content md-selected="selectedIndex")
-				md-tab(label='{{"creator.tabs.info" | translate }}')
-					md-content.pull-right()
-						+button("actions.next",'selectedIndex = 1','md-raised',null,null)
-					md-content.md-padding
-						md-content(flex)
-							div(layout-gt-xs="row" flex="60")
-								+input('text','location.title','locations.title', null, null)
-						md-content()
-							div(layout-gt-xs="row")
-								+input('textarea','location.description','locations.description', null, null)
+md-content(layout="row" layout-sm="column" layout-wrap layout-fill)
+	#map(lsm-map flex='50' ng-model='location' select-mode select-handler='updateLocation(latlon)' select-marker='marker')
+	md-content(flex="50")
+		md-tabs(class="md-primary"  md-dynamic-height md-border-bottom md-no-pagination="false" md-swipe-content md-selected="selectedIndex")
+			md-tab(label='{{"creator.tabs.info" | translate }}')
+				md-content.pull-right()
+					+button("actions.next",'selectedIndex = 1','md-raised',null,null)
+				md-content.md-padding
+					md-content(flex)
+						div(layout-gt-xs="row" flex="60")
+							+input('text','location.title','locations.title', null, null)
+					md-content()
+						div(layout-gt-xs="row")
+							+input('textarea','location.description','locations.description', null, null)
 
 
-				md-tab(label='{{"creator.tabs.location" | translate }}')
-					md-content.pull-right()
-						+button("actions.previous",'selectedIndex = 0','md-raised',null,null)
-						+button("actions.next",'selectedIndex = 2','md-raised',null,null)
+			md-tab(label='{{"creator.tabs.location" | translate }}')
+				md-content.pull-right()
+					+button("actions.previous",'selectedIndex = 0','md-raised',null,null)
+					+button("actions.next",'selectedIndex = 2','md-raised',null,null)
 
-					md-content.md-padding
-						//h2 {{"Location" | translate }}
-						+input('text','address.street','locations.street', null, null)
-						+input('text','address.city','locations.city', null, null)
-						+input('text','address.postcode','locations.postcode', null, null)
-						+button("Geodetails","showLatLng = !showLatLng",'md-raised',null,null)
-						+button("USE_DISPLAY_NAME_AS_TITLE","location.title = location.display_name; selectedIndex = 0",'md-raised',null,'showLatLng',null)
-						small(ng-show="showLatLng")
-							p
-								strong Display Name:&nbsp;
-								span {{location.display_name}}
-							p
-								strong Lat:&nbsp;
-								span {{marker.lat}}
-							p
-								strong Lng:&nbsp;
-								span {{marker.lng}}
-							hr
-							p
-								strong Data:&nbsp;
-								span © OpenStreetMap contributors,&nbsp;
-									a(href='http://www.openstreetmap.org/copyright', target='_blank') ODbL 1.0.
-
-				md-tab(label='{{"creator.tabs.details" | translate }}')
-					md-content.pull-right()
-						+button("actions.previous",'selectedIndex = 1','md-raised',null,null)
-						+button("actions.next",'selectedIndex = 3','md-raised',null,null)
-					md-content.md-padding
-						md-content(layout-gt-xs="row" layout-align="space-between start" flex)
-
-							md-input-container(flex="80")
-								label='locations.empty_for'
-								input(
-								type="text"
-								ng-model='location.emptySinceParsed'
-								i18n='locations.empty_for'
-								ng-disabled="true"
-								)
-								md-tooltip(md-direction='below') {{ 'actions.use_slider' | translate }}
-						md-content(layout-gt-xs="row" layout-align="space-between start" flex)
-							div(flex="5")
-							md-slider.md-primary(
-							flex="80"
-							min="1"
-							max="121"
-							ng-model="location.emptySince"
-							aria-label="locations.empty_for"
-							)
-							div(flex)
-								// md-discrete is a worse interaction. :(
-
-						md-content(layout-gt-xs="row")
-							+select('location.owner', '_sys.owner', false)
-						md-content(layout-gt-xs="row")
-							+select('location.buildingType', '_sys.buildingType', false)
-						md-content(layout-gt-xs="row")
-							+input('radio','location.degree','locations.degree', '_sys.degree', null)
-						md-content(layout-gt-xs="row")
-							+input('checkbox','location.rumor','locations.rumor', '_sys.rumor', null)
-
-				md-tab(label='{{"creator.tabs.preview" | translate }}')
-					md-content.md-padding
-						div(layout-gt-xs="row" layout-align="space-between start")
-							span(flex)
-								+button("actions.edit_details","selectedIndex = 0",'md-raised',null,"!location.title || !location.description",null)
-							span.pull-right(flex)
-								+button_fab('submit','submit()','md-warn','fa-check','location')
-
+				md-content.md-padding
+					//h2 {{"Location" | translate }}
+					+input('text','address.street','locations.street', null, null)
+					+input('text','address.city','locations.city', null, null)
+					+input('text','address.postcode','locations.postcode', null, null)
+					+button("Geodetails","showLatLng = !showLatLng",'md-raised',null,null)
+					+button("USE_DISPLAY_NAME_AS_TITLE","location.title = location.display_name; selectedIndex = 0",'md-raised',null,'showLatLng',null)
+					small(ng-show="showLatLng")
 						p
-							strong {{ "locations.title" | translate }} : {{location.title}}
-						p(ng-if="location.description") {{location.description }}
-
+							strong Display Name:&nbsp;
+							span {{location.display_name}}
+						p
+							strong Lat:&nbsp;
+							span {{marker.lat}}
+						p
+							strong Lng:&nbsp;
+							span {{marker.lng}}
 						hr
-						+button("actions.edit","selectedIndex = 1",'md-raised',null,"!address.street",null)
-						small
-							p(ng-if="location.emptySinceParsed") Empty for {{location.emptySinceParsed}}
-							p {{ 'locations.address' | translate }}: {{address.street || ('locations.unknown' | translate)}}
-							p {{ 'locations.city' | translate }}: {{address.postcode}} {{address.city || ('locations.unknown' | translate)}}
-							p {{ 'locations.degree' | translate }}: {{location.degree || ('locations.unknown' | translate)}}
-							p {{ 'locations.demolition_rumor' | translate }}: {{location.rumor || ('locations.unknown' | translate)}}
-							p {{ 'locations.building_type' | translate }}: {{location.buildingType || ('locations.unknown' | translate)}}
-							p {{ 'locations.owner' | translate }}: {{location.owner || ('locations.unknown' | translate)}}
-						hr
-						p(ng-if='!files') {{ 'actions.choose_images' | translate }}
+						p
+							strong Data:&nbsp;
+							span © OpenStreetMap contributors,&nbsp;
+								a(href='http://www.openstreetmap.org/copyright', target='_blank') ODbL 1.0.
 
-							+input('fileimage','assets.file','assets.file', null, null)
-							+button('actions.take_picture','camera()','md-raised md-disabled','fa-camera',null)
+			md-tab(label='{{"creator.tabs.details" | translate }}')
+				md-content.pull-right()
+					+button("actions.previous",'selectedIndex = 1','md-raised',null,null)
+					+button("actions.next",'selectedIndex = 3','md-raised',null,null)
+				md-content.md-padding
+					md-content(layout-gt-xs="row" layout-align="space-between start" flex)
 
+						md-input-container(flex="80")
+							label='locations.empty_for'
+							input(
+							type="text"
+							ng-model='location.emptySinceParsed'
+							i18n='locations.empty_for'
+							ng-disabled="true"
+							)
+							md-tooltip(md-direction='below') {{ 'actions.use_slider' | translate }}
+					md-content(layout-gt-xs="row" layout-align="space-between start" flex)
+						div(flex="5")
+						md-slider.md-primary(
+						flex="80"
+						min="1"
+						max="121"
+						ng-model="location.emptySince"
+						aria-label="locations.empty_for"
+						)
+						div(flex)
+							// md-discrete is a worse interaction. :(
 
+					md-content(layout-gt-xs="row")
+						+select('location.owner', '_sys.owner', false)
+					md-content(layout-gt-xs="row")
+						+select('location.buildingType', '_sys.buildingType', false)
+					md-content(layout-gt-xs="row")
+						+input('radio','location.degree','locations.degree', '_sys.degree', null)
+					md-content(layout-gt-xs="row")
+						+input('checkbox','location.rumor','locations.rumor', '_sys.rumor', null)
 
+			md-tab(label='{{"creator.tabs.preview" | translate }}')
+				md-content.md-padding
+					div(layout-gt-xs="row" layout-align="space-between start")
+						span(flex)
+							+button("actions.edit_details","selectedIndex = 0",'md-raised',null,"!location.title || !location.description",null)
+						span.pull-right(flex)
+							+button_fab('submit','submit()','md-warn','fa-check','location')
 
+					p
+						strong {{ "locations.title" | translate }} : {{location.title}}
+					p(ng-if="location.description") {{location.description }}
+
+					hr
+					+button("actions.edit","selectedIndex = 1",'md-raised',null,"!address.street",null)
+					small
+						p(ng-if="location.emptySinceParsed") Empty for {{location.emptySinceParsed}}
+						p {{ 'locations.address' | translate }}: {{address.street || ('locations.unknown' | translate)}}
+						p {{ 'locations.city' | translate }}: {{address.postcode}} {{address.city || ('locations.unknown' | translate)}}
+						p {{ 'locations.degree' | translate }}: {{location.degree || ('locations.unknown' | translate)}}
+						p {{ 'locations.demolition_rumor' | translate }}: {{location.rumor || ('locations.unknown' | translate)}}
+						p {{ 'locations.building_type' | translate }}: {{location.buildingType || ('locations.unknown' | translate)}}
+						p {{ 'locations.owner' | translate }}: {{location.owner || ('locations.unknown' | translate)}}
+					hr
+					p(ng-if='!files') {{ 'actions.choose_images' | translate }}
+
+						+input('fileimage','assets.file','assets.file', null, null)
+						+button('actions.take_picture','camera()','md-raised md-disabled','fa-camera',null)
