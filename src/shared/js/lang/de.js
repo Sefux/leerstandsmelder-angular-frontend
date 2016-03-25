@@ -6,6 +6,7 @@ define([], function () {
             cancel: 'Abbrechen',
             choose_images: 'Wähle eines oder mehrere Bilder aus, oder mache ein Bild mit einer am Gerät verfügbaren Kamera.',
             delete: 'Löschen',
+            edit: 'Bearbeiten',
             edit_details: 'Details bearbeiten',
             next: 'Weiter',
             previous: 'Zurück',

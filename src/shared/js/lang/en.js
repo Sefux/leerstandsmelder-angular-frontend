@@ -6,6 +6,7 @@ define([], function () {
             cancel: 'Cancel',
             choose_images: 'You may choose one or more image files or take a picture with your device\'s camera.',
             delete: 'Delete',
+            edit: 'Edit',
             edit_details: 'Edit details',
             next: 'Weiter',
             previous: 'Zurück',

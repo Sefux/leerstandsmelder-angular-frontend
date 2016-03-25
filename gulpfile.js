@@ -27,7 +27,6 @@ var banner = ['/**',
 
 gulp.task('js-deps', function () {
     return gulp.src([
-        // TODO: think about if all this isn't a bit bloated...
         'bower_components/ng-file-upload/ng-file-upload-shim.min.js',
         'bower_components/angular/angular.min.js',
         'bower_components/angular-animate/angular-animate.min.js',
@@ -51,7 +50,6 @@ gulp.task('js-deps', function () {
         'bower_components/leaflet-minimap/dist/Control.MiniMap.min.js',
         'bower_components/L.GeoSearch/src/js/l.control.geosearch.js',
         'bower_components/L.GeoSearch/src/js/l.geosearch.provider.openstreetmap.js',
-        //'bower_components/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.min.js',
         'bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js',
         'bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js',
         'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js'

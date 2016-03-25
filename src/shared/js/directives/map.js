@@ -13,7 +13,6 @@ define(['lsmMapconfig'], function (lsmMapconfig) {
                     mapType: '=',
                     center: '=',
                     selectMode: '=',
-                    geosearch: '=',
                     selectHandler: '&',
                     selectMarker: '='
                 },
@@ -62,14 +61,14 @@ define(['lsmMapconfig'], function (lsmMapconfig) {
                         resizeMap(element);
                     });
 
-                    var setupMap = function () {
+                    var setupMap = function (miniMap, geoSearch) {
                         resizeMap(element);
                         map = mapService.initMap(
                             element,
                             lsmMapconfig,
                             {latlon: scope.center, zoom: scope.zoom},
-                            true,
-                            scope.$eval(attrs.geosearch)
+                            miniMap,
+                            geoSearch
                         );
                         leafletView = new PruneClusterForLeaflet();
                         leafletView.BuildLeafletClusterIcon = function (cluster) {
@@ -82,8 +81,7 @@ define(['lsmMapconfig'], function (lsmMapconfig) {
                     };
 
                     angular.element($window).ready(function () {
-                        if (attrs.selectMode) {
-                            setupMap();
+                        if (attrs.selectMode) {setupMap(true, true);
                             var marker = mapService.createMarker(null, {draggable: true, latlon: map.getCenter()});
                             marker.on('dragend', function (event) {
                                 var marker = event.target;
@@ -112,7 +110,7 @@ define(['lsmMapconfig'], function (lsmMapconfig) {
                         } else {
                             scope.$watch(attrs.locations, function (data) {
                                 if (scope.$eval(attrs.locations)) {
-                                    setupMap();
+                                    setupMap(true, false);
                                     updatedMapData(scope.$eval(attrs.locations), function (err) {
                                         if (err) {
                                             console.log('error creating markers', err);
