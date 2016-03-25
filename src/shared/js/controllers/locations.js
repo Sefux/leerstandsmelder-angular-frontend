@@ -221,7 +221,7 @@ define([], function () {
                     }
                 ], function (err) {
                     var msgs = {
-                        success: 'msgs.locations.create_success'
+                        success: 'messages.locations.create_success'
                     };
                     if (responseHandler.handleResponse(err, deferred, msgs)) {
                         $location.path('/locations/' + $scope.location.slug);
@@ -235,11 +235,10 @@ define([], function () {
             $scope.promise = deferred.promise;
             $scope.submit = function () {
                 var deferred = $q.defer();
-                $scope.promiseString = 'Saving...';
                 $scope.promise = deferred.promise;
                 apiService('locations').actions.update($routeParams.uuid, $scope.location, function (err) {
                     var msgs = {
-                        success: 'msgs.locations.update_success'
+                        success: 'messages.locations.update_success'
                     };
                     responseHandler.handleResponse(err, deferred, msgs);
                 });

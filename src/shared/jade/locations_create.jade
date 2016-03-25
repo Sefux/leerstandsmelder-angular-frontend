@@ -48,7 +48,7 @@ md-content(layout="row" layout-wrap layout-fill)
                 md-content(layout="row" layout-padding)
                     md-content(flex layout-padding)
                         md-content(layout-gt-xs="row")
-                            +select('location.owner', '_sys.emptySince', false, 'locations.empty_for')
+                            +select('location.emptySince', '_sys.emptySince', false, 'locations.empty_for')
                         md-content(layout-gt-xs="row")
                             +select('location.owner', '_sys.owner', false, 'locations.owner')
                         md-content(layout-gt-xs="row")
@@ -74,7 +74,7 @@ md-content(layout="row" layout-wrap layout-fill)
                         p {{ 'locations.address' | translate }}: {{location.street || ('locations.unknown' | translate)}}
                         p {{ 'locations.city' | translate }}: {{location.postcode}} {{location.city || ('locations.unknown' | translate)}}
                         p {{ 'locations.degree' | translate }}: {{(location.degree | translate) || ('locations.unknown' | translate)}}
-                        p {{ 'locations.demolition_rumor' | translate }}: {{(location.rumor | translate) || ('locations.unknown' | translate)}}
+                        p {{ 'locations.demolition_rumor' | translate }}: {{(location.rumor ? ('locations.demolition_rumor_yes' | translate) : null) || ('locations.unknown' | translate)}}
                         p {{ 'locations.building_type' | translate }}: {{(location.buildingType | translate) || ('locations.unknown' | translate)}}
                         p {{ 'locations.owner' | translate }}: {{(location.owner | translate) || ('locations.unknown' | translate)}}
                     hr

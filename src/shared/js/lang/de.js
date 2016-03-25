@@ -64,7 +64,6 @@ define([], function () {
             },
             city: 'Stadt',
             create_new: 'Leerstand melden',
-            create_success: 'Leerstand erfolgreich eingetragen',
             degree: 'Grad des Leerstands',
             degree_options: {
                 complete: 'Vollständig',
@@ -112,6 +111,10 @@ define([], function () {
             unknown: 'Unbekannt'
         },
         messages: {
+            locations: {
+                create_success: 'Leerstand erfolgreich eingetragen.',
+                update_success: 'Leerstand erfolgreich aktualisiert.'
+            },
             users: {
                 confirmation_success: 'Deine E-Mail wurde erfolgreich bestätigt. Du bist jetzt eingeloggt!',
                 create_success: 'Deine Registrierung war erfolgreich. Du solltest jetzt eine E-Mail mit einem Bestätigungslink erhalten.',

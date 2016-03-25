@@ -64,7 +64,6 @@ define([], function () {
             },
             city: 'City',
             create_new: 'Submit location',
-            create_success: 'Location successfully submitted',
             degree: 'Degree of Emptiness',
             degree_options: {
                 complete: 'Complete',
@@ -110,6 +109,10 @@ define([], function () {
             unknown: 'Unknown'
         },
         messages: {
+            locations: {
+                create_success: 'Location created successfully.',
+                update_success: 'Leerstand updated successfully.'
+            },
             users: {
                 confirmation_success: 'Successfully confirmed! You are now logged in.',
                 create_success: 'Your registration was successful. Please check your emails for the confirmation link!',
