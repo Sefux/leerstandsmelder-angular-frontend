@@ -117,7 +117,8 @@ define([], function () {
         },
         site: {
             banned: 'Gesperrt',
-            copyright_notice: 'Copyright 2016 Leerstandsmelder.de',
+            copyright_notice: '© 2016 Leerstandsmelder.de',
+            map_notice: 'Karten: © OpenStreetMap contributors, ODbL 1.0',
             lang: 'Sprache',
             lang_de: 'Deutsch',
             lang_en: 'English',

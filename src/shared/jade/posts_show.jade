@@ -3,7 +3,7 @@ include mixins/_buttons
 include mixins/_layout
 include mixins/_style
 
-md-content(layout="row" layout-sm="column" layout-wrap layout-fill)
+md-content(layout="row" layout-wrap layout-fill)
     md-content(flex="66" layout='column')
         .md-padding.type-post(flex)
             p.metatext-lg {{author.on | translate}} {{ post.created | date : 'dd.MM.yy' }}

@@ -4,7 +4,7 @@ include mixins/_buttons
 include mixins/_layout
 include mixins/_style
 
-md-content(layout="row" layout-sm="column" layout-wrap layout-fill)
+md-content(layout="row" layout-wrap layout-fill)
 	#map(lsm-map flex='30' ng-model='location' locations='locations')
 	md-content(flex='70')
 		md-tabs(class="md-primary"  md-dynamic-height md-border-bottom md-no-pagination="false" md-swipe-content md-selected="tabaction.selectedIndex")

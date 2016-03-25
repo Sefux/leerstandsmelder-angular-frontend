@@ -4,7 +4,7 @@ include mixins/_buttons
 include mixins/_layout
 include mixins/_style
 
-md-content(layout="row" layout-sm="column" layout-wrap layout-fill)
+md-content(layout="row" layout-wrap layout-fill)
     #map(lsm-map flex="33" ng-model='location' urlbase='urlbase' center='mapcenter' zoom='zoom' locations='locations')
     md-content.md-padding(flex)
         p.pull-right(ng-if='mayEdit')

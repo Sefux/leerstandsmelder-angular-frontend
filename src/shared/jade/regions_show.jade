@@ -3,7 +3,7 @@ include mixins/_buttons
 include mixins/_layout
 include mixins/_style
 
-div(layout="row" layout-sm="column" layout-wrap layout-fill)
+div(layout="row" layout-wrap layout-fill)
     #map(lsm-map flex="66" ng-model=mapModel style=mapStyle geosearch=0 urlbase='urlbase' center='mapcenter' zoom='zoom' locations='locations')
     md-content(flex="33" layout='column')
         div(flex)
