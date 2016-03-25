@@ -76,6 +76,11 @@ define([], function () {
             edit: 'Edit Location',
             empty_for: 'Empty for',
             empty_options: {
+                recently: 'just recently',
+                min_five_years: 'at least 5 years',
+                min_three_years: 'at least 3 years',
+                min_one_year: 'at least a year',
+                about_half_year: 'about half a year',
                 less_than_one_quarter_year: 'less than one quarter of 1 year',
                 less_than_one_half_year: 'less than one half of 1 year',
                 less_than_three_quarters_year: 'less than three quarters of 1 year',

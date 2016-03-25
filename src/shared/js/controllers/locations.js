@@ -98,19 +98,13 @@ define([], function () {
             };
             $scope.formTitle = 'Create location';
             $scope.showLatLng = false;
-
             $scope._sys = {
                 emptySince: [
-                    {title:"Now",
-                        text:"Empty at least right now"},
-                    {title:"Since at least 1 Month",
-                        text:"Empty at least right now"},
-                    {title:"Since at least 6 Months",
-                        text:"Empty at least right now"},
-                    {title:"Since at least 1 Year",
-                        text:"Empty at least right now"},
-                    {title:"Since at least 2 Years",
-                        text:"Empty at least right now"}
+                    'locations.empty_options.recently',
+                    'locations.empty_options.about_half_year',
+                    'locations.empty_options.min_one_year',
+                    'locations.empty_options.min_three_years',
+                    'locations.empty_options.min_five_years'
                 ],
                 degree: [
                     'locations.degree_options.complete',
@@ -149,12 +143,10 @@ define([], function () {
                             $scope.location.city = address.city;
                             $scope.location.postcode = address.postcode;
                             $scope.location.country = address.country;
-                            //$scope.location.display_name = data.display_name || '';
                         }
                     }
                 });
                 $scope.showLatLng = false;
-
                 $scope.$apply();
             };
 

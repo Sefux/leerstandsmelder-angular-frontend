@@ -76,6 +76,11 @@ define([], function () {
             edit: 'Leerstand bearbeiten',
             empty_for: 'Leer seit',
             empty_options: {
+                recently: 'kurzem',
+                min_five_years: 'wenigstens fünf Jahren',
+                min_three_years: 'wenigstens drei Jahren',
+                min_one_year: 'wenigstens einem Jahr',
+                about_half_year: 'ungefähr einem haben Jahr',
                 less_than_one_quarter_year: 'weniger als ein viertel Jahr',
                 less_than_one_half_year: 'wengier als ein halbes Jahr',
                 less_than_three_quarters_year: 'weniger als ein dreiviertel Jahr',

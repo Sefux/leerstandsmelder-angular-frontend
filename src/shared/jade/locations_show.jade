@@ -23,7 +23,7 @@ md-content(layout="row" layout-wrap layout-fill)
 
         hr
         small
-            p(ng-if="location.empty_since") {{ 'locations.empty_for' | translate }} {{ location.empty_since | emptySinceRewrite }}
+            p(ng-if="location.empty_since") {{ 'locations.empty_for' | translate }} {{ location.emptySince }}
             p {{ 'locations.address' | translate }}: {{location.street || ('locations.unknown' | translate)}}
             p {{ 'locations.city' | translate }}: {{location.postcode}} {{location.city || ('locations.unknown' | translate)}}
             p {{ 'locations.degree' | translate }}: {{(location.degree | translate) || ('locations.unknown' | translate)}}
