@@ -10,8 +10,27 @@ define([], function () {
             function ($scope, $q, $routeParams, apiService, responseHandler) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
+            $scope.new_comment = {};
             $scope.submitComment = function () {
-
+                var deferred = $q.defer();
+                $scope.promise = deferred.promise;
+                if (!$scope.new_comment.body) {
+                    return;
+                }
+                var obj = {
+                    subject_uuid: $scope.post.uuid,
+                    body: $scope.new_comment.body,
+                    captcha: $scope.new_comment.captcha
+                };
+                apiService('comments').actions.create(obj, function (err, comment) {
+                    var msgs = {
+                        success: 'messages.comments.create_success'
+                    };
+                    if (responseHandler.handleResponse(err, deferred, msgs)) {
+                        $scope.post.comments.push(comment);
+                        $scope.$apply();
+                    }
+                });
             };
             async.waterfall([
                 function (cb) {

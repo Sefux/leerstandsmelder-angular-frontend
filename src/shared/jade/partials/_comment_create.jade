@@ -5,11 +5,11 @@ div(check-login flex="50")
     p
         strong {{ "comments.new_comment" | translate }}
     div(ng-if="userSession")
-        +input('textarea','newComment','comments.comment_text', null, null)
+        +input('textarea','new_comment.body','comments.comment_text', null, null)
         div(layout="row" layout-align="end top")
             img.captcha(captcha)
             div(flex layout-padding)
-                +input('text','captcha','captcha.enter_captcha', null, null)
+                +input('text','new_comment.captcha','captcha.enter_captcha', null, null)
         hr
         div(layout="row")
             span(flex)

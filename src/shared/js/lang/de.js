@@ -115,6 +115,9 @@ define([], function () {
             unknown: 'Unbekannt'
         },
         messages: {
+            comments: {
+                create_success: 'Kommentar erfolgreich gespeichert.'
+            },
             locations: {
                 create_success: 'Leerstand erfolgreich eingetragen.',
                 update_success: 'Leerstand erfolgreich aktualisiert.'

@@ -113,6 +113,9 @@ define([], function () {
             unknown: 'Unknown'
         },
         messages: {
+            comments: {
+                create_success: 'Comment successfully posted.'
+            },
             locations: {
                 create_success: 'Location created successfully.',
                 update_success: 'Leerstand updated successfully.'
