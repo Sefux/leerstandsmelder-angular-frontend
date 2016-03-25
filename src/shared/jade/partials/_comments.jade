@@ -1,6 +1,17 @@
 include ../mixins/_form
 include ../mixins/_buttons
 
+p
+    strong {{ "comments.comment_plural" | translate }}
+div(ng-if="comments" ng-repeat="comment in comments")
+    p.smalltext
+        | {{ 'author.by' | translate }}&nbsp;
+        strong {{ comment.user.nickname || comment.user.login }}&nbsp;
+        span {{ 'author.on' | translate }} {{ comment.created | date : 'dd.MM.yy HH:mm' }}
+    p(btf-markdown="comment.body")
+p(ng-if="comments.length === 0")
+    small {{ "comments.no_comments" | translate }}
+hr
 div(check-login flex="50")
     p
         strong {{ "comments.new_comment" | translate }}

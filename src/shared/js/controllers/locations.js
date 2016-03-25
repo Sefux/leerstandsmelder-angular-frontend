@@ -11,30 +11,6 @@ define([], function () {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
             $scope.urlbase = '/locations/';
-            $scope.new_comment = {};
-            $scope.submitComment = function () {
-                var deferred = $q.defer();
-                $scope.promise = deferred.promise;
-                if (!$scope.new_comment.body) {
-                    return;
-                }
-                var obj = {
-                    subject_uuid: $scope.location.uuid,
-                    body: $scope.new_comment.body,
-                    captcha: $scope.new_comment.captcha ? $scope.new_comment.captcha : 'nocaptcha'
-                };
-                apiService('comments').actions.create(obj, function (err, comment) {
-                    var msgs = {
-                        success: 'messages.comments.create_success'
-                    };
-                    if (responseHandler.handleResponse(err, deferred, msgs)) {
-                        $scope.location.comments.push(comment);
-                        $scope.new_comment = {};
-                        $scope.$broadcast('captcha:update', true);
-                        $scope.$apply();
-                    }
-                });
-            };
             async.waterfall([
                 function (cb) {
                     apiService('locations').actions.find($routeParams.uuid, cb);
@@ -55,17 +31,6 @@ define([], function () {
                         return a.position - b.position;
                     });
                     $scope.photos = photos.results;
-                    apiService('locations/' + $scope.location.uuid + '/comments').actions.all(cb);
-                },
-                function (comments, cb) {
-                    if (comments.results.length > 0) {
-                        comments.results.sort(function (a, b) {
-                            return new Date(a.created).getTime() - new Date(b.created).getTime();
-                        });
-                        $scope.location.comments = comments.results;
-                    } else {
-                        $scope.location.comments = [];
-                    }
                     cb();
                 }
             ], function (err) {
@@ -249,7 +214,7 @@ define([], function () {
                     };
                     if (responseHandler.handleResponse(err, deferred, msgs)) {
                         $location.path('/locations/' + $scope.location.slug);
-                    };
+                    }
                 });
             };
         }])
