@@ -17,7 +17,7 @@ md-content(layout="row" layout-wrap layout-fill)
                     strong {{ "author.by" | translate }} {{ comment.user.nickname }}
                     | {{ ' ' }}
                     span {{ "author.on" | translate }} {{ comment.created | date : 'dd.MM.yy HH:mm' }}
-                p {{comment.body}}
+                p(btf-markdown="comment.body")
             p(ng-if="post.comments.length === 0")
                 small {{ "comments.no_comments" | translate }}
             hr

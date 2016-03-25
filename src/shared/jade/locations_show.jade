@@ -19,7 +19,7 @@ md-content(layout="row" layout-wrap layout-fill)
         div(layout="row" ng-if="photos.length > 0")
             img.photo-preview(ng-repeat="photo in photos" ng-src="{{ photo.thumb_url }}" lightbox)
         p(ng-if="location.description")
-            small {{location.description}}
+            small(btf-markdown="location.description")
 
         hr
         small
@@ -38,7 +38,7 @@ md-content(layout="row" layout-wrap layout-fill)
                 | {{ 'author.by' | translate }}&nbsp;
                 strong {{ comment.user.nickname }}&nbsp;
                 span {{ 'author.on' | translate }} {{ comment.created | date : 'dd.MM.yy HH:mm' }}
-            p {{comment.body}}
+            p(btf-markdown="comment.body")
         p(ng-if="location.comments.length === 0")
             small {{ 'comments.no_comments' | translate }}
         hr
