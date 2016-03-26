@@ -1,4 +1,4 @@
-/* global console,angular,define,LEERSTANDSMELDER_API_HOST */
+/* global async,console,angular,define,SimpleMDE,LEERSTANDSMELDER_API_HOST */
 
 define([], function () {
     return angular.module('lsm.directives.helpers', [
@@ -13,13 +13,26 @@ define([], function () {
                     });
                     scope.updateUser = function () {
                         if (authService.access_token) {
-                            apiService('users').actions.find('me', function (err, res) {
+                            async.waterfall([
+                                function (cb) {
+                                    apiService('users').actions.find('me', cb);
+                                },
+                                function (user, cb) {
+                                    scope.userSession = user;
+                                    apiService('users/me/api_keys').actions.all(cb);
+                                },
+                                function (api_keys, cb) {
+                                    if (api_keys.length > 0) {
+                                        scope.api_key = api_keys[0];
+                                    }
+                                    cb();
+                                }
+                            ], function (err) {
                                 if (err) {
                                     console.log('error fetching user', err.message);
                                     scope.userSession = null;
                                     return;
                                 }
-                                scope.userSession = res;
                                 scope.$apply();
                             });
                         }
@@ -42,15 +55,15 @@ define([], function () {
         })
         .directive('lightbox', ['$mdDialog', function ($mdDialog) {
             return {
-                link: function ($scope, elem, attrs) {
+                link: function (scope, elem, attrs) {
                     elem.addClass('image-click');
                     elem.on('click', function () {
                         var dialog = $mdDialog.confirm({
                             templateUrl: '/partials/_lightbox.html',
                             clickOutsideToClose: true,
-                            controller: function controller($scope, $mdDialog) {
-                                $scope.image = attrs.src;
-                                $scope.cancel = function () {
+                            controller: function controller(scope, $mdDialog) {
+                                scope.image = attrs.src;
+                                scope.cancel = function () {
                                     $mdDialog.cancel();
                                 };
                             }
@@ -59,5 +72,18 @@ define([], function () {
                     });
                 }
             };
-        }]);
+        }])
+        .directive('markdownEditor', function () {
+            return {
+                link: function (scope, elem, attrs) {
+                    scope.editor = new SimpleMDE({element: elem[0]});
+                    scope.$watch(attrs.ngModel, function () {
+                        var ngModel = scope.$eval(attrs.ngModel);
+                        if (ngModel) {
+                            scope.editor.value(ngModel);
+                        }
+                    });
+                }
+            };
+        });
 });

@@ -6,8 +6,8 @@ define([], function () {
         [
             'lsm.services.api'
         ])
-        .controller('Locations.Show', ['$scope', 'regionService', '$q', '$routeParams', 'apiService', 'responseHandler',
-            function ($scope, regionService, $q, $routeParams, apiService, responseHandler) {
+        .controller('Locations.Show', ['$scope', 'regionService', '$q', '$routeParams', 'apiService', 'responseHandler', '$location',
+            function ($scope, regionService, $q, $routeParams, apiService, responseHandler, $location) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
             $scope.urlbase = '/locations/';
@@ -35,6 +35,16 @@ define([], function () {
                 }
             ], function (err) {
                 if (responseHandler.handleResponse(err, deferred)) {
+                    if (
+                        $scope.location.user_uuid === $scope.userSession.uuid ||
+                        $scope.api_key.scopes.indexOf($scope.location.region_slug) > -1 ||
+                        $scope.api_key.scopes.indexOf('admin') > -1
+                    ) {
+                        $scope.mayEdit = true;
+                        $scope.edit = function () {
+                            $location.path('/locations/' + $scope.location.uuid + '/edit');
+                        };
+                    }
                     $scope.$apply();
                     $scope.htmlReady();
                 }

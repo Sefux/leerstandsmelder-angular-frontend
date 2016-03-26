@@ -74,7 +74,7 @@ define([
                     enabled: true
                 });
 
-                $routeProvider.when('/', {templateUrl: '/regions/list.html', controller: 'Regions.List'});
+                $routeProvider.when('/', {templateUrl: '/locations/region_map.html', controller: 'Regions.MapIndex'});
 
                 $routeProvider.when('/users/login', {templateUrl: '/users/login.html', controller: 'Users.Login'});
                 $routeProvider.when('/users/logout', {templateUrl: '/users/logout.html', controller: 'Users.Logout'});
@@ -102,9 +102,21 @@ define([
                     templateUrl: '/locations/show.html',
                     controller: 'Locations.Show'
                 });
+                $routeProvider.when('/admin/regions', {
+                    templateUrl: '/regions/list.html',
+                    controller: 'Regions.List'
+                });
                 $routeProvider.when('/posts/:uuid', {templateUrl: '/posts/show.html', controller: 'Posts.Show'});
                 $routeProvider.when('/regions/:uuid', {templateUrl: '/regions/show.html', controller: 'Regions.Show'});
                 $routeProvider.when('/site/:slug', {templateUrl: '/site/static_page.html', controller: 'Site.StaticPage'});
+                $routeProvider.when('/admin/posts', {
+                    templateUrl: '/posts/list.html',
+                    controller: 'Posts.List'
+                });
+                $routeProvider.when('/admin/posts/:uuid', {
+                    templateUrl: '/posts/edit.html',
+                    controller: 'Posts.Edit'
+                });
 
                 $routeProvider.otherwise({redirectTo: '/'});
 

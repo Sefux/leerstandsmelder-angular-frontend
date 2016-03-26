@@ -54,19 +54,17 @@ md-toolbar.md-medium-tall(md-scroll-shrink md-shrink-speed-factor='0.5' ng-contr
                             +button('site.lang_en','useLanguage("en")','btn-default btn-small','fa-sign-in',null,null)
 
             div(flex="5" layout="row" layout-align="end center")
-                md-menu(ng-if="!userSession")
+                md-menu
                     +button_fab(null,'$mdOpenMenu()',null,'fa-user')
                     md-menu-content(width='4')
                         md-menu-item(ng-if="!userSession")
                             +button('users.login',null,'btn-default btn-small','fa-sign-in','!userSession', '/users/login')
                         md-menu-item(ng-if="!userSession")
-                            +button('users.signup',null,'btn-default','fa-users','!userSession','/users/create')
-
-                md-menu(ng-if="userSession")
-                    +button_fab(null,'$mdOpenMenu()',null,'fa-user')
-                    md-menu-content(width='4')
+                            +button('users.signup',null,'btn-default','fa-user-plus','!userSession','/users/create')
                         md-menu-item(ng-if="userSession")
                             +button('locations.my_locations',null,'btn-default','fa-list','userSession', '/users/me/locations')
+                        md-menu-item(ng-if="api_key.scopes.indexOf('editor') > -1")
+                            +button('posts.manage_posts',null,'btn-default','fa-newspaper-o','userSession', '/admin/posts')
                         md-menu-item(ng-if="userSession")
                             +button('users.settings',null,'btn-default','fa-cog','userSession', '/users/me')
                         md-menu-item(ng-if="userSession")

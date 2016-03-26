@@ -41,6 +41,7 @@ gulp.task('js-deps', function () {
         'bower_components/angular-seo/angular-seo.js',
         'bower_components/showdown/compressed/Showdown.min.js',
         'bower_components/angular-markdown-directive/markdown.js',
+        'bower_components/simplemde/dist/simplemde.min.js',
         'bower_components/async/dist/async.min.js',
         'bower_components/bluebird/js/browser/bluebird.min.js',
         'bower_components/ng-file-upload/ng-file-upload.min.js',

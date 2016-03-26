@@ -1,0 +1,9 @@
+include ../mixins/_form
+include ../mixins/_buttons
+include ../mixins/_layout
+include ../mixins/_style
+
+md-content(layout="row" layout-wrap layout-fill)
+	#map(flex="66" lsm-map ng-model=mapModel geosearch=0 zoom=6 urlbase='urlbase' center='mapcenter' style=mapStyle mapType='mapType' locations='locations')
+	md-content(flex="33" layout='column')
+		div(flex recent-posts page-size='10')

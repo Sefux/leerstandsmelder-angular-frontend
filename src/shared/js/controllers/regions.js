@@ -6,7 +6,21 @@ define([], function () {
         [
             'lsm.services.api'
         ])
-        .controller('Regions.List', ['$scope', '$q', 'apiService', 'regionService', 'responseHandler',
+        .controller('Regions.List', ['$scope', '$q', 'apiService', 'responseHandler',
+            function ($scope, $q, apiService, responseHandler) {
+            var deferred = $q.defer();
+            $scope.promise = deferred.promise;
+            apiService('regions').actions.all(function (err, regions) {
+                $scope.regions = regions.sort(function (a, b) {
+                    return a.title > b.title;
+                });
+                if (responseHandler.handleResponse(err, deferred)) {
+                    $scope.$apply();
+                    $scope.htmlReady();
+                }
+            });
+        }])
+        .controller('Regions.MapIndex', ['$scope', '$q', 'apiService', 'regionService', 'responseHandler',
             function ($scope, $q, apiService, regionService, responseHandler) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
