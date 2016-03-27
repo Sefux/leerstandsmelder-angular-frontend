@@ -36,6 +36,7 @@ html(lang='en')
                 a(href='/site/terms') {{ 'site.subnav.terms' | translate }}
                 a(href='/site/imprint') {{ 'site.subnav.imprint' | translate }}
         scripts
+            script window.prerenderReady = false;
             script(src='/js/leerstandsmelder-apiclient-web.js')
             script(src='/js/leerstandsmelder-angular-dependencies.min.js')
             script(data-main="/src/web/js/rjs-runtime" src='/js/require.js')
