@@ -131,6 +131,11 @@ define([], function () {
                 update_success: 'Account was successfully updated.'
             }
         },
+        posts: {
+            edit_post: 'Edit Post',
+            title: 'Title',
+            update_success: 'Post successfully updated.'
+        },
         regions: {
             region: 'Region'
         },

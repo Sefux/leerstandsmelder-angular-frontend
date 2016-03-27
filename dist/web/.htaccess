@@ -1,1 +1,15 @@
 ErrorDocument 404 /index.html
+
+RewriteEngine On
+
+Options +FollowSymLinks
+
+# Forward requests with _escaped_fragment_ parameter to SEO.js CDN
+RewriteCond %{QUERY_STRING}  _escaped_fragment_=  [NC]
+
+RewriteRule ^(.*)$ http://cdn.getseojs.com/v2/5vmykcrlk1gsxs908dkm5agdx/%{REQUEST_SCHEME}://%{HTTP_HOST}:%{SERVER_PORT}/$1 [P,QSA,L]
+
+# Only use the following rules if you're using HTML5 pushState URLs
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule (.*) index.html [L]

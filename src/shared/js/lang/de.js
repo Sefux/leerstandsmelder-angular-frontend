@@ -133,6 +133,11 @@ define([], function () {
                 update_success: 'Konto wurde erfolgreich aktualisiert.'
             }
         },
+        posts: {
+            edit_post: 'Eintrag bearbeiten',
+            title: 'Titel',
+            update_success: 'Eintrag erfolgreich aktualisiert..'
+        },
         regions: {
             region: 'Region'
         },

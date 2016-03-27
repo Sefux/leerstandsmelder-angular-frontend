@@ -41,5 +41,13 @@ define([], function () {
                     $scope.htmlReady();
                 }
             });
+            $scope.submit = function () {
+                apiService('posts').actions.update($routeParams.uuid, $scope.post, function (err) {
+                    var msgs = {
+                        success: 'posts.update_success'
+                    };
+                    responseHandler.handleResponse(err, deferred, msgs);
+                });
+            };
         }]);
 });
