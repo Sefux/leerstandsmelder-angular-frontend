@@ -11,7 +11,7 @@ define([], function () {
                     content: content
                 };
                 deferred.resolve();
-                $scope.apply();
+                $scope.$apply();
                 window.prerenderReady = true;
             });
         }]);
