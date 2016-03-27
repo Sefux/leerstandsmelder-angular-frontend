@@ -47,6 +47,7 @@ define([], function () {
                     }
                     $scope.$apply();
                     $scope.htmlReady();
+                    window.prerenderReady = true;
                 }
             });
         }])

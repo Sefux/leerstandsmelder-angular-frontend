@@ -21,6 +21,7 @@ define([], function () {
                                 (parseInt(scope.pageSize) || 10)).actions.all(function (err, locations) {
                                 scope.locations = locations.results;
                                 scope.$apply();
+                                window.prerenderReady = true;
                             });
                         }
                     });
@@ -43,6 +44,7 @@ define([], function () {
                             } else {
                                 scope.posts = [];
                             }
+                            window.prerenderReady = true;
                         });
                     });
                 }
