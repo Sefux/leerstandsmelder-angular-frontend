@@ -46,8 +46,6 @@ define([], function () {
                         };
                     }
                     $scope.$apply();
-                    $scope.htmlReady();
-                    window.prerenderReady = true;
                 }
             });
         }])
@@ -70,7 +68,6 @@ define([], function () {
                         return 0;
                     });
                     $scope.$apply();
-                    $scope.htmlReady();
                 }
             });
         }])

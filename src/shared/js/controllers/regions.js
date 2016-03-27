@@ -16,7 +16,6 @@ define([], function () {
                 });
                 if (responseHandler.handleResponse(err, deferred)) {
                     $scope.$apply();
-                    $scope.htmlReady();
                 }
             });
         }])
@@ -46,7 +45,6 @@ define([], function () {
             ], function (err) {
                 if (responseHandler.handleResponse(err, deferred)) {
                     $scope.$apply();
-                    $scope.htmlReady();
                 }
             });
         }])
@@ -75,7 +73,6 @@ define([], function () {
             ], function (err) {
                 if (responseHandler.handleResponse(err, deferred)) {
                     $scope.$apply();
-                    $scope.htmlReady();
                 }
             });
 

@@ -14,7 +14,6 @@ define([], function () {
                 $scope.post = post;
                 if (responseHandler.handleResponse(err, deferred)) {
                     $scope.$apply();
-                    $scope.htmlReady();
                 }
             });
         }])
@@ -26,7 +25,6 @@ define([], function () {
                 $scope.posts = posts;
                 if (responseHandler.handleResponse(err, deferred)) {
                     $scope.$apply();
-                    $scope.htmlReady();
                 }
             });
         }])
@@ -38,7 +36,6 @@ define([], function () {
                 $scope.post = post;
                 if (responseHandler.handleResponse(err, deferred)) {
                     $scope.$apply();
-                    $scope.htmlReady();
                 }
             });
             $scope.submit = function () {

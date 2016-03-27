@@ -30,7 +30,6 @@ define([], function () {
                     responseHandler.handleResponse(err, deferred, msgs);
                 });
             };
-            $scope.htmlReady();
         }])
         .controller('Users.Edit', ['$scope', '$q', 'apiService', 'responseHandler', 'PubSub',
             function ($scope, $q, apiService, responseHandler, PubSub) {
@@ -117,8 +116,6 @@ define([], function () {
                     }
                 });
             };
-
-            $scope.htmlReady();
         }])
         .controller('Users.Forgot', ['$scope', '$q', 'apiService', 'responseHandler',
             function ($scope, $q, apiService, responseHandler) {
@@ -132,7 +129,6 @@ define([], function () {
                     responseHandler.handleResponse(err, deferred, msgs);
                 });
             };
-            $scope.htmlReady();
         }])
         .controller('Users.Logout', ['$scope', 'authService', function ($scope, authService) {
             authService.clearCredentials();

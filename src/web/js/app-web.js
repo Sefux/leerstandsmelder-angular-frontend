@@ -26,7 +26,6 @@ define([
             'ngAnimate',
             'ngFileUpload',
             'btford.markdown',
-            'seo',
             'cgBusy',
             'angularPubsub',
             'pascalprecht.translate',
