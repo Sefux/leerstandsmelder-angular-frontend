@@ -38,6 +38,7 @@ gulp.task('js-deps', function () {
         'bower_components/angular-route/angular-route.min.js',
         'bower_components/angular-sanitize/angular-sanitize.min.js',
         'bower_components/angular-translate/angular-translate.min.js',
+        'bower_components/angular-material-data-table/dist/md-data-table.min.js',
         'bower_components/showdown/compressed/Showdown.min.js',
         'bower_components/angular-markdown-directive/markdown.js',
         'bower_components/simplemde/dist/simplemde.min.js',

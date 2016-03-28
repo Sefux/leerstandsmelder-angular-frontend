@@ -1,4 +1,4 @@
-/* global angular,define,async,PIECEMETA_API_HOST,console */
+/* global angular,define,async,Promise,PIECEMETA_API_HOST,console */
 
 define([], function () {
     return angular.module(
@@ -49,27 +49,40 @@ define([], function () {
                 }
             });
         }])
-        .controller('Locations.User', ['$scope', 'apiService', '$q', 'responseHandler',
-            function ($scope, apiService, $q, responseHandler) {
-            var deferred = $q.defer();
-            $scope.promise = deferred.promise;
+        .controller('Locations.User', ['$scope', function ($scope) {
+            $scope.fields = [
+                {
+                    label: 'locations.title',
+                    property: 'title'
+                },
+                {
+                    label: 'locations.street',
+                    property: 'street'
+                },
+                {
+                    label: 'regions.region',
+                    property: 'region.title'
+                },
+                {
+                    label: 'author.created',
+                    property: 'created',
+                    date: true
+                },
+                {
+                    label: 'author.updated',
+                    property: 'updated',
+                    date: true
+                }
+            ];
+            $scope.settings = {
+                pagesize: 15,
+                limit_options: [5, 10, 15],
+                resource: 'users/me/locations'
+            };
             $scope.page = {
                 list_title: 'locations.my_locations',
                 list_title_empty: 'locations.my_locations_empty'
             };
-            apiService('users/me/locations').actions.all(function (err, locations) {
-                if (responseHandler.handleResponse(err, deferred)) {
-                    $scope.locations = locations.results.sort(function (a, b) {
-                        if (a.title < b.title) {
-                            return -1;
-                        } else if (a.title > b.title) {
-                            return 1;
-                        }
-                        return 0;
-                    });
-                    $scope.$apply();
-                }
-            });
         }])
         .controller('Locations.Create', ['$scope','apiService', 'authService', '$q', '$location', 'mapService', 'responseHandler',
             function ($scope, apiService, authService, $q, $location, mapService, responseHandler) {
