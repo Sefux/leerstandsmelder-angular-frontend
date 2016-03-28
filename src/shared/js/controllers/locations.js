@@ -49,7 +49,7 @@ define([], function () {
                 }
             });
         }])
-        .controller('Locations.User', ['$scope', function ($scope) {
+        .controller('Locations.User', ['$scope', '$location', function ($scope, $location) {
             $scope.fields = [
                 {
                     label: 'locations.title',
@@ -75,6 +75,8 @@ define([], function () {
                 }
             ];
             $scope.settings = {
+                row_select: false,
+                multiple: false,
                 pagesize: 15,
                 limit_options: [5, 10, 15],
                 resource: 'users/me/locations'
@@ -83,6 +85,31 @@ define([], function () {
                 list_title: 'locations.my_locations',
                 list_title_empty: 'locations.my_locations_empty'
             };
+            $scope.actions =[
+                {
+                    label: 'actions.edit',
+                    css_class: 'fa-pencil-square-o',
+                    clickHandler: function (location) {
+                        $location.path('/locations/update/' + location.uuid);
+                    }
+                },
+                /*
+                {
+                    label: 'actions.delete',
+                    css_class: 'fa-trash-o',
+                    clickHandler: function (location) {
+                        // TODO: delete function needs some work in the api to remove associated assets and entries
+                    }
+                },
+                */
+                {
+                    label: 'actions.show',
+                    css_class: 'fa-eye',
+                    clickHandler: function (location) {
+                        $location.path('/locations/' + location.slug);
+                    }
+                }
+            ];
         }])
         .controller('Locations.Create', ['$scope','apiService', 'authService', '$q', '$location', 'mapService', 'responseHandler',
             function ($scope, apiService, authService, $q, $location, mapService, responseHandler) {
