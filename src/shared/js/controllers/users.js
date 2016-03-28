@@ -1,11 +1,18 @@
 /* global angular,define,async */
 
-define([], function () {
+define([
+    'services_api',
+    'services_auth',
+    'services_helpers',
+    'directives_helpers'
+], function () {
     return angular.module(
         'lsm.controllers.users',
         [
             'lsm.services.api',
-            'lsm.services.auth'
+            'lsm.services.auth',
+            'lsm.services.helpers',
+            'lsm.directives.helpers'
         ])
         .controller('Users.Create', ['$scope', '$q', 'apiService', 'PubSub', 'responseHandler',
             function ($scope, $q, apiService, PubSub, responseHandler) {

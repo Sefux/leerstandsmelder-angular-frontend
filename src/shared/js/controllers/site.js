@@ -1,8 +1,15 @@
 /* global angular,define,async,PIECEMETA_API_HOST,console */
 
-define([], function () {
+define([
+    'services_helpers',
+    'directives_widgets'
+], function () {
     return angular.module(
-        'lsm.controllers.site', [])
+        'lsm.controllers.site', [
+            'lsm.services.helpers',
+            'lsm.directives.widgets',
+            'btford.markdown'
+        ])
         .controller('Site.StaticPage', ['$scope', '$q', 'staticContent', '$routeParams', function ($scope, $q, staticContent, $routeParams) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
@@ -11,7 +18,6 @@ define([], function () {
                     content: content
                 };
                 deferred.resolve();
-                $scope.$apply();
             });
         }]);
 });

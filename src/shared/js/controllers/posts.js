@@ -1,10 +1,16 @@
 /* global angular,define,async,console */
 
-define([], function () {
+define([
+    'services_api',
+    'services_helpers',
+    'directives_helpers'
+], function () {
     return angular.module(
         'lsm.controllers.posts',
         [
-            'lsm.services.api'
+            'lsm.services.api',
+            'lsm.services.helpers',
+            'lsm.directives.helpers'
         ])
         .controller('Posts.Show', ['$scope', '$rootScope', '$q', '$routeParams', 'apiService', 'responseHandler',
             function ($scope, $rootScope, $q, $routeParams, apiService, responseHandler) {

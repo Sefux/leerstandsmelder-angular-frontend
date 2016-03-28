@@ -1,7 +1,12 @@
 /* global L,PruneClusterForLeaflet,angular,define,async,PIECEMETA_API_HOST,console */
 
-define(['lsmMapconfig'], function (lsmMapconfig) {
-    return angular.module('lsm.directives.map', [])
+define([
+    'lsmMapconfig',
+    'services_map'
+], function (lsmMapconfig) {
+    return angular.module('lsm.directives.map', [
+            'lsm.services.map'
+        ])
         .directive('lsmMap', ['$window', '$timeout', 'mapService', '$translate',
             function ($window, $timeout, mapService, $translate) {
             return {

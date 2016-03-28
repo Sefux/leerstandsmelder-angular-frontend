@@ -1,10 +1,20 @@
 /* global angular,define,async,Promise,PIECEMETA_API_HOST,console */
 
-define([], function () {
+define([
+    'services_api',
+    'services_helpers',
+    'directives_helpers',
+    'directives_map',
+    'directives_widgets'
+], function () {
     return angular.module(
         'lsm.controllers.locations',
         [
-            'lsm.services.api'
+            'lsm.services.api',
+            'lsm.services.helpers',
+            'lsm.directives.helpers',
+            'lsm.directives.map',
+            'lsm.directives.widgets'
         ])
         .controller('Locations.Show', ['$scope', 'regionService', '$q', '$routeParams', 'apiService', 'responseHandler', '$location',
             function ($scope, regionService, $q, $routeParams, apiService, responseHandler, $location) {

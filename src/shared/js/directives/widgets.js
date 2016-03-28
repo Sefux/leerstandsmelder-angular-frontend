@@ -1,9 +1,12 @@
 /* global console,angular,define,LEERSTANDSMELDER_API_HOST */
 
-define([], function () {
+define([
+    'services_api',
+    'services_helpers'
+], function () {
     return angular.module('lsm.directives.widgets', [
             'lsm.services.api',
-            'lsm.services.auth',
+            'lsm.services.helpers',
             'md.data.table'
         ])
         .directive('recentLocations', ['apiService', function (apiService) {

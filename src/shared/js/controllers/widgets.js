@@ -1,8 +1,17 @@
 /* global angular,define,async,PIECEMETA_API_HOST,console */
 
-define([], function () {
+define([
+    'services_api',
+    'services_helpers',
+    'directives_helpers'
+], function () {
     return angular.module(
-        'lsm.controllers.widgets',[])
+        'lsm.controllers.widgets',[
+            'angularPubsub',
+            'lsm.services.api',
+            'lsm.services.helpers',
+            'lsm.directives.helpers'
+        ])
         .controller('Widgets.Navbar', ['$scope','$rootScope','$translate','$location','$timeout', '$q', 'apiService', 'regionService',
             function ($scope,$rootScope,$translate,$location,$timeout, $q, apiService, regionService) {
             var self = this;

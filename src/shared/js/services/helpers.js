@@ -1,7 +1,12 @@
 /* global console,angular,define,JSON */
 
-define([], function () {
-    return angular.module('lsm.services.helpers', [])
+define([
+    'services_api'
+], function () {
+    return angular.module('lsm.services.helpers', [
+            'angularPubsub',
+            'lsm.services.api'
+        ])
         .factory('regionService', ['apiService', '$rootScope', function (apiService, $rootScope) {
             return {
                 currentRegion: null,

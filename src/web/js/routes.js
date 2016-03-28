@@ -15,7 +15,7 @@ define([], function () {
         {
             route: '/site/:slug',
             templateUrl: '/site/static_page.html',
-            controller: 'Regions.StaticPage'
+            controller: 'Site.StaticPage'
         },
 
         //

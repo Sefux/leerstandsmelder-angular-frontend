@@ -1,6 +1,9 @@
 /* global async,console,angular,define,SimpleMDE,LEERSTANDSMELDER_API_HOST */
 
-define([], function () {
+define([
+    'services_api',
+    'services_auth'
+], function () {
     return angular.module('lsm.directives.helpers', [
             'lsm.services.api',
             'lsm.services.auth'

@@ -5,19 +5,12 @@ define([
     'lang_en',
     'routes',
     'config',
-    'services_api',
-    'services_auth',
-    'services_map',
-    'services_helpers',
     'controllers_widgets',
     'controllers_site',
     'controllers_users',
     'controllers_locations',
     'controllers_posts',
-    'controllers_regions',
-    'directives_helpers',
-    'directives_map',
-    'directives_widgets'
+    'controllers_regions'
 ], function (lang_de, lang_en, routes) {
     return angular.module('leerstandsmelder', [
             'ngAria',
@@ -25,17 +18,9 @@ define([
             'ngRoute',
             'ngSanitize',
             'ngAnimate',
-            'ngFileUpload',
-            'btford.markdown',
-            'cgBusy',
-            'angularPubsub',
-            'pascalprecht.translate',
             'ngCookies',
-            'lsm.services.helpers',
-            'lsm.services.map',
-            'lsm.directives.helpers',
-            'lsm.directives.map',
-            'lsm.directives.widgets',
+            'cgBusy',
+            'pascalprecht.translate',
             'lsm.controllers.locations',
             'lsm.controllers.posts',
             'lsm.controllers.regions',
@@ -84,6 +69,5 @@ define([
                 }
 
                 $routeProvider.otherwise({redirectTo: '/'});
-
             }]);
 });
