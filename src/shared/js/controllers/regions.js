@@ -32,7 +32,7 @@ define([
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
             $scope.mapcenter = [51.0, 9.0];
-            $scope.urlbase = '/regions/';
+            $scope.urlbase = '/';
             async.waterfall([
                 function (cb) {
                     regionService.setCurrentRegion(null, cb);
@@ -58,7 +58,7 @@ define([
             function ($scope, regionService, $q, $routeParams, apiService, responseHandler) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
-            $scope.urlbase = '/locations/';
+            $scope.urlbase = '/';
             async.waterfall([
                 function (cb) {
                     apiService('regions').actions.find($routeParams.uuid, cb);
@@ -67,6 +67,7 @@ define([
                     $scope.region = region;
                     $scope.mapcenter = [$scope.region.lonlat[1], $scope.region.lonlat[0]];
                     $scope.zoom = $scope.region.zoom;
+                    $scope.urlbase = '/' + region.slug + '/';
                     regionService.setCurrentRegion(region.uuid, cb);
                 },
                 function (cb) {

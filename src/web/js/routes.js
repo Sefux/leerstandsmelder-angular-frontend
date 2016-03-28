@@ -3,6 +3,8 @@
 define([], function () {
     return [
 
+        // Important: The routes are evaluated in this order so earlier routes have precedence!
+
         //
         //
         // Site
@@ -12,30 +14,11 @@ define([], function () {
             templateUrl: '/locations/region_map.html',
             controller: 'Regions.MapIndex'
         },
+
         {
             route: '/site/:slug',
             templateUrl: '/site/static_page.html',
             controller: 'Site.StaticPage'
-        },
-
-        //
-        //
-        // Locations
-
-        {
-            route: '/locations/create',
-            templateUrl: '/locations/create.html',
-            controller: 'Locations.Create'
-        },
-        {
-            route: '/locations/update/:uuid',
-            templateUrl: '/locations/update.html',
-            controller: 'Locations.Update'
-        },
-        {
-            route: '/locations/:uuid',
-            templateUrl: '/locations/show.html',
-            controller: 'Locations.Show'
         },
 
 
@@ -122,6 +105,41 @@ define([], function () {
             route: '/users/reset/:token',
             templateUrl: '/users/reset.html',
             controller: 'Users.Confirm'
+        },
+
+        //
+        //
+        // Regions
+
+        {
+            route: '/:uuid',
+            templateUrl: '/regions/show.html',
+            controller: 'Regions.Show'
+        },
+        {
+            route: '/admin/regions',
+            templateUrl: '/regions/list.html',
+            controller: 'Regions.List'
+        },
+
+        //
+        //
+        // Locations
+
+        {
+            route: '/locations/create',
+            templateUrl: '/locations/update.html',
+            controller: 'Locations.Create'
+        },
+        {
+            route: '/locations/update/:uuid',
+            templateUrl: '/locations/update.html',
+            controller: 'Locations.Update'
+        },
+        {
+            route: '/:region_uuid/:uuid',
+            templateUrl: '/locations/show.html',
+            controller: 'Locations.Show'
         }
     ];
 });

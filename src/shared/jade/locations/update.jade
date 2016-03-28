@@ -5,98 +5,84 @@ include ../mixins/_layout
 include ../mixins/_style
 
 md-content(layout="row" layout-wrap layout-fill)
-	#map(lsm-map flex='30' ng-model='location' locations='locations')
-	md-content(flex='70')
-		md-tabs(class="md-primary"  md-dynamic-height md-border-bottom md-no-pagination="false" md-swipe-content md-selected="tabaction.selectedIndex")
-			md-tab(label='{{"Details" | translate }}')
-				md-content.md-padding
-					//h2 {{"Details" | translate }}
-					md-content(layout="row" layout-align="space-between start" flex)
-						div(flex="90")
-							+input('text','location.title','locations.title', null, null)
-					md-content(layout="row" layout-align="space-between start" flex)
+    #map(lsm-map flex='50' ng-model='location' select-mode select-handler='updateLocation(latlon)' select-marker='marker')
+    md-content(flex="50")
+        md-tabs(class="md-primary"  md-dynamic-height md-border-bottom md-no-pagination="false" md-swipe-content md-selected="selectedIndex")
+            md-tab(label='{{"creator.tabs.info" | translate }}')
+                md-content.md-padding
+                    md-content(flex)
+                        div(layout-gt-xs="row" flex="60")
+                            +input('text','location.title','locations.title', null, null)
+                    md-content()
+                        div(layout-gt-xs="row")
+                            +input('textarea','location.description','locations.description', null, null)
+                hr
+                md-content(layout="row" layout-align="start end")
+                    span(flex)
+                    +button("actions.next",'selectedIndex = 1','md-raised',null,null)
 
-						md-input-container(flex="40")
-							label='location.emptySinceParsed'
-							input(
-							type="text"
-							ng-model='location.emptySinceParsed'
-							i18n='location.emptySinceParsed'
-							ng-disabled="true"
-							)
-							md-tooltip(md-direction='right') Use the slider
-						div(flex="5")
-						md-slider.md-primary(
-						flex="40"
-						min="1"
-						max="121"
-						ng-model="location.emptySince"
-						aria-label="location.emptySince"
-						)
-							// md-discrete is a worse interaction. :(
+            md-tab(label='{{"creator.tabs.location" | translate }}')
+                md-content(layout="row" layout-padding)
+                    md-content(flex)
+                        +input('text','location.street','locations.street', null, null)
+                        +input('text','location.city','locations.city', null, null)
+                        +input('text','location.postcode','locations.postcode', null, null)
+                    md-content(flex)
+                        p
+                            strong Lat:&nbsp;
+                            span {{marker.lat}}
+                        p
+                            strong Lng:&nbsp;
+                            span {{marker.lng}}
+                        p.metatext
+                            strong Data:&nbsp;
+                            span © OpenStreetMap contributors,&nbsp;
+                                a(href='http://www.openstreetmap.org/copyright', target='_blank') ODbL 1.0.
+                hr
+                md-content(layout="row" layout-align="start end")
+                    +button("actions.previous",'selectedIndex = 0','md-raised',null,null)
+                    span(flex)
+                    +button("actions.next",'selectedIndex = 2','md-raised',null,null)
 
-						div(flex="10")
-					md-content(layout="row" layout-align="space-between start")
-						+select('location.owner', '_sys.owner', false)
-						+select('location.buildingType', '_sys.buildingType', false)
-					hr
-					md-content(layout="row" layout-align="space-between start")
-						+input('radio','location.degree','locations.degree', '_sys.degree', null)
-						+input('checkbox','location.rumor','locations.rumor', '_sys.rumor', null)
-					hr
-					+input('textarea','location.description','locations.description', null, null)
+            md-tab(label='{{"creator.tabs.details" | translate }}')
+                md-content(layout="row" layout-padding)
+                    md-content(flex layout-padding)
+                        md-content(layout-gt-xs="row")
+                            +select('location.emptySince', '_sys.emptySince', false, 'locations.empty_for')
+                        md-content(layout-gt-xs="row")
+                            +select('location.owner', '_sys.owner', false, 'locations.owner')
+                        md-content(layout-gt-xs="row")
+                            +select('location.buildingType', '_sys.buildingType', false, 'locations.building_type')
+                    md-content(flex layout-padding)
+                        md-content(layout-gt-xs="row")
+                            +input('radio','location.degree','locations.degree', '_sys.degree', null)
+                        md-content(layout-gt-xs="row")
+                            +input('checkbox','location.rumor','locations.demolition_rumor', '_sys.rumor', null)
+                hr
+                md-content(layout="row" layout-align="start end")
+                    +button("actions.previous",'selectedIndex = 1','md-raised',null,null)
+                    span(flex)
+                    +button("actions.next",'selectedIndex = 3','md-raised',null,null)
 
-
-
-			md-tab(label='{{"Location" | translate }}')
-				md-content.md-padding
-					//h2 {{"Location" | translate }}
-					+input('text','location.street','locations.street', null, null)
-					+input('text','location.city','locations.city', null, null)
-					+input('text','location.postcode','locations.postcode', null, null)
-					+button("Geodetails","showLatLng = !showLatLng",'md-raised',null,null)
-					//+button("Set Title to Display Name","location.title = location.display_name; tabaction.selectedIndex = 0",'md-raised',null,'showLatLng',null)
-
-					small(ng-show="showLatLng")
-						p
-							strong Display Name:&nbsp;
-							span {{location.display_name}}
-						p
-							strong Lat:&nbsp;
-							span {{marker.lat}}
-						p
-							strong Lng:&nbsp;
-							span {{marker.lng}}
-						hr
-						p
-							strong Data:&nbsp;
-							span © OpenStreetMap contributors,&nbsp;
-								a(href='http://www.openstreetmap.org/copyright') ODbL 1.0.
-
-			md-tab(label='{{"Preview" | translate }}')
-				md-content.md-padding
-					div(layout="row" layout-align="space-between start")
-						span(flex)
-							+button("EDIT DETAILS","tabaction.selectedIndex = 0",'md-raised',null,"!location.title || !location.description",null)
-						span.pull-right(flex)
-							+button_fab('submit','submit()','md-warn','fa-check','location')
-
-					p
-						strong TITLE: {{location.title || "No Title"}}
-					p {{location.description || "No Description"}}
-
-					hr
-					+button("EDIT LOCATION","tabaction.selectedIndex = 1",'md-raised',null,"!location.street",null)
-					small
-						p(ng-if="location.emptySinceParsed") Empty for {{location.emptySinceParsed}}
-						p ADDRESS: {{location.street || "Unknown"}}
-						p CITY: {{location.postcode}} {{location.city || "Unknown"}}
-						p DEGREE OF EMPTINESS: {{location.degree || "Unknown"}}
-						p RUMORED DEMOLITION: {{location.rumor || "Unknown"}}
-						p BUILDING TYPE: {{location.buildingType || "Unknown"}}
-						p OWNER: {{location.owner || "Unknown"}}
-					hr
-					p(ng-if="!files") {{ "You may choose one or more image files or take a picture with your device's camera." | translate }}
-
-						+input('fileimage','assets.file','assets.file', null, null)
-						+button('Take a Picture','camera()','md-raised md-disabled','fa-camera',null)
+            md-tab(label='{{"creator.tabs.preview" | translate }}')
+                md-content.md-padding
+                    p
+                        strong {{ "locations.title" | translate }} : {{location.title}}
+                    p(btf-markdown="location.description" ng-if="location.description")
+                    small
+                        p(ng-if="location.empty_since") {{ 'locations.empty_for' | translate }} {{ location.emptySince }}
+                        p {{ 'locations.address' | translate }}: {{location.street || ('locations.unknown' | translate)}}
+                        p {{ 'locations.city' | translate }}: {{location.postcode}} {{location.city || ('locations.unknown' | translate)}}
+                        p {{ 'locations.degree' | translate }}: {{(location.degree | translate) || ('locations.unknown' | translate)}}
+                        p {{ 'locations.demolition_rumor' | translate }}: {{(location.rumor ? ('locations.demolition_rumor_yes' | translate) : null) || ('locations.unknown' | translate)}}
+                        p {{ 'locations.building_type' | translate }}: {{(location.buildingType | translate) || ('locations.unknown' | translate)}}
+                        p {{ 'locations.owner' | translate }}: {{(location.owner | translate) || ('locations.unknown' | translate)}}
+                    hr
+                    p(ng-if='photos') has photos!
+                    p(ng-if='!files') {{ 'actions.choose_images' | translate }}
+                        +input('fileimage','assets.file','assets.file', null, null)
+                    hr
+                    div(layout-gt-xs="row" layout-align="space-between start")
+                        +button("actions.previous",'selectedIndex = 2','md-raised',null,null)
+                        span(flex)
+                        +button_fab('actions.submit','submit()','md-warn','fa-check','location')

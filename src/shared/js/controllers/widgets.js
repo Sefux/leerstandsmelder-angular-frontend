@@ -44,8 +44,8 @@ define([
                     if (err) {
                         deferred.reject(err);
                     }
-                    deferred.resolve(results);
                     this.loading = false;
+                    deferred.resolve(results);
                 });
                 return deferred.promise;
             }
@@ -54,9 +54,7 @@ define([
             }
             function selectedItemChange(item) {
                 $scope.ctrl.searchText = self.currentSearchText;
-                if (item && item.slug) {
-                    $location.path('/locations/' + item.slug);
-                }
+                $location.path('/' + (item.region_slug || item.region_uuid) + '/' + (item.slug || item.uuid));
             }
 
             self.querySearch = querySearch;

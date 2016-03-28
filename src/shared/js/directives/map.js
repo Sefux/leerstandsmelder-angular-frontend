@@ -52,7 +52,8 @@ define([
                                         popup += data.street + "<br />";
                                         popup += data.buildingType + " / " + data.owner + "<br />";
                                     }
-                                    popup += "<a href='" + scope.urlbase + (data.slug || data.uuid) + "'>ansehen</a>";
+                                    popup += "<a href='" + scope.urlbase + (data.slug || data.uuid) + "'>" +
+                                        $translate.instant('actions.show') +"</a>";
                                     e.target.unbindPopup();
                                     e.target.bindPopup(popup).openPopup();
                                 });

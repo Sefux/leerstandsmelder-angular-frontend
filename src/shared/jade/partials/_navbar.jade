@@ -9,7 +9,7 @@ md-toolbar.md-medium-tall(md-scroll-shrink md-shrink-speed-factor='0.5' ng-contr
                     h2
                         a(href='/') {{ 'site.title' | translate }}
                     p.meta
-                        a(ng-href='/regions/{{ currentRegion.slug }}') {{ currentRegion.title }}&nbsp;
+                        a(ng-href='/{{ currentRegion.slug || currentRegion.uuid }}') {{ currentRegion.title }}&nbsp;
             div(flex)
 
             div(flex="5" layout="row" layout-align="end center")

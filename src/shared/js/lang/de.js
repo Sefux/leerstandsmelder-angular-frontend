@@ -81,7 +81,7 @@ define([], function () {
             edit: 'Leerstand bearbeiten',
             empty_for: 'Leer seit',
             empty_options: {
-                recently: 'kurzem',
+                recently: 'Kurzem',
                 min_five_years: 'wenigstens fünf Jahren',
                 min_three_years: 'wenigstens drei Jahren',
                 min_one_year: 'wenigstens einem Jahr',

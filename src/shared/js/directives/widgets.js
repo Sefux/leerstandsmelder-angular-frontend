@@ -77,8 +77,10 @@ define([
                                 success: 'messages.comments.create_success'
                             };
                             if (responseHandler.handleResponse(err, deferred, msgs)) {
-                                scope.comments.push(comment);
-                                scope.new_comment = {};
+                                scope.$applyAsync(function () {
+                                    scope.comments.push(comment);
+                                    scope.new_comment = {};
+                                });
                                 scope.$broadcast('captcha:update', true);
                             } else {
                                 scope.$broadcast('captcha:update', true);
@@ -92,11 +94,13 @@ define([
                             apiService(url)
                                 .actions.all(function (err, comments) {
                                 // TODO: api result format must be unified!
-                                if (comments && comments.results) {
-                                    scope.comments = comments.results;
-                                } else if (comments) {
-                                    scope.comments = comments;
-                                }
+                                scope.$applyAsync(function () {
+                                    if (comments && comments.results) {
+                                        scope.comments = comments.results;
+                                    } else if (comments) {
+                                        scope.comments = comments;
+                                    }
+                                });
                             });
                         }
                     });
