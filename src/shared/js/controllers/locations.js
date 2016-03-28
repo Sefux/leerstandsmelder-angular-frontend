@@ -36,7 +36,7 @@ define([], function () {
             ], function (err) {
                 if (responseHandler.handleResponse(err, deferred)) {
                     if (
-                        $scope.location.user_uuid === $scope.userSession.uuid ||
+                        ($scope.userSession && $scope.location.user_uuid === $scope.userSession.uuid) ||
                         $scope.api_key.scopes.indexOf($scope.location.region_slug) > -1 ||
                         $scope.api_key.scopes.indexOf('admin') > -1
                     ) {
