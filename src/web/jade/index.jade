@@ -1,10 +1,10 @@
 doctype html
 html(lang='en')
     head
-        meta(http-equiv='X-UA-Compatible' content='IE=10')
+        meta(http-equiv='X-UA-Compatible' content='IE=edge')
         meta(http-equiv='Content-Type' content='text/html; charset=utf-8')
         meta(http-equiv='X-Frame-Options' content='DENY')
-        meta(name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=yes')
         meta(name="fragment" content="!")
         base(href='/')
 
@@ -16,7 +16,7 @@ html(lang='en')
             .ng-cloak {
                 display: none !important;
             }
-    body.ng-cloak(layout='column' layout-fill spellcheck='false' ng-cloak)
+    body.ng-cloak(layout='column' spellcheck='false' ng-cloak)
         header
             include ../../shared/jade/partials/_navbar
             div(ng-controller="Widgets.Alerts")
