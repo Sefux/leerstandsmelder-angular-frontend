@@ -18,9 +18,7 @@ define([
             $scope.promise = deferred.promise;
             apiService('posts').actions.find($routeParams.uuid, function (err, post) {
                 $scope.post = post;
-                if (responseHandler.handleResponse(err, deferred)) {
-                    $scope.$apply();
-                }
+                responseHandler.handleResponse(err, deferred);
             });
         }])
         .controller('Posts.List', ['$scope', '$q', 'apiService', 'responseHandler',
@@ -29,9 +27,7 @@ define([
             $scope.promise = deferred.promise;
             apiService('posts?sort=-created').actions.all(function (err, posts) {
                 $scope.posts = posts;
-                if (responseHandler.handleResponse(err, deferred)) {
-                    $scope.$apply();
-                }
+                responseHandler.handleResponse(err, deferred);
             });
         }])
         .controller('Posts.Update', ['$scope', '$q', '$routeParams', 'apiService', 'responseHandler',
@@ -40,9 +36,7 @@ define([
             $scope.promise = deferred.promise;
             apiService('posts').actions.find($routeParams.uuid, function (err, post) {
                 $scope.post = post;
-                if (responseHandler.handleResponse(err, deferred)) {
-                    $scope.$apply();
-                }
+                responseHandler.handleResponse(err, deferred);
             });
             $scope.submit = function () {
                 apiService('posts').actions.update($routeParams.uuid, $scope.post, function (err) {

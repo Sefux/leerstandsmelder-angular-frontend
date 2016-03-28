@@ -67,7 +67,6 @@ define([
                     if (responseHandler.handleResponse(err, deferred, msgs)) {
                         $scope.user.password = null;
                         $scope.user.password_confirm = null;
-                        $scope.$apply();
                     }
                 });
             };
@@ -100,10 +99,8 @@ define([
                 if (responseHandler.handleResponse(err, deferred)) {
                     $scope.success = true;
                     $rootScope.$broadcast('currentUser:updated', true);
-                    $scope.$apply();
                 } else {
                     $scope.success = false;
-                    $scope.$apply();
                 }
             });
         }])

@@ -24,9 +24,7 @@ define([
                 $scope.regions = regions.sort(function (a, b) {
                     return a.title > b.title;
                 });
-                if (responseHandler.handleResponse(err, deferred)) {
-                    $scope.$apply();
-                }
+                responseHandler.handleResponse(err, deferred);
             });
         }])
         .controller('Regions.MapIndex', ['$scope', '$q', 'apiService', 'regionService', 'responseHandler',
@@ -53,9 +51,7 @@ define([
                     });
                 },
             ], function (err) {
-                if (responseHandler.handleResponse(err, deferred)) {
-                    $scope.$apply();
-                }
+                responseHandler.handleResponse(err, deferred);
             });
         }])
         .controller('Regions.Show', ['$scope', 'regionService', '$q', '$routeParams', 'apiService', 'responseHandler',
@@ -81,9 +77,7 @@ define([
                     cb();
                 }
             ], function (err) {
-                if (responseHandler.handleResponse(err, deferred)) {
-                    $scope.$apply();
-                }
+                responseHandler.handleResponse(err, deferred);
             });
 
         }]);

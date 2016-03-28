@@ -36,7 +36,6 @@ define([
                                     scope.userSession = null;
                                     return;
                                 }
-                                scope.$apply();
                             });
                         }
                     };

@@ -24,7 +24,6 @@ define([
                             apiService('regions/' + scope.region.uuid + '/locations?sort=-created&pagesize=' +
                                 (parseInt(scope.pageSize) || 10)).actions.all(function (err, locations) {
                                 scope.locations = locations.results;
-                                scope.$apply();
                             });
                         }
                     });
@@ -77,7 +76,6 @@ define([
                                 scope.comments.push(comment);
                                 scope.new_comment = {};
                                 scope.$broadcast('captcha:update', true);
-                                scope.$apply();
                             } else {
                                 scope.$broadcast('captcha:update', true);
                             }
@@ -90,12 +88,11 @@ define([
                             apiService(url)
                                 .actions.all(function (err, comments) {
                                 // TODO: api result format must be unified!
-                                if (comments.results) {
+                                if (comments && comments.results) {
                                     scope.comments = comments.results;
-                                } else {
+                                } else if (comments) {
                                     scope.comments = comments;
                                 }
-                                scope.$apply();
                             });
                         }
                     });
@@ -131,11 +128,9 @@ define([
                             '&page=' + ((page || scope.query.page) - 1) + '&sort=' + (sort || scope.query.sort);
                         apiService(resource).actions.all(function (err, results) {
                             if (!err && results) {
-                                scope.$applyAsync(function () {
-                                    scope.data = results.results;
-                                    scope.query.total = results.total;
-                                    deferred.resolve();
-                                });
+                                scope.data = results.results;
+                                scope.query.total = results.total;
+                                deferred.resolve();
                             } else {
                                 deferred.reject();
                             }

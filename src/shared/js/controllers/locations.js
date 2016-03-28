@@ -55,7 +55,6 @@ define([
                             $location.path('/locations/' + $scope.location.uuid + '/edit');
                         };
                     }
-                    $scope.$apply();
                 }
             });
         }])
