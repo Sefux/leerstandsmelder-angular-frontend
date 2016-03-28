@@ -4,7 +4,7 @@ md-table-container(layout-fill)
     table(md-table md-row-select="settings.row_select" multiple="settings.multiple" ng-model="selected" md-progress="promise")
         thead(md-head md-order="query.sort" md-on-reorder="onSort")
             tr(md-row)
-                th(md-column md-order-by="{{ field.property }}" ng-repeat="field in fields")
+                th(md-column md-order-by="{{ field.sort !== false ? field.property : null }}" ng-repeat="field in fields")
                     span {{ field.label | translate }}
                 th(md-column ng-if="actions")
             tr(md-row md-select="item" md-select-id="{{item.uuid}}" md-auto-select="false" ng-repeat="item in data")
@@ -18,5 +18,5 @@ md-table-container(layout-fill)
                             span.fa(style='font-size:1.6em' class='{{ action.css_class }}')
 
     md-table-pagination(md-limit="settings.pagesize"
-    md-page-select="true" md-limit-options="settings.limit_options"
-    md-page="query.page" md-total="{{query.total}}" md-on-paginate="onPaginate")
+        md-page-select="true" md-limit-options="settings.limit_options"
+        md-page="query.page" md-total="{{query.total}}" md-on-paginate="onPaginate")

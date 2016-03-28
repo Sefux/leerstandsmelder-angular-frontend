@@ -31,7 +31,7 @@ define([
                     $scope.mapcenter = [$scope.location.lonlat[1], $scope.location.lonlat[0]];
                     $scope.zoom = 17;
                     $scope.formTitle = 'Edit "' + $scope.location.title + '"';
-                    $scope.urlbase = '/' + (location.user_uuid || location.slug);
+                    $scope.urlbase = '/' + (location.region.slug || location.region_uuid);
                     regionService.setCurrentRegion(location.region_uuid, cb);
                 },
                 function (cb) {
@@ -71,7 +71,8 @@ define([
                 },
                 {
                     label: 'regions.region',
-                    property: 'region.title'
+                    property: 'region.title',
+                    sort: false
                 },
                 {
                     label: 'author.created',
