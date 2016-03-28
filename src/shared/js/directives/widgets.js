@@ -23,7 +23,9 @@ define([
                         if (region) {
                             apiService('regions/' + scope.region.uuid + '/locations?sort=-created&pagesize=' +
                                 (parseInt(scope.pageSize) || 10)).actions.all(function (err, locations) {
-                                scope.locations = locations.results;
+                                scope.$applyAsync(function () {
+                                    scope.locations = locations.results;
+                                });
                             });
                         }
                     });
@@ -41,11 +43,13 @@ define([
                     scope.$watch(attrs.pageSize, function () {
                         apiService('posts?sort=-created&limit=' + (parseInt(scope.pageSize) || 10))
                             .actions.all(function (err, posts) {
-                            if (!err && posts) {
-                                scope.posts = posts;
-                            } else {
-                                scope.posts = [];
-                            }
+                            scope.$applyAsync(function () {
+                                if (!err && posts) {
+                                    scope.posts = posts;
+                                } else {
+                                    scope.posts = [];
+                                }
+                            });
                         });
                     });
                 }
