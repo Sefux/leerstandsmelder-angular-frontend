@@ -9,6 +9,7 @@
             lang_de: '/src/shared/js/lang/de',
             config: '/js/configuration',
             lsmMapconfig: '/src/shared/js/lsm-mapconfig',
+            routes: '/src/web/js/routes',
 
             services_api: '/src/shared/js/services/api',
             services_auth: '/src/shared/js/services/auth',

@@ -269,7 +269,7 @@ define([], function () {
                 });
             };
         }])
-        .controller('Locations.Edit', ['$scope', '$routeParams', '$q', '$location', 'apiService', 'responseHandler',
+        .controller('Locations.Update', ['$scope', '$routeParams', '$q', '$location', 'apiService', 'responseHandler',
             function ($scope, $routeParams, $q, $location, apiService, responseHandler) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;

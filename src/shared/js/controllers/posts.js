@@ -28,7 +28,7 @@ define([], function () {
                 }
             });
         }])
-        .controller('Posts.Edit', ['$scope', '$q', '$routeParams', 'apiService', 'responseHandler',
+        .controller('Posts.Update', ['$scope', '$q', '$routeParams', 'apiService', 'responseHandler',
             function ($scope, $q, $routeParams, apiService, responseHandler) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;

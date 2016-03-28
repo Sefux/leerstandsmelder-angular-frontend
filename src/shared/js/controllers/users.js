@@ -31,7 +31,7 @@ define([], function () {
                 });
             };
         }])
-        .controller('Users.Edit', ['$scope', '$q', 'apiService', 'responseHandler', 'PubSub',
+        .controller('Users.Update', ['$scope', '$q', 'apiService', 'responseHandler', 'PubSub',
             function ($scope, $q, apiService, responseHandler, PubSub) {
             var deferred = $q.defer();
             $scope.user = {
