@@ -91,6 +91,7 @@ define([
         .factory('locationFormDefaults', function () {
             return {
                 emptySince: [
+                    'locations.unknown',
                     'locations.empty_options.recently',
                     'locations.empty_options.about_half_year',
                     'locations.empty_options.min_one_year',
@@ -98,6 +99,7 @@ define([
                     'locations.empty_options.min_five_years'
                 ],
                 degree: [
+                    'locations.unknown',
                     'locations.degree_options.complete',
                     'locations.degree_options.partial'
                 ],
@@ -105,6 +107,7 @@ define([
                     'locations.demolition_rumor_yes'
                 ],
                 buildingType: [
+                    'locations.unknown',
                     'locations.building_type_options.residential',
                     'locations.building_type_options.commercial',
                     'locations.building_type_options.industrial',
@@ -112,6 +115,7 @@ define([
                     'locations.building_type_options.public_work'
                 ],
                 owner: [
+                    'locations.unknown',
                     'locations.owner_options.private',
                     'locations.owner_options.business',
                     'locations.owner_options.public',

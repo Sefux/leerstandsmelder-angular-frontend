@@ -4,7 +4,7 @@ define([], function () {
     return {
         actions: {
             cancel: 'Abbrechen',
-            choose_images: 'Wähle eines oder mehrere Bilder aus, oder mache ein Bild mit einer am Gerät verfügbaren Kamera.',
+            choose_images: 'Wähle eines oder mehrere Bilder aus, welche Du zu diesem Eintrag hinzufügen möchtest.',
             delete: 'Löschen',
             edit: 'Bearbeiten',
             edit_details: 'Details bearbeiten',
@@ -98,7 +98,13 @@ define([], function () {
                 year_plural: 'Jahre',
                 and: 'und'
             },
+            help: {
+                info: 'Gib hier einen aussagekräftigen Titel und eine Beschreibung für diesen Leerstand ein.',
+                location: 'Gib eine Adresse ein und die Karte sollte sich nach einem kurzen Moment aktualisieren. Du kannst den Marker auf der Karte ziehen, um damit die Adresse zu aktualisieren.',
+                details: 'Trag ein, welche Details dir über den Leerstand bekannt sind. Wenn Du etwas nicht weißt, lass es einfach unausgewählt.'
+            },
             location: 'Leerstand',
+            location_photos: 'Fotos zu diesem Leerstand',
             location_plural: 'Leerstände',
             my_locations: 'Meine Leerstände',
             no_recent_activity: 'Keine Leerstände',

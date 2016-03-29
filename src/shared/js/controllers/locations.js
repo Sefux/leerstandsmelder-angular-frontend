@@ -53,7 +53,7 @@ define([
                     ) {
                         $scope.mayEdit = true;
                         $scope.edit = function () {
-                            $location.path('/locations/' + $scope.location.uuid + '/edit');
+                            $location.path('/locations/update/' + $scope.location.uuid);
                         };
                     }
                 }
@@ -88,8 +88,8 @@ define([
             $scope.settings = {
                 row_select: false,
                 multiple: false,
-                pagesize: 15,
-                limit_options: [5, 10, 15],
+                pagesize: 25,
+                limit_options: [25, 50, 100],
                 resource: 'users/me/locations'
             };
             $scope.page = {
@@ -117,7 +117,7 @@ define([
                     label: 'actions.show',
                     css_class: 'fa-eye',
                     clickHandler: function (location) {
-                        $location.path('/' + location.slug);
+                        $location.path('/' + (location.region ? location.region.title : location.region_uuid) + '/' + location.uuid);
                     }
                 }
             ];
@@ -127,6 +127,7 @@ define([
             'Locations.Create',
             [
                 '$scope',
+                '$routeParams',
                 'apiService',
                 'authService',
                 '$q',
@@ -134,7 +135,7 @@ define([
                 'mapService',
                 'responseHandler',
                 'locationFormDefaults',
-                function ($scope, apiService, authService, $q, $location, mapService, responseHandler, locationFormDefaults) {
+                function ($scope, $routeParams, apiService, authService, $q, $location, mapService, responseHandler, locationFormDefaults) {
                 var changeTimer, lockUpdate;
                 $scope.location = {};
                 $scope.assets = {
@@ -144,8 +145,6 @@ define([
                     lat: null,
                     lng: null
                 };
-                $scope.formTitle = 'Create location';
-                $scope.showLatLng = false;
                 $scope._sys = locationFormDefaults;
 
                 $scope.updateLocation = function (latlon) {
@@ -219,9 +218,11 @@ define([
                         function (region, cb) {
                             if (region && region.length > 0) {
                                 payload.region_uuid = region[0].uuid;
-                                payload.region_slug = region[0].slug;
-                                payload.region_title = region[0].title;
-                                apiService('locations').actions.create(payload, cb);
+                                if (payload.uuid) {
+                                    apiService('locations').actions.update(payload.uuid, payload, cb);
+                                } else {
+                                    apiService('locations').actions.create(payload, cb);
+                                }
                             } else {
                                 cb(new Error('errors.regions.fetch_failed'),null);
                             }
@@ -242,7 +243,7 @@ define([
                         }
                     ], function (err) {
                         var msgs = {
-                            success: 'messages.locations.create_success'
+                            success: $routeParams.uuid ? 'messages.locations.update_success' : 'messages.locations.create_success'
                         };
                         if (responseHandler.handleResponse(err, deferred, msgs)) {
                             $location.path('/' + ($scope.location.region_slug || $scope.location.region_uuid) + '/' +
@@ -250,6 +251,27 @@ define([
                         }
                     });
                 };
+
+                if ($routeParams.uuid) {
+                    var deferred = $q.defer();
+                    $scope.promise = deferred.promise;
+                    async.waterfall([
+                        function (cb) {
+                            apiService('locations').actions.find($routeParams.uuid, cb);
+                        },
+                        function (location, cb) {
+                            $scope.location = location;
+                            $scope.formTitle = 'Edit "' + location.title + '"';
+                            apiService('locations/' + location.uuid + '/photos').actions.all(cb);
+                        },
+                        function (photos, cb) {
+                            $scope.photos = photos.results;
+                            cb();
+                        }
+                    ], function (err) {
+                        responseHandler.handleResponse(err, deferred);
+                    });
+                }
         }])
         .controller('Locations.Update', ['$scope', '$routeParams', '$q', '$location', 'apiService', 'responseHandler', 'locationFormDefaults',
             function ($scope, $routeParams, $q, $location, apiService, responseHandler, locationFormDefaults) {

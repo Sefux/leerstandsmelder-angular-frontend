@@ -4,7 +4,7 @@ define([], function () {
     return {
         actions: {
             cancel: 'Cancel',
-            choose_images: 'You may choose one or more image files or take a picture with your device\'s camera.',
+            choose_images: 'You may choose one or more image to add to this entry.',
             delete: 'Delete',
             edit: 'Edit',
             edit_details: 'Edit details',
@@ -98,7 +98,13 @@ define([], function () {
                 year_plural: 'years',
                 and: 'and'
             },
+            help: {
+                info: 'Enter a descriptive title and a description for this location.',
+                location: 'Enter an address and the map should update after a short moment. You can drag the marker on the map to update the address.',
+                details: 'Fill out what details you know about the location. If you do not know something, just leave it blank.'
+            },
             location: 'Location',
+            location_photos: 'Photos for this location',
             location_plural: 'Locations',
             my_locations: 'My Locations',
             no_recent_activity: 'No Recent Activity',

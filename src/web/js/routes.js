@@ -134,7 +134,7 @@ define([], function () {
         {
             route: '/locations/update/:uuid',
             templateUrl: '/locations/update.html',
-            controller: 'Locations.Update'
+            controller: 'Locations.Create'
         },
         {
             route: '/:region_uuid/:uuid',

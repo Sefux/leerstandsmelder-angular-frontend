@@ -8,7 +8,9 @@ md-content(layout="row" layout-wrap layout-fill)
     #map(lsm-map flex='50' ng-model='location' select-mode select-handler='updateLocation(latlon)' select-marker='marker')
     md-content(flex="50")
         md-tabs(class="md-primary"  md-dynamic-height md-border-bottom md-no-pagination="false" md-swipe-content md-selected="selectedIndex")
-            md-tab(label='{{"creator.tabs.info" | translate }}')
+            md-tab(label='{{ "creator.tabs.info" | translate }}')
+                md-content.md-padding
+                    p {{ "locations.help.info" | translate }}
                 md-content.md-padding
                     md-content(flex)
                         div(layout-gt-xs="row" flex="60")
@@ -21,7 +23,9 @@ md-content(layout="row" layout-wrap layout-fill)
                     span(flex)
                     +button("actions.next",'selectedIndex = 1','md-raised',null,null)
 
-            md-tab(label='{{"creator.tabs.location" | translate }}')
+            md-tab(label='{{ "creator.tabs.location" | translate }}')
+                md-content.md-padding
+                    p {{ "locations.help.location" | translate }}
                 md-content(layout="row" layout-padding)
                     md-content(flex)
                         +input('text','location.street','locations.street', null, null)
@@ -44,7 +48,9 @@ md-content(layout="row" layout-wrap layout-fill)
                     span(flex)
                     +button("actions.next",'selectedIndex = 2','md-raised',null,null)
 
-            md-tab(label='{{"creator.tabs.details" | translate }}')
+            md-tab(label='{{ "creator.tabs.details" | translate }}')
+                md-content.md-padding
+                    p {{ "locations.help.details" | translate }}
                 md-content(layout="row" layout-padding)
                     md-content(flex layout-padding)
                         md-content(layout-gt-xs="row")
@@ -64,13 +70,13 @@ md-content(layout="row" layout-wrap layout-fill)
                     span(flex)
                     +button("actions.next",'selectedIndex = 3','md-raised',null,null)
 
-            md-tab(label='{{"creator.tabs.preview" | translate }}')
+            md-tab(label='{{ "creator.tabs.preview" | translate }}')
                 md-content.md-padding
                     p
                         strong {{ "locations.title" | translate }} : {{location.title}}
                     p(btf-markdown="location.description" ng-if="location.description")
                     small
-                        p(ng-if="location.empty_since") {{ 'locations.empty_for' | translate }} {{ location.emptySince }}
+                        p(ng-if="location.emptySince") {{ 'locations.empty_for' | translate }}: {{ location.emptySince | translate }}
                         p {{ 'locations.address' | translate }}: {{location.street || ('locations.unknown' | translate)}}
                         p {{ 'locations.city' | translate }}: {{location.postcode}} {{location.city || ('locations.unknown' | translate)}}
                         p {{ 'locations.degree' | translate }}: {{(location.degree | translate) || ('locations.unknown' | translate)}}
@@ -78,7 +84,12 @@ md-content(layout="row" layout-wrap layout-fill)
                         p {{ 'locations.building_type' | translate }}: {{(location.buildingType | translate) || ('locations.unknown' | translate)}}
                         p {{ 'locations.owner' | translate }}: {{(location.owner | translate) || ('locations.unknown' | translate)}}
                     hr
-                    p(ng-if='photos') has photos!
+                    div(ng-if="photos && photos.length > 0")
+                        p
+                            strong {{ "locations.location_photos" | translate }}:
+                        div(layout="row")
+                            img.photo-preview(ng-repeat="photo in photos" ng-src="{{ photo.thumb_url }}")
+                        hr
                     p(ng-if='!files') {{ 'actions.choose_images' | translate }}
                         +input('fileimage','assets.file','assets.file', null, null)
                     hr
