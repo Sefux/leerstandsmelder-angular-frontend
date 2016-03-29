@@ -1,19 +1,9 @@
-include ../mixins/_form
-include ../mixins/_media
-include ../mixins/_buttons
-include ../mixins/_layout
-include ../mixins/_style
-
-+layout('column','center start',true)
-    +content('row','center center')
+md-content(layout="column" layout-align="start start")
+    .lsm-list(flex)
         h2(ng-if="posts") {{ 'site.latest_posts' | translate }}
         h2(ng-if="posts.length === 0") {{ 'site.no_latest_posts' | translate }}
-
-    div.newsitem(ng-repeat="post in posts")
-        +content('row','start start')
-            a(ng-href="/posts/{{post.slug}}")
-                p
-                    span.metatext {{'author.on' | translate}} {{ post.created | date : 'dd.MM.yy' }}
-                    br
-                    strong {{post.title}}
+        a.lsm-list-item(layout='column' layout-align="start center" ng-href='/{{ region.slug || region.uuid }}/{{ location.slug }}' ng-repeat='post in posts')
+            .lsm-list-item-text(flex)
+                h3 {{ post.title }}
+                p.metatext {{'author.on' | translate}} {{ post.created | date : 'dd.MM.yy' }}
                 p.smalltext {{post.abstract | limitTo: 140}}...
