@@ -106,6 +106,7 @@ define([], function () {
             location: 'Leerstand',
             location_photos: 'Fotos zu diesem Leerstand',
             location_plural: 'Leerstände',
+            locations_by_region: 'Leerstände nach Region',
             my_locations: 'Meine Leerstände',
             no_recent_activity: 'Keine Leerstände',
             none_found: 'Keine Leerstände gefunden.',
@@ -162,6 +163,7 @@ define([], function () {
                 feedback: 'Feedback',
                 howto: 'So geht\'s',
                 imprint: 'Impressum',
+                index: 'Index',
                 press: 'Presse',
                 terms: 'AGB'
             },

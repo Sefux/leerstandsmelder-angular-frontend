@@ -49,13 +49,7 @@ define([], function () {
                     var marker;
 
                     if (config.isPruneCluster) {
-                        marker = new PruneCluster.Marker(data.location[0], data.location[1], {
-                            url: '/api/image/' + image._id,
-                            author: data.contributor_id
-                        });
-                        // This can be a string, but numbers are nice too
-                        // TODO: categories need to be loaded from api
-                        marker.category = Math.floor(Math.random() * Math.random() * config.temporary.colors.length);
+                        // TODO: implement prune cluster stuff
                     } else {
                         var options = {
                             draggable: config.draggable
@@ -67,28 +61,6 @@ define([], function () {
                         marker.popup = config.popup;
                     }
                     return marker;
-                },
-                debounce: function (func, threshold, execAsap) {
-                    // via http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
-                    return function debounced() {
-                        var obj = this, args = arguments;
-
-                        function delayed() {
-                            if (!execAsap) {
-                                func.apply(obj, args);
-                            }
-                            window.timeout = null;
-                        }
-
-                        if (window.timeout) {
-                            clearTimeout(window.timeout);
-                        }
-                        else if (execAsap) {
-                            func.apply(obj, args);
-                        }
-
-                        window.timeout = setTimeout(delayed, threshold || 100);
-                    };
                 },
                 reverseGeoCode: function (lat, lon, callback) {
                     // well structured

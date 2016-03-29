@@ -127,6 +127,16 @@ define([], function () {
         // Locations
 
         {
+            route: '/locations/index',
+            templateUrl: '/locations/region_index.html',
+            controller: 'Locations.RegionIndex'
+        },
+        {
+            route: '/locations/index/:region_uuid',
+            templateUrl: '/locations/region_index.html',
+            controller: 'Locations.RegionIndex'
+        },
+        {
             route: '/locations/create',
             templateUrl: '/locations/update.html',
             controller: 'Locations.Create'

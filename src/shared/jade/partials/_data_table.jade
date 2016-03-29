@@ -1,5 +1,3 @@
-include ../mixins/_buttons
-
 md-table-container(layout-fill)
     table(md-table md-row-select="settings.row_select" multiple="settings.multiple" ng-model="selected" md-progress="promise")
         thead(md-head md-order="query.sort" md-on-reorder="onSort")
@@ -17,6 +15,6 @@ md-table-container(layout-fill)
                         md-icon
                             span.fa(style='font-size:1.6em' class='{{ action.css_class }}')
 
-    md-table-pagination(md-limit="settings.pagesize" mdBoundaryLinks="true"
+    md-table-pagination(ng-if="settings.pagination" md-limit="settings.pagesize" mdBoundaryLinks="true"
         md-page-select="true" md-limit-options="settings.limit_options"
         md-page="query.page" md-total="{{query.total}}" md-on-paginate="onPaginate")

@@ -88,6 +88,7 @@ define([
             $scope.settings = {
                 row_select: false,
                 multiple: false,
+                pagination: true,
                 pagesize: 25,
                 limit_options: [25, 50, 100],
                 resource: 'users/me/locations'
@@ -121,6 +122,37 @@ define([
                     }
                 }
             ];
+        }])
+        .controller('Locations.RegionIndex', ['$scope', 'apiService', '$q', '$routeParams', 'responseHandler', '$translate',
+            function ($scope, apiService, $q, $routeParams, responseHandler, $translate) {
+            var deferred = $q.defer();
+            $scope.promise = deferred.promise;
+            async.waterfall([
+                function (cb) {
+                    if ($routeParams.region_uuid) {
+                        apiService('regions').actions.find($routeParams.region_uuid, cb);
+                    } else {
+                        apiService('regions?sort=title').actions.all(cb);
+                    }
+                },
+                function (region_data, cb) {
+                    if (Array.isArray(region_data)) {
+                        $scope.data = region_data.results || region_data;
+                        cb();
+                    } else {
+                        $scope.region = region_data;
+                        apiService('regions/' + region_data.uuid + '/locations').actions.all(cb);
+                    }
+                }
+            ], function (err, locations) {
+                if (locations) {
+                    $scope.listHeadline = $translate.instant('locations.locations_by_region') + ': ' + $scope.region.title;
+                    $scope.data = locations.results || locations;
+                } else {
+                    $scope.listHeadline = $translate.instant('locations.locations_by_region');
+                }
+                responseHandler.handleResponse(err, deferred);
+            });
         }])
         // TODO: reduce the number of injections per controller! the function signature looks obscene... and this is not the only one.
         .controller(
@@ -184,7 +216,6 @@ define([
                     }
 
                     if (changed) {
-                        // todo: have a look at the debounce service in services/map.js
                         if (changeTimer) {
                             window.clearTimeout(changeTimer);
                             changeTimer = null;
