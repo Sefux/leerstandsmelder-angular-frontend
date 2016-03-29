@@ -13,7 +13,7 @@ md-content(layout="row" layout-wrap layout-fill)
             strong {{location.title}}
         p.metatext
             | {{ 'author.by' | translate }}&nbsp;
-            strong {{ location.user.login }}&nbsp;
+            strong {{ location.user.nickname }}&nbsp;
             span {{ 'author.on' | translate }} {{ location.created | date : 'dd.MM.yy' }}
         div(layout="row" ng-if="photos.length > 0")
             img.photo-preview(ng-repeat="photo in photos" ng-src="{{ photo.thumb_url }}" lightbox)

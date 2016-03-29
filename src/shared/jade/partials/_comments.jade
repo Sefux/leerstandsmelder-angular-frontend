@@ -6,7 +6,7 @@ p
 div(ng-if="comments" ng-repeat="comment in comments")
     p.smalltext
         | {{ 'author.by' | translate }}&nbsp;
-        strong {{ comment.user.nickname || comment.user.login }}&nbsp;
+        strong {{ comment.user.nickname }}&nbsp;
         span {{ 'author.on' | translate }} {{ comment.created | date : 'dd.MM.yy HH:mm' }}
     p(btf-markdown="comment.body")
 p(ng-if="comments.length === 0")
