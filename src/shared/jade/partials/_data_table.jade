@@ -17,6 +17,6 @@ md-table-container(layout-fill)
                         md-icon
                             span.fa(style='font-size:1.6em' class='{{ action.css_class }}')
 
-    md-table-pagination(md-limit="settings.pagesize"
+    md-table-pagination(md-limit="settings.pagesize" mdBoundaryLinks="true"
         md-page-select="true" md-limit-options="settings.limit_options"
         md-page="query.page" md-total="{{query.total}}" md-on-paginate="onPaginate")

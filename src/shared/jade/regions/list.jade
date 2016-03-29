@@ -1,5 +1,5 @@
 md-content(layout='column' layout-align="start center" flex="100")
-    md-list(layout="column")
+    md-list
         md-subheader.md-no-sticky {{ page.list_title | translate }}
         md-list-item.md-1-line(layout="row" ng-href='{{ "/admin/region/" + region.uuid + "/edit" }}' ng-repeat='region in regions')
             .md-list-item-text(layout='column')
