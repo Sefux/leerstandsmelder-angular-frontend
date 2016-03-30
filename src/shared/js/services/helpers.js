@@ -41,7 +41,7 @@ define([
                             if (err.errors instanceof Object) {
                                 for (var field in err.errors) {
                                     if (typeof err.errors[field] === 'object') {
-                                        PubSub.publish('alert', 'error', err.errors[field].message);
+                                        PubSub.publish('alert', 'error', $translate.instant(err.errors[field].message));
                                     }
                                 }
                             } else {

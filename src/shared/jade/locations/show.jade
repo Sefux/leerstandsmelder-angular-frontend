@@ -16,7 +16,7 @@ md-content(layout="row" layout-wrap layout-fill)
             strong {{ location.user.nickname }}&nbsp;
             span {{ 'author.on' | translate }} {{ location.created | date : 'dd.MM.yy' }}
         div(layout="row" ng-if="photos.length > 0")
-            img.photo-preview(ng-repeat="photo in photos" ng-src="{{ photo.thumb_url }}" lightbox)
+            img.photo-preview(ng-repeat="photo in photos" ng-src="{{ photo.original_url }}" lightbox)
         p(ng-if="location.description")
             small(btf-markdown="location.description")
         hr

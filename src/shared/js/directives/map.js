@@ -50,7 +50,7 @@ define([
                                         popup += data.locations + " " + $translate.instant('locations.location_plural') +"<br />";
                                     } else {
                                         popup += data.street + "<br />";
-                                        popup += data.buildingType + " / " + data.owner + "<br />";
+                                        popup += data.buildingType + " / " + $translate.instant(data.owner) + "<br />";
                                     }
                                     popup += "<a href='" + scope.urlbase + (data.slug || data.uuid) + "'>" +
                                         $translate.instant('actions.show') +"</a>";
