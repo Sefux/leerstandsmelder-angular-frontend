@@ -1,4 +1,4 @@
-/* global angular,define,async,PIECEMETA_API_HOST,console */
+/* global angular,define,async,PIECEMETA_API_HOST,console,Showdown */
 
 define([
     'services_api',
@@ -27,8 +27,8 @@ define([
                 responseHandler.handleResponse(err, deferred);
             });
         }])
-        .controller('Regions.MapIndex', ['$scope', '$q', 'apiService', 'regionService', 'responseHandler',
-            function ($scope, $q, apiService, regionService, responseHandler) {
+        .controller('Regions.MapIndex', ['$scope', '$q', 'apiService', 'regionService', 'responseHandler', 'staticContent', '$translate', '$mdDialog',
+            function ($scope, $q, apiService, regionService, responseHandler, staticContent, $translate, $mdDialog) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
             $scope.mapcenter = [51.0, 9.0];
@@ -53,6 +53,23 @@ define([
             ], function (err) {
                 responseHandler.handleResponse(err, deferred);
             });
+
+            staticContent.getMarkdown('popup_relaunch', function (err, data) {
+                if (!err) {
+                    $scope.popupContent = data;
+                    var converter = new Showdown.converter(),
+                        html = converter.makeHtml(data);
+                    $mdDialog.show($mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title($translate.instant('popups.relaunch.title'))
+                        .htmlContent(html)
+                        .ariaLabel($translate.instant('popups.relaunch.title'))
+                        .ok('OK'));
+                }
+            });
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
         }])
         .controller('Regions.Show', ['$scope', 'regionService', '$q', '$routeParams', 'apiService', 'responseHandler',
             function ($scope, regionService, $q, $routeParams, apiService, responseHandler) {

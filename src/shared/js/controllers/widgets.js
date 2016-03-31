@@ -8,6 +8,7 @@ define([
     return angular.module(
         'lsm.controllers.widgets',[
             'angularPubsub',
+            'btford.markdown',
             'lsm.services.api',
             'lsm.services.helpers',
             'lsm.directives.helpers'

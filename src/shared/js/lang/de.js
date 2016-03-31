@@ -140,6 +140,11 @@ define([], function () {
                 update_success: 'Konto wurde erfolgreich aktualisiert.'
             }
         },
+        popups: {
+            relaunch: {
+                title: 'Relaunch!'
+            }
+        },
         posts: {
             edit_post: 'Eintrag bearbeiten',
             title: 'Titel',
