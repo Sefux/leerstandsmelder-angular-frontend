@@ -21,14 +21,61 @@ define([
                 responseHandler.handleResponse(err, deferred);
             });
         }])
-        .controller('Posts.List', ['$scope', '$q', 'apiService', 'responseHandler',
-            function ($scope, $q, apiService, responseHandler) {
-            var deferred = $q.defer();
-            $scope.promise = deferred.promise;
-            apiService('posts?sort=-created').actions.all(function (err, posts) {
-                $scope.posts = posts;
-                responseHandler.handleResponse(err, deferred);
-            });
+        .controller('Posts.List', ['$scope', '$q', 'apiService', 'responseHandler', '$location',
+            function ($scope, $q, apiService, responseHandler, $location) {
+            $scope.fields = [
+                {
+                    label: 'posts.title',
+                    property: 'title'
+                },
+                {
+                    label: 'author.created',
+                    property: 'created',
+                    date: true
+                },
+                {
+                    label: 'author.updated',
+                    property: 'updated',
+                    date: true
+                }
+            ];
+            $scope.settings = {
+                row_select: false,
+                multiple: false,
+                pagination: true,
+                pagesize: 25,
+                limit_options: [25, 50, 100],
+                resource: 'posts'
+            };
+            $scope.actions = [
+                {
+                    label: 'actions.edit',
+                    css_class: 'fa-pencil-square-o',
+                    clickHandler: function (item) {
+                        $location.path('/admin/posts/' + item.uuid);
+                    }
+                },
+                {
+                    label: 'actions.delete',
+                    css_class: 'fa-trash-o',
+                    clickHandler: function (item) {
+                        var deferred = $q.defer();
+                        $scope.promise = deferred.promise;
+                        apiService('posts').remove(item.uuid, function (err) {
+                            if (responseHandler.handleResponse(err, deferred)) {
+                                $location.path('/admin/posts');
+                            }
+                        });
+                    }
+                },
+                {
+                    label: 'actions.show',
+                    css_class: 'fa-eye',
+                    clickHandler: function (item) {
+                        $location.path('/posts/' + (item.slug || item.uuid));
+                    }
+                }
+            ];
         }])
         .controller('Posts.Update', ['$scope', '$q', '$routeParams', 'apiService', 'responseHandler',
             function ($scope, $q, $routeParams, apiService, responseHandler) {
@@ -39,6 +86,7 @@ define([
                 responseHandler.handleResponse(err, deferred);
             });
             $scope.submit = function () {
+                $scope.post.body = $scope.editor.value();
                 apiService('posts').actions.update($routeParams.uuid, $scope.post, function (err) {
                     var msgs = {
                         success: 'posts.update_success'

@@ -136,7 +136,7 @@ define([
                             '&page=' + ((page || scope.query.page) - 1) + '&sort=' + (sort || scope.query.sort);
                         apiService(resource).actions.all(function (err, results) {
                             if (!err && results) {
-                                scope.data = results.results;
+                                scope.data = results.results || results;
                                 scope.query.total = results.total;
                                 deferred.resolve();
                             } else {
