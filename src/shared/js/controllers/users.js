@@ -42,7 +42,7 @@ define([
             function ($scope, $q, apiService, responseHandler, PubSub) {
             var deferred = $q.defer();
             $scope.user = {
-                login: null,
+                nickname: null,
                 email: null,
                 password: null,
                 password_confirm: null
@@ -74,7 +74,7 @@ define([
             apiService('users').actions.find('me', function (err, user) {
                 if (responseHandler.handleResponse(err, deferred)) {
                     $scope.user = {
-                        login: user.login,
+                        nickname: user.nickname,
                         email: user.email,
                         password: null,
                         password_confirm: null
