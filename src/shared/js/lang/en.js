@@ -153,13 +153,16 @@ define([], function () {
         },
         regions: {
             hide_message: 'Message if Region is hidden',
+            latitude: 'Latitude',
+            longitude: 'Longitude',
             manage_regions: 'Manage Regions',
             region: 'Region',
             region_plural: 'Regions',
             set_hide: 'Hide this Region',
             set_moderate: 'Moderate this Region',
             title: 'Title',
-            update_success: 'Region updated successfully.'
+            update_success: 'Region updated successfully.',
+            zoom: 'Zoom'
         },
         site: {
             banned: 'Banned',

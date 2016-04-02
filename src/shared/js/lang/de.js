@@ -155,13 +155,16 @@ define([], function () {
         },
         regions: {
             hide_message: 'Nachricht, wenn Region nicht angezeigt wird',
+            latitude: 'Breitengrad',
+            longitude: 'Längengrad',
             manage_regions: 'Regionen verwalten',
             region: 'Region',
             region_plural: 'Regionen',
             set_hide: 'Diese Region nicht anzeigen',
             set_moderate: 'Diese Region moderieren',
             title: 'Titel',
-            update_success: 'Region erfolgreich aktualisiert.'
+            update_success: 'Region erfolgreich aktualisiert.',
+            zoom: 'Zoom'
         },
         site: {
             banned: 'Gesperrt',
