@@ -86,6 +86,8 @@ define([
                 responseHandler.handleResponse(err, deferred);
             });
             $scope.submit = function () {
+                deferred = $q.defer();
+                $scope.promise = deferred.promise;
                 $scope.post.body = $scope.editor.value();
                 apiService('posts').actions.update($routeParams.uuid, $scope.post, function (err) {
                     var msgs = {

@@ -1,6 +1,6 @@
-md-content(layout='column' layout-align="start center" flex="100")
-    md-list
-        md-subheader.md-no-sticky {{ page.list_title | translate }}
-        md-list-item.md-1-line(layout="row" ng-href='{{ "/admin/region/" + region.uuid + "/edit" }}' ng-repeat='region in regions')
-            .md-list-item-text(layout='column')
-                h3 {{ region.title }}
+include ../mixins/_style
+
+md-content(layout='column' layout-align="start center" flex="100" layout-fill)
+    +headline('regions.region_plural')
+    div(lsm-data-table layout-fill data-fields='fields' data-settings='settings' data-actions='actions')
+

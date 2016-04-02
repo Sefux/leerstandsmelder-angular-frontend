@@ -145,11 +145,21 @@ define([], function () {
         },
         posts: {
             edit_post: 'Edit Post',
+            manage_posts: 'Manage Posts',
+            post: 'Post',
+            post_plural: 'Posts',
             title: 'Title',
-            update_success: 'Post successfully updated.'
+            update_success: 'Post updated successfully.'
         },
         regions: {
-            region: 'Region'
+            hide_message: 'Message if Region is hidden',
+            manage_regions: 'Manage Regions',
+            region: 'Region',
+            region_plural: 'Regions',
+            set_hide: 'Hide this Region',
+            set_moderate: 'Moderate this Region',
+            title: 'Title',
+            update_success: 'Region updated successfully.'
         },
         site: {
             banned: 'Banned',

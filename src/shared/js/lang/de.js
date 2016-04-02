@@ -147,11 +147,21 @@ define([], function () {
         },
         posts: {
             edit_post: 'Eintrag bearbeiten',
+            manage_posts: 'Einträge verwalten',
+            post: 'Eintrag',
+            post_plural: 'Einträge',
             title: 'Titel',
             update_success: 'Eintrag erfolgreich aktualisiert..'
         },
         regions: {
-            region: 'Region'
+            hide_message: 'Nachricht, wenn Region nicht angezeigt wird',
+            manage_regions: 'Regionen verwalten',
+            region: 'Region',
+            region_plural: 'Regionen',
+            set_hide: 'Diese Region nicht anzeigen',
+            set_moderate: 'Diese Region moderieren',
+            title: 'Titel',
+            update_success: 'Region erfolgreich aktualisiert.'
         },
         site: {
             banned: 'Gesperrt',

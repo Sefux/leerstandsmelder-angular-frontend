@@ -63,6 +63,8 @@ md-toolbar.md-medium-tall(md-scroll-shrink md-shrink-speed-factor='0.5' ng-contr
                             +button('users.signup',null,'btn-default','fa-user-plus','!userSession','/users/create')
                         md-menu-item(ng-if="userSession")
                             +button('locations.my_locations',null,'btn-default','fa-list','userSession', '/users/me/locations')
+                        md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
+                            +button('regions.manage_regions',null,'btn-default','fa-globe','userSession', '/admin/regions')
                         md-menu-item(ng-if="api_key.scopes.indexOf('editor') > -1")
                             +button('posts.manage_posts',null,'btn-default','fa-newspaper-o','userSession', '/admin/posts')
                         md-menu-item(ng-if="userSession")

@@ -104,7 +104,7 @@ mixin input(field_type, field_key, field_i18n_key, resource_list, sys_val, no_la
 						aria-label='{{option | translate}}'
 						ng-disabled='asset.disabled'
 						value='{{option}}'
-						)= '{{option | translate}}'
+						)= _i18n_field_key
 
 
 				else if field_type == 'radio'

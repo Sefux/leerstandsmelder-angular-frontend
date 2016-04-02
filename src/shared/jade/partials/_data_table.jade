@@ -5,7 +5,7 @@ md-table-container(layout-fill)
                 th(md-column md-order-by="{{ field.sort !== false ? field.property : null }}" ng-repeat="field in fields")
                     span {{ field.label | translate }}
                 th(md-column ng-if="actions")
-            tr(md-row md-select="item" md-select-id="{{item.uuid}}" md-auto-select="false" ng-repeat="item in data")
+            tr(md-row md-select="item" md-select-id="item.uuid" md-auto-select="false" ng-repeat="item in data")
                 td(md-cell ng-repeat="field in fields")
                     span(ng-if="field.date") {{ getDataForProperty(field.property, item) | date : 'dd.MM.yy HH:mm' }}
                     span(ng-if="!field.date") {{ getDataForProperty(field.property, item) }}

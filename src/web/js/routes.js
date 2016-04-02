@@ -41,6 +41,11 @@ define([], function () {
             templateUrl: '/regions/list.html',
             controller: 'Regions.List'
         },
+        {
+            route: '/admin/regions/:uuid',
+            templateUrl: '/regions/update.html',
+            controller: 'Regions.Update'
+        },
 
         //
         //
