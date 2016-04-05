@@ -155,6 +155,11 @@ define([], function () {
             route: '/:region_uuid/:uuid',
             templateUrl: '/locations/show.html',
             controller: 'Locations.Show'
-        }
+        },
+        {
+            route: '/admin/regions/:uuid/locations',
+            templateUrl: '/locations/region_index.html',
+            controller: 'Locations.RegionList'
+        },
     ];
 });
