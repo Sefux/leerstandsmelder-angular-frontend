@@ -8,7 +8,7 @@ md-content(layout="row" layout-wrap layout-fill)
         .md-padding.type-post(flex)
             p.metatext-lg {{author.on | translate}} {{ post.created | date : 'dd.MM.yy' }}
             h1 {{post.title}}
-            div(ng-bind-html="post.body")
+            div(btf-markdown="post.body")
             hr
             div(comments uuid='post.uuid' resource="posts")
     md-content(flex="33" layout='column')
