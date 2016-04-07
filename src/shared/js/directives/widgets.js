@@ -151,6 +151,11 @@ define([
                         scope.selected = [];
                         fetchData(null, null, order);
                     };
+                    scope.$watch("needsUpdate", function (newValue, oldValue) {
+                        if (newValue === true) {
+                            fetchData();
+                        }
+                    });
                     fetchData();
                 }
             };

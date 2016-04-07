@@ -95,6 +95,7 @@ define([
                 responseHandler.handleResponse(err, deferred);
             });
 
+            /*
             staticContent.getMarkdown('popup_relaunch', function (err, data) {
                 if (!err) {
                     $scope.popupContent = data;
@@ -111,6 +112,7 @@ define([
             $scope.cancel = function () {
                 $mdDialog.cancel();
             };
+            */
         }])
         .controller('Regions.Show', ['$scope', 'regionService', '$q', '$routeParams', 'apiService', 'responseHandler',
             function ($scope, regionService, $q, $routeParams, apiService, responseHandler) {
