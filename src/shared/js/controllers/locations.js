@@ -38,10 +38,13 @@ define([
                     apiService('locations/' + $scope.location.uuid + '/photos').actions.all(cb);
                 },
                 function (photos, cb) {
-                    photos.results.sort(function (a, b) {
-                        return a.position - b.position;
-                    });
-                    $scope.photos = photos.results;
+                    var res = photos.results || photos;
+                    if (Array.isArray(res)) {
+                        res.sort(function (a, b) {
+                            return a.position - b.position;
+                        });
+                        $scope.photos = res;
+                    }
                     cb();
                 }
             ], function (err) {
@@ -123,7 +126,8 @@ define([
                 }
             ];
         }])
-        .controller('Locations.RegionList', ['$scope', '$location', function ($scope, $location) {
+        .controller('Locations.RegionList', ['$scope', '$q', '$location', '$mdDialog', '$translate', 'responseHandler', 'apiService',
+            function ($scope, $q, $location, $mdDialog, $translate, responseHandler, apiService) {
             $scope.fields = [
                 {
                     label: 'locations.title',
@@ -146,7 +150,7 @@ define([
             ];
             $scope.fields.push({
                 label: 'locations.visible',
-                property: 'region.visible',
+                property: 'region.visible'
             });
             $scope.settings = {
                 row_select: false,
@@ -164,15 +168,30 @@ define([
                         $location.path('/locations/update/' + location.uuid);
                     }
                 },
-                /*
-                 {
-                 label: 'actions.delete',
-                 css_class: 'fa-trash-o',
-                 clickHandler: function (location) {
-                 // TODO: delete function needs some work in the api to remove associated assets and entries
-                 }
-                 },
-                 */
+                {
+                    label: 'actions.delete',
+                    css_class: 'fa-trash-o',
+                    clickHandler: function (location) {
+                        var confirm = $mdDialog.confirm()
+                            .title($translate.instant('locations.remove_confirm_title'))
+                            .textContent($translate.instant('locations.remove_confirm_body'))
+                            .ariaLabel('locations.remove_confirm_title')
+                            .ok($translate.instant('actions.ok'))
+                            .cancel($translate.instant('actions.cancel'));
+                        $mdDialog.show(confirm).then(function () {
+                            var deferred = $q.defer();
+                            $scope.promise = deferred.promise;
+                            apiService('locations').actions.remove(location.uuid, function (err) {
+                                var msgs = {
+                                    success: 'locations.remove_success'
+                                };
+                                if (responseHandler.handleResponse(err, deferred, msgs)) {
+
+                                }
+                            });
+                        });
+                    }
+                },
                 {
                     label: 'actions.show',
                     css_class: 'fa-eye',

@@ -9,6 +9,7 @@ define([], function () {
             edit: 'Edit',
             edit_details: 'Edit details',
             next: 'Next',
+            ok: 'OK',
             previous: 'Previous',
             show: 'View',
             submit: 'Submit',
@@ -118,6 +119,9 @@ define([], function () {
                 city: 'City'
             },
             recent_activity: 'Latest Activity',
+            remove_confirm_title: 'Delete Location',
+            remove_confirm_body: 'This action cannot be undone. Are you sure?',
+            remove_success: 'Location deleted',
             search: 'Search',
             title: 'Title',
             unknown: 'Unknown'
