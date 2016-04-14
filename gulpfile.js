@@ -168,6 +168,7 @@ gulp.task('copy-js-config', function () {
 
 gulp.task('copy-web', function () {
     copyPipe(gulp.src(['./bower_components/font-awesome/fonts/*','./assets/fonts/*']), './dist/web/fonts/', 3);
+    copyPipe(gulp.src(['./assets/images/*']), './dist/web/images/', 2);
     copyPipe(gulp.src(['./bower_components/leaflet/dist/images/*']), './dist/web/', 3);
     copyPipe(gulp.src(['./bower_components/leaflet-minimap/dist/images/*']), './dist/web/');
     copyPipe(gulp.src(['./src/shared/static/md/*.md']), './dist/web/', 2);
@@ -175,6 +176,7 @@ gulp.task('copy-web', function () {
 
 gulp.task('copy-mobile', function () {
     copyPipe(gulp.src(['./bower_components/font-awesome/fonts/*','./assets/fonts/*']), './dist/mobile/fonts/', 3);
+    copyPipe(gulp.src(['./assets/images/*']), './dist/mobile/images/', 2);
     copyPipe(gulp.src(['./bower_components/leaflet/dist/images/*']), './dist/mobile/', 3);
     copyPipe(gulp.src(['./bower_components/leaflet-minimap/dist/images/*']), './dist/web/');
     copyPipe(gulp.src(['./src/shared/static/md/*.md']), './dist/mobile/', 2);

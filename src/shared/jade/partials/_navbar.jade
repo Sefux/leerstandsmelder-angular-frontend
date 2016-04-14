@@ -5,6 +5,8 @@ md-toolbar.md-medium-tall(md-scroll-shrink md-shrink-speed-factor='0.5' ng-contr
     div#navbar(name="navbar" layout='column' layout-align='center end' layout-fill)
         div.md-toolbar-tools(layout='row' layout-align='space-between center')
             div(flex="90" layout='row' layout-align='start center')
+                a(href='/')
+                    img.md-icon.logo-main(src="/images/leerstandsmelder_logo_trans.png", alt="{{ 'site.title' | translate }}")
                 div
                     h2
                         a(href='/') {{ 'site.title' | translate }}

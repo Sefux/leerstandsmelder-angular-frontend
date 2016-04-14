@@ -36,9 +36,15 @@ define([
             '$mdThemingProvider',
             function ($routeProvider, $locationProvider, $animateProvider, $translateProvider, $mdThemingProvider) {
 
+                var whiteMap = $mdThemingProvider.extendPalette('grey', {
+                    '500': '#dddddd',
+                    'contrastDefaultColor': 'dark'
+                });
+                $mdThemingProvider.definePalette('white', whiteMap);
+
                 // todo: abstract this theme style out to config
                 $mdThemingProvider.theme('default')
-                    .primaryPalette('blue-grey')
+                    .primaryPalette('white')
                     .accentPalette('deep-orange')
                     .warnPalette('red');
 
