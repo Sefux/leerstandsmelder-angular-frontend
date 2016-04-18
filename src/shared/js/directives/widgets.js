@@ -1,4 +1,4 @@
-/* global console,angular,define,LEERSTANDSMELDER_API_HOST */
+/* global console,angular,define,Showdown,localStorage,LEERSTANDSMELDER_API_HOST */
 
 define([
     'services_api',
@@ -159,5 +159,34 @@ define([
                     fetchData();
                 }
             };
+        }])
+        .directive('msgPopup', ['staticContent', '$mdDialog', '$translate',
+            function (staticContent, $mdDialog, $translate) {
+                return {
+                    restrict: 'A',
+                    link: function (scope, elem, attrs) {
+                        if (localStorage['popups.' + attrs.popupId]) {
+                            return;
+                        }
+                        staticContent.getMarkdown('popups_' + attrs.popupId, function (err, data) {
+                            if (!err) {
+                                scope.popupContent = data;
+                                var converter = new Showdown.converter(),
+                                    html = converter.makeHtml(data);
+                                $mdDialog.show($mdDialog.confirm()
+                                    .clickOutsideToClose(true)
+                                    .title($translate.instant('popups.' + attrs.popupId + '.title'))
+                                    .htmlContent(html)
+                                    .hasBackdrop(false)
+                                    .ariaLabel($translate.instant('popups.' + attrs.popupId + '.title'))
+                                    .ok($translate.instant('actions.ok'))
+                                    .cancel($translate.instant('actions.dont_show_again')))
+                                    .then(function () {}, function () {
+                                        localStorage['popups.' + attrs.popupId] = '1';
+                                    });
+                            }
+                        });
+                    }
+                };
         }]);
 });

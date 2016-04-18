@@ -10,8 +10,8 @@ html(lang='en')
 
         title Leerstandsmelder - Für mehr Transparenz und neue Möglichkeitsräume in der Stadt
         meta(name='description' content='Meldet Leerstände! Mit dem Leerstandsmelder können wir gemeinsam Informationen austauschen. Leerstände können auf der Leerstandskarte von allen NutzerInnen direkt und unkompliziert eingetragen werden.')
-        link(rel='stylesheet', href='/css/leerstandsmelder-frontend-dependencies.min.css?build=16040702')
-        link(rel='stylesheet', href='/css/leerstandsmelder-frontend.css?build=16040702')
+        link(rel='stylesheet', href='/css/leerstandsmelder-frontend-dependencies.min.css?build=16041801')
+        link(rel='stylesheet', href='/css/leerstandsmelder-frontend.css?build=16041801')
         style(type='text/css').
             .ng-cloak {
                 display: none !important;
@@ -36,7 +36,8 @@ html(lang='en')
                 a(href='/site/press') {{ 'site.subnav.press' | translate }}
                 a(href='/site/terms') {{ 'site.subnav.terms' | translate }}
                 a(href='/site/imprint') {{ 'site.subnav.imprint' | translate }}
+        div(msg-popup popup-id='relaunch')
         scripts
-            script(src='/js/leerstandsmelder-apiclient-web.js?build=16040702')
-            script(src='/js/leerstandsmelder-angular-dependencies.min.js?build=16040702')
+            script(src='/js/leerstandsmelder-apiclient-web.js?build=16041801')
+            script(src='/js/leerstandsmelder-angular-dependencies.min.js?build=16041801')
             script(data-main="/src/web/js/rjs-runtime" src='/js/require.js')

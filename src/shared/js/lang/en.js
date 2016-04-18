@@ -6,6 +6,7 @@ define([], function () {
             cancel: 'Cancel',
             choose_images: 'You may choose one or more image to add to this entry.',
             delete: 'Delete',
+            dont_show_again: 'Don\'t show again',
             edit: 'Edit',
             edit_details: 'Edit details',
             next: 'Next',
