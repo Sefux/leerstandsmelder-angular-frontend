@@ -94,25 +94,6 @@ define([
             ], function (err) {
                 responseHandler.handleResponse(err, deferred);
             });
-
-            /*
-            staticContent.getMarkdown('popup_relaunch', function (err, data) {
-                if (!err) {
-                    $scope.popupContent = data;
-                    var converter = new Showdown.converter(),
-                        html = converter.makeHtml(data);
-                    $mdDialog.show($mdDialog.alert()
-                        .clickOutsideToClose(true)
-                        .title($translate.instant('popups.relaunch.title'))
-                        .htmlContent(html)
-                        .ariaLabel($translate.instant('popups.relaunch.title'))
-                        .ok('OK'));
-                }
-            });
-            $scope.cancel = function () {
-                $mdDialog.cancel();
-            };
-            */
         }])
         .controller('Regions.Show', ['$scope', 'regionService', '$q', '$routeParams', 'apiService', 'responseHandler',
             function ($scope, regionService, $q, $routeParams, apiService, responseHandler) {

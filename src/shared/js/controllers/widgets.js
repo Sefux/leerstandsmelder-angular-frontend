@@ -13,8 +13,8 @@ define([
             'lsm.services.helpers',
             'lsm.directives.helpers'
         ])
-        .controller('Widgets.Navbar', ['$scope','$rootScope','$translate','$location','$timeout', '$q', 'apiService', 'regionService',
-            function ($scope,$rootScope,$translate,$location,$timeout, $q, apiService, regionService) {
+        .controller('Widgets.Navbar', ['$scope','$rootScope','$translate','$location','$timeout', '$q', 'apiService',
+            function ($scope,$rootScope,$translate,$location,$timeout, $q, apiService) {
             var self = this;
             self.currentSearchText = null;
             self.repos = [];
