@@ -106,6 +106,9 @@ define([
                 rumor: [
                     'locations.demolition_rumor_yes'
                 ],
+                hidden: [
+                    'locations.hidden_yes'
+                ],
                 buildingType: [
                     'locations.unknown',
                     'locations.building_type_options.residential',

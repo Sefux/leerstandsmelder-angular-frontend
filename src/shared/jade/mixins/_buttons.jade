@@ -14,6 +14,22 @@ mixin button(TEXT, _ng_click, _class, icon, _ng_if, _ng_href)
 				span.fa.fa-fw(style="font-size:1.2em;padding:0 0 4px 0" class=icon)
 		span= _i18n_field_key
 
+// TODO: this needs to go asap! pls fix this style mess
+mixin button_notranslate_tmp(TEXT, _ng_click, _class, icon, _ng_if, _ng_href)
+	- var _0n_field_key = "{{" + TEXT + "}}"
+
+	md-button(
+	class=_class
+	ng-click=_ng_click
+	aria-label='{{ TEXT }}'
+	ng-if=_ng_if
+	ng-href=_ng_href
+	)
+		if icon
+			md-icon
+				span.fa.fa-fw(style="font-size:1.2em;padding:0 0 4px 0" class=icon)
+		span= _0n_field_key
+
 mixin button_notranslate(TEXT, _ng_click, _class, icon, _ng_if, _ng_href)
 	- var _0n_field_key = "{{" + TEXT + "}}"
 

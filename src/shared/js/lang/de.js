@@ -40,6 +40,7 @@ define([], function () {
         },
         creator: {
             tabs: {
+                admin: 'Verwaltung',
                 details: 'Details',
                 info: 'Info',
                 location: 'Ort',
@@ -105,6 +106,8 @@ define([], function () {
                 location: 'Gib eine Adresse ein und die Karte sollte sich nach einem kurzen Moment aktualisieren. Du kannst den Marker auf der Karte ziehen, um damit die Adresse zu aktualisieren.',
                 details: 'Trag ein, welche Details dir über den Leerstand bekannt sind. Wenn Du etwas nicht weißt, lass es einfach unausgewählt.'
             },
+            hidden: 'Ausgeblendet',
+            hidden_yes: 'Ja',
             location: 'Leerstand',
             location_photos: 'Fotos zu diesem Leerstand',
             location_plural: 'Leerstände',

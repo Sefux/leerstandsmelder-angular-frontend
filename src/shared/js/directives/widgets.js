@@ -114,7 +114,7 @@ define([
                 link: function (scope) {
                     scope.selected = [];
                     scope.query = {
-                        sort: 'title',
+                        sort: scope.settings.sort ? scope.settings.sort : 'title',
                         page: 1
                     };
                     scope.getDataForProperty = function (property, data) {

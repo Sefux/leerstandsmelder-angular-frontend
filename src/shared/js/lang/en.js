@@ -40,6 +40,7 @@ define([], function () {
         },
         creator: {
             tabs: {
+                admin: 'Admin',
                 details: 'Details',
                 info: 'Info',
                 location: 'Location',
@@ -105,6 +106,8 @@ define([], function () {
                 location: 'Enter an address and the map should update after a short moment. You can drag the marker on the map to update the address.',
                 details: 'Fill out what details you know about the location. If you do not know something, just leave it blank.'
             },
+            hidden: 'Hidden',
+            hidden_yes: 'Ja',
             location: 'Location',
             location_photos: 'Photos for this location',
             location_plural: 'Locations',

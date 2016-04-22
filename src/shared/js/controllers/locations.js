@@ -126,9 +126,9 @@ define([
                 }
             ];
         }])
-        .controller('Locations.RegionList', ['$scope', '$q', '$location', '$mdDialog', '$translate', 'responseHandler', 'apiService',
-            function ($scope, $q, $location, $mdDialog, $translate, responseHandler, apiService) {
-            $scope.fields = [
+        .controller('Locations.RegionList', ['$scope', '$q', '$location', '$mdDialog', '$translate', 'responseHandler', 'apiService', 'regionService', '$routeParams',
+            function ($scope, $q, $location, $mdDialog, $translate, responseHandler, apiService, regionService, $routeParams) {
+            var fields = [
                 {
                     label: 'locations.title',
                     property: 'title'
@@ -140,6 +140,7 @@ define([
                 {
                     label: 'author.created',
                     property: 'created',
+                    sort: true,
                     date: true
                 },
                 {
@@ -148,17 +149,27 @@ define([
                     date: true
                 }
             ];
-            $scope.fields.push({
-                label: 'locations.visible',
-                property: 'region.visible'
+            if ($routeParams.region_uuid) {
+                fields.push({
+                    label: 'locations.hidden',
+                    property: 'hidden'
+                });
+                $scope.listHeadline = 'locations.locations_by_region';
+            } else {
+                $scope.listHeadline = 'locations.my_locations';
+            }
+            regionService.setCurrentRegion($routeParams.region_uuid, function () {
+                $scope.currentRegion = regionService.currentRegion.title;
             });
+            $scope.fields = fields;
             $scope.settings = {
                 row_select: false,
                 multiple: false,
                 pagination: true,
+                sort: '-created',
                 pagesize: 25,
                 limit_options: [25, 50, 100],
-                resource: 'users/me/locations'
+                resource: $routeParams.region_uuid ? 'regions/' + $routeParams.region_uuid + '/locations' : 'users/me/locations'
             };
             $scope.actions = [
                 {
@@ -186,7 +197,7 @@ define([
                                     success: 'locations.remove_success'
                                 };
                                 if (responseHandler.handleResponse(err, deferred, msgs)) {
-
+                                    window.document.location.reload();
                                 }
                             });
                         });
@@ -245,7 +256,8 @@ define([
                 'mapService',
                 'responseHandler',
                 'locationFormDefaults',
-                function ($scope, $routeParams, apiService, authService, $q, $location, mapService, responseHandler, locationFormDefaults) {
+                'regionService',
+                function ($scope, $routeParams, apiService, authService, $q, $location, mapService, responseHandler, locationFormDefaults, regionService) {
                 var changeTimer, lockUpdate;
                 $scope.location = {};
                 $scope.assets = {
@@ -320,14 +332,18 @@ define([
                         payload = $scope.location;
                     $scope.promise = deferred.promise;
                     payload.lonlat = [$scope.marker.lng, $scope.marker.lat];
+                    var isUpdate = false;
                     async.waterfall([
                         function (cb) {
                             apiService('regions?lat=' + $scope.marker.lat + '&lon=' + $scope.marker.lng).actions.all(cb);
                         },
                         function (region, cb) {
                             if (region && region.length > 0) {
-                                payload.region_uuid = region[0].uuid;
+                                if (!payload.hasOwnProperty('region_uuid')) {
+                                    payload.region_uuid = region[0].uuid;
+                                }
                                 if (payload.uuid) {
+                                    isUpdate = true;
                                     apiService('locations').actions.update(payload.uuid, payload, cb);
                                 } else {
                                     apiService('locations').actions.create(payload, cb);
@@ -337,7 +353,9 @@ define([
                             }
                         },
                         function (location, cb) {
-                            $scope.location.uuid = location.uuid;
+                            if (!isUpdate) {
+                                $scope.location.uuid = location.uuid;
+                            }
                             $scope.location.slug = location.slug;
                             if ($scope.files && $scope.files.length) {
                                 async.mapSeries($scope.files, function (file, cb) {
@@ -369,6 +387,9 @@ define([
                             apiService('locations').actions.find($routeParams.uuid, cb);
                         },
                         function (location, cb) {
+                            if (!location.hasOwnProperty('hidden')) {
+                                location.hidden = false;
+                            }
                             $scope.location = location;
                             $scope.formTitle = 'Edit "' + location.title + '"';
                             apiService('locations/' + location.uuid + '/photos').actions.all(cb);
@@ -376,42 +397,20 @@ define([
                         function (photos, cb) {
                             $scope.photos = photos.results;
                             cb();
+                        },
+                        function (cb) {
+                            regionService.setCurrentRegion($scope.location.region_uuid, cb);
+                        },
+                        function (cb) {
+                            $scope.currentRegion = regionService.currentRegion.title;
+                            if (authService.api_key && authService.api_key.scopes.indexOf('region-' + $scope.location.region_uuid)) {
+                                $scope.isAdmin = true;
+                            }
+                            cb();
                         }
                     ], function (err) {
                         responseHandler.handleResponse(err, deferred);
                     });
                 }
-        }])
-        .controller('Locations.Update', ['$scope', '$routeParams', '$q', '$location', 'apiService', 'responseHandler', 'locationFormDefaults',
-            function ($scope, $routeParams, $q, $location, apiService, responseHandler, locationFormDefaults) {
-            var deferred = $q.defer();
-            $scope.promise = deferred.promise;
-            $scope._sys = locationFormDefaults;
-            $scope.submit = function () {
-                var deferred = $q.defer();
-                $scope.promise = deferred.promise;
-                apiService('locations').actions.update($routeParams.uuid, $scope.location, function (err) {
-                    var msgs = {
-                        success: 'messages.locations.update_success'
-                    };
-                    responseHandler.handleResponse(err, deferred, msgs);
-                });
-            };
-            async.waterfall([
-                function (cb) {
-                    apiService('locations').actions.find($routeParams.uuid, cb);
-                },
-                function (location, cb) {
-                    $scope.location = location;
-                    $scope.formTitle = 'Edit "' + location.title + '"';
-                    apiService('locations/' + location.uuid + '/photos').actions.all(cb);
-                },
-                function (photos, cb) {
-                    $scope.photos = photos;
-                    cb();
-                }
-            ], function (err) {
-                responseHandler.handleResponse(err, deferred);
-            });
         }]);
 });

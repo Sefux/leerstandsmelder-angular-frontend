@@ -48,10 +48,8 @@ md-toolbar.md-medium-tall(md-scroll-shrink md-shrink-speed-factor='0.5' ng-contr
                 md-menu()
                     +button_fab(null,'$mdOpenMenu()',null,'fa-language')
                     md-menu-content(width='4')
-                        // todo: loop through available languages
                         md-menu-item(layout="row" layout-align="start center")
                             +button('site.lang_de','useLanguage("de")','btn-default btn-small','fa-sign-in',null, null)
-
                         md-menu-item(layout="row" layout-align="start center")
                             +button('site.lang_en','useLanguage("en")','btn-default btn-small','fa-sign-in',null,null)
 
@@ -67,6 +65,8 @@ md-toolbar.md-medium-tall(md-scroll-shrink md-shrink-speed-factor='0.5' ng-contr
                             +button('locations.my_locations',null,'btn-default','fa-list','userSession', '/users/me/locations')
                         md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
                             +button('regions.manage_regions',null,'btn-default','fa-globe','userSession', '/admin/regions')
+                        md-menu-item(ng-repeat="region in admin_regions")
+                            +button_notranslate_tmp('region.title', null,'btn-default','fa-globe','admin_regions', '/admin/regions/{{ region.slug }}/locations')
                         md-menu-item(ng-if="api_key.scopes.indexOf('editor') > -1")
                             +button('posts.manage_posts',null,'btn-default','fa-newspaper-o','userSession', '/admin/posts')
                         md-menu-item(ng-if="userSession")

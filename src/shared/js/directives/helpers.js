@@ -27,8 +27,23 @@ define([
                                 function (api_keys, cb) {
                                     if (api_keys.length > 0) {
                                         scope.api_key = api_keys[0];
+                                        scope.admin_regions = [];
+                                        async.eachSeries(scope.api_key.scopes, function (item, next) {
+                                            if (item.indexOf('region-') === 0) {
+                                                var region_uuid = item.replace('region-', '');
+                                                apiService('regions').actions.find(region_uuid, function (err, region) {
+                                                    if (!err) {
+                                                        scope.admin_regions.push(region);
+                                                    }
+                                                    next();
+                                                });
+                                            } else {
+                                                next();
+                                            }
+                                        }, cb);
+                                    } else {
+                                        cb();
                                     }
-                                    cb();
                                 }
                             ], function (err) {
                                 if (err) {
@@ -36,6 +51,7 @@ define([
                                     scope.userSession = null;
                                     return;
                                 }
+                                scope.$apply();
                             });
                         }
                     };

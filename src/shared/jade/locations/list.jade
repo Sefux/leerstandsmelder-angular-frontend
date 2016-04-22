@@ -1,5 +1,5 @@
 include ../mixins/_style
 
 md-content(layout='column' layout-align="start center" flex="100" layout-fill)
-    +headline('locations.my_locations')
+    h2 {{ listHeadline | translate }} {{ currentRegion }}
     div(lsm-data-table layout-fill data-fields='fields' data-settings='settings' data-actions='actions')

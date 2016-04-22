@@ -162,9 +162,9 @@ define([], function () {
             controller: 'Locations.Show'
         },
         {
-            route: '/admin/regions/:uuid/locations',
-            templateUrl: '/locations/region_index.html',
+            route: '/admin/regions/:region_uuid/locations',
+            templateUrl: '/locations/list.html',
             controller: 'Locations.RegionList'
-        },
+        }
     ];
 });
