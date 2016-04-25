@@ -53,7 +53,8 @@ gulp.task('js-deps', function () {
         'bower_components/L.GeoSearch/src/js/l.geosearch.provider.openstreetmap.js',
         'bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js',
         'bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js',
-        'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js'
+        'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
+        'bower_components/airbrake-js-client/dist/client.min.js'
     ])
         .pipe(concat('leerstandsmelder-angular-dependencies.min.js'))
         .pipe(header(banner, {pkg: pkg}))

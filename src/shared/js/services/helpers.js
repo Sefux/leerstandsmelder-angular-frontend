@@ -1,4 +1,4 @@
-/* global console,angular,define,JSON */
+/* global console,angular,define,JSON,airbrakeJs,LM_AIRBRAKE_PROJECT_ID,LM_AIRBRAKE_PROJECT_KEY */
 
 define([
     'services_api'
@@ -33,7 +33,31 @@ define([
                 }
             };
         }])
-        .factory('responseHandler', ['$translate', 'PubSub', function ($translate, PubSub) {
+        .factory('errorReporter', function () {
+            var client = null;
+            if (LM_AIRBRAKE_PROJECT_ID && LM_AIRBRAKE_PROJECT_KEY) {
+                client = new airbrakeJs.Client({
+                    projectId: LM_AIRBRAKE_PROJECT_ID,
+                    projectKey: LM_AIRBRAKE_PROJECT_KEY
+                });
+            }
+            return {
+                client: client,
+                notify: function (err) {
+                    if (this.client) {
+                        this.client.notify(err);
+                    }
+                },
+                wrap: function (func) {
+                    if (this.client) {
+                        return this.client.wrap(func);
+                    } else {
+                        return func;
+                    }
+                }
+            };
+        })
+        .factory('responseHandler', ['$translate', 'PubSub', 'errorReporter', function ($translate, PubSub, errorReporter) {
             return {
                 handleResponse: function (err, deferred, msgs) {
                     if (err) {
@@ -57,7 +81,8 @@ define([
                             } else if (err.message) {
                                 PubSub.publish('alert', 'error', $translate.instant(err.message));
                             } else {
-                                PubSub.publish('alert', 'error', $translate.instant('errors.unknown') + ' Code ' + err.status);
+                                errorReporter.notify(err);
+                                PubSub.publish('alert', 'error', $translate.instant('errors.unknown') + ' Code ' + err.code);
                             }
                         }
                         if (deferred) {
