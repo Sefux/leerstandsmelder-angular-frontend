@@ -182,7 +182,11 @@ define([
                                     .ok($translate.instant('actions.ok'))
                                     .cancel($translate.instant('actions.dont_show_again')))
                                     .then(function () {}, function () {
-                                        localStorage['popups.' + attrs.popupId] = '1';
+                                        try {
+                                            localStorage['popups.' + attrs.popupId] = '1';
+                                        } catch (e) {
+                                            console.log('Warning: LocalStorage is not available.');
+                                        }
                                     });
                             }
                         });

@@ -63,6 +63,12 @@ define([
             self.searchTextChange = searchTextChange;
 
             apiService('regions').actions.all(function (err, regions) {
+                if (!regions) {
+                    if (err) {
+                        throw err;
+                    }
+                    return;
+                }
                 self.repos = regions.sort(function (a, b) {
                     if (a.title < b.title) {
                         return -1;
