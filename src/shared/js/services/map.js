@@ -47,11 +47,19 @@ define([], function () {
                 },
                 createMarker: function (data, config) {
                     var marker;
+                    var icon = L.icon({
+                        iconUrl: '/images/marker-active.png',
+                        iconRetinaUrl: '/images/marker-active@2x.png',
+                        iconSize: [32, 44],
+                        iconAnchor: [16, 43],
+                        popupAnchor: [-3, -47]
+                    });
 
                     if (config.isPruneCluster) {
                         // TODO: implement prune cluster stuff
                     } else {
                         var options = {
+                            icon: icon,
                             draggable: config.draggable
                         };
                         if (config.view_url) {

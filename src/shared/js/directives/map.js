@@ -34,13 +34,25 @@ define([
                     };
 
                     var updatedMapData = function (data, callback) {
+                        var icon = {
+                            iconSize: [32, 44],
+                            iconAnchor: [16, 43],
+                            popupAnchor: [-3, -47],
+                            iconUrl: '/images/marker-active.png',
+                            iconRetinaUrl: '/images/marker-active@2x.png'
+                        };
+                        var iconActive = L.icon(icon);
+                        icon.iconUrl = '/images/marker-inactive.png';
+                        icon.iconRetinaUrl = '/images/marker-inactive@2x.png';
+                        var iconInactive = L.icon(icon);
                         async.map(data, function (entry, cb) {
                             if (entry.lonlat) {
-                                var marker = new customMarker([entry.lonlat[1], entry.lonlat[0]], {
-                                        data: entry,
-                                        draggable: false
-                                    }
-                                );
+                                var options = {
+                                    icon: entry.active ? iconActive : iconInactive,
+                                    data: entry,
+                                    draggable: false
+                                };
+                                var marker = new customMarker([entry.lonlat[1], entry.lonlat[0]], options);
                                 marker.addTo(map);
                                 marker.on('click', function (e) {
                                     var data = e.target.options.data;
