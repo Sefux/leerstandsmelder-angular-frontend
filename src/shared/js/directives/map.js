@@ -48,7 +48,7 @@ define([
                         async.map(data, function (entry, cb) {
                             if (entry.lonlat) {
                                 var options = {
-                                    icon: entry.active ? iconActive : iconInactive,
+                                    icon: entry.active === false ? iconInactive : iconActive,
                                     data: entry,
                                     draggable: false
                                 };
