@@ -14,7 +14,6 @@ define([], function () {
             templateUrl: '/locations/region_map.html',
             controller: 'Regions.MapIndex'
         },
-
         {
             route: '/site/:slug',
             templateUrl: '/site/static_page.html',

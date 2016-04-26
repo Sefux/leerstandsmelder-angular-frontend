@@ -57,7 +57,7 @@ define([
                 }
             };
         })
-        .factory('responseHandler', ['$translate', 'PubSub', 'errorReporter', function ($translate, PubSub, errorReporter) {
+        .factory('responseHandler', ['$translate', 'PubSub', 'errorReporter', '$location', function ($translate, PubSub, errorReporter, $location) {
             return {
                 handleResponse: function (err, deferred, msgs) {
                     if (err) {
@@ -75,6 +75,8 @@ define([
                             PubSub.publish('alert', 'error', $translate.instant('errors.authorization_failed'));
                         } else if (err.code === 403) {
                             PubSub.publish('alert', 'error', $translate.instant('errors.access_denied'));
+                        } else if (err.code === 404) {
+                            $location.path('/site/404');
                         } else {
                             if (msgs && msgs.error) {
                                 PubSub.publish('alert', 'error', $translate.instant(err.message));
