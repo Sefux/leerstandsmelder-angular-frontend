@@ -54,8 +54,10 @@ define([
                 self.currentSearchText = text;
             }
             function selectedItemChange(item) {
-                $scope.ctrl.searchText = self.currentSearchText;
-                $location.path('/' + (item.region_slug || item.region_uuid) + '/' + (item.slug || item.uuid));
+                if (item) {
+                    $scope.ctrl.searchText = self.currentSearchText;
+                    $location.path('/' + (item.region_slug || item.region_uuid) + '/' + (item.slug || item.uuid));
+                }
             }
 
             self.querySearch = querySearch;
