@@ -45,9 +45,16 @@ define([
                 nickname: null,
                 email: null,
                 password: null,
-                password_confirm: null
+                password_confirm: null,
+                share_email: null,
+                notify: null
             };
-            $scope.submit = function () {
+                $scope._sys = {
+                    notify:'notify me',
+                    share_email:'share my email'
+                };
+
+                $scope.submit = function () {
                 var deferred = $q.defer();
                 $scope.promise = deferred.promise;
                 if (!$scope.user.password ||

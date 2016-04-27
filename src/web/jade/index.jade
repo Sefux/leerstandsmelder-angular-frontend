@@ -22,8 +22,8 @@ html(lang='en')
             div(ng-controller="Widgets.Alerts")
                 div(ng-repeat="alert in alerts" type="alert.status" close="closeAlert($index)")
                     span {{ alert.message }}
-        md-content(role='main' flex layout="row" ng-view cg-busy="{promise:promise,message:'Loading...',templateUrl:'partials/_busy.html',minDuration:0}")
-        footer
+        md-content.main_container(role='main' flex layout="row" layout-xs="column" layout-wrap layout-fill layout-align="start stretch" ng-view cg-busy="{promise:promise,message:'Loading...',templateUrl:'partials/_busy.html',minDuration:0}")
+        footer()
             md-content.metatext.metatext-bl(layout='row' layout-align='start end' layout-padding)
                 span {{ 'site.copyright_notice' | translate }}
                 span {{ 'site.map_notice' | translate }}
@@ -34,8 +34,7 @@ html(lang='en')
                 a(href='/site/developers') {{ 'site.subnav.developers' | translate }}
                 a(href='/locations/index') {{ 'site.subnav.index' | translate }}
                 a(href='/site/press') {{ 'site.subnav.press' | translate }}
-                a(href='/site/terms') {{ 'site.subnav.terms' | translate }}
-                a(href='/site/imprint') {{ 'site.subnav.imprint' | translate }}
+
         div(msg-popup popup-id='relaunch')
         scripts
             script(src='/js/leerstandsmelder-apiclient-web.js?build=16042605')

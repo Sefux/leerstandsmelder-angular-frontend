@@ -202,7 +202,10 @@ define([], function () {
             settings: 'Settings',
             signup: 'Sign up',
             username: 'Username',
-            login: 'Login'
+            login: 'Login',
+            share_email: 'Show your email to other users.',
+            notify: 'Get notified when your entries are updated.',
+            register_message: 'Register to Add Leerstand'
         }
     };
 });

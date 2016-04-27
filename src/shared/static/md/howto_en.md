@@ -1,10 +1,10 @@
-Um Leerstände einzutragen, Kommentare zu posten und Fotos hochzuladen braucht ihr einen **Account** und müsst euch **einloggen**.
+In order to register empty properties, post comments and upload photos, you need an **Account** and have to **Log In**.
 
-Um einen Account zu erstellen klickt oben rechts auf „Registrieren“. Wenn ihr schon registriert seid, könnt ihr euch oben rechts unter „Anmelden“ direkt einloggen.
+In oder to create an account, click the user icon at the top right and the **Sign Up** button. Once you have registered, you can simply click the **Login** button. 
 
-Wenn ihr eingeloggt seid habt ihr oben rechts die Auswahloption **Mein Account**, darunter könnt ihr einstellen, ob euch andere NutzerInnen über die E-Mail-Adresse kontaktieren können, mit der ihr euch angemeldet habt und ob ihr benachrichtigt werden wollt, wenn es Neuigkeiten von anderen NutzerInnen zu euren Einträgen gibt (ein neuer Kommentar oder ein neu hochgeladenes Bild).
-
-![](http://www.rechtaufstadt.net/sites/default/files/u87/Karte.png) <small>Leerstandskarte mit der Leerstandsliste auf der rechten Seite</small>
+Once you are logged in, you can select your account and choose whether or not other users can contact you via E-Mail with the address you have registered and if you want to be notified if comments or changes happen with the entries you have made (a new comment or a new picture).
+ 
+![](/images/map_overview_en.jpg) <small>Leerstand Map with the list on the right hand side</small>
 
 Die **Leerstandskarte** gibt Überblick über alle gemeldeten Leerstände. Hier sind die Leerstände mit ihrer Adresse verortet, rechts davon in einer Leerstandsliste aufgeführt.
 

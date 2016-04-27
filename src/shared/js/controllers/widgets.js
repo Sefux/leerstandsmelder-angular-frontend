@@ -13,11 +13,28 @@ define([
             'lsm.services.helpers',
             'lsm.directives.helpers'
         ])
-        .controller('Widgets.Navbar', ['$scope','$rootScope','$translate','$location','$timeout', '$q', 'apiService',
-            function ($scope,$rootScope,$translate,$location,$timeout, $q, apiService) {
+        .controller('Widgets.Navbar', ['$scope','$rootScope','$translate','$location','$timeout', '$q', 'apiService','responseHandler','$mdSidenav',
+            function ($scope,$rootScope,$translate,$location,$timeout, $q, apiService, responseHandler,$mdSidenav) {
+            var deferred = $q.defer();
             var self = this;
             self.currentSearchText = null;
             self.repos = [];
+            $scope.nickname = null;
+
+            apiService('users').actions.find('me', function (err, user) {
+                if (responseHandler.handleResponse(err, deferred)) {
+                    $scope.nickname = user.nickname;
+                    $timeout();
+                }
+            });
+            // sidenav changes
+                $scope.open_sidebar = function () {
+                    $mdSidenav('right').open();
+                }
+
+                $scope.close_sidebar = function () {
+                    $mdSidenav('right').close();
+                };
 
             $scope.$on('currentRegion:updated', function (event, region) {
                 $scope.currentRegion = region;
@@ -27,8 +44,12 @@ define([
 
             $scope.siteLocation = $rootScope.siteLocation;
 
+            $scope.lang_active = $translate.proposedLanguage() || $translate.use();
+
+
             $scope.useLanguage = function (langKey) {
                $translate.use(langKey);
+               $scope.lang_active=langKey;
             };
             $scope.login = function() {
                $location.path('/login');

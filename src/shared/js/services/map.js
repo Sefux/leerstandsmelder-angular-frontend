@@ -8,6 +8,7 @@ define([], function () {
                     var map, geoConf = config.geoSearch.main;
 
                     if (!settings.latlon) {
+                        // todo:nice to maybe reverse ip location of the user?
                         settings.latlon = [53.5653,10.0014];
                     }
                     if (!settings.zoom) {

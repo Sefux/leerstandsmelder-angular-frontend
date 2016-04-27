@@ -204,7 +204,10 @@ define([], function () {
             settings: 'Einstellungen',
             signup: 'Registrieren',
             username: 'Benutzername',
-            login: 'Anmelden'
+            login: 'Anmelden',
+            share_email: 'Zeig meine E-Mail Adresse anderen Nutzer.',
+            notify: 'Benachrichtige mich wenn meine Einträge geupdatet werden.',
+            register_message: 'Register to Add Leerstand'
         }
     };
 });

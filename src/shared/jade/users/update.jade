@@ -1,4 +1,5 @@
 include ../mixins/_form
+include ../mixins/_media
 include ../mixins/_buttons
 include ../mixins/_layout
 include ../mixins/_style
@@ -6,8 +7,9 @@ include ../mixins/_style
 +layout('column','center center',true)
     md-card()
         md-toolbar(md-scroll-shrink)
-            +layout('row','center center','padding')
-                +headline('users.settings')
+            .md-toolbar-tools
+                +layout('row','center center','padding')
+                    +headline('users.settings')
         md-card-content
             +layout('row','center center')
                 +content('column', 'start center')
@@ -16,6 +18,12 @@ include ../mixins/_style
                 +content('column', 'start center')
                     +input('email', 'user.email', 'users.email', null, null)
                     +input('password','user.password_confirm', 'users.password_confirm', null, null)
+            +layout('row','start start')
+                +content('column', 'start start')
+                    +input('checkbox','user.share_email','users.share_email','_sys.share_email',null,true)
+                    +input('checkbox','user.notify','users.notify','_sys.notify',null,true)
+
+
         .md-actions(layout="row" layout-align="start end")
             +button('actions.cancel','cancel()','md-raised','')
             span(flex)

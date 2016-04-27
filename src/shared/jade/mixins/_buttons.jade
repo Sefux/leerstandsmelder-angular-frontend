@@ -11,7 +11,7 @@ mixin button(TEXT, _ng_click, _class, icon, _ng_if, _ng_href)
 	)
 		if icon
 			md-icon
-				span.fa.fa-fw(style="font-size:1.2em;padding:0 0 4px 0" class=icon)
+				span.fa.fa-fw(class=icon)
 		span= _i18n_field_key
 
 // TODO: this needs to go asap! pls fix this style mess
@@ -27,7 +27,7 @@ mixin button_notranslate_tmp(TEXT, _ng_click, _class, icon, _ng_if, _ng_href)
 	)
 		if icon
 			md-icon
-				span.fa.fa-fw(style="font-size:1.2em;padding:0 0 4px 0" class=icon)
+				span.fa.fa-fw(class=icon)
 		span= _0n_field_key
 
 mixin button_notranslate(TEXT, _ng_click, _class, icon, _ng_if, _ng_href)
@@ -45,7 +45,7 @@ mixin button_notranslate(TEXT, _ng_click, _class, icon, _ng_if, _ng_href)
 				span.fa.fa-fw.fa-2x(class=icon)
 		span= _0n_field_key
 
-mixin button_fab(TEXT, _ng_click, _class, icon, _ng_if,_ng_href)
+mixin button_fab(TEXT, _ng_click, _class, icon, _ng_if, _ng_href)
 	- var _i18n_field_key = '{{"' + TEXT + '" | translate }}'
 
 	md-button.md-raised.md-fab(
@@ -56,22 +56,3 @@ mixin button_fab(TEXT, _ng_click, _class, icon, _ng_if,_ng_href)
 	)
 		md-icon.fa(class=icon)
 		//span= _i18n_field_key
-
-mixin lockswitch(TEXT, model, _ng_click, icon, _ng_disabled,_ng_href)
-	//- var _i18n_field_key = '{{"' + TEXT + '" | translate }}'
-	//- var _i18n_field_key = {{"+ model +" && 'locked' || 'unlocked'}}
-	- var _switch_class = "{{"+ model +" && 'locked' || 'unlocked'}}"
-	// we're using this singelton for the LOCK switch
-	// and probably should abstract it out.
-	.labelRight(
-	class=_switch_class
-	style="margin-right:30px"
-	)
-		md-switch.md-primary(
-		ng-model=model
-		ng-if=_ng_if
-		ng-disabled=_ng_disabled
-		)
-		md-tooltip(
-		md-direction='bottom'
-		)= _switch_class

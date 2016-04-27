@@ -1,76 +1,102 @@
 include ../mixins/_form
 include ../mixins/_buttons
 
-md-toolbar.md-medium-tall(md-scroll-shrink md-shrink-speed-factor='0.5' ng-controller="Widgets.Navbar as ctrl" check-login)
-    div#navbar(name="navbar" layout='column' layout-align='center end' layout-fill)
+md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as ctrl" check-login)
+    div#navbar(name="navbar" layout='column' layout-align='center end' layout-fill )
         div.md-toolbar-tools(layout='row' layout-align='space-between center')
-            div(flex="90" layout='row' layout-align='start center')
+            div(flex layout='row' layout-align='start center')
                 a(href='/')
                     img.md-icon.logo-main(src="/images/leerstandsmelder_logo_trans.png", alt="{{ 'site.title' | translate }}")
                 div
                     h2
                         a(href='/') {{ 'site.title' | translate }}
                     p.meta
+                        // todo: this should be a secondary nav to change cities.
+                        // it would also be nice to have it auto-change depending
+                        // on where the user is on the map...
                         a(ng-href='/{{ currentRegion.slug || currentRegion.uuid }}') {{ currentRegion.title }}&nbsp;
             div(flex)
 
-            div(flex="5" layout="row" layout-align="end center")
-                md-menu()
-                    +button_fab(null,'$mdOpenMenu()',null,'fa-map-marker')
-                    md-menu-content(width='4')
+            <div>
+        md-button(class="md-raised" ng-click="open_sidebar()" aria-label="open sidebar menu")
+            h2
+                span.fa.fa-ellipsis-v &nbsp;&nbsp;&nbsp;
+                span MENU
+md-sidenav.md-sidenav-right.md-whiteframe-8dp(md-component-id="right" style="z-index:101!important")
+    md-toolbar.md-theme-dark()
+        .md-toolbar-tools(layout='row')
+            h1(ng-if="userSession" flex="85") {{nickname}}
+            h1(ng-if="!userSession" flex="85" translate="users.register_message")
+            span(flex)
+                md-button.md-icon-button(ng-click="close_sidebar()" aria-label="close sidebar menu")
+                    span.fa.fa-2x.fa-close()
+        md-content(layout-padding)
+            md-menu-item(layout="row" layout-align="start center")
+                md-autocomplete(
+                md-autofocus
+                ng-disabled="ctrl.isDisabled"
+                md-no-cache="ctrl.noCache"
+                md-selected-item="ctrl.selectedItem"
+                md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                md-search-text="ctrl.searchText"
+                md-selected-item-change="ctrl.selectedItemChange(item)"
+                md-items="item in ctrl.querySearch(ctrl.searchText)"
+                md-item-text="item.title"
+                md-min-length="3"
+                md-delay="400"
+                md-floating-label="{{ 'locations.search' | translate }} ({{ currentRegion.title || 'DE' }}) {{ searchTitleAdd }}"
+                md-menu-class="autocomplete-custom-template")
+                    md-item-template
+                        span.item-title
+                            span {{item.title}}
+                        span.item-metadata
+                            span.item-metastat {{item.street}}, {{item.postcode}} {{item.city}}
+                    md-not-found {{'locations.none_found' | translate}}
+            hr(ng-if="userSession")
+            md-menu-item(ng-if="userSession")
+                +button('locations.create_new','close_sidebar()','','fa-fw fa-2x fa-plus-circle',null,'/locations/create')
 
-                        md-menu-item(ng-if="userSession")
-                            +button('locations.create_new',null,'','fa-plus-circle',null,'/locations/create')
-                        md-menu-item(ng-if="!userSession")
-                            +button('locations.create_new',null,'','fa-plus-circle',null,'/users/login')
-                        md-menu-item(layout="row" layout-align="start center")
-                            md-autocomplete(
-                            ng-disabled="ctrl.isDisabled"
-                            md-no-cache="ctrl.noCache"
-                            md-selected-item="ctrl.selectedItem"
-                            md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
-                            md-search-text="ctrl.searchText"
-                            md-selected-item-change="ctrl.selectedItemChange(item)"
-                            md-items="item in ctrl.querySearch(ctrl.searchText)"
-                            md-item-text="item.title"
-                            md-min-length="3"
-                            md-delay="400"
-                            md-floating-label="{{ 'locations.search' | translate }} {{ searchTitleAdd }}"
-                            md-menu-class="autocomplete-custom-template")
-                                md-item-template
-                                    span.item-title
-                                        span {{item.title}}
-                                    span.item-metadata
-                                        span.item-metastat {{item.street}}, {{item.postcode}} {{item.city}}
-                                md-not-found {{'locations.none_found' | translate}}
 
-            div(flex="5" layout="row" layout-align="end center")
-                md-menu()
-                    +button_fab(null,'$mdOpenMenu()',null,'fa-language')
-                    md-menu-content(width='4')
-                        md-menu-item(layout="row" layout-align="start center")
-                            +button('site.lang_de','useLanguage("de")','btn-default btn-small','fa-sign-in',null, null)
-                        md-menu-item(layout="row" layout-align="start center")
-                            +button('site.lang_en','useLanguage("en")','btn-default btn-small','fa-sign-in',null,null)
+            md-menu-item(ng-if="!userSession")
+                +button('users.login','close_sidebar()','btn-default btn-small','fa-fw fa-2x fa-sign-in','!userSession', '/users/login')
+            md-menu-item(ng-if="!userSession")
+                +button('users.signup','close_sidebar()','btn-default','fa-fw fa-2x fa-user-plus','!userSession','/users/create')
+            md-menu-item(ng-if="userSession")
+                +button('locations.my_locations','close_sidebar()','btn-default','fa-fw fa-2x fa-list','userSession', '/users/me/locations')
+            md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
+                +button('regions.manage_regions','close_sidebar()','btn-default','fa-globe','userSession', '/admin/regions')
+            md-menu-item(ng-repeat="region in admin_regions")
+                +button_notranslate_tmp('region.title', 'close_sidebar()','btn-default','fa-fw fa-2x fa-globe','admin_regions', '/admin/regions/{{ region.slug }}/locations')
+            md-menu-item(n-if="api_key.scopes.indexOf('editor') > -1")
+                +button('posts.manage_posts','close_sidebar()','btn-default','fa-fw fa-2x fa-newspaper-o','userSession', '/admin/posts')
+            md-menu-item(ng-if="userSession")
+                +button('users.settings','close_sidebar()','btn-default','fa-fw fa-2x fa-cog','userSession', '/users/me')
+            md-menu-item(ng-if="userSession")
+                +button('users.logout','close_sidebar()','btn-default','fa-fw fa-2x fa-sign-out','userSession', '/users/logout')
 
-            div(flex="5" layout="row" layout-align="end center")
-                md-menu
-                    +button_fab(null,'$mdOpenMenu()',null,'fa-user')
-                    md-menu-content(width='4')
-                        md-menu-item(ng-if="!userSession")
-                            +button('users.login',null,'btn-default btn-small','fa-sign-in','!userSession', '/users/login')
-                        md-menu-item(ng-if="!userSession")
-                            +button('users.signup',null,'btn-default','fa-user-plus','!userSession','/users/create')
-                        md-menu-item(ng-if="userSession")
-                            +button('locations.my_locations',null,'btn-default','fa-list','userSession', '/users/me/locations')
-                        md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
-                            +button('regions.manage_regions',null,'btn-default','fa-globe','userSession', '/admin/regions')
-                        md-menu-item(ng-repeat="region in admin_regions")
-                            +button_notranslate_tmp('region.title', null,'btn-default','fa-globe','admin_regions', '/admin/regions/{{ region.slug }}/locations')
-                        md-menu-item(ng-if="api_key.scopes.indexOf('editor') > -1")
-                            +button('posts.manage_posts',null,'btn-default','fa-newspaper-o','userSession', '/admin/posts')
-                        md-menu-item(ng-if="userSession")
-                            +button('users.settings',null,'btn-default','fa-cog','userSession', '/users/me')
-                        md-menu-item(ng-if="userSession")
-                            +button('users.logout',null,'btn-default','fa-sign-out','userSession', '/users/logout')
-        div(flex="10")
+            hr
+
+            md-menu-item(layout="row" layout-align="start start")
+                md-button.btn-default.btn-small(
+                ng-click="useLanguage('de')"
+                aria-label='{{ "site.lang_de" || translate }}'
+                )
+                    md-icon
+                        span.fa.fa-fw.fa-2x.fa-check-square-o(ng-if="lang_active=='de'")
+                        span.fa.fa-fw.fa-2x.fa-square-o(ng-if="lang_active!='de'")
+                    span(translate='site.lang_de')
+            md-menu-item(layout="row" layout-align="start start")
+                md-button.btn-default.btn-small(
+                ng-click="useLanguage('en')"
+                aria-label='{{ "site.lang_en" || translate }}'
+                )
+                    md-icon
+                        span.fa.fa-fw.fa-2x.fa-check-square-o(ng-if="lang_active=='en'")
+                        span.fa.fa-fw.fa-2x.fa-square-o(ng-if="lang_active!='en'")
+                    span(translate='site.lang_en')
+            footer
+                md-content.metatext.metatext-bl(layout='row' layout-align='start end' layout-padding)
+                    small
+                        a(href='/site/terms' ng-click='close_sidebar()') {{ 'site.subnav.terms' | translate }}
+                        span &nbsp;&nbsp;&nbsp;
+                        a(href='/site/imprint' ng-click='close_sidebar()') {{ 'site.subnav.imprint' | translate }}
