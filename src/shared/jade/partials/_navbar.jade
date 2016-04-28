@@ -2,7 +2,7 @@ include ../mixins/_form
 include ../mixins/_buttons
 
 md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as ctrl" check-login)
-    div#navbar(name="navbar" layout='column' layout-align='center end' layout-fill )
+    #navbar(name="navbar" layout='column' layout-align='center end' layout-fill )
         div.md-toolbar-tools(layout='row' layout-align='space-between center')
             div(flex layout='row' layout-align='start center')
                 a(href='/')
@@ -23,7 +23,7 @@ md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as 
                 span.fa.fa-ellipsis-v &nbsp;&nbsp;&nbsp;
                 span MENU
 md-sidenav.md-sidenav-right.md-whiteframe-8dp(md-component-id="right" style="z-index:101!important")
-    md-toolbar.md-theme-dark()
+    md-toolbar()
         .md-toolbar-tools(layout='row')
             h1(ng-if="userSession" flex="85") {{nickname}}
             h1(ng-if="!userSession" flex="85" translate="users.register_message")
@@ -31,6 +31,19 @@ md-sidenav.md-sidenav-right.md-whiteframe-8dp(md-component-id="right" style="z-i
                 md-button.md-icon-button(ng-click="close_sidebar()" aria-label="close sidebar menu")
                     span.fa.fa-2x.fa-close()
         md-content(layout-padding)
+            div.metatext.metatext-bl(layout='row' layout-align='start end' layout-padding)
+                small
+                    a(href='/site/about' ng-click='close_sidebar()') {{ 'site.subnav.about' | translate }}
+                    span &nbsp;&nbsp;
+                    //a(href='/site/howto') {{ 'site.subnav.howto' | translate }}
+                    //span &nbsp;&nbsp;
+                    a(href='http://my.loopto.do/loop-form.html?key=agtzfmxvb3BhYmFja3IRCxIETG9vcBiAgMC80sifCQw', target='_blank' ng-click='close_sidebar()')  {{ 'site.subnav.feedback' | translate }}
+                    span &nbsp;&nbsp;
+                    a(href='/site/developers' ng-click='close_sidebar()') {{ 'site.subnav.developers' | translate }}
+                    span &nbsp;&nbsp;
+                    a(href='/locations/index' ng-click='close_sidebar()') {{ 'site.subnav.index' | translate }}
+                    span &nbsp;&nbsp;
+                    a(href='/site/press' ng-click='close_sidebar()') {{ 'site.subnav.press' | translate }}
             md-menu-item(layout="row" layout-align="start center")
                 md-autocomplete(
                 md-autofocus
@@ -52,7 +65,7 @@ md-sidenav.md-sidenav-right.md-whiteframe-8dp(md-component-id="right" style="z-i
                         span.item-metadata
                             span.item-metastat {{item.street}}, {{item.postcode}} {{item.city}}
                     md-not-found {{'locations.none_found' | translate}}
-            hr(ng-if="userSession")
+            br
             md-menu-item(ng-if="userSession")
                 +button('locations.create_new','close_sidebar()','','fa-fw fa-2x fa-plus-circle',null,'/locations/create')
 
@@ -65,12 +78,16 @@ md-sidenav.md-sidenav-right.md-whiteframe-8dp(md-component-id="right" style="z-i
                 +button('locations.my_locations','close_sidebar()','btn-default','fa-fw fa-2x fa-list','userSession', '/users/me/locations')
             md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
                 +button('regions.manage_regions','close_sidebar()','btn-default','fa-globe','userSession', '/admin/regions')
-            md-menu-item(ng-repeat="region in admin_regions")
+            md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1" ng-repeat="region in admin_regions")
                 +button_notranslate_tmp('region.title', 'close_sidebar()','btn-default','fa-fw fa-2x fa-globe','admin_regions', '/admin/regions/{{ region.slug }}/locations')
+
+            md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
+                +button('admin.dashboard', 'close_sidebar()','btn-default','fa-fw fa-2x fa-dashboard','userSession', '/admin/dashboard')
+
             md-menu-item(n-if="api_key.scopes.indexOf('editor') > -1")
                 +button('posts.manage_posts','close_sidebar()','btn-default','fa-fw fa-2x fa-newspaper-o','userSession', '/admin/posts')
             md-menu-item(ng-if="userSession")
-                +button('users.settings','close_sidebar()','btn-default','fa-fw fa-2x fa-cog','userSession', '/users/me')
+                +button('users.settings','close_sidebar()','btn-default','fa-fw fa-2x fa-user','userSession', '/users/me')
             md-menu-item(ng-if="userSession")
                 +button('users.logout','close_sidebar()','btn-default','fa-fw fa-2x fa-sign-out','userSession', '/users/logout')
 
@@ -94,9 +111,3 @@ md-sidenav.md-sidenav-right.md-whiteframe-8dp(md-component-id="right" style="z-i
                         span.fa.fa-fw.fa-2x.fa-check-square-o(ng-if="lang_active=='en'")
                         span.fa.fa-fw.fa-2x.fa-square-o(ng-if="lang_active!='en'")
                     span(translate='site.lang_en')
-            footer
-                md-content.metatext.metatext-bl(layout='row' layout-align='start end' layout-padding)
-                    small
-                        a(href='/site/terms' ng-click='close_sidebar()') {{ 'site.subnav.terms' | translate }}
-                        span &nbsp;&nbsp;&nbsp;
-                        a(href='/site/imprint' ng-click='close_sidebar()') {{ 'site.subnav.imprint' | translate }}

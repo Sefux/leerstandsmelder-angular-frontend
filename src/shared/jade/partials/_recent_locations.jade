@@ -1,4 +1,4 @@
-md-content(layout="column" layout-align="start start")
+div(layout="column" layout-align="start start")
     .lsm-list(flex)
         h2(ng-if="locations.length > 0") {{ "locations.recent_activity" | translate }} {{author.in}} {{region.title}}
         h2(ng-if="locations.length === 0") {{ "locations.no_recent_activity" | translate }} {{author.in}} {{region.title}}

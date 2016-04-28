@@ -1,4 +1,4 @@
-md-content(layout="column" layout-align="start start" layout-wrap layout-fill)
+div(layout="column" layout-align="start start" layout-wrap layout-fill)
     .lsm-list(flex)
         h2(ng-if="posts") {{ 'site.latest_posts' | translate }}
         h2(ng-if="posts.length === 0") {{ 'site.no_latest_posts' | translate }}

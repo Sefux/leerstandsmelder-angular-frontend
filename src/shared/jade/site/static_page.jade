@@ -6,11 +6,11 @@ include ../mixins/_style
 - mapFlex="50"
 //- mapStyle="height:calc(100% - 88px);width:100%;"
 - sideWidth="width:33%"
-md-content
+div
     div(layout="row" layout-xs="column" layout-wrap layout-fill)
         div(flex="66")
             .md-padding.type-post(btf-markdown='page.content')
 
-        md-content(flex="33" layout='column')
+        div(flex="33" layout='column')
             div(flex)
                 include ../partials/_recent_posts

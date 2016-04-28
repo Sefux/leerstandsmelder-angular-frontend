@@ -4,34 +4,34 @@ include ../mixins/_buttons
 include ../mixins/_layout
 include ../mixins/_style
 
-md-content(layout="row" layout-wrap layout-fill)
-    #map(lsm-map flex='50' ng-model='location' select-mode select-handler='updateLocation(latlon)' select-marker='marker')
-    md-content(flex="50")
+div(layout="row" layout-xs="column" layout-wrap layout-fill)
+    #map(lsm-map flex="30" flex-gt-xs="40" ng-model='location' select-mode select-handler='updateLocation(latlon)' select-marker='marker' )
+    div(flex="70" flex-gt-xs="60")
         md-tabs(class="md-primary"  md-dynamic-height md-border-bottom md-no-pagination="false" md-swipe-content md-selected="selectedIndex")
             md-tab(label='{{ "creator.tabs.info" | translate }}')
-                md-content.md-padding
-                    p {{ "locations.help.info" | translate }}
-                md-content.md-padding
-                    md-content(flex)
+                div.md-padding
+                    small {{ "locations.help.info" | translate }}
+                div.md-padding
+                    div(flex)
                         div(layout-gt-xs="row" flex="60")
                             +input('text','location.title','locations.title', null, null)
-                    md-content()
+                    div()
                         div(layout-gt-xs="row")
                             +input('textarea','location.description','locations.description', null, null)
                 hr
-                md-content(layout="row" layout-align="start end")
+                div(layout="row" layout-align="start end")
                     span(flex)
                     +button("actions.next",'selectedIndex = selectedIndex + 1','md-raised',null,null)
 
             md-tab(label='{{ "creator.tabs.location" | translate }}')
-                md-content.md-padding
-                    p {{ "locations.help.location" | translate }}
-                md-content(layout="row" layout-padding)
-                    md-content(flex)
+                div.md-padding
+                    small {{ "locations.help.location" | translate }}
+                div(layout="row" layout-padding)
+                    div(flex)
                         +input('text','location.street','locations.street', null, null)
                         +input('text','location.city','locations.city', null, null)
                         +input('text','location.postcode','locations.postcode', null, null)
-                    md-content(flex)
+                    div(flex)
                         p
                             strong Lat:&nbsp;
                             span {{marker.lat}}
@@ -43,47 +43,47 @@ md-content(layout="row" layout-wrap layout-fill)
                             span © OpenStreetMap contributors,&nbsp;
                                 a(href='http://www.openstreetmap.org/copyright', target='_blank') ODbL 1.0.
                 hr
-                md-content(layout="row" layout-align="start end")
+                div(layout="row" layout-align="start end")
                     +button("actions.previous",'selectedIndex = selectedIndex - 1','md-raised',null,null)
                     span(flex)
                     +button("actions.next",'selectedIndex = selectedIndex + 1','md-raised',null,null)
 
             md-tab(label='{{ "creator.tabs.details" | translate }}')
-                md-content.md-padding
-                    p {{ "locations.help.details" | translate }}
-                md-content(layout="row" layout-padding)
-                    md-content(flex layout-padding)
-                        md-content(layout-gt-xs="row")
+                div.md-padding
+                    small {{ "locations.help.details" | translate }}
+                div(layout="row" layout-padding)
+                    div(flex layout-padding)
+                        div(layout-gt-xs="row")
                             +select('location.emptySince', '_sys.emptySince', false, 'locations.empty_for')
-                        md-content(layout-gt-xs="row")
+                        div(layout-gt-xs="row")
                             +select('location.owner', '_sys.owner', false, 'locations.owner')
-                        md-content(layout-gt-xs="row")
+                        div(layout-gt-xs="row")
                             +select('location.buildingType', '_sys.buildingType', false, 'locations.building_type')
-                    md-content(flex layout-padding)
-                        md-content(layout-gt-xs="row")
+                    div(flex layout-padding)
+                        div(layout-gt-xs="row")
                             +input('radio','location.degree','locations.degree', '_sys.degree', null)
-                        md-content(layout-gt-xs="row")
+                        div(layout-gt-xs="row")
                             +input('checkbox','location.rumor','locations.demolition_rumor', '_sys.rumor', null)
                 hr
-                md-content(layout="row" layout-align="start end")
+                div(layout="row" layout-align="start end")
                     +button("actions.previous",'selectedIndex = selectedIndex - 1','md-raised',null,null)
                     span(flex)
                     +button("actions.next",'selectedIndex = selectedIndex + 1','md-raised',null,null)
 
             md-tab(ng-if='isAdmin' label='{{ "creator.tabs.admin" | translate }}')
-                md-content.md-padding
-                md-content(layout="row" layout-padding)
-                    md-content(flex layout-padding)
-                        md-content(layout-gt-xs="row")
+                div.md-padding
+                div(layout="row" layout-padding)
+                    div(flex layout-padding)
+                        div(layout-gt-xs="row")
                             +input('checkbox','location.hidden','locations.hidden', '_sys.hidden', null)
                 hr
-                md-content(layout="row" layout-align="start end")
+                div(layout="row" layout-align="start end")
                     +button("actions.previous",'selectedIndex = selectedIndex - 1','md-raised',null,null)
                     span(flex)
                     +button("actions.next",'selectedIndex = selectedIndex + 1','md-raised',null,null)
 
             md-tab(label='{{ "creator.tabs.preview" | translate }}')
-                md-content.md-padding
+                div.md-padding
                     p
                         strong {{ "locations.title" | translate }} : {{location.title}}
                     p(btf-markdown="location.description" ng-if="location.description")

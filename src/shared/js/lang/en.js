@@ -17,6 +17,9 @@ define([], function () {
             take_picture: 'Take a Picture',
             use_slider: 'Use the slider'
         },
+        admin:{
+            dashboard: 'Dashboard'
+        },
         asset: {
             file: 'Datei'
         },
@@ -104,10 +107,10 @@ define([], function () {
             help: {
                 info: 'Enter a descriptive title and a description for this location.',
                 location: 'Enter an address and the map should update after a short moment. You can drag the marker on the map to update the address.',
-                details: 'Fill out what details you know about the location. If you do not know something, just leave it blank.'
+                details: 'Fill out those details that you know about the location. If you do not know something, just leave it blank.'
             },
             hidden: 'Hidden',
-            hidden_yes: 'Ja',
+            hidden_yes: 'Yes',
             location: 'Location',
             location_photos: 'Photos for this location',
             location_plural: 'Locations',
@@ -122,11 +125,13 @@ define([], function () {
                 public: 'Public',
                 city: 'City'
             },
+            postcode: 'Postal code',
             recent_activity: 'Latest Activity',
             remove_confirm_title: 'Delete Location',
             remove_confirm_body: 'This action cannot be undone. Are you sure?',
             remove_success: 'Location deleted',
             search: 'Search',
+            street: 'Street',
             title: 'Title',
             unknown: 'Unknown'
         },
@@ -187,7 +192,7 @@ define([], function () {
                 feedback: 'Feedback',
                 howto: 'Howto',
                 imprint: 'Imprint',
-                index: 'Index',
+                index: 'City Index',
                 press: 'Press',
                 terms: 'Terms'
             },
@@ -205,7 +210,7 @@ define([], function () {
             login: 'Login',
             share_email: 'Show your email to other users.',
             notify: 'Get notified when your entries are updated.',
-            register_message: 'Register to Add Leerstand'
+            register_message: 'Register now!'
         }
     };
 });

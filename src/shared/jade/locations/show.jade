@@ -4,9 +4,9 @@ include ../mixins/_buttons
 include ../mixins/_layout
 include ../mixins/_style
 
-md-content(layout layout-xs="column" layout-wrap layout-fill)
+div(layout layout-xs="column" layout-wrap layout-fill)
     #map(lsm-map flex flex-gt-xs="33" ng-model='location' urlbase='urlbase' center='mapcenter' zoom='zoom' locations='locations')
-    md-content.md-padding(flex flex-gt-xs="66" check-login)
+    div.md-padding(flex flex-gt-xs="66" check-login)
         p.pull-right(ng-if='mayEdit')
             +button_fab('actions.edit','edit()','md-primary','fa-edit','location')
         p

@@ -17,6 +17,9 @@ define([], function () {
             take_picture: 'Mach ein Foto',
             use_slider: 'Benutze den Schieberegler'
         },
+        admin:{
+            dashboard: 'Dashboard'
+        },
         assets: {
             file: 'Datei'
         },
@@ -189,7 +192,7 @@ define([], function () {
                 feedback: 'Feedback',
                 howto: 'So geht\'s',
                 imprint: 'Impressum',
-                index: 'Index',
+                index: 'Stadtindex',
                 press: 'Presse',
                 terms: 'AGB'
             },
@@ -207,7 +210,7 @@ define([], function () {
             login: 'Anmelden',
             share_email: 'Zeig meine E-Mail Adresse anderen Nutzer.',
             notify: 'Benachrichtige mich wenn meine Einträge geupdatet werden.',
-            register_message: 'Register to Add Leerstand'
+            register_message: 'Registriere Dich!'
         }
     };
 });
