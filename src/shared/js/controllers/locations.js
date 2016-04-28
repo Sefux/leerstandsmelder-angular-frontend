@@ -28,7 +28,9 @@ define([
                 function (location, cb) {
                     $scope.locations = [location];
                     $scope.location = location;
-                    $scope.mapcenter = [$scope.location.lonlat[1], $scope.location.lonlat[0]];
+                    if ($scope.location && Array.isArray($scope.location.lonlat)) {
+                        $scope.mapcenter = [$scope.location.lonlat[1], $scope.location.lonlat[0]];
+                    }
                     $scope.zoom = 17;
                     $scope.formTitle = 'Edit "' + $scope.location.title + '"';
                     $scope.urlbase = '/' + (location.region ? location.region.slug : location.region_uuid);
