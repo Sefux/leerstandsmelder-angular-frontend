@@ -19,18 +19,26 @@ define([
             var self = this;
             self.currentSearchText = null;
             self.repos = [];
+
             $scope.nickname = null;
 
             apiService('users').actions.find('me', function (err, user) {
                 if (responseHandler.handleResponse(err, deferred)) {
-                    $scope.nickname = user.nickname;
-                    $timeout();
+                    if (err) {
+                        $scope.nickname = null;
+                    } else {
+                        if (user) {
+                            $scope.nickname = user.nickname;
+                        } else {
+                            $scope.nickname = null;
+                        }
+                    }
                 }
             });
             // sidenav changes
                 $scope.open_sidebar = function () {
                     $mdSidenav('right').open();
-                }
+                };
 
                 $scope.close_sidebar = function () {
                     $mdSidenav('right').close();
