@@ -3,111 +3,112 @@ include ../mixins/_buttons
 
 md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as ctrl" check-login)
     #navbar(name="navbar" layout='column' layout-align='center end' layout-fill )
-        div.md-toolbar-tools(layout='row' layout-align='space-between center')
+        div.md-toolbar-tools(flex layout='row' layout-align='space-between center')
             div(flex layout='row' layout-align='start center')
                 a(href='/')
-                    img.md-icon.logo-main(src="/images/leerstandsmelder_logo_trans.png", alt="{{ 'site.title' | translate }}")
-                div
-                    h2
+                    img(src="/images/logo_cropped_alt.png", alt="{{ 'site.title' | translate }}" style="height:100%!important;margin-top:0px;margin:20px;padding-top:30px;z-index:100000")
+                div.currentLocation(style="position:absolute;left:54px;top:60px;text-align:center;width:150px;color:white!important")
+                    //h2
                         a(href='/') {{ 'site.title' | translate }}
-                    p.meta
+                    strong
                         // todo: this should be a secondary nav to change cities.
                         // it would also be nice to have it auto-change depending
                         // on where the user is on the map...
-                        a(ng-href='/{{ currentRegion.slug || currentRegion.uuid }}') {{ currentRegion.title }}&nbsp;
-            div(flex)
+                        //+select('location.emptySince', '_sys.emptySince', false, 'locations.empty_for')
+                        a.metatext(ng-href='/{{ currentRegion.slug || currentRegion.uuid }}') {{ currentRegion.title }}&nbsp;
 
-            <div>
-        md-button(class="md-raised" ng-click="open_sidebar()" aria-label="open sidebar menu")
-            h2
-                span.fa.fa-ellipsis-v &nbsp;&nbsp;&nbsp;
-                span MENU
-md-sidenav.md-sidenav-right.md-whiteframe-8dp(md-component-id="right" style="z-index:101!important")
-    md-toolbar()
-        .md-toolbar-tools(layout='row')
-            h1(ng-if="userSession" flex="85") {{ userSession.nickname }}
-            h1(ng-if="!userSession" flex="85" translate="users.register_message")
-            span(flex)
-                md-button.md-icon-button(ng-click="close_sidebar()" aria-label="close sidebar menu")
-                    span.fa.fa-2x.fa-close()
-        md-content(layout-padding)
-            div.metatext.metatext-bl(layout='row' layout-align='start end' layout-padding)
-                small
-                    a(href='/site/about' ng-click='close_sidebar()') {{ 'site.subnav.about' | translate }}
-                    span &nbsp;&nbsp;
-                    //a(href='/site/howto') {{ 'site.subnav.howto' | translate }}
-                    //span &nbsp;&nbsp;
-                    a(href='http://my.loopto.do/loop-form.html?key=agtzfmxvb3BhYmFja3IRCxIETG9vcBiAgMC80sifCQw', target='_blank' ng-click='close_sidebar()')  {{ 'site.subnav.feedback' | translate }}
-                    span &nbsp;&nbsp;
-                    a(href='/site/developers' ng-click='close_sidebar()') {{ 'site.subnav.developers' | translate }}
-                    span &nbsp;&nbsp;
-                    a(href='/locations/index' ng-click='close_sidebar()') {{ 'site.subnav.index' | translate }}
-                    span &nbsp;&nbsp;
-                    a(href='/site/press' ng-click='close_sidebar()') {{ 'site.subnav.press' | translate }}
-            md-menu-item(layout="row" layout-align="start center")
-                md-autocomplete(
-                md-autofocus
-                ng-disabled="ctrl.isDisabled"
-                md-no-cache="ctrl.noCache"
-                md-selected-item="ctrl.selectedItem"
-                md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
-                md-search-text="ctrl.searchText"
-                md-selected-item-change="ctrl.selectedItemChange(item)"
-                md-items="item in ctrl.querySearch(ctrl.searchText)"
-                md-item-text="item.title"
-                md-min-length="3"
-                md-delay="400"
-                md-floating-label="{{ 'locations.search' | translate }} ({{ currentRegion.title || 'DE' }}) {{ searchTitleAdd }}"
-                md-menu-class="autocomplete-custom-template")
-                    md-item-template
-                        span.item-title
-                            span {{item.title}}
-                        span.item-metadata
-                            span.item-metastat {{item.street}}, {{item.postcode}} {{item.city}}
-                    md-not-found {{'locations.none_found' | translate}}
-            br
-            md-menu-item(ng-if="userSession")
-                +button('locations.create_new','close_sidebar()','','fa-fw fa-2x fa-plus-circle',null,'/locations/create')
+            // Old News
+            div(flex="15" layout="row" layout-align="end center")
 
+                // admin
+                md-menu(ng-if="api_key.scopes.indexOf('admin') > -1")
+                    +button_fab(null,'$mdOpenMenu()','md-primary md-hue-1','fa-rocket')
+                    md-menu-content(width='4')
 
-            md-menu-item(ng-if="!userSession")
-                +button('users.login','close_sidebar()','btn-default btn-small','fa-fw fa-2x fa-sign-in','!userSession', '/users/login')
-            md-menu-item(ng-if="!userSession")
-                +button('users.signup','close_sidebar()','btn-default','fa-fw fa-2x fa-user-plus','!userSession','/users/create')
-            md-menu-item(ng-if="userSession")
-                +button('locations.my_locations','close_sidebar()','btn-default','fa-fw fa-2x fa-list','userSession', '/users/me/locations')
-            md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
-                +button('regions.manage_regions','close_sidebar()','btn-default','fa-globe','userSession', '/admin/regions')
-            md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1" ng-repeat="region in admin_regions")
-                +button_notranslate_tmp('region.title', 'close_sidebar()','btn-default','fa-fw fa-2x fa-globe','admin_regions', '/admin/regions/{{ region.slug }}/locations')
+                        md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
+                            +button('regions.manage_regions','','btn-default','fa-globe fa-fw fa-2x ','userSession', '/admin/regions')
+                        md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1" ng-repeat="region in admin_regions")
+                            // todo: turn this into a select list.
+                            +button_notranslate_tmp('region.title', 'close_sidebar()','btn-default','fa-fw fa-2x fa-globe','admin_regions', '/admin/regions/{{ region.slug }}/locations')
 
-            md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
-                +button('admin.dashboard', 'close_sidebar()','btn-default','fa-fw fa-2x fa-dashboard','userSession', '/admin/dashboard')
+                        md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
+                            +button('admin.dashboard', '','btn-default','fa-fw fa-2x fa-dashboard','userSession', '/admin/dashboard')
 
-            md-menu-item(n-if="api_key.scopes.indexOf('editor') > -1")
-                +button('posts.manage_posts','close_sidebar()','btn-default','fa-fw fa-2x fa-newspaper-o','userSession', '/admin/posts')
-            md-menu-item(ng-if="userSession")
-                +button('users.settings','close_sidebar()','btn-default','fa-fw fa-2x fa-user','userSession', '/users/me')
-            md-menu-item(ng-if="userSession")
-                +button('users.logout','close_sidebar()','btn-default','fa-fw fa-2x fa-sign-out','userSession', '/users/logout')
+                // map
+                md-menu()
+                    +button_fab(null,'$mdOpenMenu()','md-primary md-hue-1','fa-map-marker')
+                    md-menu-content(width='4' style="overflow-y:hidden")
 
-            hr
+                        md-menu-item(ng-if="!userSession")
+                            +button('locations.create_new','','md-primary','fa-fw fa-2x fa-minus-circle',null,'/users/login')
 
-            md-menu-item(layout="row" layout-align="start start")
-                md-button.btn-default.btn-small(
-                ng-click="useLanguage('de')"
-                aria-label='{{ "site.lang_de" || translate }}'
-                )
-                    md-icon
-                        span.fa.fa-fw.fa-2x.fa-check-square-o(ng-if="lang_active=='de'")
-                        span.fa.fa-fw.fa-2x.fa-square-o(ng-if="lang_active!='de'")
-                    span(translate='site.lang_de')
-            md-menu-item(layout="row" layout-align="start start")
-                md-button.btn-default.btn-small(
-                ng-click="useLanguage('en')"
-                aria-label='{{ "site.lang_en" || translate }}'
-                )
-                    md-icon
-                        span.fa.fa-fw.fa-2x.fa-check-square-o(ng-if="lang_active=='en'")
-                        span.fa.fa-fw.fa-2x.fa-square-o(ng-if="lang_active!='en'")
-                    span(translate='site.lang_en')
+                        md-menu-item(ng-if="userSession")
+                            +button('locations.create_new','','md-primary','fa-fw fa-2x fa-minus-circle',null,'/locations/create')
+
+                        md-menu-item()
+                            +button('site.subnav.index','','','fa-fw fa-2x fa-map-o',null,'/locations/index')
+
+                        md-menu-item(ng-if="userSession")
+                            +button('locations.my_locations','','btn-default','fa-fw fa-2x fa-list','userSession', '/users/me/locations')
+
+                        // search
+                        md-menu-item(layout="row" layout-align="start center")
+                            md-input-container(class="md-icon-float md-block")
+                                md-icon.fa.fa-search.fa-2x(style="margin:10px 0 0 20px")
+                                md-autocomplete(
+                                style="margin-left:18px"
+                                ng-disabled="ctrl.isDisabled"
+                                md-no-cache="ctrl.noCache"
+                                md-selected-item="ctrl.selectedItem"
+                                md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                                md-search-text="ctrl.searchText"
+                                md-selected-item-change="ctrl.selectedItemChange(item)"
+                                md-items="item in ctrl.querySearch(ctrl.searchText)"
+                                md-item-text="item.title"
+                                md-min-length="3"
+                                md-delay="400"
+                                md-floating-label="{{ 'locations.search' | translate }} ({{ currentRegion.title || 'DE' }}) {{ searchTitleAdd }}"
+                                md-menu-class="autocomplete-custom-template")
+                                    md-item-template(style="z-index:100000")
+                                        span.item-title
+                                            span {{item.title}}
+                                        span.item-metadata
+                                            span.item-metastat {{item.street}}, {{item.postcode}} {{item.city}}
+                                    md-not-found {{'locations.none_found' | translate}}
+
+                // user
+                md-menu()
+                    +button_fab(null,'$mdOpenMenu()','md-primary md-hue-1','fa-user')
+                    md-menu-content(width='4')
+                        h3(ng-if="userSession") &nbsp;&nbsp;{{userSession.nickname}}
+                        h3(ng-if="!userSession") &nbsp;&nbsp;{{ 'users.anon' | translate }}
+                        md-menu-divider
+                        md-menu-item(ng-if="!userSession")
+                            +button('users.login','','btn-default btn-small','fa-fw fa-2x fa-sign-in','!userSession', '/users/login')
+                        md-menu-item(ng-if="!userSession")
+                            +button('users.signup','','btn-default','fa-fw fa-2x fa-user-plus','!userSession','/users/create')
+                        md-menu-item(ng-if="userSession")
+                            +button('users.settings','','btn-default','fa-fw fa-2x fa-user','userSession', '/users/me')
+                        md-menu-item(ng-if="userSession")
+                            +button('users.logout','','btn-default','fa-fw fa-2x fa-sign-out','userSession', '/users/logout')
+                        md-menu-divider
+                        // Language Change
+                        md-menu-item(layout="row" layout-align="start start")
+                            md-button.btn-default.btn-small(
+                            ng-click="useLanguage('de')"
+                            aria-label='{{ "site.lang_de" || translate }}'
+                            )
+                                md-icon
+                                    span.fa.fa-fw.fa-2x.fa-check-square-o(ng-if="lang_active=='de'")
+                                    span.fa.fa-fw.fa-2x.fa-square-o(ng-if="lang_active!='de'")
+                                span(translate='site.lang_de')
+                        md-menu-item(layout="row" layout-align="start start")
+                            md-button.btn-default.btn-small(
+                            ng-click="useLanguage('en')"
+                            aria-label='{{ "site.lang_en" || translate }}'
+                            )
+                                md-icon
+                                    span.fa.fa-fw.fa-2x.fa-check-square-o(ng-if="lang_active=='en'")
+                                    span.fa.fa-fw.fa-2x.fa-square-o(ng-if="lang_active!='en'")
+                                span(translate='site.lang_en')
+
