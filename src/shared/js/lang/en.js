@@ -192,13 +192,14 @@ define([], function () {
                 feedback: 'Feedback',
                 howto: 'Howto',
                 imprint: 'Imprint',
-                index: 'City Index',
+                index: 'City index',
                 press: 'Press',
                 terms: 'Terms'
             },
             title: 'Leerstandsmelder'
         },
         users: {
+            anon: 'Not logged in',
             email: 'Email',
             forgot: 'Forgot Password',
             logout: 'Logout',

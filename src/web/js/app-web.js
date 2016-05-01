@@ -42,9 +42,16 @@ define([
                 });
                 $mdThemingProvider.definePalette('white', whiteMap);
 
+                // added the leerstand color to the palette
+
+                var leerstandMap = $mdThemingProvider.extendPalette('white', {
+                    '500': 'ed1c24'
+                });
+                $mdThemingProvider.definePalette('leerstand', leerstandMap);
+
                 // todo: abstract this theme style out to config
                 $mdThemingProvider.theme('default')
-                    .primaryPalette('white')
+                    .primaryPalette('leerstand')
                     .accentPalette('deep-orange')
                     .warnPalette('red');
 
