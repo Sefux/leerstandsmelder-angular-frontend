@@ -11,7 +11,8 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     watch = require('gulp-watch'),
     phonegapBuild = require('gulp-phonegap-build'),
-    pkg = require('./package.json');
+    pkg = require('./package.json'),
+    pgConf = require('./phonegap.json');
 
 var banner = ['/**',
     ' * <%= pkg.name %> - <%= pkg.description %>',
@@ -59,7 +60,7 @@ gulp.task('js-deps', function () {
         .pipe(concat('leerstandsmelder-angular-dependencies.min.js'))
         .pipe(header(banner, {pkg: pkg}))
         .pipe(gulp.dest('./dist/web/js/'))
-        .pipe(gulp.dest('./dist/mobile/js/'));
+        .pipe(gulp.dest('./dist/mobile/www/js/'));
 });
 
 gulp.task('js-web', function () {
@@ -77,7 +78,7 @@ gulp.task('js-mobile', function () {
         .pipe(requirejsOptimize())
         .pipe(header(banner, {pkg: pkg}))
         .pipe(rename('leerstandsmelder-angular-frontend.min.js'))
-        .pipe(gulp.dest('dist/mobile/js/'));
+        .pipe(gulp.dest('dist/mobile/www/js/'));
 });
 
 
@@ -99,7 +100,7 @@ gulp.task('css-deps', function () {
         .pipe(concat('leerstandsmelder-frontend-dependencies.min.css'))
         .pipe(header(banner, {pkg: pkg}))
         .pipe(gulp.dest('./dist/web/css/'))
-        .pipe(gulp.dest('./dist/mobile/css/'));
+        .pipe(gulp.dest('./dist/mobile/www/css/'));
 });
 
 function cssPipe(src, destPath) {
@@ -117,7 +118,7 @@ gulp.task('css-web', function () {
 });
 
 gulp.task('css-mobile', function () {
-    return cssPipe(gulp.src('./src/mobile/less/mobile.less'), './dist/mobile/css/');
+    return cssPipe(gulp.src('./src/mobile/less/mobile.less'), './dist/mobile/www/css/');
 });
 
 
@@ -136,7 +137,7 @@ gulp.task('html-web', function () {
 });
 
 gulp.task('html-mobile', function () {
-    return htmlPipe(gulp.src(['./src/shared/jade/**/*.jade', './src/mobile/jade/**/*.jade']), './dist/mobile/');
+    return htmlPipe(gulp.src(['./src/shared/jade/**/*.jade', './src/mobile/jade/**/*.jade']), './dist/mobile/www/');
 });
 
 
@@ -176,11 +177,11 @@ gulp.task('copy-web', function () {
 });
 
 gulp.task('copy-mobile', function () {
-    copyPipe(gulp.src(['./bower_components/font-awesome/fonts/*','./assets/fonts/*']), './dist/mobile/fonts/', 3);
-    copyPipe(gulp.src(['./assets/images/*']), './dist/mobile/images/', 2);
-    copyPipe(gulp.src(['./bower_components/leaflet/dist/images/*']), './dist/mobile/', 3);
+    copyPipe(gulp.src(['./bower_components/font-awesome/fonts/*','./assets/fonts/*']), './dist/mobile/www/fonts/', 3);
+    copyPipe(gulp.src(['./assets/images/*']), './dist/mobile/www/images/', 2);
+    copyPipe(gulp.src(['./bower_components/leaflet/dist/images/*']), './dist/mobile/www/', 3);
     copyPipe(gulp.src(['./bower_components/leaflet-minimap/dist/images/*']), './dist/web/');
-    copyPipe(gulp.src(['./src/shared/static/md/*.md']), './dist/mobile/', 2);
+    copyPipe(gulp.src(['./src/shared/static/md/*.md']), './dist/mobile/www/', 2);
 });
 
 
@@ -213,13 +214,22 @@ gulp.task('watch-web-src', function () {
 // Phonegap build task
 
 gulp.task('phonegap-build', function () {
+    var user;
+    if (pgConf.token) {
+        user = {
+            token: pgConf.token
+        };
+    } else {
+        user = {
+            email: pgConf.email,
+            password: pgConf.password
+        };
+    }
     gulp.src('dist/mobile/**/*')
         .pipe(phonegapBuild({
-            "isRepository": "false",
-            "appId": "1234",
-            "user": {
-                "token": "asdf"
-            }
+            "isRepository": false,
+            "appId": pgConf.appId,
+            "user": user
         }));
 });
 
@@ -247,7 +257,7 @@ gulp.task('mobile', [
     'js-deps',
     //'js-mobile',
     'copy-requirejs',
-    'copy-web',
+    'copy-mobile',
     'copy-js-config',
     'copy-js-src',
     'css-deps',

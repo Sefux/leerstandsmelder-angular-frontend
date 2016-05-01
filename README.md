@@ -13,6 +13,7 @@ Since the app uses Angular in HTML5 mode, you need to make sure that every 404 n
 ### Development ###
 
 Copy ``configuration.default.js`` to ``configuration.js`` and update as needed.
+Copy ``phonegap.default.json`` to ``phonegap.json`` and update as needed (copy it even if you're not using it).
 
 ```shell
 npm install
