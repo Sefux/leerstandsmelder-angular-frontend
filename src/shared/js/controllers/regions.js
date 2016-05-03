@@ -68,8 +68,8 @@ define([
                     }
                 ];
         }])
-        .controller('Regions.MapIndex', ['$scope', '$q', 'apiService', 'regionService', 'responseHandler', 'staticContent', '$translate', '$mdDialog',
-            function ($scope, $q, apiService, regionService, responseHandler, staticContent, $translate, $mdDialog) {
+        .controller('Regions.MapIndex', ['$scope', '$q', 'apiService', 'regionService', 'responseHandler',
+            function ($scope, $q, apiService, regionService, responseHandler) {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
             $scope.mapcenter = [51.0, 9.0];
@@ -83,14 +83,13 @@ define([
                 },
                 function (regions, cb) {
                     async.map(regions, function (region, next) {
-                        var popup = "<strong>" + region.title + "</strong>";
-                        regions[regions.indexOf(region)].popup = popup;
+                        regions[regions.indexOf(region)].popup = "<strong>" + region.title + "</strong>";
                         next();
                     }, function () {
                         $scope.locations = regions;
                         cb();
                     });
-                },
+                }
             ], function (err) {
                 responseHandler.handleResponse(err, deferred);
             });
