@@ -79,7 +79,7 @@ define([
             self.searchTextChange = searchTextChange;
 
             apiService('regions').actions.all(function (err, regions) {
-                if (!regions) {
+                if (!regions || !Array.isArray(regions)) {
                     if (err) {
                         throw err;
                     }

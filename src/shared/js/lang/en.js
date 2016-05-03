@@ -53,6 +53,12 @@ define([], function () {
         errors: {
             access_denied: 'You are not allowed to perform this action.',
             authorization_failed: 'Login failed.',
+            location: {
+                'no_data': 'Location could not be loaded.'
+            },
+            region: {
+                'no_data': 'Region could not be loaded.'
+            },
             unknown: 'An unknown error occurred.',
             users: {
                 confirmation_failed: 'Confirmation failed. This link might already be used.',

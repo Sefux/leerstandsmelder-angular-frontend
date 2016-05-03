@@ -105,6 +105,9 @@ define([
                     apiService('regions').actions.find($routeParams.uuid, cb);
                 },
                 function (region, cb) {
+                    if (!region) {
+                        return cb(new Error('errors.region.no_data'));
+                    }
                     $scope.region = region;
                     $scope.mapcenter = [$scope.region.lonlat[1], $scope.region.lonlat[0]];
                     $scope.zoom = $scope.region.zoom;

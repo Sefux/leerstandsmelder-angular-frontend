@@ -26,6 +26,9 @@ define([
                     apiService('locations').actions.find($routeParams.uuid, cb);
                 },
                 function (location, cb) {
+                    if (!location) {
+                        return cb(new Error('errors.location.no_data'));
+                    }
                     $scope.locations = [location];
                     $scope.location = location;
                     if ($scope.location && Array.isArray($scope.location.lonlat)) {
@@ -237,7 +240,7 @@ define([
                 }
             ], function (err, locations) {
                 if (locations) {
-                    $scope.listHeadline = $translate.instant('locations.locations_by_region') + ': ' + $scope.region.title;
+                    $scope.listHeadline = $translate.instant('locations.locations_by_region') + ': ' + ($scope.region ? $scope.region.title : null);
                     $scope.data = locations.results || locations;
                 } else {
                     $scope.listHeadline = $translate.instant('locations.locations_by_region');

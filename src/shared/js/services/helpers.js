@@ -23,7 +23,7 @@ define([
                                 _self.currentRegion = region;
                                 $rootScope.$broadcast('currentRegion:updated', region);
                             } else {
-                                console.log('error getting region for ' + uuid + ': ' + err.message);
+                                console.log('error getting region for ' + uuid + ': ' + (err ? err.message : null));
                             }
                             cb();
                         });

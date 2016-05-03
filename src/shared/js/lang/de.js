@@ -53,6 +53,12 @@ define([], function () {
         errors: {
             access_denied: 'Du hast keine Berechtigung, um diese Aktion auszuführen.',
             authorization_failed: 'Anmeldung fehlgeschlagen.',
+            location: {
+                'no_data': 'Leerstand konnte nicht geladen werden.'
+            },
+            region: {
+                'no_data': 'Region konnte nicht geladen werden.'
+            },
             unknown: 'Ein unbekannter Fehler ist aufgetreten.',
             users: {
                 confirmation_failed: 'Bestätigung fehlgeschlagen. Möglicherweise wurde dieser Link bereits verwendet.',
