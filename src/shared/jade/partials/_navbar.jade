@@ -31,7 +31,7 @@ md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as 
                             // todo: turn this into a select list.
                             +button_notranslate_tmp('region.title', 'close_sidebar()','btn-default','fa-fw fa-2x fa-globe','admin_regions', '/admin/regions/{{ region.slug }}/locations')
 
-                        md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
+                        //md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
                             +button('admin.dashboard', '','btn-default','fa-fw fa-2x fa-dashboard','userSession', '/admin/dashboard')
 
                 // map
