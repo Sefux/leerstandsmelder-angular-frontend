@@ -81,8 +81,7 @@ md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as 
                     +button_fab(null,'$mdOpenMenu()','md-primary md-hue-1','fa-user')
                     md-menu-content(width='4')
                         h3(ng-if="userSession") &nbsp;&nbsp;{{userSession.nickname}}
-                        h3(ng-if="!userSession") &nbsp;&nbsp;{{ 'users.anon' | translate }}
-                        md-menu-divider
+                        md-menu-divider(ng-if="userSession")
                         md-menu-item(ng-if="!userSession")
                             +button('users.login','','btn-default btn-small','fa-fw fa-2x fa-sign-in','!userSession', '/users/login')
                         md-menu-item(ng-if="!userSession")

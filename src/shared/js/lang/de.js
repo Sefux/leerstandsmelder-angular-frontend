@@ -205,8 +205,6 @@ define([], function () {
             title: 'Leerstandsmelder'
         },
         users: {
-            anon: 'Nicht eingeloggt',
-
             email: 'E-Mail',
             forgot: 'Passwort Vergessen',
             logout: 'Abmelden',
