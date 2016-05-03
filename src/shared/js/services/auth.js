@@ -29,6 +29,21 @@ define([], function () {
                     this.lsAlias.removeItem('api_key');
                     this.lsAlias.removeItem('access_token');
                     auth.getCredentials();
+                },
+                hasScopes: function (scopes, mustHaveAll) {
+                    if (!this.api_key) {
+                        return false;
+                    }
+                    mustHaveAll = mustHaveAll || false;
+                    var found = mustHaveAll;
+                    for (var i in scopes) {
+                        if (this.api_key.scopes.indexOf(scopes[i]) && !mustHaveAll) {
+                            found = true;
+                        } else if (mustHaveAll) {
+                            found = false;
+                        }
+                    }
+                    return found;
                 }
             };
             auth.getCredentials();

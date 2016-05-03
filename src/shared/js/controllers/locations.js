@@ -409,9 +409,7 @@ define([
                         },
                         function (cb) {
                             $scope.currentRegion = regionService.currentRegion.title;
-                            if (authService.api_key && authService.api_key.scopes.indexOf('region-' + $scope.location.region_uuid)) {
-                                $scope.isAdmin = true;
-                            }
+                            $scope.isAdmin = authService.hasScopes(['admin', 'region-' + $scope.location.region_uuid]);
                             cb();
                         }
                     ], function (err) {
