@@ -6,9 +6,10 @@ node_modules/**/*
 dist/nw/node_modules/**/*
 bower_components/
 configuration.js
+phonegap.json
 lib/
 build/
 cache/
-dist/mobile
+dist/mobile/www
 dist/web/**
 !dist/web/.htaccess
