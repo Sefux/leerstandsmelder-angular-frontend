@@ -34,8 +34,14 @@ define([
             '$animateProvider',
             '$translateProvider',
             '$mdThemingProvider',
-            function ($routeProvider, $locationProvider, $animateProvider, $translateProvider, $mdThemingProvider) {
+            '$compileProvider',
+            '$mdGestureProvider',
+            function ($routeProvider, $locationProvider, $animateProvider, $translateProvider, $mdThemingProvider, $compileProvider, $mdGestureProvider) {
+                // this should stop the clickjacker
+                $mdGestureProvider.skipClickHijack();
 
+                // this is supposed to speed up render times.
+                $compileProvider.debugInfoEnabled(false);
                 var whiteMap = $mdThemingProvider.extendPalette('grey', {
                     '500': '#dddddd',
                     'contrastDefaultColor': 'dark'
