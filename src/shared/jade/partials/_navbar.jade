@@ -24,7 +24,9 @@ md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as 
                 md-menu(ng-if="api_key.scopes.indexOf('admin') > -1")
                     +button_fab(null,'$mdOpenMenu()','md-primary md-hue-1','fa-rocket')
                     md-menu-content(width='4')
-
+                        md-menu-item.cursor_link(flex ng-click='$mdCloseMenu()')
+                            h3(flex) &nbsp;&nbsp;Admin
+                            .fa.fa-fw.fa-close.fa-2x(flex="20")
                         md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
                             +button('regions.manage_regions','','btn-default','fa-globe fa-fw fa-2x ','userSession', '/admin/regions')
                         md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1" ng-repeat="region in admin_regions")
@@ -38,7 +40,10 @@ md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as 
                 md-menu()
                     +button_fab(null,'$mdOpenMenu()','md-primary md-hue-1','fa-map-marker')
                     md-menu-content(width='4' style="overflow-y:hidden")
-
+                        md-menu-item.cursor_link(ng-click='$mdCloseMenu()' flex)
+                            h3(flex) &nbsp;&nbsp;{{ 'locations.location_plural' | translate }}
+                            .fa.fa-fw.fa-close.fa-2x(flex="20")
+                        md-menu-divider()
                         md-menu-item(ng-if="!userSession")
                             +button('locations.create_new','','md-primary','fa-fw fa-2x fa-minus-circle',null,'/users/login')
 
@@ -69,7 +74,7 @@ md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as 
                                 md-delay="400"
                                 md-floating-label="{{ 'locations.search' | translate }} ({{ currentRegion.title || 'DE' }}) {{ searchTitleAdd }}"
                                 md-menu-class="autocomplete-custom-template")
-                                    md-item-template(style="z-index:100000")
+                                    md-item-template(style="z-index:100000;margin-top:10px!important;")
                                         span.item-title
                                             span {{item.title}}
                                         span.item-metadata
@@ -80,8 +85,12 @@ md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as 
                 md-menu()
                     +button_fab(null,'$mdOpenMenu()','md-primary md-hue-1','fa-user')
                     md-menu-content(width='4')
-                        h3(ng-if="userSession") &nbsp;&nbsp;{{userSession.nickname}}
-                        md-menu-divider(ng-if="userSession")
+                        md-menu-item.cursor_link(ng-click='$mdCloseMenu()' flex)
+                            h3(flex ng-if="userSession") &nbsp;{{userSession.nickname}}
+                            h3(flex ng-if="!userSession") &nbsp;{{'users.anonymous' | translate}}
+                            .fa.fa-fw.fa-close.fa-2x(flex="20")
+
+                        md-menu-divider()
                         md-menu-item(ng-if="!userSession")
                             +button('users.login','','btn-default btn-small','fa-fw fa-2x fa-sign-in','!userSession', '/users/login')
                         md-menu-item(ng-if="!userSession")

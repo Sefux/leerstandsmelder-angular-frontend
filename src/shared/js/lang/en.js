@@ -205,6 +205,7 @@ define([], function () {
             title: 'Leerstandsmelder'
         },
         users: {
+            anonymous: 'Not logged in',
             email: 'Email',
             forgot: 'Forgot Password',
             logout: 'Logout',
@@ -214,8 +215,8 @@ define([], function () {
             signup: 'Sign up',
             username: 'Username',
             login: 'Login',
-            share_email: 'Show your email to other users.',
-            notify: 'Get notified when your entries are updated.',
+            message_me: 'Other Users can send me messages via Leerstandsmelder.',
+            notify: 'Send me an Email when my entries are updated or other users send me a message.',
             register_message: 'Register now!'
         }
     };
