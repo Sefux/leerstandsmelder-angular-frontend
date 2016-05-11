@@ -13,7 +13,7 @@ include ../mixins/_style
         md-card-content(layout-padding)
             +layout('row','center center')
                 +content('column','start center')
-                    +input('text','user.email','users.email', null, null)
+                    +input('email','user.email','users.email', null, null)
                 +content('column','start center')
                     +input('password','user.password','users.password', null, null)
         .md-actions(layout="row" layout-align="start end")
