@@ -1,12 +1,15 @@
 include ../mixins/_form
 include ../mixins/_buttons
 
+// todo: add contact button logic
+// todo: add flag this item for review
+
 p
     strong {{ "comments.comment_plural" | translate }}
 div(ng-if="comments" ng-repeat="comment in comments")
     p.smalltext
         | {{ 'author.by' | translate }}&nbsp;
-        strong {{ comment.user.nickname }}&nbsp;
+        strong {{ comment.user.nickname || user.nickname }}&nbsp;
         span {{ 'author.on' | translate }} {{ comment.created | date : 'dd.MM.yy HH:mm' }}
     p(btf-markdown="comment.body")
 p(ng-if="comments.length === 0")

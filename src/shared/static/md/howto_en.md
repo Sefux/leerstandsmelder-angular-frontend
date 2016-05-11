@@ -1,39 +1,107 @@
-In order to register empty properties, post comments and upload photos, you need an **Account** and have to **Log In**.
+##Map Overview
+<small>The landing page of Leerstandsmelder shows an overview of all of the cities on the map, as well as a list of the newest blog entries.</small> 
 
-In oder to create an account, click the user icon at the top right and the **Sign Up** button. Once you have registered, you can simply click the **Login** button. 
-
-Once you are logged in, you can select your account and choose whether or not other users can contact you via E-Mail with the address you have registered and if you want to be notified if comments or changes happen with the entries you have made (a new comment or a new picture).
+![](/images/landingpage_en.jpg) 
  
-![](/images/map_overview_en.jpg) <small>Leerstand Map with the list on the right hand side</small>
+##City Map 
+<small>This is the regional Leerstand Map with the list of the newest entries in Hamburg, in this case. Under **Latest Activity** for individual cities, entries are shown that have recently been created, commented or to which an image has been added. You can click on one of the entries and will be taken to the respective report.</small>
 
-Die **Leerstandskarte** gibt Überblick über alle gemeldeten Leerstände. Hier sind die Leerstände mit ihrer Adresse verortet, rechts davon in einer Leerstandsliste aufgeführt.
+![](/images/hamburg_overview_en.jpg) 
 
-Es werden rechts unter **Letzte Aktivitäten** die Einträge angezeigt, bei denen sich zuletzt etwas getan hat, d.h. die neu eingetragen, kommentiert oder zu denen ein Bild hochgeladen wurde.
+##User Menu
+<small>This button opens the user menu.</small>
 
-Die **Suchfunktion** filtert alle Begriffe im Zusammenhang mit den eingetragenen Leerständen, also auch in den jeweiligen Beschreibungstexten und Kommentaren. Zum gezielten Suchen empfiehlt es sich, nach den Angaben im Steckbrief zu filtern, z.B. nach dem Namen, der Adresse oder der Nutzungsart.
+![](/images/user_button.jpg)
 
-![](http://www.rechtaufstadt.net/sites/default/files/u87/Meldeformular.png) <small>Meldeformular</small>
+<small>In order to register empty properties, post comments and upload photos, you need an **Account** and have to **Log In**. However, as an anonymous user you may still browse and search through the entries on the Leerstandsmelder. Click the button shown above in order to open the menu.</small>
 
-Wenn ihr einen **Leerstand melden** wollt, der noch nicht auf der Leerstandskarte verzeichnet ist, braucht ihr die genaue Adresse, damit der Eintrag richtig verortet wird. Wenn das Gebäude einen besonderen Namen hat, der gebräuchlich ist, könnt ihr diesen auch eintragen, z.B. „Astraturm“. Wenn ihr keinen **Namen** eingebt, wird das Gebäude unter seiner Adresse gelistet.
+![](/images/user_dropdown_anon_en.jpg)
 
-![Steckbrief](http://www.rechtaufstadt.net/sites/default/files/u87/Steckbrief.png)
 
-Der **Steckbrief** bietet die Möglichkeit ein paar Angaben zu dem Gebäude zu machen. Wenn man die Angaben nicht weiß, kannst man immer auch „keine Angabe“ wählen.
+###Login
+<small>Click the **Login** button in the user menu, and enter your credentials. If you have forgotten your password, you may request a temporary token by clicking the "Forgot Password" button on the Login page. </small>
 
-Ihr könnt die **Nutzungsart** wählen. Unter „ist was anderes“ könnt ihr selber eine Nutzungsart angeben, wie z.B. „Sporthalle“.
+![](/images/login_en.jpg)
 
-Wenn ihr wisst, wer der **Eigentümer** ist, wählt zwischen „privat“ und „öffentliche Hand“. Dazu zählt der gesamte öffentliche Sektor, insbesondere die Gebietskörperschaften wie Bund, Länder, Gemeindeverbände, Gemeinden sowie Anstalten und Körperschaften des öffentlichen Rechts.
 
-**Wie lange leer** ein Gebäude ungefähr ist, könnt ihr hier angeben.
+###Register
+<small>In oder to create an account, click the user icon at the top right and the **Sign Up** button. You will be sent a confirmation email with a link that you must click in order to verify your email address. Then you can simply click the **Login** button and use your email address and password.</small>
 
-Ist ein ganzes Gebäude ganz vom **Leerstand** betroffen oder nur ein Teil wie z.B. das Erdgeschoß? Wählt entsprechend zwischen „komplett“ und „teilweise“.
+![](/images/register_en.jpg)
 
-Wisst ihr von **Abriss-Gerüchten**? Wählt entsprechend zwischen „ja“ und „nein“. Vielleicht kann durch schnelles Handeln und eine gute Idee der Abriss verhindert werden.
 
-Ihr könnt von euch selber gemeldete Leerstände jederzeit **bearbeiten**. Wenn ihr einen Eintrag **löschen** wollt, schreibt bitte eine email die jeweilige Stadt, ihr findet den Kontakt im [Impressum](http://www.leerstandsmelder.de/hamburg/Impressum)
 
-Alle angemeldete NutzerInnen können zu den eingetragenen Leerständen **Kommentare posten**. Dadurch könnt ihr Informationen ergänzen und Nutzungsideen ausgetauschen werden.
+###Language
+<small>You may choose which language you would like to see the interface of the Leerstandsmelder. This will not, however, translate the contents of the pages into your preferred language.</small>
 
-**Fotos hochladen** können ebenfalls nur angemeldete NutzerInnen. Ihr könnt die Einträge von anderen NutzerInnen mit eigenen Fotos ergänzen.
+![](/images/language_switcher.jpg)
 
-Ihr könnt anderen registrierten NutzerInnen eine **Nachricht senden**. Eure E-Mail-Adressen bleiben dabei verborgen! Zur Kontaktaufnahme müsst ihr auf das kleine Briefsymbol neben den Usernamen klicken. Das erschein allerdings nur bei NutzerInnen, die diese Option nutzen (Einstellungsoption unter "Mein Account").
+
+
+###Settings
+
+<small>This is the user dropdown menu when you are successfully signed in.</small>
+
+![](/images/user_dropdown_reg_en.jpg)
+
+<small>In this menu, you can edit your preferences under **Settings**: You can choose whether or not other users can contact you via E-Mail with the address you have registered and if you want to be notified if comments or changes happen with the entries you have made (a new comment or a new picture).</small>
+
+![](/images/user_settings_en.jpg)
+
+
+##Location Button
+<small>This button opens the location menu.</small>
+
+![](/images/location_button.jpg)
+
+<small>This button opens a menu that will allow you to submit a location and see your locations (if you are logged in), as well as a link to a list of all the cities participating and allow you to search for specific places.</small>
+
+![](/images/location_dropdown_en.jpg)
+
+##Submit Leerstand
+<small>On this page, you can register a new property as being empty. You can navigate by clicking on the tabs, on the next / previous buttons, or by swiping left and right.</small>
+
+###Submit Leerstand → Info
+<small>Under the **Info** tab, you may choose to add a **Title** (if you do not, the address of the location will be used) and add a **Description** of the leerstand.</small>
+
+![](/images/create_info_en.jpg)
+ 
+###Submit Leerstand → Location  
+<small>Under the **Location** tab you can enter geographic information about the building you are adding. If you know the address, you can type it into the fields and the pin will move to that place. Also, by dragging the pin you will update the geodata.</small>
+
+![](/images/create_location_en.jpg)
+
+###Submit Leerstand → Details 
+<small>Under the **Details** tab, you can add information about how long it has been **Empty for** (approximately), the **Owner** (whether private or public), the **Building Type**, the **Degree of emptiness** (i.e. complete, partial or unknown) and if you have heard that there are **Rumors of demolition**.</small>
+
+![](/images/create_details_en.jpg)
+ 
+###Submit Leerstand → Preview 
+<small>Under the **Preview** tab, you can see the record as it will be saved to the database. Here you may also add photos. If you are satisfied, you can submit the information by clicking the button with the checkmark.</small>
+                      
+![](/images/create_preview_en.jpg)
+
+
+###City Index          
+
+<small>This link will take you to a page that shows you a list of all of the cities, along with the number of registered buildings. Clicking on one of these cities will take you to another list showing you all of the individual buildings. Clicking here will show the information and location of the place.</small>
+
+###My Locations
+
+<small>Here you have an overview of all of the locations that you have added. You can sort them by clicking on the column titles and you can visit them by clicking on the link.</small> 
+
+###Search
+<small>The **Search feature** filters all words that have been added to the profile of the Leerstand, even including the respective descriptions, comments and street names for example. In order to find exactly what you are looking for it is recommended to search for the name, the address or the type of usage.</small>
+
+![](/images/search_en.jpg)
+
+## Other features
+
+<small>You can always **edit** Leerstand that you have added to the register. If you want to delete an entry, please write an email to the respective city, which you can find at the [Imprint](https://www.leerstandsmelder.de/hamburg/Impressum) page.
+
+All registered users can also add **Comments** to entries in the register. In this way you can extend the knowledge of the building and exchange ideas for usage.
+
+**Uploading photos** can also only be done by registered users. You can add pictures to the entries created by other users.
+
+You can also send other registered users **Messages**. In order to make contact, you need to click the envelope symbol next to the username of the person you wish to contact. This appears only next to those users that have enabled this feature (which can be set under the "Settings" options).
+</small>
