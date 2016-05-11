@@ -5,7 +5,7 @@ include ../mixins/_layout
 include ../mixins/_style
 
 div(layout layout-xs="column" layout-wrap layout-fill)
-    #map(lsm-map flex flex-gt-xs="33" ng-model='location' urlbase='urlbase' center='mapcenter' zoom='zoom' locations='locations')
+    #map(lsm-map flex flex-gt-xs="33" ng-model='location' center='mapcenter' zoom='zoom' locations='locations')
     div.md-padding(flex flex-gt-xs="66" check-login)
         p.pull-right(ng-if='mayEdit')
             +button_fab('actions.edit','edit()','md-primary','fa-edit','location')

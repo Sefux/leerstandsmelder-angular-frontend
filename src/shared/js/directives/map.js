@@ -56,7 +56,6 @@ define([
                                 marker.addTo(map);
                                 marker.on('click', function (e) {
                                     var data = e.target.options.data;
-
                                     var popup = "";
                                     popup += '<div>';
                                     if (data.thumb_url) {
@@ -70,8 +69,11 @@ define([
                                         popup += data.street + "<br />";
                                         popup += data.buildingType + " / " + $translate.instant(data.owner) + "<br />";
                                     }
-                                    popup += "<a href='" + scope.urlbase + (data.slug || data.uuid) + "'>" +
-                                        $translate.instant('actions.show') +"</a>";
+                                    if (scope.urlbase){
+                                        popup += "<a href='" + scope.urlbase + (data.slug || data.uuid) + "'>" + $translate.instant('actions.show') +"</a>";
+                                    }
+
+
                                     popup += "</div></div>";
                                     e.target.unbindPopup();
                                     e.target.bindPopup(popup).openPopup();
