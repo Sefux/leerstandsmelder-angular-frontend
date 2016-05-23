@@ -107,6 +107,21 @@ define([
                 }
             };
         }])
+        .directive('messageForm', ['apiService', '$q', function (apiService, $q) {
+            return {
+                restrict: 'A',
+                templateUrl: '/partials/_message_create.html',
+                link: function (scope) {
+                    scope.submitMessage = function () {
+                        if (scope.message.recipient_uuid && scope.message.body) {
+                            apiService('messages').actions.create(scope.message, function (err) {
+
+                            });
+                        }
+                    };
+                }
+            };
+        }])
         .directive('lsmDataTable', ['$q', 'apiService', function ($q, apiService) {
             return {
                 restrict: 'A',
@@ -122,7 +137,7 @@ define([
                             result = data,
                             parts = property.split('.');
                         for (var i = 0; i < parts.length; i += 1) {
-                            if (data[parts[i]]) {
+                            if (result[parts[i]]) {
                                 found = true;
                                 result = result[parts[i]];
                             }

@@ -9,6 +9,7 @@ define([
     'controllers_site',
     'controllers_users',
     'controllers_locations',
+    'controllers_messages',
     'controllers_posts',
     'controllers_regions'
 ], function (lang_de, lang_en, routes) {
@@ -22,6 +23,7 @@ define([
             'cgBusy',
             'pascalprecht.translate',
             'lsm.controllers.locations',
+            'lsm.controllers.messages',
             'lsm.controllers.posts',
             'lsm.controllers.regions',
             'lsm.controllers.site',

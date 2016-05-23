@@ -19,6 +19,7 @@
 
             controllers_users: '/src/shared/js/controllers/users',
             controllers_locations: '/src/shared/js/controllers/locations',
+            controllers_messages: '/src/shared/js/controllers/messages',
             controllers_posts: '/src/shared/js/controllers/posts',
             controllers_regions: '/src/shared/js/controllers/regions',
             controllers_site: '/src/shared/js/controllers/site',

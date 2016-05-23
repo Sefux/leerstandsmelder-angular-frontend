@@ -142,6 +142,13 @@ define([], function () {
             unknown: 'Unbekannt'
         },
         messages: {
+            create_message: 'Nachricht erstellen',
+            message: 'Nachricht',
+            message_text: 'Nachricht',
+            my_messages: 'Meine Nachrichten',
+            sent: 'Gesendet',
+            to: 'An',
+            from: 'Von',
             comments: {
                 create_success: 'Kommentar erfolgreich gespeichert.'
             },

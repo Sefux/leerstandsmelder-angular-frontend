@@ -96,6 +96,11 @@ define([], function () {
             controller: 'Locations.User'
         },
         {
+            route: '/users/me/messages',
+            templateUrl: '/messages/list.html',
+            controller: 'Messages.List'
+        },
+        {
             route: '/users/logout',
             templateUrl: '/users/logout.html',
             controller: 'Users.Logout'
@@ -133,6 +138,21 @@ define([], function () {
 
         //
         //
+        // Messages
+
+        {
+            route: '/messages/create',
+            templateUrl: '/messages/create.html',
+            controller: 'Messages.Create'
+        },
+        {
+            route: '/messages/:uuid/reply',
+            templateUrl: '/messages/reply.html',
+            controller: 'Messages.Reply'
+        },
+
+        //
+        //
         // Locations
 
         {
@@ -165,5 +185,6 @@ define([], function () {
             templateUrl: '/locations/list.html',
             controller: 'Locations.RegionList'
         }
+
     ];
 });
