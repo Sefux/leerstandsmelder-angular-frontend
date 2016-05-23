@@ -212,6 +212,7 @@ define([], function () {
             title: 'Leerstandsmelder'
         },
         users: {
+            anonymous: 'Nicht eingeloggt',
             email: 'E-Mail',
             forgot: 'Passwort Vergessen',
             logout: 'Abmelden',
@@ -221,8 +222,8 @@ define([], function () {
             signup: 'Registrieren',
             username: 'Benutzername',
             login: 'Anmelden',
-            share_email: 'Zeig meine E-Mail Adresse anderen Nutzer.',
-            notify: 'Benachrichtige mich wenn meine Einträge geupdatet werden.',
+            message_me: 'Andere Nutzer können mich Nachrichten auf Leerstandsmelder schicken.',
+            notify: 'Benachrichtige mich per Email wenn meine Einträge geupdatet werden oder Nachrichten angekommen sind.',
             register_message: 'Registriere Dich!'
         }
     };

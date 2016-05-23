@@ -57,6 +57,11 @@ define([
                                 marker.on('click', function (e) {
                                     var data = e.target.options.data;
                                     var popup = "";
+                                    popup += '<div>';
+                                    if (data.thumb_url) {
+                                        popup += '<img class="popup_thumb" src="'+data.thumb_url+'" width="80px" height="80px" style="width:80px;height:80px;padding-right:1em" flex/>';
+                                    }
+                                    popup += '<div>';
                                     popup += "<strong>" + data.title + "</strong><br />";
                                     if (data.locations) {
                                         popup += data.locations + " " + $translate.instant('locations.location_plural') +"<br />";
@@ -64,8 +69,12 @@ define([
                                         popup += data.street + "<br />";
                                         popup += data.buildingType + " / " + $translate.instant(data.owner) + "<br />";
                                     }
-                                    popup += "<a href='" + scope.urlbase + (data.slug || data.uuid) + "'>" +
-                                        $translate.instant('actions.show') +"</a>";
+                                    if (scope.urlbase){
+                                        popup += "<a href='" + scope.urlbase + (data.slug || data.uuid) + "'>" + $translate.instant('actions.show') +"</a>";
+                                    }
+
+
+                                    popup += "</div></div>";
                                     e.target.unbindPopup();
                                     e.target.bindPopup(popup).openPopup();
                                 });

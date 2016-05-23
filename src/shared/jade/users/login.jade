@@ -3,7 +3,9 @@ include ../mixins/_buttons
 include ../mixins/_layout
 include ../mixins/_style
 
-+layout('column','center center',true)
++layout('column','start center',true)
+    div
+    div
     md-card()
         md-toolbar(md-scroll-shrink)
             +layout('row','center center','padding')
@@ -11,7 +13,7 @@ include ../mixins/_style
         md-card-content(layout-padding)
             +layout('row','center center')
                 +content('column','start center')
-                    +input('text','user.email','users.email', null, null)
+                    +input('email','user.email','users.email', null, null)
                 +content('column','start center')
                     +input('password','user.password','users.password', null, null)
         .md-actions(layout="row" layout-align="start end")

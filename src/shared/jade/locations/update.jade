@@ -5,9 +5,9 @@ include ../mixins/_layout
 include ../mixins/_style
 
 div(layout="row" layout-xs="column" layout-wrap layout-fill)
-    #map(lsm-map flex="30" flex-gt-xs="40" ng-model='location' select-mode select-handler='updateLocation(latlon)' select-marker='marker' )
-    div(flex="70" flex-gt-xs="60")
-        md-tabs(class="md-primary"  md-dynamic-height md-border-bottom md-no-pagination="false" md-swipe-content md-selected="selectedIndex")
+    #map(lsm-map flex flex-gt-xs="40" ng-model='location' select-mode select-handler='updateLocation(latlon)' select-marker='marker' )
+    div(flex flex-gt-xs="60")
+        md-tabs(class="md-primary" md-dynamic-height md-border-bottom md-no-pagination="false" md-swipe-content md-selected="selectedIndex")
             md-tab(label='{{ "creator.tabs.info" | translate }}')
                 div.md-padding
                     small {{ "locations.help.info" | translate }}
