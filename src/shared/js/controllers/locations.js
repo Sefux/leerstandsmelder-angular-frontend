@@ -56,7 +56,7 @@ define([
                 if (responseHandler.handleResponse(err, deferred)) {
                     if (
                         ($scope.userSession && $scope.location.user_uuid === $scope.userSession.uuid) ||
-                        $scope.api_key && ($scope.api_key.scopes.indexOf($scope.location.region_slug) > -1 ||
+                        $scope.api_key && ($scope.api_key.scopes.indexOf('region-' + $scope.location.region_uuid) > -1 ||
                         $scope.api_key.scopes.indexOf('admin') > -1)
                     ) {
                         $scope.mayEdit = true;
