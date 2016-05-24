@@ -174,6 +174,7 @@ define([], function () {
             manage_posts: 'Manage Posts',
             post: 'Post',
             post_plural: 'Posts',
+            site_post_plural: 'Page content',
             title: 'Title',
             update_success: 'Post updated successfully.'
         },

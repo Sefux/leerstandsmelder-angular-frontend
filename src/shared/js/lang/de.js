@@ -174,6 +174,7 @@ define([], function () {
             manage_posts: 'Einträge verwalten',
             post: 'Eintrag',
             post_plural: 'Einträge',
+            site_post_plural: 'Seiteninhalte',
             title: 'Titel',
             update_success: 'Eintrag erfolgreich aktualisiert..'
         },

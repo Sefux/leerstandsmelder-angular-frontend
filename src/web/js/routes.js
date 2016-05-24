@@ -61,6 +61,11 @@ define([], function () {
             controller: 'Posts.List'
         },
         {
+            route: '/admin/posts/static',
+            templateUrl: '/posts/list_static.html',
+            controller: 'Posts.ListStatic'
+        },
+        {
             route: '/admin/posts/create',
             templateUrl: '/posts/update.html',
             controller: 'Posts.Update'
