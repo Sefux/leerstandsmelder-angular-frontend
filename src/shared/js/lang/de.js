@@ -78,7 +78,8 @@ define([], function () {
                 commercial: 'Gewerblich',
                 industrial: 'Industriell',
                 historical: 'Historisch',
-                public_work: 'Öffentlich'
+                public_work: 'Öffentlich',
+                other: 'was anders'
             },
             city: 'Stadt',
             create_new: 'Leerstand melden',
@@ -113,7 +114,8 @@ define([], function () {
             help: {
                 info: 'Gib hier einen aussagekräftigen Titel und eine Beschreibung für diesen Leerstand ein.',
                 location: 'Gib eine Adresse ein und die Karte sollte sich nach einem kurzen Moment aktualisieren. Du kannst den Marker auf der Karte ziehen, um damit die Adresse zu aktualisieren.',
-                details: 'Trag ein, welche Details dir über den Leerstand bekannt sind. Wenn Du etwas nicht weißt, lass es einfach unausgewählt.'
+                details: 'Trag ein, welche Details dir über den Leerstand bekannt sind. Wenn Du etwas nicht weißt, lass es einfach unausgewählt.',
+                admin:'Setz das Häkchen auf "Ausgeblendet" um es für nicht-Administratoren unsichtbar zu machen.'
             },
             hidden: 'Ausgeblendet',
             hidden_yes: 'Ja',

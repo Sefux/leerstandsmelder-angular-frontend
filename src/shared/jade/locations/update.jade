@@ -72,6 +72,7 @@ div(layout="row" layout-xs="column" layout-wrap layout-fill)
 
             md-tab(ng-if='isAdmin' label='{{ "creator.tabs.admin" | translate }}')
                 div.md-padding
+                    small {{ "locations.help.admin" | translate }}
                 div(layout="row" layout-padding)
                     div(flex layout-padding)
                         div(layout-gt-xs="row")
