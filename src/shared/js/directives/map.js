@@ -67,7 +67,12 @@ define([
                                         popup += data.locations + " " + $translate.instant('locations.location_plural') +"<br />";
                                     } else {
                                         popup += data.street + "<br />";
-                                        popup += data.buildingType + " / " + $translate.instant(data.owner) + "<br />";
+                                        popup += $translate.instant(data.buildingType) + " / ";
+                                        if (data.owner != undefined) {
+                                            popup += $translate.instant(data.owner)  + "<br />";
+                                        } else {
+                                            popup += $translate.instant('locations.unknown')  + "<br />";
+                                        }
                                     }
                                     if (scope.urlbase){
                                         popup += "<a href='" + scope.urlbase + (data.slug || data.uuid) + "'>" + $translate.instant('actions.show') +"</a>";
