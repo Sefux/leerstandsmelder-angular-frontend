@@ -88,6 +88,11 @@ define([], function () {
                 complete: 'Vollständig',
                 partial: 'Teilweise'
             },
+            demolished: 'Abgerissen',
+            demolition_options: {
+                rumor: 'Gerüchte',
+                demolished: 'Abgerissen'
+            },
             demolition_rumor: 'Abrissgerüchte',
             demolition_rumor_yes: 'Ja',
             description: 'Beschreibung',
@@ -144,10 +149,11 @@ define([], function () {
             unknown: 'Unbekannt'
         },
         messages: {
+            answer_message: 'Nachricht beantworten',
             create_message: 'Nachricht erstellen',
             message: 'Nachricht',
             message_text: 'Nachricht',
-            my_messages: 'Meine Nachrichten',
+            my_messages: 'Nachrichten',
             sent: 'Gesendet',
             to: 'An',
             from: 'Von',

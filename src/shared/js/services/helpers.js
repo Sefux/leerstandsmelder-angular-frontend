@@ -142,7 +142,8 @@ define([
                     'locations.building_type_options.commercial',
                     'locations.building_type_options.industrial',
                     'locations.building_type_options.historical',
-                    'locations.building_type_options.public_work'
+                    'locations.building_type_options.public_work',
+                    'locations.building_type_options.other'
                 ],
                 owner: [
                     'locations.unknown',

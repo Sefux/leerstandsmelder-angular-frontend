@@ -85,7 +85,7 @@ md-icon {
 }
 
 html,body {
-  margin: 0px;
+  margin: 0;
   height: 100%;
   width:100%;
   overflow-x: hidden;
@@ -496,8 +496,14 @@ md-card {
   margin-right: 16px;
 }
 
+.lightbox-image-holder {
+  max-width:80%;
+  max-height:80%;
+}
 .lightbox-image {
-  width:100%;
+  max-width:inherit;
+  max-height:inherit;
+  margin:auto;
 }
 
 // posts
@@ -586,4 +592,24 @@ md-button md-icon span {
 
 .cursor_link {
   cursor: pointer!important;
+}
+
+// fix for the double svg error in the tabbar for leerstand editting
+md-icon svg {
+  display:none;
+}
+
+.badge {
+  background: #ed1c24;
+  border-radius: 9px;
+  color: white;
+  padding:2px;
+  text-align:center;
+  font-weight: 700;
+  position:absolute;
+  left:0;
+  width:30px;
+  max-width:40px;
+  margin:5px 0 0 5px;
+  font-size:0.8em;
 }

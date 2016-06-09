@@ -1,5 +1,5 @@
 html
     body
         md-dialog(aria-label='Lightbox')
-            md-dialog-content
+            md-dialog-content.lightbox-image-holder(layout="row" layout-align="center center")
                 img.lightbox-image(ng-src='{{image}}')

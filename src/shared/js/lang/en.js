@@ -89,6 +89,11 @@ define([], function () {
                 partial: 'Partial'
             },
             description: 'Description',
+            demolished: 'Demolished',
+            demolition_options: {
+                rumor: 'Rumored',
+                demolished: 'Demolished'
+            },
             demolition_rumor: 'Rumors of Demolition',
             demolition_rumor_yes: 'Yes',
             edit: 'Edit Location',
@@ -144,10 +149,11 @@ define([], function () {
             unknown: 'Unknown'
         },
         messages: {
+            answer_message: 'Reply to Message',
             create_message: 'Create Message',
             message: 'Message',
             message_text: 'Message text',
-            my_messages: 'My Messages',
+            my_messages: 'Messages',
             sent: 'Sent',
             to: 'To',
             from: 'From',

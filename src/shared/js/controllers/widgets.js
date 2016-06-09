@@ -19,7 +19,7 @@ define([
             var self = this;
             self.currentSearchText = null;
             self.repos = [];
-
+            /*
             // sidenav changes
             $scope.open_sidebar = function () {
                 $mdSidenav('right').open();
@@ -27,7 +27,7 @@ define([
 
             $scope.close_sidebar = function () {
                 $mdSidenav('right').close();
-            };
+            };*/
 
             $scope.$on('currentRegion:updated', function (event, region) {
                 $scope.currentRegion = region;
@@ -81,7 +81,8 @@ define([
             apiService('regions').actions.all(function (err, regions) {
                 if (!regions || !Array.isArray(regions)) {
                     if (err) {
-                        throw err;
+                        console.log(err);
+                        //throw err;
                     }
                     return;
                 }

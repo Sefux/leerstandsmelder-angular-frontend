@@ -101,6 +101,11 @@ md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as 
                             +button('users.login','','btn-default btn-small','fa-fw fa-2x fa-sign-in','!userSession', '/users/login')
                         md-menu-item(ng-if="!userSession")
                             +button('users.signup','','btn-default','fa-fw fa-2x fa-user-plus','!userSession','/users/create')
+                        //md-menu-item(ng-if="userSession")
+                            +button('users.messages','','btn-default','fa-fw fa-2x fa-envelope','userSession', '/users/messages')
+                            //span.badge.messageNo(ng-if="user.messages") {{user.messages}} 12
+                            span.badge.messageNo() 12
+
                         md-menu-item(ng-if="userSession")
                             +button('users.settings','','btn-default','fa-fw fa-2x fa-user','userSession', '/users/me')
                         md-menu-item(ng-if="userSession")
