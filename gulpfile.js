@@ -42,6 +42,8 @@ gulp.task('js-deps', function () {
         'bower_components/angular-material-data-table/dist/md-data-table.min.js',
         'bower_components/showdown/compressed/Showdown.min.js',
         'bower_components/angular-markdown-directive/markdown.js',
+        'bower_components/codemirror/lib/codemirror.js',
+        'bower_components/codemirror-spell-checker/dist/spell-checker.min.js',
         'bower_components/simplemde/dist/simplemde.min.js',
         'bower_components/async/dist/async.min.js',
         'bower_components/bluebird/js/browser/bluebird.min.js',

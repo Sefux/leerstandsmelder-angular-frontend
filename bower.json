@@ -40,7 +40,9 @@
     "angular-markdown-directive": "^0.3.1",
     "simplemde": "^1.10.1",
     "angular-material-data-table": "^0.10.7",
-    "airbrake-js-client": "airbrake-js#^0.5.8"
+    "airbrake-js-client": "airbrake-js#^0.5.8",
+    "codemirror-spell-checker": "^1.1.1",
+    "codemirror": "^5.15.2"
   },
   "resolutions": {
     "angular": "^1.5.0",
