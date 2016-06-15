@@ -8,7 +8,7 @@ define([], function () {
                     var map, geoConf = config.geoSearch.main;
 
                     if (!settings.latlon) {
-                        // todo:nice to maybe reverse ip location of the user?
+                        // todo:nice to maybe reverse ip location of the user? or pull their GPS once every 5 minutes...
                         settings.latlon = [53.5653,10.0014];
                     }
                     if (!settings.zoom) {
@@ -27,15 +27,16 @@ define([], function () {
                     new L.tileLayer(config.mainMap.osmUrl, config.mainMap.tileLayer).addTo(map);
 
                     // PREP CLUSTERS //
+                    var pruneCluster = new PruneClusterForLeaflet();
                     PruneCluster.Cluster.ENABLE_MARKERS_LIST = true;
 
                     // CONTROLS //
                     L.control.scale().addTo(map).setPosition('bottomleft');
-
+                    /* -- turn off geosearch
                     if (addGeoSearch) {
                         geoConf.provider = new L.GeoSearch.Provider.OpenStreetMap(config.geoSearch.provider);
                         new L.Control.GeoSearch(geoConf).addTo(map);
-                    }
+                    }*/
 
                     map.zoomControl.setPosition('topleft');
 
@@ -58,6 +59,19 @@ define([], function () {
 
                     if (config.isPruneCluster) {
                         // TODO: implement prune cluster stuff
+                        marker = new PruneCluster.Marker(latitude, longitude);
+                        pruneCluster.RegisterMarker(marker);
+
+                        L.addLayer(pruneCluster);
+                        var options = {
+                            icon: icon,
+                            draggable: config.draggable
+                        };
+                        if (config.view_url) {
+                            options.view_url = config.view_url;
+                        }
+                        marker = L.marker(config.latlon, options);
+                        marker.popup = config.popup;
                     } else {
                         var options = {
                             icon: icon,

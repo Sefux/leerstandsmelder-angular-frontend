@@ -38,11 +38,13 @@ define([
             $scope.siteLocation = $rootScope.siteLocation;
 
             $scope.lang_active = $translate.proposedLanguage() || $translate.use();
+            $rootScope.lang_active=$scope.langKey;
 
 
-            $scope.useLanguage = function (langKey) {
+                $scope.useLanguage = function (langKey) {
                $translate.use(langKey);
                $scope.lang_active=langKey;
+               $rootScope.lang_active=langKey;
             };
             $scope.login = function() {
                $location.path('/login');
