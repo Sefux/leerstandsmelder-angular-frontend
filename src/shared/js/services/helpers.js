@@ -133,6 +133,9 @@ define([
                 rumor: [
                     'locations.demolition_rumor_yes'
                 ],
+                demolished: [
+                    'locations.demolished_yes'
+                ],
                 hidden: [
                     'locations.hidden_yes'
                 ],

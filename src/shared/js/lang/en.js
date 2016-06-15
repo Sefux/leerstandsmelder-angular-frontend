@@ -90,6 +90,7 @@ define([], function () {
             },
             description: 'Description',
             demolished: 'Demolished',
+            demolished_yes: 'Yes',
             demolition_options: {
                 rumor: 'Rumored',
                 demolished: 'Demolished'
@@ -208,6 +209,7 @@ define([], function () {
             lang_en: 'English',
             latest_posts: 'Recent Posts',
             no_latest_posts: 'No Recent Posts',
+            no: 'No',
             subnav: {
                 about: 'About',
                 developers: 'Developers',

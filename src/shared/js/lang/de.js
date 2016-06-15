@@ -89,6 +89,7 @@ define([], function () {
                 partial: 'Teilweise'
             },
             demolished: 'Abgerissen',
+            demolished_yes: 'Ja',
             demolition_options: {
                 rumor: 'Gerüchte',
                 demolished: 'Abgerissen'
@@ -208,6 +209,7 @@ define([], function () {
             lang_en: 'English',
             latest_posts: 'Neueste Einträge',
             no_latest_posts: 'Keine Neuesten Einträge',
+            no: 'Nein',
             subnav: {
                 about: 'Über uns',
                 developers: 'Entwickler',

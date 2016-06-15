@@ -322,7 +322,7 @@ define([
                                 postcode: $scope.location.postcode,
                                 country: $scope.location.country
                             }, function (err, data) {
-                                if (data.length > 0) {
+                                if (Array.isArray(data) && data.length > 0) {
                                     $scope.marker.lat = data[0].lat;
                                     $scope.marker.lng = data[0].lon;
                                     $scope.location.display_name = data[0].display_name || "";

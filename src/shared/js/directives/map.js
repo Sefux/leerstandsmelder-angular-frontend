@@ -48,7 +48,7 @@ define([
                         async.map(data, function (entry, cb) {
                             if (entry.lonlat) {
                                 var options = {
-                                    icon: entry.active === false ? iconInactive : iconActive,
+                                    icon: entry.active === false || entry.demolished === true ? iconInactive : iconActive,
                                     data: entry,
                                     draggable: false
                                 };
@@ -68,7 +68,7 @@ define([
                                     } else {
                                         popup += data.street + "<br />";
                                         popup += $translate.instant(data.buildingType) + " / ";
-                                        if (data.owner != undefined) {
+                                        if (data.owner !== undefined) {
                                             popup += $translate.instant(data.owner)  + "<br />";
                                         } else {
                                             popup += $translate.instant('locations.unknown')  + "<br />";

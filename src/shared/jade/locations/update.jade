@@ -66,8 +66,7 @@ div(layout="row" layout-xs="column" layout-wrap layout-fill)
                             +input('checkbox','location.demolition_rumor','locations.demolition_rumor', '_sys.demolition_rumor', false)
 
                         div(layout-gt-xs="row")
-                            //+input('radio','location.demolition','locations.demolition', '_sys.demolition', null)
-                            +input('checkbox','location.demolished','locations.demolished', '_sys.rumor', null)
+                            +input('checkbox','location.demolished','locations.demolished', '_sys.demolished', false)
                 hr
                 div(layout="row" layout-align="start end")
                     +button("actions.previous",'selectedIndex = selectedIndex - 1','md-raised',null,null)
@@ -97,6 +96,7 @@ div(layout="row" layout-xs="column" layout-wrap layout-fill)
                         p {{ 'locations.address' | translate }}: {{location.street || ('locations.unknown' | translate)}}
                         p {{ 'locations.city' | translate }}: {{location.postcode}} {{location.city || ('locations.unknown' | translate)}}
                         p {{ 'locations.degree' | translate }}: {{(location.degree | translate) || ('locations.unknown' | translate)}}
+                        p {{ 'locations.demolished' | translate }}: {{(location.demolished ? ('locations.demolished_yes' | translate) : null) || ('site.no' | translate)}}
                         p {{ 'locations.demolition_rumor' | translate }}: {{(location.rumor ? ('locations.demolition_rumor_yes' | translate) : null) || ('locations.unknown' | translate)}}
                         p {{ 'locations.building_type' | translate }}: {{(location.buildingType | translate) || ('locations.unknown' | translate)}}
                         p {{ 'locations.owner' | translate }}: {{(location.owner | translate) || ('locations.unknown' | translate)}}
