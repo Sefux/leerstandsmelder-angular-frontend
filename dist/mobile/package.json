@@ -1,0 +1,21 @@
+{
+  "name": "leerstandsmelder-mobile-app",
+  "version": "1.0.0",
+  "description": "Leerstandsmelder.de Mobile App",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Leerstandsmelder/leerstandsmelder-angular-frontend.git"
+  },
+  "author": "Gängeviertel e.V.",
+  "license": "MIT",
+  "keywords": [
+    "ecosystem:phonegap",
+    "ecosystem:cordova",
+    "cordova:template",
+    "phonegap:template"
+  ],
+  "bugs": {
+    "url": "https://github.com/Leerstandsmelder/leerstandsmelder-angular-frontend/issues"
+  },
+  "homepage": "https://github.com/Leerstandsmelder/leerstandsmelder-angular-frontend"
+}
