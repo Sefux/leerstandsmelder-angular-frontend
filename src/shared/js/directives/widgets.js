@@ -2,21 +2,23 @@
 
 define([
     'services_api',
-    'services_helpers'
+    'services_helpers',
+    'services_assetpath'
 ], function () {
     return angular.module('lsm.directives.widgets', [
-            'lsm.services.api',
-            'lsm.services.helpers',
-            'md.data.table'
-        ])
-        .directive('recentLocations', ['apiService', function (apiService) {
+        'lsm.services.api',
+        'lsm.services.helpers',
+        'lsm.services.assetpath',
+        'md.data.table'
+    ])
+        .directive('recentLocations', ['apiService', 'assetPath', function (apiService, assetPath) {
             return {
                 restrict: 'A',
                 scope: {
                     region: '=',
                     pageSize: '='
                 },
-                templateUrl: '/partials/_recent_locations.html',
+                templateUrl: assetPath + 'partials/_recent_locations.html',
                 link: function (scope, elem, attrs) {
                     scope.$watch(attrs.region, function () {
                         var region = scope.$eval(attrs.region);
@@ -32,13 +34,13 @@ define([
                 }
             };
         }])
-        .directive('recentPosts', ['apiService', function (apiService) {
+        .directive('recentPosts', ['apiService', 'assetPath', function (apiService, assetPath) {
             return {
                 restrict: 'A',
                 scope: {
                     pageSize: '='
                 },
-                templateUrl: '/partials/_recent_posts.html',
+                templateUrl: assetPath + 'partials/_recent_posts.html',
                 link: function (scope, elem, attrs) {
                     scope.$watch(attrs.pageSize, function () {
                         apiService('posts?sort=-created&limit=' + (parseInt(scope.pageSize) || 10))
@@ -55,10 +57,10 @@ define([
                 }
             };
         }])
-        .directive('comments', ['apiService', 'responseHandler', '$q', function (apiService, responseHandler, $q) {
+        .directive('comments', ['apiService', 'responseHandler', '$q', 'assetPath', function (apiService, responseHandler, $q, assetPath) {
             return {
                 restrict: 'A',
-                templateUrl: '/partials/_comments.html',
+                templateUrl: assetPath + 'partials/_comments.html',
                 link: function (scope, elem, attrs) {
                     scope.new_comment = {};
                     scope.submitComment = function () {
@@ -107,10 +109,10 @@ define([
                 }
             };
         }])
-        .directive('messageForm', ['apiService', '$q', function (apiService, $q) {
+        .directive('messageForm', ['apiService', 'assetPath', function (apiService, assetPath) {
             return {
                 restrict: 'A',
-                templateUrl: '/partials/_message_create.html',
+                templateUrl: assetPath + 'partials/_message_create.html',
                 link: function (scope) {
                     scope.submitMessage = function () {
                         if (scope.message.recipient_uuid && scope.message.body) {
@@ -122,10 +124,10 @@ define([
                 }
             };
         }])
-        .directive('lsmDataTable', ['$q', 'apiService', function ($q, apiService) {
+        .directive('lsmDataTable', ['$q', 'apiService', 'assetPath', function ($q, apiService, assetPath) {
             return {
                 restrict: 'A',
-                templateUrl: '/partials/_data_table.html',
+                templateUrl: assetPath + 'partials/_data_table.html',
                 link: function (scope) {
                     scope.selected = [];
                     scope.query = {
@@ -207,5 +209,5 @@ define([
                         });
                     }
                 };
-        }]);
+            }]);
 });

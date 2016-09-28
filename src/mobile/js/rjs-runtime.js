@@ -5,27 +5,34 @@
 
     require.config({
         paths: {
-            lang_en: '/src/shared/js/lang/en',
-            lang_de: '/src/shared/js/lang/de',
-            config: '/js/configuration',
-            lsmMapconfig: '/src/shared/js/lsm-mapconfig',
+            lang_en: '/android_asset/www/src/shared/js/lang/en',
+            lang_de: '/android_asset/www/src/shared/js/lang/de',
+            config: '/android_asset/www/js/configuration',
+            lsmMapconfig: '/android_asset/www/src/shared/js/lsm-mapconfig',
+            routes: '/android_asset/www/src/mobile/js/routes',
 
-            services_api: '/src/shared/js/services/api',
-            services_auth: '/src/shared/js/services/auth',
-            services_map: '/src/shared/js/services/map',
-            services_helpers: '/src/shared/js/services/helpers',
+            services_api: '/android_asset/www/src/shared/js/services/api',
+            services_auth: '/android_asset/www/src/shared/js/services/auth',
+            services_map: '/android_asset/www/src/shared/js/services/map',
+            services_helpers: '/android_asset/www/src/shared/js/services/helpers',
+            services_deviceready: '/android_asset/www/src/mobile/js/services/deviceready',
+            services_assetpath: '/android_asset/www/src/mobile/js/services/assetpath',
 
-            controllers_users: '/src/shared/js/controllers/users',
-            controllers_locations: '/src/shared/js/controllers/locations',
-            controllers_posts: '/src/shared/js/controllers/posts',
-            controllers_regions: '/src/shared/js/controllers/regions',
-            controllers_site: '/src/shared/js/controllers/site',
-            controllers_widgets: '/src/shared/js/controllers/widgets',
+            controllers_users: '/android_asset/www/src/shared/js/controllers/users',
+            controllers_locations: '/android_asset/www/src/shared/js/controllers/locations',
+            controllers_messages: '/android_asset/www/src/shared/js/controllers/messages',
+            controllers_posts: '/android_asset/www/src/shared/js/controllers/posts',
+            controllers_regions: '/android_asset/www/src/shared/js/controllers/regions',
+            controllers_site: '/android_asset/www/src/shared/js/controllers/site',
+            controllers_widgets: '/android_asset/www/src/shared/js/controllers/widgets',
 
-            directives_helpers: '/src/shared/js/directives/helpers',
-            directives_map: '/src/shared/js/directives/map',
+            directives_helpers: '/android_asset/www/src/shared/js/directives/helpers',
+            directives_map: '/android_asset/www/src/shared/js/directives/map',
+            directives_widgets: '/android_asset/www/src/shared/js/directives/widgets',
 
-            leerstandsmelder: '/src/web/js/app-web'
+            filters_navrewrite: '/android_asset/www/src/mobile/js/filters/nav-rewrite',
+
+            leerstandsmelder: '/android_asset/www/src/mobile/js/app-mobile'
         }
     });
 

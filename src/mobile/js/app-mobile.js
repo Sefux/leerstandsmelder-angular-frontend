@@ -3,54 +3,65 @@
 define([
     'lang_de',
     'lang_en',
+    'routes',
     'config',
-    'services_api',
-    'services_auth',
-    'services_map',
-    'services_helpers',
     'controllers_widgets',
     'controllers_site',
     'controllers_users',
     'controllers_locations',
+    'controllers_messages',
     'controllers_posts',
     'controllers_regions',
-    'directives_helpers',
-    'directives_map'
-], function (lang_de, lang_en) {
+    'filters_navrewrite'
+], function (lang_de, lang_en, routes) {
     return angular.module('leerstandsmelder', [
-            'ngAria',
-            'ngMaterial',
-            'ngRoute',
-            'ngSanitize',
-            'ngAnimate',
-            'ngFileUpload',
-            'seo',
-            'cgBusy',
-            'angularPubsub',
-            'pascalprecht.translate',
-            'ngCookies',
-            'lsm.services.helpers',
-            'lsm.services.map',
-            'lsm.directives.helpers',
-            'lsm.directives.map',
-            'lsm.controllers.locations',
-            'lsm.controllers.posts',
-            'lsm.controllers.regions',
-            'lsm.controllers.site',
-            'lsm.controllers.users',
-            'lsm.controllers.widgets'
-        ])
+        'ngAria',
+        'ngMaterial',
+        'ngRoute',
+        'ngSanitize',
+        'ngAnimate',
+        'ngCookies',
+        'cgBusy',
+        'pascalprecht.translate',
+        'lsm.controllers.locations',
+        'lsm.controllers.messages',
+        'lsm.controllers.posts',
+        'lsm.controllers.regions',
+        'lsm.controllers.site',
+        'lsm.controllers.users',
+        'lsm.controllers.widgets',
+        'lsm.filters.navrewrite'
+    ])
         .config([
             '$routeProvider',
             '$locationProvider',
             '$animateProvider',
             '$translateProvider',
             '$mdThemingProvider',
-            function ($routeProvider, $locationProvider, $animateProvider, $translateProvider, $mdThemingProvider) {
+            '$compileProvider',
+            '$mdGestureProvider',
+            function ($routeProvider, $locationProvider, $animateProvider, $translateProvider, $mdThemingProvider, $compileProvider, $mdGestureProvider) {
+                // this should stop the clickjacker
+                $mdGestureProvider.skipClickHijack();
+
+                // this is supposed to speed up render times.
+                $compileProvider.debugInfoEnabled(false);
+                var whiteMap = $mdThemingProvider.extendPalette('grey', {
+                    '500': '#dddddd',
+                    'contrastDefaultColor': 'dark'
+                });
+                $mdThemingProvider.definePalette('white', whiteMap);
+
+                // added the leerstand color to the palette
+
+                var leerstandMap = $mdThemingProvider.extendPalette('white', {
+                    '500': 'ed1c24'
+                });
+                $mdThemingProvider.definePalette('leerstand', leerstandMap);
 
                 // todo: abstract this theme style out to config
                 $mdThemingProvider.theme('default')
-                    .primaryPalette('blue-grey')
+                    .primaryPalette('leerstand')
                     .accentPalette('deep-orange')
                     .warnPalette('red');
 
@@ -68,47 +79,18 @@ define([
                 $animateProvider.classNameFilter(/animate-/);
 
                 $locationProvider.html5Mode({
-                    enabled: true
+                    enabled: false
                 });
 
-                $routeProvider.when('/', {templateUrl: '/regions_list.html', controller: 'Regions.List'});
-
-                $routeProvider.when('/users/login', {templateUrl: '/users_login.html', controller: 'Users.Login'});
-                $routeProvider.when('/users/logout', {templateUrl: '/users_logout.html', controller: 'Users.Logout'});
-                $routeProvider.when('/users/create', {templateUrl: '/users_create.html', controller: 'Users.Create'});
-                $routeProvider.when('/users/forgot', {templateUrl: '/users_forgot.html', controller: 'Users.Forgot'});
-                $routeProvider.when('/users/me', {templateUrl: '/users_update.html', controller: 'Users.Edit'});
-                $routeProvider.when('/users/confirm/:token', {
-                    templateUrl: '/users_confirm.html',
-                    controller: 'Users.Confirm'
-                });
-                $routeProvider.when('/locations/create', {
-                    templateUrl: '/locations_create.html',
-                    controller: 'Locations.Create'
-                });
-                $routeProvider.when('/locations/update/:uuid', {
-                    templateUrl: '/locations_update.html',
-                    controller: 'Locations.Edit'
-                });
-                $routeProvider.when('/locations/:uuid', {
-                    templateUrl: '/locations_show.html',
-                    controller: 'Locations.Show'
-                });
-                $routeProvider.when('/posts/:uuid', {templateUrl: '/posts_show.html', controller: 'Posts.Show'});
-                $routeProvider.when('/regions/:uuid', {templateUrl: '/regions_show.html', controller: 'Regions.Show'});
+                for (var i in routes) {
+                    if (routes[i] instanceof Object) {
+                        $routeProvider.when(routes[i].route, {
+                            templateUrl: routes[i].templateUrl,
+                            controller: routes[i].controller
+                        });
+                    }
+                }
 
                 $routeProvider.otherwise({redirectTo: '/'});
-
-            }]).run(['$rootScope', '$q', function ($rootScope, $q) {
-            $rootScope.$on('$routeChangeStart', function () {
-                $rootScope.pageDefer = $q.defer();
-                $rootScope.pagePromise = $rootScope.pageDefer.promise;
-            });
-            $rootScope.$on('$routeChangeSuccess', function () {
-                $rootScope.pageDefer.resolve();
-            });
-            $rootScope.$on('$routeChangeError', function () {
-                $rootScope.pageDefer.reject();
-            });
-        }]);
+            }]);
 });

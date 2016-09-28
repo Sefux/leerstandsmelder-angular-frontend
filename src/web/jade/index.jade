@@ -3,7 +3,7 @@ html(lang='en')
     head
         meta(http-equiv='X-UA-Compatible' content='IE=edge')
         meta(http-equiv='Content-Type' content='text/html; charset=utf-8')
-        meta(http-equiv='X-Frame-Options' content='DENY')
+        // meta(http-equiv='X-Frame-Options' content='DENY')
         meta(name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=yes')
         meta(name="fragment" content="!")
         base(href='/')
@@ -18,7 +18,7 @@ html(lang='en')
             }
     body.ng-cloak(layout='column' spellcheck='false' ng-cloak)
         header
-            include ../../shared/jade/partials/_navbar
+            include ../../web/jade/partials/_navbar
             div(ng-controller="Widgets.Alerts")
                 div(ng-repeat="alert in alerts" type="alert.status" close="closeAlert($index)")
                     span {{ alert.message }}

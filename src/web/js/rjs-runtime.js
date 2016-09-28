@@ -16,6 +16,7 @@
             services_auth: '/src/shared/js/services/auth',
             services_map: '/src/shared/js/services/map',
             services_helpers: '/src/shared/js/services/helpers',
+            services_assetpath: '/src/web/js/services/assetpath',
 
             controllers_users: '/src/shared/js/controllers/users',
             controllers_locations: '/src/shared/js/controllers/locations',

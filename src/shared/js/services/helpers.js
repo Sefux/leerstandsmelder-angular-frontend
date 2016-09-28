@@ -1,12 +1,14 @@
 /* global console,angular,define,JSON,airbrakeJs,LM_AIRBRAKE_PROJECT_ID,LM_AIRBRAKE_PROJECT_KEY */
 
 define([
-    'services_api'
+    'services_api',
+    'services_assetpath'
 ], function () {
     return angular.module('lsm.services.helpers', [
-            'angularPubsub',
-            'lsm.services.api'
-        ])
+        'angularPubsub',
+        'lsm.services.api',
+        'lsm.services.assetpath'
+    ])
         .factory('regionService', ['apiService', '$rootScope', function (apiService, $rootScope) {
             return {
                 currentRegion: null,
@@ -102,11 +104,11 @@ define([
                 }
             };
         }])
-        .factory('staticContent', ['$translate', '$http', function ($translate, $http) {
+        .factory('staticContent', ['$translate', '$http', 'assetPath', function ($translate, $http, assetPath) {
             return {
                 getMarkdown: function (slug, cb) {
                     var lang = $translate.use().toString(),
-                        url = '/static/md/' + slug + '_' + lang + '.md';
+                        url = assetPath + 'static/md/' + slug + '_' + lang + '.md';
                     $http.get(url).then(function success(response) {
                         cb(null, response.data);
                     }, function error(response) {
