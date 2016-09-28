@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    fs = require('fs'),
     header = require('gulp-header'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
@@ -10,6 +11,7 @@ var gulp = require('gulp'),
     requirejsOptimize = require('gulp-requirejs-optimize'),
     sourcemaps = require('gulp-sourcemaps'),
     watch = require('gulp-watch'),
+    connect = require('gulp-connect'),
     phonegapBuild = require('gulp-phonegap-build'),
     pkg = require('./package.json'),
     pgConf = require('./phonegap.json');
@@ -151,22 +153,27 @@ function copyPipe(src, destPath, prefix) {
     return src.pipe(gulpCopy(destPath, {prefix: prefix}));
 }
 gulp.task('copy-js', function () {
+    copyPipe(gulp.src(['./bower_components/PruneCluster/dist/PruneCluster.js.map']), './dist/mobile/www/js/', 3);
     return copyPipe(gulp.src(['./bower_components/PruneCluster/dist/PruneCluster.js.map']), './dist/web/js/', 3);
 });
 
 gulp.task('copy-requirejs', function () {
+    copyPipe(gulp.src(['./bower_components/requirejs/require.js']), './dist/mobile/www/js/', 2);
     return copyPipe(gulp.src(['./bower_components/requirejs/require.js']), './dist/web/js/', 2);
 });
 
 gulp.task('copy-apiclient', function () {
+    copyPipe(gulp.src(['./bower_components/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.js']), './dist/mobile/www/js/', 3);
     return copyPipe(gulp.src(['./bower_components/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.js']), './dist/web/js/', 3);
 });
 
 gulp.task('copy-js-src', function () {
+    copyPipe(gulp.src(['./src/**/*.js']), './dist/mobile/www/src/', 1);
     return copyPipe(gulp.src(['./src/**/*.js']), './dist/web/src/', 1);
 });
 
 gulp.task('copy-js-config', function () {
+    copyPipe(gulp.src(['./configuration.js']), './dist/mobile/www/js/');
     return copyPipe(gulp.src(['./configuration.js']), './dist/web/js/');
 });
 
@@ -190,25 +197,56 @@ gulp.task('copy-mobile', function () {
 
 //
 //
-// Watch tasks
+// Dev tasks
 
 gulp.task('watch-web', function () {
-    watch(['src/web/js/**/*.js', 'src/shared/js/**/*.js', 'configuration.js'], function () {
-        //gulp.start('js-web');
-    });
+    // watch(['src/web/js/**/*.js', 'src/shared/js/**/*.js', 'configuration.js'], function () {
+    //     gulp.start('js-web');
+    // });
     watch(['src/web/less/**/*.less','src/shared/less/**/*.less'], function () {
-        gulp.start('css-web');
+        gulp.start('css-web')
+            .pipe(connect.reload());
     });
     watch(['src/web/jade/**/*.jade', 'src/shared/jade/**/*.jade'], function () {
-        gulp.start('html-web');
+        gulp.start('html-web')
+            .pipe(connect.reload());
     });
 });
 
 gulp.task('watch-web-src', function () {
     watch(['src/web/js/**/*.js', 'src/shared/js/**/*.js', 'configuration.js'], function () {
-        gulp.start('copy-js-src');
+        gulp.start('copy-js-src')
+            .pipe(connect.reload());
     });
 });
+
+gulp.task('server-web', function () {
+    connect.server({
+        name: 'Web App',
+        port: 8080,
+        root: 'dist/web',
+        livereload: true,
+        fallback: 'index.html',
+        middleware: function (conn, opts) {
+            return [
+                conn.static(opts.root),
+                conn.directory(opts.root),
+                function (req, res) { fs.readFile("#{opts.root}/index.html", function (err, html) { res.end(html); }) }
+            ];
+        }
+    });
+});
+
+gulp.task('server-mobile', function () {
+    connect.server({
+        name: 'Mobile App',
+        port: 8090,
+        root: 'dist/mobile/www',
+        livereload: true
+    });
+});
+
+
 
 
 //
