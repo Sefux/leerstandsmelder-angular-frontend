@@ -43,7 +43,7 @@ You can build both the browser and mobile user interfaces in ``dist/`` by runnin
 
 To build only one of both platforms run ``gulp build --env=web`` or ``gulp build --env=mobile``. Using ``gulp release`` does a clean build and is recommended before deployment.
 
-While working on the project you can run ``gulp dev`` to watch and automatically update your source files and starts serving the Web App at [``http://localhost:8080``](http://localhost:8080) and the Mobile App (not the Cordova version!) at [``http://localhost:8090``](http://localhost:8090). You can also use the ``--env=`` option to choose only one enviroment.
+While working on the project you can run ``gulp dev`` to watch and automatically update your source files and starts serving the Web App at [``http://localhost:8080``](http://localhost:8080) and the Mobile App (not the Cordova version!) at [``http://localhost:7070``](http://localhost:7070). You can also use the ``--env=`` option to choose only one enviroment.
 
 The app packages for the mobile platform can be built running ``gulp build:android`` and ``gulp build:ios``. The Android build creates .apk files in ``dist/android/``, while the iOS build generates an XCode project in ``dist/cordova/plaforms/ios/``.
 

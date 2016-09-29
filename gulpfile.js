@@ -306,7 +306,7 @@ gulp.task('serve', function (env) {
             if (env && env != 'mobile') return;
             return connect.server({
                 name: 'Mobile App',
-                port: 8090,
+                port: 7070,
                 root: 'dist/mobile',
                 livereload: true
             });
