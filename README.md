@@ -16,7 +16,7 @@ For Apache add the following line to either an existing ``.htaccess`` configurat
 ErrorDocument 404 /index.html
 ```
 
-Alternatively, you can just run ``./server`` from the repo root and the frontend will be served at ``http://localhost:9090``. **Important:** This server is not multithreaded thus introducing a bottleneck should it be used in production without something like [PM2](http://pm2.keymetrics.io/).
+Alternatively, you can just run ``sh/server`` from the repo root and the frontend will be served at ``http://localhost:9090``. **Important:** This server is not multithreaded thus introducing a bottleneck should it be used in production without something like [PM2](http://pm2.keymetrics.io/).
 
 ## Mobile UI ##
 

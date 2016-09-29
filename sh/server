@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
 var static = require('node-static'),
-    fserver = new static.Server('./dist/web/');
+    fserver = new static.Server(__dirname + '/../dist/web/'),
+    port = 9090;
 
+console.log('Starting static Leerstandsmelder UI server on port ' + port);
 require('http').createServer(function (req, res) {
     req.addListener('end', function () {
         fserver.serve(req, res, function (err) {
@@ -16,4 +18,4 @@ require('http').createServer(function (req, res) {
             }
         });
     }).resume();
-}).listen(9090);
+}).listen(port);
