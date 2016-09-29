@@ -324,7 +324,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('clean:cordova', function () {
-    return gulp.src(['.cordova'], {read: false}).pipe(clean());
+    return gulp.src(['dist/cordova'], {read: false}).pipe(clean());
 });
 
 gulp.task('release', [
@@ -342,11 +342,14 @@ gulp.task('build', [
     'html'
 ]);
 
+// FIXME: build only works when cordova dir is removed
+
 gulp.task('build:android', ['clean:cordova'], function (release) {
     const create = require('gulp-cordova-create'),
         plugin = require('gulp-cordova-plugin'),
         android = require('gulp-cordova-build-android');
     let stream = gulp.src('dist/mobile').pipe(create({
+            dir: 'dist/cordova',
             id: config.android.app_id,
             name: config.android.app_name
         }))
@@ -366,6 +369,7 @@ gulp.task('build:ios', ['clean:cordova'], function () {
         plugin = require('gulp-cordova-plugin'),
         ios = require('gulp-cordova-build-ios');
     let stream = gulp.src('dist/mobile').pipe(create({
+            dir: 'dist/cordova',
             id: config.ios.app_id,
             name: config.ios.app_name
         }))
