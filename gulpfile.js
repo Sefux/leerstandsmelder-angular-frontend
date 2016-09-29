@@ -33,6 +33,7 @@ function streamToPromise(stream) {
 
 function getPathsForEnv(env, pathAdd) {
     let dest = [];
+    pathAdd = pathAdd ? pathAdd : '';
     if (!env || env == 'web') {
         dest.push('./dist/web/' + pathAdd);
     }
@@ -152,7 +153,7 @@ gulp.task('js:copy', ['js:config'], function (env) {
 });
 
 gulp.task('js:config', function (env) {
-    return copySrcDest(['./configuration.js'], getPathsForEnv(env, 'js/'));
+    return copySrcDest(['./config.json'], getPathsForEnv(env, 'js/'));
 });
 
 
@@ -219,18 +220,19 @@ gulp.task('html', function (env) {
 // Assets
 
 gulp.task('assets', function (env) {
-    return Promise.map(getPathsForEnv(env), (destBase) => {
-        Promise.resolve()
-            .then(() => {
+    return Promise.map(getPathsForEnv(env), function (destBase) {
+        return Promise.resolve()
+            .then(function () {
                 let stream = gulp.src([
                     './bower_components/PruneCluster/dist/PruneCluster.js.map',
                     './bower_components/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.js',
-                    './bower_components/requirejs/require.js'
+                    './bower_components/requirejs/require.js',
+                    './bower_components/requirejs-plugins/**/*.js'
                 ]);
                 stream.pipe(gulp.dest(destBase + 'js/'));
                 return streamToPromise(stream);
             })
-            .then(() => {
+            .then(function () {
                 let stream = gulp.src([
                     './assets/images/*',
                     './bower_components/leaflet/dist/images/*',
@@ -239,7 +241,7 @@ gulp.task('assets', function (env) {
                 stream.pipe(gulp.dest(destBase + 'images/'));
                 return streamToPromise(stream);
             })
-            .then(() => {
+            .then(function () {
                 let stream = gulp.src([
                     './bower_components/font-awesome/fonts/*',
                     './assets/fonts/*'
@@ -247,7 +249,7 @@ gulp.task('assets', function (env) {
                 stream.pipe(gulp.dest(destBase + 'fonts/'));
                 return streamToPromise(stream);
             })
-            .then(() => {
+            .then(function () {
                 let stream = gulp.src(['./src/shared/static/md/*.md']);
                 stream.pipe(gulp.dest(destBase + 'static/'));
                 return streamToPromise(stream);

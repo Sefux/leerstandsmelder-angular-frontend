@@ -8,7 +8,8 @@
         paths: {
             lang_en: '/src/shared/js/lang/en',
             lang_de: '/src/shared/js/lang/de',
-            config: '/js/configuration',
+            text: '/js/lib/text',
+            json: '/js/src/json',
             lsmMapconfig: '/src/shared/js/lsm-mapconfig',
             routes: '/src/web/js/routes',
 

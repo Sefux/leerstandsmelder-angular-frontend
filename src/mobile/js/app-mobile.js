@@ -4,7 +4,6 @@ define([
     'lang_de',
     'lang_en',
     'routes',
-    'config',
     'controllers_widgets',
     'controllers_site',
     'controllers_users',

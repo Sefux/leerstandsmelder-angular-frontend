@@ -7,7 +7,8 @@
         paths: {
             lang_en: '/android_asset/www/src/shared/js/lang/en',
             lang_de: '/android_asset/www/src/shared/js/lang/de',
-            config: '/android_asset/www/js/configuration',
+            text: '/android_asset/www/js/lib/text',
+            json: '/android_asset/www/js/src/json',
             lsmMapconfig: '/android_asset/www/src/shared/js/lsm-mapconfig',
             routes: '/android_asset/www/src/mobile/js/routes',
 

@@ -1,9 +1,10 @@
 /* global async,console,angular,define,SimpleMDE,LEERSTANDSMELDER_API_HOST */
 
 define([
+    'json!../../../../js/config.json!bust',
     'services_api',
     'services_auth'
-], function () {
+], function (config) {
     return angular.module('lsm.directives.helpers', [
             'lsm.services.api',
             'lsm.services.auth'
@@ -65,9 +66,9 @@ define([
                     scope.$parent.$on('captcha:update', function () {
                         attrs.$set('src', '');
                         attrs.$set('reset', false);
-                        attrs.$set('src', LEERSTANDSMELDER_API_HOST + '/captchas.png?r=' + Date.now());
+                        attrs.$set('src', config.global.api_url + '/captchas.png?r=' + Date.now());
                     });
-                    attrs.$set('src', LEERSTANDSMELDER_API_HOST + '/captchas.png?r=' + Date.now());
+                    attrs.$set('src', config.global.api_url + '/captchas.png?r=' + Date.now());
                 }
             };
         })

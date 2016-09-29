@@ -1,8 +1,9 @@
 /* global console,angular,define,LEERSTANDSMELDER_API_HOST,LMApi */
 
 define([
+    'json!../../../../js/config.json!bust',
     'services_auth'
-], function () {
+], function (config) {
     return angular.module('lsm.services.api', [
             'ngFileUpload',
             'lsm.services.auth'
@@ -10,7 +11,7 @@ define([
         factory('apiService', ['authService', 'Upload', function (authService, Upload) {
             return function (resourceName, host, query) {
                 var apiClient = new LMApi({
-                    host: host ? host : LEERSTANDSMELDER_API_HOST,
+                    host: host ? host : config.global.api_url,
                     contentType: 'application/json',
                     api_key: authService.api_key,
                     access_token: authService.access_token
@@ -36,7 +37,7 @@ define([
                         },
                         upload: function (data, callback, progress) {
                             Upload.upload({
-                                url: LEERSTANDSMELDER_API_HOST + '/photos',
+                                url: config.global.api_url + '/photos',
                                 headers: {'Authorization': apiClient.authUtil.getTokenHeader(authService.access_token)},
                                 fields: data.fields,
                                 file: data.file

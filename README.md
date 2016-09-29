@@ -30,7 +30,7 @@ The mobile UI is built on [Apache Cordova](https://cordova.apache.org/) and is s
 
 ### Setup ###
 
-Copy ``configuration.default.js`` to ``configuration.js`` and update as needed. Then, from the repo's root run:
+Copy ``config.default.json`` to ``config.json`` and update if needed. Then, from the repo's root run:
 
 ```shell
 npm install

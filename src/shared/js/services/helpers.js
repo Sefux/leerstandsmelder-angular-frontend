@@ -1,9 +1,10 @@
 /* global console,angular,define,JSON,airbrakeJs,LM_AIRBRAKE_PROJECT_ID,LM_AIRBRAKE_PROJECT_KEY */
 
 define([
+    'json!../../../../js/config.json!bust',
     'services_api',
     'services_assetpath'
-], function () {
+], function (config) {
     return angular.module('lsm.services.helpers', [
         'angularPubsub',
         'lsm.services.api',
@@ -37,10 +38,10 @@ define([
         }])
         .factory('errorReporter', function () {
             var client = null;
-            if (LM_AIRBRAKE_PROJECT_ID && LM_AIRBRAKE_PROJECT_KEY) {
+            if (config.global.airbrake.project_id && config.global.airbrake.project_key) {
                 client = new airbrakeJs.Client({
-                    projectId: LM_AIRBRAKE_PROJECT_ID,
-                    projectKey: LM_AIRBRAKE_PROJECT_KEY
+                    projectId: config.global.airbrake.project_id,
+                    projectKey: config.global.airbrake.project_key
                 });
             }
             return {

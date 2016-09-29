@@ -1,6 +1,6 @@
 {
-  "browser": {
-    "api": "https://www.leerstandsmelder.de",
+  "global": {
+    "api_url": "https://api.leerstandsmelder.de",
     "airbrake": {
       "project_id": null,
       "project_key": null
