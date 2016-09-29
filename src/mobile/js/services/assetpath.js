@@ -5,6 +5,6 @@ define([
 ], function () {
     return angular.module('lsm.services.assetpath', []).
     factory('assetPath', function () {
-        return '/android_asset/www/';
+        return '../www/'; // '/android_asset/www/';
     });
 });

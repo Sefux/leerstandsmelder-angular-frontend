@@ -1,7 +1,7 @@
 /* global async,console,angular,define,SimpleMDE,LEERSTANDSMELDER_API_HOST */
 
 define([
-    'json!../../../../js/config.json!bust',
+    'json!../../../js/config.json!bust',
     'services_api',
     'services_auth'
 ], function (config) {

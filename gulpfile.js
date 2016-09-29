@@ -313,6 +313,15 @@ gulp.task('serve', function (env) {
         });
 });
 
+gulp.task('serve:cordova', function () {
+    return connect.server({
+        name: 'Cordova Mobile App',
+        port: 8090,
+        root: 'dist/cordova',
+        livereload: true
+    });
+});
+
 
 
 //
@@ -320,17 +329,15 @@ gulp.task('serve', function (env) {
 // Build
 
 gulp.task('clean', function () {
-    return gulp.src(['dist'], {read: false}).pipe(clean());
-});
-
-gulp.task('clean:cordova', function () {
-    return gulp.src(['dist/cordova'], {read: false}).pipe(clean());
+    let stream = gulp.src(['dist'], {read: false});
+    stream.pipe(clean());
+    return streamToPromise(stream);
 });
 
 gulp.task('release', [
     'clean'
 ], function () {
-    return gulp.start('build');
+    return Promise.resolve(gulp.start('build'));
 });
 
 gulp.task('build', [
@@ -342,30 +349,41 @@ gulp.task('build', [
     'html'
 ]);
 
-// FIXME: build only works when cordova dir is removed
+// FIXME: build only works when cordova dir is removed, also runs through entire build for each update
 
-gulp.task('build:android', ['clean:cordova'], function (release) {
+gulp.task('build:android', function () {
     const create = require('gulp-cordova-create'),
+        access = require('gulp-cordova-access'),
+        pref = require('gulp-cordova-preference'),
+        icon = require('gulp-cordova-icon'),
+        version = require('gulp-cordova-version'),
+        author = require('gulp-cordova-author'),
+        description = require('gulp-cordova-description'),
         plugin = require('gulp-cordova-plugin'),
+        xml = require('gulp-cordova-xml'),
         android = require('gulp-cordova-build-android');
     let stream = gulp.src('dist/mobile').pipe(create({
             dir: 'dist/cordova',
             id: config.android.app_id,
             name: config.android.app_name
         }))
-        .pipe(plugin({
-            'org.apache.cordova.dialogs': 'latest',
-            'org.apache.cordova.camera': 'latest',
-            'org.apache.cordova.geolocation': 'latest',
-            'org.apache.cordova.media': 'latest'
-        }))
-        .pipe(android({release: release}));
+        .pipe(access(config.android.access_origins))
+        .pipe(pref(config.android.prefs))
+        // .pipe(icon('res/my-icon.png'))
+        .pipe(version(require('./package.json').version))
+        .pipe(author('Gängeviertel e.V.', 'info@leerstandsmelder.de'))
+        .pipe(description(''))
+        // .pipe(xml('<access origin="*" />'))
+        .pipe(plugin(config.android.plugins))
+        // TODO: make release configurable
+        .pipe(android({release: false}));
     stream.pipe(gulp.dest('dist/android'));
     return streamToPromise(stream);
 });
 
-gulp.task('build:ios', ['clean:cordova'], function () {
+gulp.task('build:ios', function () {
     const create = require('gulp-cordova-create'),
+        version = require('gulp-cordova-version'),
         plugin = require('gulp-cordova-plugin'),
         ios = require('gulp-cordova-build-ios');
     let stream = gulp.src('dist/mobile').pipe(create({
@@ -373,12 +391,8 @@ gulp.task('build:ios', ['clean:cordova'], function () {
             id: config.ios.app_id,
             name: config.ios.app_name
         }))
-        .pipe(plugin({
-            'org.apache.cordova.dialogs': 'latest',
-            'org.apache.cordova.camera': 'latest',
-            'org.apache.cordova.geolocation': 'latest',
-            'org.apache.cordova.media': 'latest'
-        }));
+        .pipe(version(require('./package.json').version))
+        .pipe(plugin(config.ios.plugins));
     stream.pipe(ios());
     return streamToPromise(stream);
 });

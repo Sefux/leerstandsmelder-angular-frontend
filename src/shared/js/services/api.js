@@ -1,7 +1,7 @@
 /* global console,angular,define,LEERSTANDSMELDER_API_HOST,LMApi */
 
 define([
-    'json!../../../../js/config.json!bust',
+    'json!../../../js/config.json!bust',
     'services_auth'
 ], function (config) {
     return angular.module('lsm.services.api', [

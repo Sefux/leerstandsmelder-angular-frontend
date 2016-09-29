@@ -40,7 +40,7 @@ define([
                                 iconSize: [32, 44],
                                 iconAnchor: [16, 43],
                                 popupAnchor: [-3, -47],
-                                iconUrl: assetPath + 'marker-active.png',
+                                iconUrl: assetPath + 'images/marker-active.png',
                                 iconRetinaUrl: assetPath + 'images/marker-active@2x.png'
                             };
                             var iconActive = L.icon(icon);

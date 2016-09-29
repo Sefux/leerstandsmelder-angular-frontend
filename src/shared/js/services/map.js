@@ -1,8 +1,12 @@
 /* global PruneCluster,L,angular,define,async,PIECEMETA_API_HOST,console */
 
-define([], function () {
-    return angular.module('lsm.services.map', [])
-        .factory('mapService', ['$http', function ($http) {
+define([
+    'services_assetpath'
+], function () {
+    return angular.module('lsm.services.map', [
+            'lsm.services.assetpath'
+        ])
+        .factory('mapService', ['$http', 'assetPath', function ($http, assetPath) {
             return {
                 initMap: function (el, config, settings, addMiniMap, addGeoSearch) {
                     var map, geoConf = config.geoSearch.main;
@@ -50,8 +54,8 @@ define([], function () {
                 createMarker: function (data, config) {
                     var marker;
                     var icon = L.icon({
-                        iconUrl: '/images/marker-active.png',
-                        iconRetinaUrl: '/images/marker-active@2x.png',
+                        iconUrl: assetPath + 'images/marker-active.png',
+                        iconRetinaUrl: assetPath + 'images/marker-active@2x.png',
                         iconSize: [32, 44],
                         iconAnchor: [16, 43],
                         popupAnchor: [-3, -47]

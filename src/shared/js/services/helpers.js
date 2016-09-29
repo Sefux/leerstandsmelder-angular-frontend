@@ -1,7 +1,7 @@
 /* global console,angular,define,JSON,airbrakeJs,LM_AIRBRAKE_PROJECT_ID,LM_AIRBRAKE_PROJECT_KEY */
 
 define([
-    'json!../../../../js/config.json!bust',
+    'json!../../../js/config.json!bust',
     'services_api',
     'services_assetpath'
 ], function (config) {
@@ -109,7 +109,7 @@ define([
             return {
                 getMarkdown: function (slug, cb) {
                     var lang = $translate.use().toString(),
-                        url = assetPath + 'static/md/' + slug + '_' + lang + '.md';
+                        url = assetPath + 'static/' + slug + '_' + lang + '.md';
                     $http.get(url).then(function success(response) {
                         cb(null, response.data);
                     }, function error(response) {
