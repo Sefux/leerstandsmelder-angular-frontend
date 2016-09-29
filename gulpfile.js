@@ -13,7 +13,8 @@ var Promise = require('bluebird'),
     watch = require('gulp-watch'),
     clean = require('gulp-clean'),
     connect = require('gulp-connect'),
-    pkg = require('./package.json');
+    pkg = require('./package.json'),
+    config = require('./config.json');
 
 var banner = ['/**',
     ' * <%= pkg.name %> - <%= pkg.description %>',
@@ -30,82 +31,94 @@ function streamToPromise(stream) {
     });
 }
 
+function getPathsForEnv(env, pathAdd) {
+    let dest = [];
+    if (!env || env == 'web') {
+        dest.push('./dist/web/' + pathAdd);
+    }
+    if (!env || env == 'mobile') {
+        dest.push('./dist/mobile/' + pathAdd);
+    }
+    return dest;
+}
+
+function copySrcDest(src, dest) {
+    return Promise.map(dest, function (dst) {
+        let stream = gulp.src(src);
+        stream.pipe(gulp.dest(dst));
+        return streamToPromise(stream);
+    });
+}
+
+
+
 //
 //
 // Dependencies
 
+gulp.task('deps', [
+    'deps:js',
+    'deps:css'
+]);
+
 gulp.task('deps:js', function (env) {
-    let depsPipe = gulp.src([
-        'bower_components/ng-file-upload/ng-file-upload-shim.min.js',
-        'bower_components/angular/angular.min.js',
-        'bower_components/angular-animate/angular-animate.min.js',
-        'bower_components/angular-aria/angular-aria.min.js',
-        'bower_components/angular-busy/dist/angular-busy.min.js',
-        'bower_components/angular-cookies/angular-cookies.min.js',
-        'bower_components/angular-material/angular-material.min.js',
-        'bower_components/angular-messages/angular-messages.min.js',
-        'bower_components/angular-route/angular-route.min.js',
-        'bower_components/angular-sanitize/angular-sanitize.min.js',
-        'bower_components/angular-translate/angular-translate.min.js',
-        'bower_components/angular-material-data-table/dist/md-data-table.min.js',
-        'bower_components/showdown/compressed/Showdown.min.js',
-        'bower_components/angular-markdown-directive/markdown.js',
-        'bower_components/codemirror/lib/codemirror.js',
-        'bower_components/codemirror-spell-checker/dist/spell-checker.min.js',
-        'bower_components/simplemde/dist/simplemde.min.js',
-        'bower_components/async/dist/async.min.js',
-        'bower_components/bluebird/js/browser/bluebird.min.js',
-        'bower_components/ng-file-upload/ng-file-upload.min.js',
-        'bower_components/angular-pubsub/dist/angular-pubsub.js',
-        'bower_components/leaflet/dist/leaflet.js',
-        'bower_components/PruneCluster/dist/PruneCluster.js',
-        'bower_components/leaflet-minimap/dist/Control.MiniMap.min.js',
-        'bower_components/L.GeoSearch/src/js/l.control.geosearch.js',
-        'bower_components/L.GeoSearch/src/js/l.geosearch.provider.openstreetmap.js',
-        'bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js',
-        'bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js',
-        'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
-        'bower_components/airbrake-js-client/dist/client.min.js'
-    ])
-        .pipe(concat('leerstandsmelder-angular-dependencies.min.js'))
-        .pipe(header(banner, {pkg: pkg}));
-    return Promise.resolve()
-        .then(() => {
-            if (!env || env == 'web') {
-                return streamToPromise(depsPipe.pipe(gulp.dest('./dist/web/js/')));
-            }
-        })
-        .then(() => {
-            if (!env || env == 'web') {
-                return streamToPromise(depsPipe.pipe(gulp.dest('./dist/mobile/www/js/')));
-            }
-        });
+    return Promise.map(getPathsForEnv(env, 'js/'), function (dest) {
+        let stream = gulp.src([
+                'bower_components/ng-file-upload/ng-file-upload-shim.min.js',
+                'bower_components/angular/angular.min.js',
+                'bower_components/angular-animate/angular-animate.min.js',
+                'bower_components/angular-aria/angular-aria.min.js',
+                'bower_components/angular-busy/dist/angular-busy.min.js',
+                'bower_components/angular-cookies/angular-cookies.min.js',
+                'bower_components/angular-material/angular-material.min.js',
+                'bower_components/angular-messages/angular-messages.min.js',
+                'bower_components/angular-route/angular-route.min.js',
+                'bower_components/angular-sanitize/angular-sanitize.min.js',
+                'bower_components/angular-translate/angular-translate.min.js',
+                'bower_components/angular-material-data-table/dist/md-data-table.min.js',
+                'bower_components/showdown/compressed/Showdown.min.js',
+                'bower_components/angular-markdown-directive/markdown.js',
+                'bower_components/codemirror/lib/codemirror.js',
+                'bower_components/codemirror-spell-checker/dist/spell-checker.min.js',
+                'bower_components/simplemde/dist/simplemde.min.js',
+                'bower_components/async/dist/async.min.js',
+                'bower_components/bluebird/js/browser/bluebird.min.js',
+                'bower_components/ng-file-upload/ng-file-upload.min.js',
+                'bower_components/angular-pubsub/dist/angular-pubsub.js',
+                'bower_components/leaflet/dist/leaflet.js',
+                'bower_components/PruneCluster/dist/PruneCluster.js',
+                'bower_components/leaflet-minimap/dist/Control.MiniMap.min.js',
+                'bower_components/L.GeoSearch/src/js/l.control.geosearch.js',
+                'bower_components/L.GeoSearch/src/js/l.geosearch.provider.openstreetmap.js',
+                'bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js',
+                'bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js',
+                'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
+                'bower_components/airbrake-js-client/dist/client.min.js'
+            ])
+            .pipe(concat('leerstandsmelder-angular-dependencies.min.js'))
+            .pipe(header(banner, {pkg: pkg}));
+        stream.pipe(gulp.dest(dest));
+        return streamToPromise(stream);
+    });
 });
 
 gulp.task('deps:css', function (env) {
-    let depsPipe = gulp.src([
-        'bower_components/angular-material/angular-material.min.css',
-        'bower_components/angular-busy/dist/angular-busy.min.css',
-        'bower_components/font-awesome/css/font-awesome.min.css',
-        'bower_components/leaflet/dist/leaflet.css',
-        'bower_components/PruneCluster/dist/LeafletStyleSheet.css',
-        //'bower_components/leaflet-control-geocoder/Control.Geocoder.css',
-        'bower_components/leaflet-minimap/dist/Control.MiniMap.min.css',
-        'bower_components/L.GeoSearch/src/css/l.geosearch.css'
-    ])
-        .pipe(concat('leerstandsmelder-frontend-dependencies.min.css'))
-        .pipe(header(banner, {pkg: pkg}));
-    return Promise.resolve()
-        .then(() => {
-            if (!env || env == 'web') {
-                return depsPipe.pipe(gulp.dest('./dist/web/css/'));
-            }
-        })
-        .then(() => {
-            if (!env || env == 'web') {
-                return depsPipe.pipe(gulp.dest('./dist/mobile/www/css/'));
-            }
-        });
+    return Promise.map(getPathsForEnv(env, 'css/'), function (dest) {
+        let stream = gulp.src([
+                'bower_components/angular-material/angular-material.min.css',
+                'bower_components/angular-busy/dist/angular-busy.min.css',
+                'bower_components/font-awesome/css/font-awesome.min.css',
+                'bower_components/leaflet/dist/leaflet.css',
+                'bower_components/PruneCluster/dist/LeafletStyleSheet.css',
+                //'bower_components/leaflet-control-geocoder/Control.Geocoder.css',
+                'bower_components/leaflet-minimap/dist/Control.MiniMap.min.css',
+                'bower_components/L.GeoSearch/src/css/l.geosearch.css'
+            ])
+            .pipe(concat('leerstandsmelder-frontend-dependencies.min.css'))
+            .pipe(header(banner, {pkg: pkg}));
+        stream.pipe(gulp.dest(dest));
+        return streamToPromise(stream);
+    });
 });
 
 
@@ -123,42 +136,23 @@ gulp.task('js', function (env) {
         srcDest.push({src: 'src/mobile/js/main.js', dest: 'dist/mobile/js/'});
     }
     return Promise.map(srcDest, (sd) => {
-        return gulp.src(sd.src)
+        let stream = gulp.src(sd.src)
             .pipe(sourcemaps.init())
             .pipe(requirejsOptimize())
             .pipe(header(banner, {pkg: pkg}))
             .pipe(rename('leerstandsmelder-angular-frontend.min.js'))
-            .pipe(sourcemaps.write())
-            .pipe(gulp.dest(sd.dest));
+            .pipe(sourcemaps.write());
+        stream.pipe(gulp.dest(sd.dest));
+        return streamToPromise(stream);
     });
 });
 
 gulp.task('js:copy', ['js:config'], function (env) {
-    return Promise.resolve()
-        .then(() => {
-            if (!env || env == 'web') {
-                return gulp.src(['./src/**/*.js']).pipe(gulp.dest('./dist/web/src/'));
-            }
-        })
-        .then(() => {
-            if (!env || env == 'mobile') {
-                return gulp.src(['./src/**/*.js']).pipe(gulp.dest('./dist/mobile/www/src/'));
-            }
-        });
+    return copySrcDest(['./src/**/*.js'], getPathsForEnv(env, 'src/'));
 });
 
 gulp.task('js:config', function (env) {
-    return Promise.resolve()
-        .then(() => {
-            if (!env || env == 'web') {
-                return gulp.src('./configuration.js').pipe(gulp.dest('./dist/web/js/'));
-            }
-        })
-        .then(() => {
-            if (!env || env == 'mobile') {
-                return gulp.src('./configuration.js').pipe(gulp.dest('./dist/mobile/www/js/'));
-            }
-        });
+    return copySrcDest(['./configuration.js'], getPathsForEnv(env, 'js/'));
 });
 
 
@@ -167,26 +161,29 @@ gulp.task('js:config', function (env) {
 //
 // CSS
 
-function cssPipe(src, destPath) {
+function cssPipe(src) {
     return src.pipe(less())
         .pipe(minify())
         .pipe(header(banner, {pkg: pkg}))
         .pipe(rename({
             basename: 'leerstandsmelder-frontend'
-        }))
-        .pipe(gulp.dest(destPath));
+        }));
 }
 
 gulp.task('css', function (env) {
     return Promise.resolve()
         .then(() => {
             if (!env || env == 'web') {
-                return cssPipe(gulp.src('./src/web/less/web.less'), './dist/web/css/');
+                let stream = cssPipe(gulp.src('./src/web/less/web.less'));
+                stream.pipe(gulp.dest('./dist/web/css/'));
+                return streamToPromise(stream);
             }
         })
         .then(() => {
             if (!env || env == 'mobile') {
-                return cssPipe(gulp.src('./src/mobile/less/mobile.less'), './dist/mobile/www/css/');
+                let stream = cssPipe(gulp.src('./src/mobile/less/mobile.less'));
+                stream.pipe(gulp.dest('./dist/mobile/css/'));
+                return streamToPromise(stream);
             }
         });
 });
@@ -201,12 +198,16 @@ gulp.task('html', function (env) {
     return Promise.resolve()
         .then(() => {
             if (!env || env == 'web') {
-                return gulp.src(['./src/shared/jade/**/*.jade', './src/web/jade/**/*.jade']).pipe(jade()).pipe(gulp.dest('./dist/web/'));
+                let stream = gulp.src(['./src/shared/jade/**/*.jade', './src/web/jade/**/*.jade']);
+                stream.pipe(jade()).pipe(gulp.dest('./dist/web/'));
+                return streamToPromise(stream);
             }
         })
         .then(() => {
             if (!env || env == 'mobile') {
-                return gulp.src(['./src/shared/jade/**/*.jade', './src/mobile/jade/**/*.jade']).pipe(jade()).pipe(gulp.dest('./dist/mobile/www/'));
+                let stream = gulp.src(['./src/shared/jade/**/*.jade', './src/mobile/jade/**/*.jade']);
+                stream.pipe(jade()).pipe(gulp.dest('./dist/mobile/'));
+                return streamToPromise(stream);
             }
         });
 });
@@ -218,37 +219,38 @@ gulp.task('html', function (env) {
 // Assets
 
 gulp.task('assets', function (env) {
-    let dest = [];
-    if (!env || env == 'web') {
-        dest.push('dist/web/');
-    }
-    if (!env || env == 'mobile') {
-        dest.push('dist/mobile/www/');
-    }
-    return Promise.map(dest, (destBase) => {
+    return Promise.map(getPathsForEnv(env), (destBase) => {
         Promise.resolve()
             .then(() => {
-                return gulp.src([
+                let stream = gulp.src([
                     './bower_components/PruneCluster/dist/PruneCluster.js.map',
                     './bower_components/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.js',
                     './bower_components/requirejs/require.js'
-                ]).pipe(gulp.dest(destBase + 'js/'));
+                ]);
+                stream.pipe(gulp.dest(destBase + 'js/'));
+                return streamToPromise(stream);
             })
             .then(() => {
-                return gulp.src([
+                let stream = gulp.src([
                     './assets/images/*',
                     './bower_components/leaflet/dist/images/*',
                     './bower_components/leaflet-minimap/dist/images/*'
-                ]).pipe(gulp.dest(destBase + 'images/'));
+                ]);
+                stream.pipe(gulp.dest(destBase + 'images/'));
+                return streamToPromise(stream);
             })
             .then(() => {
-                return gulp.src([
+                let stream = gulp.src([
                     './bower_components/font-awesome/fonts/*',
                     './assets/fonts/*'
-                ]).pipe(gulp.dest(destBase + 'fonts/'));
+                ]);
+                stream.pipe(gulp.dest(destBase + 'fonts/'));
+                return streamToPromise(stream);
             })
             .then(() => {
-                return gulp.src(['./src/shared/static/md/*.md']).pipe(gulp.dest(destBase + 'static/'));
+                let stream = gulp.src(['./src/shared/static/md/*.md']);
+                stream.pipe(gulp.dest(destBase + 'static/'));
+                return streamToPromise(stream);
             });
     });
 });
@@ -257,11 +259,12 @@ gulp.task('assets', function (env) {
 
 //
 //
-// Dev tasks
+// Dev
 
-gulp.task('clean', function () {
-    return gulp.src(['dist/web', 'dist/mobile/www'], {read: false}).pipe(clean());
-});
+gulp.task('dev', [
+    'serve',
+    'watch'
+]);
 
 gulp.task('watch', function () {
     watch(['src/web/js/**/*.js', 'src/mobile/js/**/*.js', 'src/shared/js/**/*.js', 'configuration.js'], function () {
@@ -302,7 +305,7 @@ gulp.task('serve', function (env) {
             return connect.server({
                 name: 'Mobile App',
                 port: 8090,
-                root: 'dist/mobile/www',
+                root: 'dist/mobile',
                 livereload: true
             });
         });
@@ -312,25 +315,64 @@ gulp.task('serve', function (env) {
 
 //
 //
-// Combined tasks
+// Build
+
+gulp.task('clean', function () {
+    return gulp.src(['dist'], {read: false}).pipe(clean());
+});
+
+gulp.task('clean:cordova', function () {
+    return gulp.src(['.cordova'], {read: false}).pipe(clean());
+});
 
 gulp.task('release', [
     'clean'
 ], function () {
-    gulp.start('build');
+    return gulp.start('build');
 });
 
-gulp.task('dev', [
-    'serve',
-    'watch'
-]);
-
 gulp.task('build', [
-    'deps:js',
-    'deps:css',
+    'deps',
     'assets',
     //'js',
     'js:copy',
     'css',
     'html'
 ]);
+
+gulp.task('build:android', ['clean:cordova'], function (release) {
+    const create = require('gulp-cordova-create'),
+        plugin = require('gulp-cordova-plugin'),
+        android = require('gulp-cordova-build-android');
+    let stream = gulp.src('dist/mobile').pipe(create({
+            id: config.android.app_id,
+            name: config.android.app_name
+        }))
+        .pipe(plugin({
+            'org.apache.cordova.dialogs': 'latest',
+            'org.apache.cordova.camera': 'latest',
+            'org.apache.cordova.geolocation': 'latest',
+            'org.apache.cordova.media': 'latest'
+        }))
+        .pipe(android({release: release}));
+    stream.pipe(gulp.dest('dist/android'));
+    return streamToPromise(stream);
+});
+
+gulp.task('build:ios', ['clean:cordova'], function () {
+    const create = require('gulp-cordova-create'),
+        plugin = require('gulp-cordova-plugin'),
+        ios = require('gulp-cordova-build-ios');
+    let stream = gulp.src('dist/mobile').pipe(create({
+            id: config.ios.app_id,
+            name: config.ios.app_name
+        }))
+        .pipe(plugin({
+            'org.apache.cordova.dialogs': 'latest',
+            'org.apache.cordova.camera': 'latest',
+            'org.apache.cordova.geolocation': 'latest',
+            'org.apache.cordova.media': 'latest'
+        }));
+    stream.pipe(ios());
+    return streamToPromise(stream);
+});

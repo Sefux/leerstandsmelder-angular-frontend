@@ -1,0 +1,17 @@
+{
+  "browser": {
+    "api": "https://www.leerstandsmelder.de",
+    "airbrake": {
+      "project_id": null,
+      "project_key": null
+    }
+  },
+  "android": {
+    "app_name": "Leerstandsmelder",
+    "app_id": "de.leerstandsmelder.mobile.android"
+  },
+  "ios": {
+    "app_name": "Leerstandsmelder",
+    "app_id": "de.leerstandsmelder.mobile.ios"
+  }
+}

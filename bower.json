@@ -42,7 +42,8 @@
     "angular-material-data-table": "^0.10.7",
     "airbrake-js-client": "airbrake-js#^0.5.8",
     "codemirror-spell-checker": "^1.1.1",
-    "codemirror": "^5.15.2"
+    "codemirror": "^5.15.2",
+    "requirejs-plugins": "^1.0.3"
   },
   "resolutions": {
     "angular": "^1.5.0",
