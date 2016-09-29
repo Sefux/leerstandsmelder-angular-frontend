@@ -1,20 +1,19 @@
-var gulp = require('gulp'),
+var Promise = require('bluebird'),
+    gulp = require('gulp-param')(require('gulp'), process.argv),
     fs = require('fs'),
     header = require('gulp-header'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
-    gulpCopy = require('gulp-copy'),
     jade = require('gulp-jade'),
     less = require('gulp-less'),
     minify = require('gulp-minify-css'),
     requirejsOptimize = require('gulp-requirejs-optimize'),
     sourcemaps = require('gulp-sourcemaps'),
     watch = require('gulp-watch'),
+    clean = require('gulp-clean'),
     connect = require('gulp-connect'),
-    phonegapBuild = require('gulp-phonegap-build'),
-    pkg = require('./package.json'),
-    pgConf = require('./phonegap.json');
+    pkg = require('./package.json');
 
 var banner = ['/**',
     ' * <%= pkg.name %> - <%= pkg.description %>',
@@ -24,12 +23,19 @@ var banner = ['/**',
     ' */',
     ''].join('\n');
 
-//
-//
-// JS building
+function streamToPromise(stream) {
+    return new Promise(function(resolve, reject) {
+        stream.on("end", resolve);
+        stream.on("error", reject);
+    });
+}
 
-gulp.task('js-deps', function () {
-    return gulp.src([
+//
+//
+// Dependencies
+
+gulp.task('deps:js', function (env) {
+    let depsPipe = gulp.src([
         'bower_components/ng-file-upload/ng-file-upload-shim.min.js',
         'bower_components/angular/angular.min.js',
         'bower_components/angular-animate/angular-animate.min.js',
@@ -62,50 +68,104 @@ gulp.task('js-deps', function () {
         'bower_components/airbrake-js-client/dist/client.min.js'
     ])
         .pipe(concat('leerstandsmelder-angular-dependencies.min.js'))
-        .pipe(header(banner, {pkg: pkg}))
-        .pipe(gulp.dest('./dist/web/js/'))
-        .pipe(gulp.dest('./dist/mobile/www/js/'));
+        .pipe(header(banner, {pkg: pkg}));
+    return Promise.resolve()
+        .then(() => {
+            if (!env || env == 'web') {
+                return streamToPromise(depsPipe.pipe(gulp.dest('./dist/web/js/')));
+            }
+        })
+        .then(() => {
+            if (!env || env == 'web') {
+                return streamToPromise(depsPipe.pipe(gulp.dest('./dist/mobile/www/js/')));
+            }
+        });
 });
 
-gulp.task('js-web', function () {
-    return gulp.src('src/web/js/app.build.js')
-        .pipe(sourcemaps.init())
-        .pipe(requirejsOptimize())
-        .pipe(header(banner, {pkg: pkg}))
-        .pipe(rename('leerstandsmelder-angular-frontend.min.js'))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest('dist/web/js/'));
-});
-
-gulp.task('js-mobile', function () {
-    return gulp.src('src/mobile/js/main.js')
-        .pipe(requirejsOptimize())
-        .pipe(header(banner, {pkg: pkg}))
-        .pipe(rename('leerstandsmelder-angular-frontend.min.js'))
-        .pipe(gulp.dest('dist/mobile/www/js/'));
-});
-
-
-//
-//
-// CSS building
-
-gulp.task('css-deps', function () {
-    return gulp.src([
-            'bower_components/angular-material/angular-material.min.css',
-            'bower_components/angular-busy/dist/angular-busy.min.css',
-            'bower_components/font-awesome/css/font-awesome.min.css',
-            'bower_components/leaflet/dist/leaflet.css',
-            'bower_components/PruneCluster/dist/LeafletStyleSheet.css',
-            //'bower_components/leaflet-control-geocoder/Control.Geocoder.css',
-            'bower_components/leaflet-minimap/dist/Control.MiniMap.min.css',
-            'bower_components/L.GeoSearch/src/css/l.geosearch.css'
-        ])
+gulp.task('deps:css', function (env) {
+    let depsPipe = gulp.src([
+        'bower_components/angular-material/angular-material.min.css',
+        'bower_components/angular-busy/dist/angular-busy.min.css',
+        'bower_components/font-awesome/css/font-awesome.min.css',
+        'bower_components/leaflet/dist/leaflet.css',
+        'bower_components/PruneCluster/dist/LeafletStyleSheet.css',
+        //'bower_components/leaflet-control-geocoder/Control.Geocoder.css',
+        'bower_components/leaflet-minimap/dist/Control.MiniMap.min.css',
+        'bower_components/L.GeoSearch/src/css/l.geosearch.css'
+    ])
         .pipe(concat('leerstandsmelder-frontend-dependencies.min.css'))
-        .pipe(header(banner, {pkg: pkg}))
-        .pipe(gulp.dest('./dist/web/css/'))
-        .pipe(gulp.dest('./dist/mobile/www/css/'));
+        .pipe(header(banner, {pkg: pkg}));
+    return Promise.resolve()
+        .then(() => {
+            if (!env || env == 'web') {
+                return depsPipe.pipe(gulp.dest('./dist/web/css/'));
+            }
+        })
+        .then(() => {
+            if (!env || env == 'web') {
+                return depsPipe.pipe(gulp.dest('./dist/mobile/www/css/'));
+            }
+        });
 });
+
+
+
+//
+//
+// JS
+
+gulp.task('js', function (env) {
+    let srcDest = [];
+    if (!env || env == 'web') {
+        srcDest.push({src: 'src/web/js/app.build.js', dest: 'dist/web/js/'});
+    }
+    if (!env || env == 'mobile') {
+        srcDest.push({src: 'src/mobile/js/main.js', dest: 'dist/mobile/js/'});
+    }
+    return Promise.map(srcDest, (sd) => {
+        return gulp.src(sd.src)
+            .pipe(sourcemaps.init())
+            .pipe(requirejsOptimize())
+            .pipe(header(banner, {pkg: pkg}))
+            .pipe(rename('leerstandsmelder-angular-frontend.min.js'))
+            .pipe(sourcemaps.write())
+            .pipe(gulp.dest(sd.dest));
+    });
+});
+
+gulp.task('js:copy', ['js:config'], function (env) {
+    return Promise.resolve()
+        .then(() => {
+            if (!env || env == 'web') {
+                return gulp.src(['./src/**/*.js']).pipe(gulp.dest('./dist/web/src/'));
+            }
+        })
+        .then(() => {
+            if (!env || env == 'mobile') {
+                return gulp.src(['./src/**/*.js']).pipe(gulp.dest('./dist/mobile/www/src/'));
+            }
+        });
+});
+
+gulp.task('js:config', function (env) {
+    return Promise.resolve()
+        .then(() => {
+            if (!env || env == 'web') {
+                return gulp.src('./configuration.js').pipe(gulp.dest('./dist/web/js/'));
+            }
+        })
+        .then(() => {
+            if (!env || env == 'mobile') {
+                return gulp.src('./configuration.js').pipe(gulp.dest('./dist/mobile/www/js/'));
+            }
+        });
+});
+
+
+
+//
+//
+// CSS
 
 function cssPipe(src, destPath) {
     return src.pipe(less())
@@ -117,80 +177,80 @@ function cssPipe(src, destPath) {
         .pipe(gulp.dest(destPath));
 }
 
-gulp.task('css-web', function () {
-    return cssPipe(gulp.src('./src/web/less/web.less'), './dist/web/css/');
+gulp.task('css', function (env) {
+    return Promise.resolve()
+        .then(() => {
+            if (!env || env == 'web') {
+                return cssPipe(gulp.src('./src/web/less/web.less'), './dist/web/css/');
+            }
+        })
+        .then(() => {
+            if (!env || env == 'mobile') {
+                return cssPipe(gulp.src('./src/mobile/less/mobile.less'), './dist/mobile/www/css/');
+            }
+        });
 });
 
-gulp.task('css-mobile', function () {
-    return cssPipe(gulp.src('./src/mobile/less/mobile.less'), './dist/mobile/www/css/');
-});
 
 
 //
 //
-// HTML building
+// HTML
 
-function htmlPipe(src, destPath) {
-    return src.pipe(jade())
-        .pipe(gulp.dest(destPath));
-}
-
-gulp.task('html-web', function () {
-    return htmlPipe(gulp.src(['./src/shared/jade/**/*.jade', './src/web/jade/**/*.jade']), './dist/web/');
-
+gulp.task('html', function (env) {
+    return Promise.resolve()
+        .then(() => {
+            if (!env || env == 'web') {
+                return gulp.src(['./src/shared/jade/**/*.jade', './src/web/jade/**/*.jade']).pipe(jade()).pipe(gulp.dest('./dist/web/'));
+            }
+        })
+        .then(() => {
+            if (!env || env == 'mobile') {
+                return gulp.src(['./src/shared/jade/**/*.jade', './src/mobile/jade/**/*.jade']).pipe(jade()).pipe(gulp.dest('./dist/mobile/www/'));
+            }
+        });
 });
 
-gulp.task('html-mobile', function () {
-    return htmlPipe(gulp.src(['./src/shared/jade/**/*.jade', './src/mobile/jade/**/*.jade']), './dist/mobile/www/');
-});
 
 
 //
 //
-// Copy tasks
+// Assets
 
-function copyPipe(src, destPath, prefix) {
-    return src.pipe(gulpCopy(destPath, {prefix: prefix}));
-}
-gulp.task('copy-js', function () {
-    copyPipe(gulp.src(['./bower_components/PruneCluster/dist/PruneCluster.js.map']), './dist/mobile/www/js/', 3);
-    return copyPipe(gulp.src(['./bower_components/PruneCluster/dist/PruneCluster.js.map']), './dist/web/js/', 3);
-});
-
-gulp.task('copy-requirejs', function () {
-    copyPipe(gulp.src(['./bower_components/requirejs/require.js']), './dist/mobile/www/js/', 2);
-    return copyPipe(gulp.src(['./bower_components/requirejs/require.js']), './dist/web/js/', 2);
-});
-
-gulp.task('copy-apiclient', function () {
-    copyPipe(gulp.src(['./bower_components/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.js']), './dist/mobile/www/js/', 3);
-    return copyPipe(gulp.src(['./bower_components/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.js']), './dist/web/js/', 3);
-});
-
-gulp.task('copy-js-src', function () {
-    copyPipe(gulp.src(['./src/**/*.js']), './dist/mobile/www/src/', 1);
-    return copyPipe(gulp.src(['./src/**/*.js']), './dist/web/src/', 1);
-});
-
-gulp.task('copy-js-config', function () {
-    copyPipe(gulp.src(['./configuration.js']), './dist/mobile/www/js/');
-    return copyPipe(gulp.src(['./configuration.js']), './dist/web/js/');
-});
-
-gulp.task('copy-web', function () {
-    copyPipe(gulp.src(['./bower_components/font-awesome/fonts/*','./assets/fonts/*']), './dist/web/fonts/', 3);
-    copyPipe(gulp.src(['./assets/images/*']), './dist/web/images/', 2);
-    copyPipe(gulp.src(['./bower_components/leaflet/dist/images/*']), './dist/web/', 3);
-    copyPipe(gulp.src(['./bower_components/leaflet-minimap/dist/images/*']), './dist/web/');
-    copyPipe(gulp.src(['./src/shared/static/md/*.md']), './dist/web/', 2);
-});
-
-gulp.task('copy-mobile', function () {
-    copyPipe(gulp.src(['./bower_components/font-awesome/fonts/*','./assets/fonts/*']), './dist/mobile/www/fonts/', 3);
-    copyPipe(gulp.src(['./assets/images/*']), './dist/mobile/www/images/', 2);
-    copyPipe(gulp.src(['./bower_components/leaflet/dist/images/*']), './dist/mobile/www/', 3);
-    copyPipe(gulp.src(['./bower_components/leaflet-minimap/dist/images/*']), './dist/web/');
-    copyPipe(gulp.src(['./src/shared/static/md/*.md']), './dist/mobile/www/', 2);
+gulp.task('assets', function (env) {
+    let dest = [];
+    if (!env || env == 'web') {
+        dest.push('dist/web/');
+    }
+    if (!env || env == 'mobile') {
+        dest.push('dist/mobile/www/');
+    }
+    return Promise.map(dest, (destBase) => {
+        Promise.resolve()
+            .then(() => {
+                return gulp.src([
+                    './bower_components/PruneCluster/dist/PruneCluster.js.map',
+                    './bower_components/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.js',
+                    './bower_components/requirejs/require.js'
+                ]).pipe(gulp.dest(destBase + 'js/'));
+            })
+            .then(() => {
+                return gulp.src([
+                    './assets/images/*',
+                    './bower_components/leaflet/dist/images/*',
+                    './bower_components/leaflet-minimap/dist/images/*'
+                ]).pipe(gulp.dest(destBase + 'images/'));
+            })
+            .then(() => {
+                return gulp.src([
+                    './bower_components/font-awesome/fonts/*',
+                    './assets/fonts/*'
+                ]).pipe(gulp.dest(destBase + 'fonts/'));
+            })
+            .then(() => {
+                return gulp.src(['./src/shared/static/md/*.md']).pipe(gulp.dest(destBase + 'static/'));
+            });
+    });
 });
 
 
@@ -199,115 +259,78 @@ gulp.task('copy-mobile', function () {
 //
 // Dev tasks
 
-gulp.task('watch-web', function () {
-    // watch(['src/web/js/**/*.js', 'src/shared/js/**/*.js', 'configuration.js'], function () {
-    //     gulp.start('js-web');
-    // });
-    watch(['src/web/less/**/*.less','src/shared/less/**/*.less'], function () {
-        gulp.start('css-web')
-            .pipe(connect.reload());
+gulp.task('clean', function () {
+    return gulp.src(['dist/web', 'dist/mobile/www'], {read: false}).pipe(clean());
+});
+
+gulp.task('watch', function () {
+    watch(['src/web/js/**/*.js', 'src/mobile/js/**/*.js', 'src/shared/js/**/*.js', 'configuration.js'], function () {
+        return streamToPromise(gulp.start('js:copy')).then(connect.reload);
     });
-    watch(['src/web/jade/**/*.jade', 'src/shared/jade/**/*.jade'], function () {
-        gulp.start('html-web')
-            .pipe(connect.reload());
+    watch(['src/web/less/**/*.less', 'src/mobile/less/**/*.less','src/shared/less/**/*.less'], function () {
+        return streamToPromise(gulp.start('css')).then(connect.reload);
+    });
+    watch(['src/web/jade/**/*.jade', 'src/mobile/jade/**/*.jade', 'src/shared/jade/**/*.jade'], function () {
+        return streamToPromise(gulp.start('html')).then(connect.reload);
+    });
+    watch(['./assets/**/*', './src/shared/static/md/*.md'], function () {
+        return streamToPromise(gulp.start('assets')).then(connect.reload);
     });
 });
 
-gulp.task('watch-web-src', function () {
-    watch(['src/web/js/**/*.js', 'src/shared/js/**/*.js', 'configuration.js'], function () {
-        gulp.start('copy-js-src')
-            .pipe(connect.reload());
-    });
+gulp.task('serve', function (env) {
+    return Promise.resolve()
+        .then(() => {
+            if (env && env != 'web') return;
+            return connect.server({
+                name: 'Web App',
+                port: 8080,
+                root: 'dist/web',
+                livereload: true,
+                fallback: 'index.html',
+                middleware: function (conn, opts) {
+                    return [
+                        conn.static(opts.root),
+                        conn.directory(opts.root),
+                        function (req, res) { fs.readFile("#{opts.root}/index.html", function (err, html) { res.end(html); }) }
+                    ];
+                }
+            });
+        })
+        .then(() => {
+            if (env && env != 'mobile') return;
+            return connect.server({
+                name: 'Mobile App',
+                port: 8090,
+                root: 'dist/mobile/www',
+                livereload: true
+            });
+        });
 });
-
-gulp.task('server-web', function () {
-    connect.server({
-        name: 'Web App',
-        port: 8080,
-        root: 'dist/web',
-        livereload: true,
-        fallback: 'index.html',
-        middleware: function (conn, opts) {
-            return [
-                conn.static(opts.root),
-                conn.directory(opts.root),
-                function (req, res) { fs.readFile("#{opts.root}/index.html", function (err, html) { res.end(html); }) }
-            ];
-        }
-    });
-});
-
-gulp.task('server-mobile', function () {
-    connect.server({
-        name: 'Mobile App',
-        port: 8090,
-        root: 'dist/mobile/www',
-        livereload: true
-    });
-});
-
 
 
 
 //
 //
-// Phonegap build task
+// Combined tasks
 
-gulp.task('phonegap-build', function () {
-    var user;
-    if (pgConf.token) {
-        user = {
-            token: pgConf.token
-        };
-    } else {
-        user = {
-            email: pgConf.email,
-            password: pgConf.password
-        };
-    }
-    gulp.src('dist/mobile/**/*')
-        .pipe(phonegapBuild({
-            "isRepository": false,
-            "appId": pgConf.appId,
-            "user": user
-        }));
+gulp.task('release', [
+    'clean'
+], function () {
+    gulp.start('build');
 });
 
-
-//
-//
-// combined tasks
-
-gulp.task('web', [
-    'js-deps',
-    //'js-web',
-    'copy-requirejs',
-    'copy-apiclient',
-    'copy-web',
-    'copy-js-config',
-    'copy-js-src',
-    'css-deps',
-    'css-web',
-    'html-web',
-    'copy-web',
-    'copy-js'
+gulp.task('dev', [
+    'serve',
+    'watch'
 ]);
 
-gulp.task('mobile', [
-    'js-deps',
-    //'js-mobile',
-    'copy-requirejs',
-    'copy-mobile',
-    'copy-js-config',
-    'copy-js-src',
-    'css-deps',
-    'css-mobile',
-    'html-mobile',
-    'copy-mobile',
-    'copy-js'
-]);
-
-gulp.task('default', [
-    'web',
-    'mobile'
+gulp.task('build', [
+    'deps:js',
+    'deps:css',
+    'assets',
+    //'js',
+    'js:copy',
+    'css',
+    'html'
 ]);
