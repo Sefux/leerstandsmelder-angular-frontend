@@ -4,5 +4,6 @@ node_js:
   - "6.1"
   - "4.5"
 before_script:
+  - cp config.default.json config.json
   - npm install -g gulp
 script: gulp test
