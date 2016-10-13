@@ -6,7 +6,7 @@ The UI package for the [Leerstandsmelder](http://lm.htmhell.de) service based on
 
 ## Browser UI ##
 
-The web app consists of static code only so you can just clone the repo, set the ``dist/web`` folder as the document root and it should work.
+The app consists of static code only so you can just clone the repo, build the app (see below), set the ``dist/web`` folder as the document root and it should work.
 
 Since the app uses Angular in HTML5 mode, you need to make sure that every 404 not found error gets redirected to index.html.
 
@@ -22,7 +22,7 @@ Alternatively, you can just run ``sh/server`` from the repo root and the fronten
 
 The mobile UI is built on [Apache Cordova](https://cordova.apache.org/) and is supported for Android and iOS.
 
-## Development ##
+## Building the App ##
 
 ### Requirements ###
 
@@ -45,7 +45,7 @@ To build only one of both platforms run ``gulp build --env=web`` or ``gulp build
 
 The app packages for the mobile platform can be built running ``gulp build:android`` and ``gulp build:ios``. The Android build creates .apk files in ``dist/android/``, while the iOS build generates an XCode project in ``dist/cordova/plaforms/ios/``.
 
-### Development ###
+## Development ##
 
 The source code is comprised of JavaScript (ES5), [LESS](http://lesscss.org/) to generate CSS and [Pug](https://pugjs.org) (formerly Jade) to generate HTML.
 
