@@ -17,8 +17,9 @@ var Promise = require('bluebird'),
     sourcemaps = require('gulp-sourcemaps'),
     watch = require('gulp-watch'),
     jshint = require('gulp-jshint'),
-    clean = require('gulp-clean'),
-    connect = require('gulp-connect'),
+    del = require('del'),
+    connect = require('connect'),
+    serveStatic = require('serve-static'),
     gutil = require('gulp-util'),
     pkg = require('./package.json'),
     config = require('./config.json');
@@ -59,6 +60,24 @@ function filterSourceDestPairs(sd, env) {
         srcDest.push(sd[1]);
     }
     return srcDest;
+}
+
+function serveApp(config) {
+    var app = connect();
+    if (config.livereload) {
+        app.use(require('connect-livereload')({port: config.livereload}));
+    }
+    app.use(serveStatic(config.root, {'index': ['index.html']}));
+    app.use(function(req, res){
+        fs.readFile(config.root + '/index.html', function (err, data) {
+            if (err) {
+                throw err;
+            }
+            res.end(data);
+        });
+    });
+    app.listen(config.port);
+    console.log(config.name + ' listening on port', config.port);
 }
 
 
@@ -263,40 +282,32 @@ gulp.task('serve', function (env) {
             if (env && env !== 'web') {
                 return;
             }
-            return connect.server({
+            serveApp({
                 name: 'Web App',
-                port: 8080,
+                livereload: 35729,
                 root: 'dist/web',
-                livereload: true,
-                fallback: 'index.html',
-                middleware: function (conn, opts) {
-                    return [
-                        conn.static(opts.root),
-                        conn.directory(opts.root),
-                        function (req, res) { fs.readFile("#{opts.root}/index.html", function (err, html) { res.end(html); }); }
-                    ];
-                }
+                port: 8080
             });
         })
         .then(function () {
             if (env && env !== 'mobile') {
                 return;
             }
-            return connect.server({
+            serveApp({
                 name: 'Mobile App',
-                port: 7070,
+                livereload: 35730,
                 root: 'dist/mobile',
-                livereload: true
+                port: 7070
             });
         });
 });
 
 gulp.task('serve:cordova', function () {
-    return connect.server({
-        name: 'Cordova Mobile App',
-        port: 8090,
+    serveApp({
+        name: 'Cordova App',
+        livereload: 35731,
         root: 'dist/cordova',
-        livereload: true
+        port: 8090
     });
 });
 
@@ -319,9 +330,7 @@ gulp.task('test', [
 // Build
 
 gulp.task('clean', function () {
-    var stream = gulp.src(['dist'], {read: false});
-    stream.pipe(clean());
-    return streamToPromise(stream);
+    return del(['dist']);
 });
 
 gulp.task('release', [
