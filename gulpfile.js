@@ -51,12 +51,15 @@ function getPathsForEnv(env, pathAdd) {
     return dest;
 }
 
-function copySrcDest(src, dest) {
-    return Promise.map(dest, function (dst) {
-        let stream = gulp.src(src);
-        stream.pipe(gulp.dest(dst));
-        return streamToPromise(stream);
-    });
+function filterSourceDestPairs(sd, env) {
+    var srcDest = [];
+    if (!env || env === 'web') {
+        srcDest.push(sd[0]);
+    }
+    if (!env || env === 'mobile') {
+        srcDest.push(sd[1]);
+    }
+    return srcDest;
 }
 
 
@@ -66,8 +69,7 @@ function copySrcDest(src, dest) {
 // Dependencies
 
 gulp.task('deps', [
-    'deps:js',
-    'deps:css'
+    'deps:js'
 ]);
 
 gulp.task('deps:js', function (env) {
@@ -92,25 +94,6 @@ gulp.task('deps:js', function (env) {
     });
 });
 
-gulp.task('deps:css', function (env) {
-    return Promise.map(getPathsForEnv(env, 'css/'), function (dest) {
-        let stream = gulp.src([
-                'node_modules/angular-material/angular-material.min.css',
-                'node_modules/angular-busy/dist/angular-busy.min.css',
-                'bower_components/font-awesome/css/font-awesome.min.css',
-                'bower_components/leaflet/dist/leaflet.css',
-                'bower_components/PruneCluster/dist/LeafletStyleSheet.css',
-                //'bower_components/leaflet-control-geocoder/Control.Geocoder.css',
-                'bower_components/leaflet-minimap/dist/Control.MiniMap.min.css',
-                'bower_components/L.GeoSearch/src/css/l.geosearch.css'
-            ])
-            .pipe(concat('leerstandsmelder-frontend-dependencies.min.css'))
-            .pipe(header(banner, {pkg: pkg}));
-        stream.pipe(gulp.dest(dest));
-        return streamToPromise(stream);
-    });
-});
-
 
 
 //
@@ -118,15 +101,12 @@ gulp.task('deps:css', function (env) {
 // JS
 
 gulp.task('js', function (env) {
-    let srcDest = [];
-    if (!env || env === 'web') {
-        srcDest.push({src: 'src/web/js/app-web.js', dest: 'dist/web/js/'});
-    }
-    if (!env || env === 'mobile') {
-        srcDest.push({src: 'src/mobile/js/app-mobile.js', dest: 'dist/mobile/js/'});
-    }
+    let srcDest = [
+        {src: 'src/web/js/app-web.js', dest: 'dist/web/js/'},
+        {src: 'src/mobile/js/app-mobile.js', dest: 'dist/mobile/js/'}
+    ];
 
-    return Promise.map(srcDest, (sd) => {
+    return Promise.map(filterSourceDestPairs(srcDest, env), (sd) => {
         let b = browserify({
             entries: sd.src,
             debug: true
@@ -137,20 +117,12 @@ gulp.task('js', function (env) {
             .pipe(sourcemaps.init({loadMaps: true}))
             .on('error', gutil.log)
             .pipe(header(banner, {pkg: pkg}))
-            //.pipe(uglify())
+            .pipe(uglify())
             .pipe(rename('leerstandsmelder-angular-frontend.min.js'))
             .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../'}));
         stream.pipe(gulp.dest(sd.dest));
         return streamToPromise(stream);
     });
-});
-
-gulp.task('js:copy', ['js:config'], function (env) {
-    return copySrcDest(['./src/**/*.js'], getPathsForEnv(env, 'src/'));
-});
-
-gulp.task('js:config', function (env) {
-    return copySrcDest(['./config.json'], getPathsForEnv(env, 'js/'));
 });
 
 
@@ -159,31 +131,39 @@ gulp.task('js:config', function (env) {
 //
 // CSS
 
-function cssPipe(src) {
-    return src.pipe(less())
+function cssPipe(sd) {
+    let stream = gulp.src(sd.src)
+        .pipe(less())
         .pipe(minify())
         .pipe(header(banner, {pkg: pkg}))
         .pipe(rename({
-            basename: 'leerstandsmelder-frontend'
+            basename: 'leerstandsmelder-frontend-' + path.basename(sd.src, '.less')
         }));
+    stream.pipe(gulp.dest(sd.dest));
+    return streamToPromise(stream);
 }
 
-gulp.task('css', function (env) {
-    return Promise.resolve()
-        .then(() => {
-            if (!env || env === 'web') {
-                let stream = cssPipe(gulp.src('./src/web/less/web.less'));
-                stream.pipe(gulp.dest('./dist/web/css/'));
-                return streamToPromise(stream);
-            }
-        })
-        .then(() => {
-            if (!env || env === 'mobile') {
-                let stream = cssPipe(gulp.src('./src/mobile/less/mobile.less'));
-                stream.pipe(gulp.dest('./dist/mobile/css/'));
-                return streamToPromise(stream);
-            }
-        });
+gulp.task('css', [
+    'css:main',
+    'css:deps'
+]);
+
+gulp.task('css:main', function (env) {
+    let srcDest = [
+        {src: './src/web/less/web.less', dest: './dist/web/css/'},
+        {src: './src/mobile/less/mobile.less', dest: './dist/mobile/css/'}
+    ];
+
+    return Promise.map(filterSourceDestPairs(srcDest, env), cssPipe);
+});
+
+gulp.task('css:deps', function (env) {
+    let srcDest = [
+        {src: './src/shared/less/deps.less', dest: './dist/web/css/'},
+        {src: './src/shared/less/deps.less', dest: './dist/mobile/css/'}
+    ];
+
+    return Promise.map(filterSourceDestPairs(srcDest, env), cssPipe);
 });
 
 
@@ -222,9 +202,7 @@ gulp.task('assets', function (env) {
             .then(function () {
                 let stream = gulp.src([
                     './bower_components/PruneCluster/dist/PruneCluster.js.map',
-                    './bower_components/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.js',
-                    './bower_components/requirejs/require.js',
-                    './bower_components/requirejs-plugins/**/*.js'
+                    './bower_components/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.js'
                 ]);
                 stream.pipe(gulp.dest(destBase + 'js/'));
                 return streamToPromise(stream);
@@ -266,11 +244,11 @@ gulp.task('dev', [
 ]);
 
 gulp.task('watch', function () {
-    watch(['src/web/js/**/*.js', 'src/mobile/js/**/*.js', 'src/shared/js/**/*.js', 'configuration.js'], function () {
+    watch(['src/web/js/**/*.js', 'src/mobile/js/**/*.js', 'src/shared/js/**/*.js', 'config.json'], function () {
         return streamToPromise(gulp.start('js')).then(connect.reload);
     });
     watch(['src/web/less/**/*.less', 'src/mobile/less/**/*.less','src/shared/less/**/*.less'], function () {
-        return streamToPromise(gulp.start('css')).then(connect.reload);
+        return streamToPromise(gulp.start('css:main')).then(connect.reload);
     });
     watch(['src/web/pug/**/*.pug', 'src/mobile/pug/**/*.pug', 'src/shared/pug/**/*.pug'], function () {
         return streamToPromise(gulp.start('html')).then(connect.reload);
@@ -345,7 +323,6 @@ gulp.task('build', [
     'deps',
     'assets',
     'js',
-    //'js:copy',
     'css',
     'html'
 ]);
