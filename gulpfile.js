@@ -139,7 +139,7 @@ gulp.task('js', function (env) {
             .pipe(header(banner, {pkg: pkg}))
             //.pipe(uglify())
             .pipe(rename('leerstandsmelder-angular-frontend.min.js'))
-            .pipe(sourcemaps.write('./'));
+            .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../'}));
         stream.pipe(gulp.dest(sd.dest));
         return streamToPromise(stream);
     });
