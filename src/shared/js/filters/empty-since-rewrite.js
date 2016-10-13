@@ -1,5 +1,3 @@
-/* global console,angular,define,LEERSTANDSMELDER_API_HOST */
-
 'use strict';
 
 var EmptySinceRewriteFilter = function ($translate) {

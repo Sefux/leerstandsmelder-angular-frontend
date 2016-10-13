@@ -1,7 +1,7 @@
 'use strict';
 
-var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$timeout, $q, apiService, responseHandler,$mdSidenav) {
-    var deferred = $q.defer();
+var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$timeout, $q, apiService) {
+    // var deferred = $q.defer();
     var self = this;
     self.currentSearchText = null;
     self.repos = [];
@@ -40,15 +40,14 @@ var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$
     };
 
     function querySearch (query) {
-        // FIXME: strict violation, does this still work?
-        this.loading = true;
+        self.loading = true;
         var deferred = $q.defer();
         apiService('search/locations' + ($scope.currentRegion ? '/' + $scope.currentRegion.uuid : ''),
             null, {q: query}).actions.all(function (err, results) {
             if (err) {
                 deferred.reject(err);
             }
-            this.loading = false;
+            self.loading = false;
             deferred.resolve(results);
         });
         return deferred.promise;
@@ -91,7 +90,6 @@ var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$
 
 };
 
-WidgetsNavbarController.$inject = ['$scope','$rootScope','$translate','$location','$timeout', '$q', 'apiService',
-    'responseHandler','$mdSidenav'];
+WidgetsNavbarController.$inject = ['$scope','$rootScope','$translate','$location','$timeout', '$q', 'apiService'];
 
 module.exports = WidgetsNavbarController;

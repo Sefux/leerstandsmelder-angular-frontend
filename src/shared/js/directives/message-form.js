@@ -8,7 +8,8 @@ var MessageFormDirective = function (apiService, assetPath) {
             scope.submitMessage = function () {
                 if (scope.message.recipient_uuid && scope.message.body) {
                     apiService('messages').actions.create(scope.message, function (err) {
-
+                        // TODO: handle this error...
+                        console.log('msg form err:', err.message);
                     });
                 }
             };

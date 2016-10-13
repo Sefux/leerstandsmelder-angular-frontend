@@ -15,7 +15,7 @@ var UsersCreateController = function ($scope, $q, apiService, PubSub, responseHa
             return deferred.reject();
         }
         $scope.promise = deferred.promise;
-        apiService('users').actions.create($scope.user, function (err, res) {
+        apiService('users').actions.create($scope.user, function (err) {
             var msgs = {
                 success: 'messages.users.create_success'
             };

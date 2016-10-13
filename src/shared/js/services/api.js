@@ -1,5 +1,3 @@
-/* global console,angular,define,LEERSTANDSMELDER_API_HOST,LMApi */
-
 'use strict';
 
 var config = require('../../../../config.json');
@@ -48,7 +46,7 @@ var ApiService = function (authService, Upload) {
                         if (typeof callback === 'function') {
                             callback(null, data);
                         }
-                    }).error(function (data, status, headers, config) {
+                    }).error(function (data, status) {
                         console.log('error status: ' + status);
                         if (typeof callback === 'function') {
                             callback(new Error('upload error status ' + status), data);

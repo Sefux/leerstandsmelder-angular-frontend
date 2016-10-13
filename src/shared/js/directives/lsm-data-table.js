@@ -44,7 +44,7 @@ var LsmDataTableDirective = function ($q, apiService, assetPath) {
                 scope.selected = [];
                 fetchData(null, null, order);
             };
-            scope.$watch("needsUpdate", function (newValue, oldValue) {
+            scope.$watch("needsUpdate", function (newValue) {
                 if (newValue === true) {
                     fetchData();
                 }

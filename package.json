@@ -31,6 +31,7 @@
     "gulp-cordova-version": "^0.3.0",
     "gulp-cordova-xml": "^1.0.1",
     "gulp-header": "^1.2.2",
+    "gulp-jshint": "^2.0.1",
     "gulp-less": "^3.0.2",
     "gulp-minify-css": "^1.2.4",
     "gulp-param": "^1.0.3",
@@ -40,6 +41,8 @@
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.7",
     "gulp-watch": "^4.2.4",
+    "jshint": "^2.9.3",
+    "jshint-stylish": "^2.2.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },

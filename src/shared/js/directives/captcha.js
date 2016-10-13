@@ -1,5 +1,7 @@
 'use strict';
 
+var config = require('../../../../config.json');
+
 var CaptchaDirective = function () {
     return {
         link: function (scope, elem, attrs) {

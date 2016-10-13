@@ -1,5 +1,3 @@
-/* global PruneCluster,PruneClusterForLeaflet,L */
-
 'use strict';
 
 var MapService = function ($http, assetPath) {
@@ -27,16 +25,15 @@ var MapService = function ($http, assetPath) {
             new L.tileLayer(config.mainMap.osmUrl, config.mainMap.tileLayer).addTo(map);
 
             // PREP CLUSTERS //
-            var pruneCluster = new PruneClusterForLeaflet();
+            // var pruneCluster = new PruneClusterForLeaflet();
             PruneCluster.Cluster.ENABLE_MARKERS_LIST = true;
 
             // CONTROLS //
             L.control.scale().addTo(map).setPosition('bottomleft');
-            /* -- turn off geosearch
-             if (addGeoSearch) {
+            if (addGeoSearch) {
              geoConf.provider = new L.GeoSearch.Provider.OpenStreetMap(config.geoSearch.provider);
              new L.Control.GeoSearch(geoConf).addTo(map);
-             }*/
+            }
 
             map.zoomControl.setPosition('topleft');
 
@@ -82,6 +79,8 @@ var MapService = function ($http, assetPath) {
             }).success(function (message) {
                 callback(null, message);
             }).error(function (data, status) {
+                // TODO: handle this properly
+                console.log(data, status);
                 callback(new Error('Could not get address:'));
             });
         },

@@ -19,3 +19,5 @@ var DeviceReadyService = function () {
         };
     };
 };
+
+module.exports = DeviceReadyService;

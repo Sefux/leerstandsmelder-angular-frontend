@@ -1,5 +1,3 @@
-/* global L,PruneClusterForLeaflet,PIECEMETA_API_HOST,console */
-
 'use strict';
 
 var angular = require('angular'),
@@ -139,7 +137,7 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                         }
                     });
                 } else {
-                    scope.$watch(attrs.locations, function (data) {
+                    scope.$watch(attrs.locations, function () {
                         if (scope.$eval(attrs.locations)) {
                             setupMap(true, false);
                             updatedMapData(scope.$eval(attrs.locations), function (err) {
@@ -154,12 +152,12 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                         }
                     });
                 }
-                scope.$watch(attrs.zoom, function (data) {
+                scope.$watch(attrs.zoom, function () {
                     if (map && scope.$eval(attrs.zoom)) {
                         map.setView(scope.center, scope.zoom || 16);
                     }
                 });
-                scope.$watch(attrs.center, function (data) {
+                scope.$watch(attrs.center, function () {
                     if (map && scope.$eval(attrs.center)) {
                         map.setView(scope.center, scope.zoom || 16);
                     }

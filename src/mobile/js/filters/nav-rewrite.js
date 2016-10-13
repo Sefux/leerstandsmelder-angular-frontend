@@ -1,10 +1,9 @@
-/* global console,angular,define */
+'use strict';
 
-define([], function () {
-    return angular.module('lsm.filters.navrewrite', [])
-        .filter('navRewrite', function () {
-            return function (link) {
-                return '#!' + link;
-            };
-        });
-});
+var NavRewriteFilter = function () {
+    return function (link) {
+        return '#!' + link;
+    };
+};
+
+module.exports = NavRewriteFilter;

@@ -18,6 +18,7 @@ var Promise = require('bluebird'),
     minify = require('gulp-minify-css'),
     sourcemaps = require('gulp-sourcemaps'),
     watch = require('gulp-watch'),
+    jshint = require('gulp-jshint'),
     clean = require('gulp-clean'),
     connect = require('gulp-connect'),
     gutil = require('gulp-util'),
@@ -299,6 +300,13 @@ gulp.task('serve:cordova', function () {
         root: 'dist/cordova',
         livereload: true
     });
+});
+
+gulp.task('lint', function() {
+    return gulp.src('./src/**/*.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('jshint-stylish'))
+        .pipe(jshint.reporter('fail'));
 });
 
 

@@ -1,5 +1,3 @@
-/* global angular,define,console */
-
 'use strict';
 
 var AuthService = function () {
