@@ -1,18 +1,26 @@
+/* esversion: 6 */
+
+'use strict';
+
 var Promise = require('bluebird'),
+    path = require('path'),
     gulp = require('gulp-param')(require('gulp'), process.argv),
+    browserify = require('browserify'),
+    buffer = require('vinyl-buffer'),
+    source = require('vinyl-source-stream'),
     fs = require('fs'),
     header = require('gulp-header'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
-    jade = require('gulp-jade'),
+    pug = require('gulp-pug'),
     less = require('gulp-less'),
     minify = require('gulp-minify-css'),
-    requirejsOptimize = require('gulp-requirejs-optimize'),
     sourcemaps = require('gulp-sourcemaps'),
     watch = require('gulp-watch'),
     clean = require('gulp-clean'),
     connect = require('gulp-connect'),
+    gutil = require('gulp-util'),
     pkg = require('./package.json'),
     config = require('./config.json');
 
@@ -34,10 +42,10 @@ function streamToPromise(stream) {
 function getPathsForEnv(env, pathAdd) {
     let dest = [];
     pathAdd = pathAdd ? pathAdd : '';
-    if (!env || env == 'web') {
+    if (!env || env === 'web') {
         dest.push('./dist/web/' + pathAdd);
     }
-    if (!env || env == 'mobile') {
+    if (!env || env === 'mobile') {
         dest.push('./dist/mobile/' + pathAdd);
     }
     return dest;
@@ -65,35 +73,16 @@ gulp.task('deps', [
 gulp.task('deps:js', function (env) {
     return Promise.map(getPathsForEnv(env, 'js/'), function (dest) {
         let stream = gulp.src([
-                'bower_components/ng-file-upload/ng-file-upload-shim.min.js',
-                'bower_components/angular/angular.min.js',
-                'bower_components/angular-animate/angular-animate.min.js',
-                'bower_components/angular-aria/angular-aria.min.js',
-                'bower_components/angular-busy/dist/angular-busy.min.js',
-                'bower_components/angular-cookies/angular-cookies.min.js',
-                'bower_components/angular-material/angular-material.min.js',
-                'bower_components/angular-messages/angular-messages.min.js',
-                'bower_components/angular-route/angular-route.min.js',
-                'bower_components/angular-sanitize/angular-sanitize.min.js',
-                'bower_components/angular-translate/angular-translate.min.js',
-                'bower_components/angular-material-data-table/dist/md-data-table.min.js',
                 'bower_components/showdown/compressed/Showdown.min.js',
-                'bower_components/angular-markdown-directive/markdown.js',
                 'bower_components/codemirror/lib/codemirror.js',
                 'bower_components/codemirror-spell-checker/dist/spell-checker.min.js',
                 'bower_components/simplemde/dist/simplemde.min.js',
-                'bower_components/async/dist/async.min.js',
                 'bower_components/bluebird/js/browser/bluebird.min.js',
-                'bower_components/ng-file-upload/ng-file-upload.min.js',
-                'bower_components/angular-pubsub/dist/angular-pubsub.js',
                 'bower_components/leaflet/dist/leaflet.js',
                 'bower_components/PruneCluster/dist/PruneCluster.js',
                 'bower_components/leaflet-minimap/dist/Control.MiniMap.min.js',
                 'bower_components/L.GeoSearch/src/js/l.control.geosearch.js',
                 'bower_components/L.GeoSearch/src/js/l.geosearch.provider.openstreetmap.js',
-                'bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js',
-                'bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js',
-                'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
                 'bower_components/airbrake-js-client/dist/client.min.js'
             ])
             .pipe(concat('leerstandsmelder-angular-dependencies.min.js'))
@@ -106,8 +95,8 @@ gulp.task('deps:js', function (env) {
 gulp.task('deps:css', function (env) {
     return Promise.map(getPathsForEnv(env, 'css/'), function (dest) {
         let stream = gulp.src([
-                'bower_components/angular-material/angular-material.min.css',
-                'bower_components/angular-busy/dist/angular-busy.min.css',
+                'node_modules/angular-material/angular-material.min.css',
+                'node_modules/angular-busy/dist/angular-busy.min.css',
                 'bower_components/font-awesome/css/font-awesome.min.css',
                 'bower_components/leaflet/dist/leaflet.css',
                 'bower_components/PruneCluster/dist/LeafletStyleSheet.css',
@@ -130,19 +119,27 @@ gulp.task('deps:css', function (env) {
 
 gulp.task('js', function (env) {
     let srcDest = [];
-    if (!env || env == 'web') {
-        srcDest.push({src: 'src/web/js/app.build.js', dest: 'dist/web/js/'});
+    if (!env || env === 'web') {
+        srcDest.push({src: 'src/web/js/app-web.js', dest: 'dist/web/js/'});
     }
-    if (!env || env == 'mobile') {
-        srcDest.push({src: 'src/mobile/js/main.js', dest: 'dist/mobile/js/'});
+    if (!env || env === 'mobile') {
+        srcDest.push({src: 'src/mobile/js/app-mobile.js', dest: 'dist/mobile/js/'});
     }
+
     return Promise.map(srcDest, (sd) => {
-        let stream = gulp.src(sd.src)
-            .pipe(sourcemaps.init())
-            .pipe(requirejsOptimize())
+        let b = browserify({
+            entries: sd.src,
+            debug: true
+        });
+        let stream = b.bundle()
+            .pipe(source(path.basename(sd.src)))
+            .pipe(buffer())
+            .pipe(sourcemaps.init({loadMaps: true}))
+            .on('error', gutil.log)
             .pipe(header(banner, {pkg: pkg}))
+            //.pipe(uglify())
             .pipe(rename('leerstandsmelder-angular-frontend.min.js'))
-            .pipe(sourcemaps.write());
+            .pipe(sourcemaps.write('./'));
         stream.pipe(gulp.dest(sd.dest));
         return streamToPromise(stream);
     });
@@ -174,14 +171,14 @@ function cssPipe(src) {
 gulp.task('css', function (env) {
     return Promise.resolve()
         .then(() => {
-            if (!env || env == 'web') {
+            if (!env || env === 'web') {
                 let stream = cssPipe(gulp.src('./src/web/less/web.less'));
                 stream.pipe(gulp.dest('./dist/web/css/'));
                 return streamToPromise(stream);
             }
         })
         .then(() => {
-            if (!env || env == 'mobile') {
+            if (!env || env === 'mobile') {
                 let stream = cssPipe(gulp.src('./src/mobile/less/mobile.less'));
                 stream.pipe(gulp.dest('./dist/mobile/css/'));
                 return streamToPromise(stream);
@@ -198,16 +195,16 @@ gulp.task('css', function (env) {
 gulp.task('html', function (env) {
     return Promise.resolve()
         .then(() => {
-            if (!env || env == 'web') {
-                let stream = gulp.src(['./src/shared/jade/**/*.jade', './src/web/jade/**/*.jade']);
-                stream.pipe(jade()).pipe(gulp.dest('./dist/web/'));
+            if (!env || env === 'web') {
+                let stream = gulp.src(['./src/shared/pug/**/*.pug', './src/web/pug/**/*.pug']);
+                stream.pipe(pug()).pipe(gulp.dest('./dist/web/'));
                 return streamToPromise(stream);
             }
         })
         .then(() => {
-            if (!env || env == 'mobile') {
-                let stream = gulp.src(['./src/shared/jade/**/*.jade', './src/mobile/jade/**/*.jade']);
-                stream.pipe(jade()).pipe(gulp.dest('./dist/mobile/'));
+            if (!env || env === 'mobile') {
+                let stream = gulp.src(['./src/shared/pug/**/*.pug', './src/mobile/pug/**/*.pug']);
+                stream.pipe(pug()).pipe(gulp.dest('./dist/mobile/'));
                 return streamToPromise(stream);
             }
         });
@@ -270,12 +267,12 @@ gulp.task('dev', [
 
 gulp.task('watch', function () {
     watch(['src/web/js/**/*.js', 'src/mobile/js/**/*.js', 'src/shared/js/**/*.js', 'configuration.js'], function () {
-        return streamToPromise(gulp.start('js:copy')).then(connect.reload);
+        return streamToPromise(gulp.start('js')).then(connect.reload);
     });
     watch(['src/web/less/**/*.less', 'src/mobile/less/**/*.less','src/shared/less/**/*.less'], function () {
         return streamToPromise(gulp.start('css')).then(connect.reload);
     });
-    watch(['src/web/jade/**/*.jade', 'src/mobile/jade/**/*.jade', 'src/shared/jade/**/*.jade'], function () {
+    watch(['src/web/pug/**/*.pug', 'src/mobile/pug/**/*.pug', 'src/shared/pug/**/*.pug'], function () {
         return streamToPromise(gulp.start('html')).then(connect.reload);
     });
     watch(['./assets/**/*', './src/shared/static/md/*.md'], function () {
@@ -286,7 +283,9 @@ gulp.task('watch', function () {
 gulp.task('serve', function (env) {
     return Promise.resolve()
         .then(() => {
-            if (env && env != 'web') return;
+            if (env && env !== 'web') {
+                return;
+            }
             return connect.server({
                 name: 'Web App',
                 port: 8080,
@@ -297,13 +296,15 @@ gulp.task('serve', function (env) {
                     return [
                         conn.static(opts.root),
                         conn.directory(opts.root),
-                        function (req, res) { fs.readFile("#{opts.root}/index.html", function (err, html) { res.end(html); }) }
+                        function (req, res) { fs.readFile("#{opts.root}/index.html", function (err, html) { res.end(html); }); }
                     ];
                 }
             });
         })
         .then(() => {
-            if (env && env != 'mobile') return;
+            if (env && env !== 'mobile') {
+                return;
+            }
             return connect.server({
                 name: 'Mobile App',
                 port: 7070,
@@ -343,8 +344,8 @@ gulp.task('release', [
 gulp.task('build', [
     'deps',
     'assets',
-    //'js',
-    'js:copy',
+    'js',
+    //'js:copy',
     'css',
     'html'
 ]);

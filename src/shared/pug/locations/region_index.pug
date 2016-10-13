@@ -1,0 +1,20 @@
+include ..//mixins/_style
+
+div(layout='column' layout-align="start center" flex="100")
+    +headline('{{ listHeadline }}')
+    md-table-container(layout-fill)
+        table(md-table)
+            thead(md-head)
+                tr(md-row ng-repeat="item in data")
+                    td(md-cell)
+                        span
+                            a(ng-if="item.region_uuid" ng-href="/{{ item.region ? item.region.slug : item.region_uuid }}/{{ item.slug || item.uuid }}") {{ item.title }}
+                            a(ng-if="!item.region_uuid" ng-href="/locations/index/{{ item.slug || item.uuid }}") {{ item.title }}
+                    td(md-cell ng-if="!item.region_uuid")
+                        span {{ item.locations }}
+                    td(md-cell ng-if="item.region_uuid")
+                        span {{ item.street }}, {{ item.postcode }} {{ item.city }}
+                    td(md-cell ng-if="item.region_uuid")
+                        span {{ item.buildingType | translate}}
+                    td(md-cell ng-if="item.region_uuid")
+                        span {{ item.owner | translate}}

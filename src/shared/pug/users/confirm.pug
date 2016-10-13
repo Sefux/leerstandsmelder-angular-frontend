@@ -1,0 +1,16 @@
+include ..//mixins/_form
+include ..//mixins/_buttons
+include ..//mixins/_layout
+include ..//mixins/_style
+
++layout('column','start center',true)
+    div
+    div
+    md-card(layout-margin layout-padding)
+        md-card-content
+            +layout('row','center center')
+                +content('column','start center')
+                    p(ng-if='success === true') {{ 'messages.users.confirmation_success' | translate }}
+                    p(ng-if='success === true')
+                        a(href='/') {{ 'actions.next' | translate }}
+                    p(ng-if='success === false') {{ 'errors.users.confirmation_failed' | translate }}

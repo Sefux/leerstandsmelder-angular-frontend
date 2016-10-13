@@ -1,0 +1,13 @@
+include ..//mixins/_form
+include ..//mixins/_buttons
+include ..//mixins/_layout
+include ..//mixins/_style
+
+div
+    div(layout="row" layout-xs="column" layout-wrap layout-fill)
+        div(flex="66")
+            .md-padding.type-post(btf-markdown='page.content')
+
+        div(flex="33" layout='column')
+            div(flex)
+                include ../partials/_recent_posts

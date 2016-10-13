@@ -1,0 +1,19 @@
+include ..//mixins/_form
+include ..//mixins/_buttons
+include ..//mixins/_layout
+include ..//mixins/_style
+
+div(layout="row" layout-wrap layout-fill)
+    div(flex layout='column')
+        .md-padding.type-post(flex)
+            +headline('posts.edit_post')
+            +input('text', 'post.title', 'posts.title', null, null)
+            textarea(markdown-editor ng-model='post.body')
+            div(layout="row" layout-padding)
+                div(flex layout-padding)
+                    div(layout-gt-xs="row")
+                        +input('checkbox','post.static','posts.static', null, null)
+            hr
+            div(layout="row")
+                span(flex)
+                +button("actions.submit",'submit()','md-raised',null,null)

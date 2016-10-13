@@ -1,0 +1,33 @@
+include ..//mixins/_form
+include ..//mixins/_buttons
+
+// todo: add contact button logic
+// todo: add flag this item for review
+
+p
+    strong {{ "comments.comment_plural" | translate }}
+div(ng-if="comments" ng-repeat="comment in comments")
+    p.smalltext
+        | {{ 'author.by' | translate }}&nbsp;
+        strong {{ comment.user.nickname || user.nickname }}&nbsp;
+        span {{ 'author.on' | translate }} {{ comment.created | date : 'dd.MM.yy HH:mm' }}
+    p(btf-markdown="comment.body")
+p(ng-if="comments.length === 0")
+    small {{ "comments.no_comments" | translate }}
+hr
+div(check-login flex="50")
+    p
+        strong {{ "comments.new_comment" | translate }}
+    div(ng-if="userSession")
+        +input('textarea','new_comment.body','comments.comment_text', null, null)
+        div(layout="row" layout-align="end top")
+            img.captcha(captcha reset='resetCaptcha()')
+            div(flex layout-padding)
+                +input('text','new_comment.captcha','captcha.enter_captcha', null, null)
+        hr
+        div(layout="row")
+            span(flex)
+            +button("actions.submit",'submitComment()','md-raised',null,null)
+    div(ng-if="!userSession")
+        p
+            a(href="/users/login") {{ 'comments.new_comment_login' | translate }}

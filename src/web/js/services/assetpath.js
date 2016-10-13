@@ -1,10 +1,7 @@
-/* global angular,define */
+'use strict';
 
-define([
-    'services_assetpath'
-], function () {
-    return angular.module('lsm.services.assetpath', []).
-    factory('assetPath', function () {
-        return '/';
-    });
-});
+var AssetPathService = function () {
+    return '/';
+};
+
+module.exports = AssetPathService;

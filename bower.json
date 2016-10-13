@@ -13,25 +13,10 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "^1.5.8",
-    "angular-route": "^1.5.8",
-    "angular-animate": "^1.5.8",
-    "angular-aria": "^1.5.8",
-    "angular-messages": "^1.5.8",
-    "angular-sanitize": "^1.5.8",
-    "angular-translate": "^2.12.1",
     "font-awesome": "fontawesome#^4.6.3",
-    "angular-material": "^1.1.1",
-    "async": "^2.0.1",
-    "ng-file-upload": "^12.2.12",
-    "angular-busy": "^4.1.3",
     "angular-locker": "^2.0.4",
-    "angular-pubsub": "^1.0.0",
     "leaflet": "^1.0.1",
     "bluebird": "^3.4.6",
-    "angular-translate-storage-cookie": "^2.12.1",
-    "angular-translate-storage-local": "^2.12.1",
-    "angular-translate-loader-static-files": "^2.12.1",
     "PruneCluster": "^1.1.0",
     "leaflet-minimap": "Norkart/Leaflet-MiniMap#^3.1.0",
     "L.GeoSearch": "smeijer/L.GeoSearch",
@@ -39,16 +24,13 @@
     "leerstandsmelder-apiclient": "^0.1.3",
     "angular-markdown-directive": "^0.3.1",
     "simplemde": "^1.10.2",
-    "angular-material-data-table": "^0.10.9",
     "airbrake-js-client": "airbrake-js#^0.5.9",
     "codemirror-spell-checker": "^1.1.2",
     "codemirror": "^5.19.0",
-    "requirejs-plugins": "^1.0.3"
+    "angular-busy": "^4.1.3"
   },
   "resolutions": {
-    "angular": "^1.5.0",
-    "angular-animate": "^1.5.0",
-    "angular-translate": "^2.12.1",
-    "angular-translate-storage-cookie": "~2.12.1"
+    "angular": "1.5.8",
+    "angular-animate": "^1.4.8"
   }
 }
