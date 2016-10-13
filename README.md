@@ -43,9 +43,38 @@ You can build both the browser and mobile user interfaces in ``dist/`` by runnin
 
 To build only one of both platforms run ``gulp build --env=web`` or ``gulp build --env=mobile``. Using ``gulp release`` does a clean build and is recommended before deployment.
 
-While working on the project you can run ``gulp dev`` to watch and automatically update your source files and starts serving the Web App at [``http://localhost:8080``](http://localhost:8080) and the Mobile App (not the Cordova version!) at [``http://localhost:7070``](http://localhost:7070). You can also use the ``--env=`` option to choose only one enviroment.
-
 The app packages for the mobile platform can be built running ``gulp build:android`` and ``gulp build:ios``. The Android build creates .apk files in ``dist/android/``, while the iOS build generates an XCode project in ``dist/cordova/plaforms/ios/``.
+
+### Development ###
+
+The source code is comprised of JavaScript (ES5), [LESS](http://lesscss.org/) to generate CSS and [Pug](https://pugjs.org) (formerly Jade) to generate HTML.
+
+Dependencies are managed using [NPM](https://www.npmjs.com/) and [Bower](https://bower.io/). With [Gulp](http://gulpjs.com/) as a build system, everything build-related happens in ``gulpfile.js``. This means building the source as well as copying static assets and dependencies to the ``dist`` directories.
+
+The project uses the following directory structure:
+
+```
+assets          # static assets
+src
+|   mobile      # mobile-specific sources
+|   |   js
+|   |   less
+|   |   pug
+|   shared      # sources shared between web and mobile
+|   |   js
+|   |   less
+|   |   pug
+|   web         # web-specific sources
+|   |   js
+|   |   less
+|   |   pug   
+```
+
+While working on the project you can run ``gulp dev`` to watch and automatically update your source files and start serving the Web App at [``http://localhost:8080``](http://localhost:8080) and the Mobile App (not the Cordova version!) at [``http://localhost:7070``](http://localhost:7070). You can also use the ``--env=`` option to choose only one enviroment.
+
+#### Code quality ####
+
+We use [JSHint](http://jshint.com/) as a linter to determine if the code is fit to be published. The continuous integration server at [Travis CI](https://travis-ci.org/) runs the ``gulp lint`` task along with ``gulp build`` to determine if the "build" succeeds. You can do so yourself to check if your code is OK. While you can always commit and push code not passing the linter, this will result in the "Build passing" badge switching to "failed". As of now we only lint the JavaScript source files and no Unit Tests are present. Click on the "Build" badge at the top of this page to see details about a build.
 
 ### Ripple Simulator ###
 
