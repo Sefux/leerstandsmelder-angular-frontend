@@ -20,6 +20,7 @@ var Promise = require('bluebird'),
     del = require('del'),
     connect = require('connect'),
     serveStatic = require('serve-static'),
+    disc = require('disc'),
     gutil = require('gulp-util'),
     pkg = require('./package.json'),
     config = require('./config.json');
@@ -126,8 +127,7 @@ gulp.task('js', function (env) {
 
     return Promise.map(filterSourceDestPairs(srcDest, env), function (sd) {
         var b = browserify({
-            entries: sd.src,
-            debug: true
+            entries: sd.src
         });
         var stream = b.bundle()
             .pipe(source(path.basename(sd.src)))
@@ -139,6 +139,24 @@ gulp.task('js', function (env) {
             .pipe(rename('leerstandsmelder-angular-frontend.min.js'))
             .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../'}));
         stream.pipe(gulp.dest(sd.dest));
+        return streamToPromise(stream);
+    });
+});
+
+gulp.task('js:analyze', function (env) {
+    var srcDest = [
+        {src: __dirname + '/src/web/js/app-web.js', dest: __dirname + '/dist/disc_web.html'},
+        {src: __dirname + '/src/mobile/js/app-mobile.js', dest:  __dirname + '/dist/disc_mobile.html'}
+    ];
+
+    return Promise.map(filterSourceDestPairs(srcDest, env), function (sd) {
+        var b = browserify(sd.src, {
+            entries: sd.src,
+            fullPaths: true
+        });
+        var stream = b.bundle()
+            .pipe(disc())
+            .pipe(fs.createWriteStream(sd.dest));
         return streamToPromise(stream);
     });
 });
