@@ -1,5 +1,3 @@
-/* esversion: 6 */
-
 'use strict';
 
 var Promise = require('bluebird'),
@@ -41,7 +39,7 @@ function streamToPromise(stream) {
 }
 
 function getPathsForEnv(env, pathAdd) {
-    let dest = [];
+    var dest = [];
     pathAdd = pathAdd ? pathAdd : '';
     if (!env || env === 'web') {
         dest.push('./dist/web/' + pathAdd);
@@ -75,7 +73,7 @@ gulp.task('deps', [
 
 gulp.task('deps:js', function (env) {
     return Promise.map(getPathsForEnv(env, 'js/'), function (dest) {
-        let stream = gulp.src([
+        var stream = gulp.src([
                 'bower_components/showdown/compressed/Showdown.min.js',
                 'bower_components/codemirror/lib/codemirror.js',
                 'bower_components/codemirror-spell-checker/dist/spell-checker.min.js',
@@ -102,17 +100,17 @@ gulp.task('deps:js', function (env) {
 // JS
 
 gulp.task('js', function (env) {
-    let srcDest = [
+    var srcDest = [
         {src: 'src/web/js/app-web.js', dest: 'dist/web/js/'},
         {src: 'src/mobile/js/app-mobile.js', dest: 'dist/mobile/js/'}
     ];
 
-    return Promise.map(filterSourceDestPairs(srcDest, env), (sd) => {
-        let b = browserify({
+    return Promise.map(filterSourceDestPairs(srcDest, env), function (sd) {
+        var b = browserify({
             entries: sd.src,
             debug: true
         });
-        let stream = b.bundle()
+        var stream = b.bundle()
             .pipe(source(path.basename(sd.src)))
             .pipe(buffer())
             .pipe(sourcemaps.init({loadMaps: true}))
@@ -133,7 +131,7 @@ gulp.task('js', function (env) {
 // CSS
 
 function cssPipe(sd) {
-    let stream = gulp.src(sd.src)
+    var stream = gulp.src(sd.src)
         .pipe(less())
         .pipe(minify())
         .pipe(header(banner, {pkg: pkg}))
@@ -150,7 +148,7 @@ gulp.task('css', [
 ]);
 
 gulp.task('css:main', function (env) {
-    let srcDest = [
+    var srcDest = [
         {src: './src/web/less/web.less', dest: './dist/web/css/'},
         {src: './src/mobile/less/mobile.less', dest: './dist/mobile/css/'}
     ];
@@ -159,7 +157,7 @@ gulp.task('css:main', function (env) {
 });
 
 gulp.task('css:deps', function (env) {
-    let srcDest = [
+    var srcDest = [
         {src: './src/shared/less/deps.less', dest: './dist/web/css/'},
         {src: './src/shared/less/deps.less', dest: './dist/mobile/css/'}
     ];
@@ -175,16 +173,16 @@ gulp.task('css:deps', function (env) {
 
 gulp.task('html', function (env) {
     return Promise.resolve()
-        .then(() => {
+        .then(function () {
             if (!env || env === 'web') {
-                let stream = gulp.src(['./src/shared/pug/**/*.pug', './src/web/pug/**/*.pug']);
+                var stream = gulp.src(['./src/shared/pug/**/*.pug', './src/web/pug/**/*.pug']);
                 stream.pipe(pug()).pipe(gulp.dest('./dist/web/'));
                 return streamToPromise(stream);
             }
         })
-        .then(() => {
+        .then(function () {
             if (!env || env === 'mobile') {
-                let stream = gulp.src(['./src/shared/pug/**/*.pug', './src/mobile/pug/**/*.pug']);
+                var stream = gulp.src(['./src/shared/pug/**/*.pug', './src/mobile/pug/**/*.pug']);
                 stream.pipe(pug()).pipe(gulp.dest('./dist/mobile/'));
                 return streamToPromise(stream);
             }
@@ -201,7 +199,7 @@ gulp.task('assets', function (env) {
     return Promise.map(getPathsForEnv(env), function (destBase) {
         return Promise.resolve()
             .then(function () {
-                let stream = gulp.src([
+                var stream = gulp.src([
                     './bower_components/PruneCluster/dist/PruneCluster.js.map',
                     './bower_components/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.js'
                 ]);
@@ -209,7 +207,7 @@ gulp.task('assets', function (env) {
                 return streamToPromise(stream);
             })
             .then(function () {
-                let stream = gulp.src([
+                var stream = gulp.src([
                     './assets/images/*',
                     './bower_components/leaflet/dist/images/*',
                     './bower_components/leaflet-minimap/dist/images/*'
@@ -218,7 +216,7 @@ gulp.task('assets', function (env) {
                 return streamToPromise(stream);
             })
             .then(function () {
-                let stream = gulp.src([
+                var stream = gulp.src([
                     './bower_components/font-awesome/fonts/*',
                     './assets/fonts/*'
                 ]);
@@ -226,7 +224,7 @@ gulp.task('assets', function (env) {
                 return streamToPromise(stream);
             })
             .then(function () {
-                let stream = gulp.src(['./src/shared/static/md/*.md']);
+                var stream = gulp.src(['./src/shared/static/md/*.md']);
                 stream.pipe(gulp.dest(destBase + 'static/'));
                 return streamToPromise(stream);
             });
@@ -261,7 +259,7 @@ gulp.task('watch', function () {
 
 gulp.task('serve', function (env) {
     return Promise.resolve()
-        .then(() => {
+        .then(function () {
             if (env && env !== 'web') {
                 return;
             }
@@ -280,7 +278,7 @@ gulp.task('serve', function (env) {
                 }
             });
         })
-        .then(() => {
+        .then(function () {
             if (env && env !== 'mobile') {
                 return;
             }
@@ -309,6 +307,11 @@ gulp.task('lint', function() {
         .pipe(jshint.reporter('fail'));
 });
 
+gulp.task('test', [
+    'build',
+    'lint'
+]);
+
 
 
 //
@@ -316,7 +319,7 @@ gulp.task('lint', function() {
 // Build
 
 gulp.task('clean', function () {
-    let stream = gulp.src(['dist'], {read: false});
+    var stream = gulp.src(['dist'], {read: false});
     stream.pipe(clean());
     return streamToPromise(stream);
 });
@@ -338,17 +341,17 @@ gulp.task('build', [
 // FIXME: build only works when cordova dir is removed, also runs through entire build for each update
 
 gulp.task('build:android', function () {
-    const create = require('gulp-cordova-create'),
+    var create = require('gulp-cordova-create'),
         access = require('gulp-cordova-access'),
         pref = require('gulp-cordova-preference'),
-        icon = require('gulp-cordova-icon'),
+        // icon = require('gulp-cordova-icon'),
         version = require('gulp-cordova-version'),
         author = require('gulp-cordova-author'),
         description = require('gulp-cordova-description'),
         plugin = require('gulp-cordova-plugin'),
-        xml = require('gulp-cordova-xml'),
+        // xml = require('gulp-cordova-xml'),
         android = require('gulp-cordova-build-android');
-    let stream = gulp.src('dist/mobile').pipe(create({
+    var stream = gulp.src('dist/mobile').pipe(create({
             dir: 'dist/cordova',
             id: config.android.app_id,
             name: config.android.app_name
@@ -368,11 +371,11 @@ gulp.task('build:android', function () {
 });
 
 gulp.task('build:ios', function () {
-    const create = require('gulp-cordova-create'),
+    var create = require('gulp-cordova-create'),
         version = require('gulp-cordova-version'),
         plugin = require('gulp-cordova-plugin'),
         ios = require('gulp-cordova-build-ios');
-    let stream = gulp.src('dist/mobile').pipe(create({
+    var stream = gulp.src('dist/mobile').pipe(create({
             dir: 'dist/cordova',
             id: config.ios.app_id,
             name: config.ios.app_name
