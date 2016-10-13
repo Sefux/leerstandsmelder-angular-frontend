@@ -13,7 +13,7 @@ var Promise = require('bluebird'),
     rename = require('gulp-rename'),
     pug = require('gulp-pug'),
     less = require('gulp-less'),
-    minify = require('gulp-minify-css'),
+    cleanCSS = require('gulp-clean-css'),
     sourcemaps = require('gulp-sourcemaps'),
     watch = require('gulp-watch'),
     jshint = require('gulp-jshint'),
@@ -133,7 +133,7 @@ gulp.task('js', function (env) {
 function cssPipe(sd) {
     var stream = gulp.src(sd.src)
         .pipe(less())
-        .pipe(minify())
+        .pipe(cleanCSS())
         .pipe(header(banner, {pkg: pkg}))
         .pipe(rename({
             basename: 'leerstandsmelder-frontend-' + path.basename(sd.src, '.less')
