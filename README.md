@@ -4,6 +4,8 @@
 
 The UI package for the [Leerstandsmelder](http://lm.htmhell.de) service based on [AngularJS](https://angularjs.org/) and [Angular Material](https://material.angularjs.org) for the browser and mobile devices.
 
+You can find the accompanying API server and client in the [Leerstandsmelder GitHub repositories](https://github.com/Leerstandsmelder).
+
 ## Browser UI ##
 
 The app consists of static code only so you can just clone the repo, build the app (see below), set the ``dist/web`` folder as the document root and it should work.

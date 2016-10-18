@@ -9,7 +9,6 @@ var Promise = require('bluebird'),
     fs = require('fs'),
     header = require('gulp-header'),
     concat = require('gulp-concat'),
-    uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
     pug = require('gulp-pug'),
     less = require('gulp-less'),
@@ -21,6 +20,7 @@ var Promise = require('bluebird'),
     connect = require('connect'),
     serveStatic = require('serve-static'),
     disc = require('disc'),
+    jsdoc = require('gulp-jsdoc3'),
     gutil = require('gulp-util'),
     pkg = require('./package.json'),
     config = require('./config.json');
@@ -127,7 +127,8 @@ gulp.task('js', function (env) {
 
     return Promise.map(filterSourceDestPairs(srcDest, env), function (sd) {
         var b = browserify({
-            entries: sd.src
+            entries: sd.src,
+            debug: true
         });
         var stream = b.bundle()
             .pipe(source(path.basename(sd.src)))
@@ -135,7 +136,7 @@ gulp.task('js', function (env) {
             .pipe(sourcemaps.init({loadMaps: true}))
             .on('error', gutil.log)
             .pipe(header(banner, {pkg: pkg}))
-            .pipe(uglify())
+            //.pipe(uglify())
             .pipe(rename('leerstandsmelder-angular-frontend.min.js'))
             .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../'}));
         stream.pipe(gulp.dest(sd.dest));
@@ -189,7 +190,6 @@ gulp.task('css:main', function (env) {
         {src: './src/web/less/web.less', dest: './dist/web/css/'},
         {src: './src/mobile/less/mobile.less', dest: './dist/mobile/css/'}
     ];
-
     return Promise.map(filterSourceDestPairs(srcDest, env), cssPipe);
 });
 
@@ -198,7 +198,6 @@ gulp.task('css:deps', function (env) {
         {src: './src/shared/less/deps.less', dest: './dist/web/css/'},
         {src: './src/shared/less/deps.less', dest: './dist/mobile/css/'}
     ];
-
     return Promise.map(filterSourceDestPairs(srcDest, env), cssPipe);
 });
 
@@ -304,7 +303,7 @@ gulp.task('serve', function (env) {
                 name: 'Web App',
                 livereload: 35729,
                 root: 'dist/web',
-                port: 8080
+                port: 7888
             });
         })
         .then(function () {
@@ -411,4 +410,9 @@ gulp.task('build:ios', function () {
         .pipe(plugin(config.ios.plugins));
     stream.pipe(ios());
     return streamToPromise(stream);
+});
+
+gulp.task('doc', function () {
+    return gulp.src(['README.md', './src/**/*.js'], {read: false})
+        .pipe(jsdoc());
 });

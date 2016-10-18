@@ -4,6 +4,7 @@
 .cordova
 node_modules/
 bower_components/
+docs/
 configuration.js
 config.json
 dist/

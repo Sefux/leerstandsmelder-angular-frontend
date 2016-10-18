@@ -34,6 +34,7 @@
     "gulp-cordova-version": "^0.3.0",
     "gulp-cordova-xml": "^1.0.1",
     "gulp-header": "^1.2.2",
+    "gulp-jsdoc3": "^1.0.0",
     "gulp-jshint": "^2.0.1",
     "gulp-less": "^3.0.2",
     "gulp-param": "^1.0.3",

@@ -55,7 +55,7 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                             var popup = "";
                             popup += '<div>';
                             if (data.thumb_url) {
-                                popup += '<img class="popup_thumb" src="'+data.thumb_url+'" width="80px" height="80px" style="width:80px;height:80px;padding-right:1em" flex/>';
+                                popup += '<img class="popup_thumb" src="'+data.thumb_square_url+'" width="80px" height="80px" style="width:80px;height:80px;padding-right:1em" flex/>';
                             }
                             popup += '<div>';
                             popup += "<strong>" + data.title + "</strong><br />";
