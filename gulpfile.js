@@ -22,6 +22,7 @@ var Promise = require('bluebird'),
     disc = require('disc'),
     jsdoc = require('gulp-jsdoc3'),
     gutil = require('gulp-util'),
+    open = require('gulp-open'),
     pkg = require('./package.json'),
     config = require('./config.json');
 
@@ -64,21 +65,23 @@ function filterSourceDestPairs(sd, env) {
 }
 
 function serveApp(config) {
-    var app = connect();
-    if (config.livereload) {
-        app.use(require('connect-livereload')({port: config.livereload}));
-    }
-    app.use(serveStatic(config.root, {'index': ['index.html']}));
-    app.use(function(req, res){
-        fs.readFile(config.root + '/index.html', function (err, data) {
-            if (err) {
-                throw err;
-            }
-            res.end(data);
+    return Promise.promisify(function (cb) {
+        var app = connect();
+        if (config.livereload) {
+            app.use(require('connect-livereload')({port: config.livereload}));
+        }
+        app.use(serveStatic(config.root, {'index': ['index.html']}));
+        app.use(function(req, res){
+            fs.readFile(config.root + '/index.html', function (err, data) {
+                if (err) {
+                    throw err;
+                }
+                res.end(data);
+            });
         });
-    });
-    app.listen(config.port);
-    console.log(config.name + ' listening on port', config.port);
+        console.log(config.name + ' listening on port', config.port);
+        app.listen(config.port, cb);
+    })();
 }
 
 
@@ -410,6 +413,24 @@ gulp.task('build:ios', function () {
         .pipe(plugin(config.ios.plugins));
     stream.pipe(ios());
     return streamToPromise(stream);
+});
+
+
+
+//
+//
+// Docs
+
+gulp.task('apidocs', function () {
+    return serveApp({
+            name: 'Swagger API Docs',
+            root: 'bower_components/swagger-ui/dist',
+            port: 9292
+        })
+        .then(function () {
+            return gulp.src(__filename)
+                .pipe(open({uri: 'http://localhost:9292/?url=' + encodeURIComponent(config.global.api_url + '/api-docs')}));
+        });
 });
 
 gulp.task('doc', function () {
