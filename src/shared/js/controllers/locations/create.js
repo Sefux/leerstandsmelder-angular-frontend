@@ -15,6 +15,10 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
     };
     $scope._sys = locationFormDefaults;
 
+    /*
+        Update the map to a new geolocation
+        Also retrieves the new address
+    */
     $scope.updateLocation = function (latlon) {
         $scope.marker = latlon;
 
@@ -36,6 +40,10 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
         $scope.showLatLng = false;
     };
 
+    /*
+        Watches the address fields for updates
+        Updates the map on address changes
+     */
     $scope.$watchGroup(['location.street', 'location.city', 'location.postcode'], function (newValues, oldValues) {
         var changed = false,
             keys = Object.keys(newValues);
@@ -73,6 +81,9 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
         }
     });
 
+    /*
+        Submit the new location
+     */
     $scope.submit = function () {
         var deferred = $q.defer(),
             payload = $scope.location;
@@ -81,6 +92,10 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
         var isUpdate = false;
         async.waterfall([
             function (cb) {
+                /*
+                    Fetch the nearest region
+                 */
+                // TODO: this must be limited through region admins!
                 apiService('regions?lat=' + $scope.marker.lat + '&lon=' + $scope.marker.lng).actions.all(cb);
             },
             function (region, cb) {
@@ -88,6 +103,9 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                     if (!payload.hasOwnProperty('region_uuid')) {
                         payload.region_uuid = region[0].uuid;
                     }
+                    /*
+                        Are we updating or creating?
+                     */
                     if (payload.uuid) {
                         isUpdate = true;
                         apiService('locations').actions.update(payload.uuid, payload, cb);
@@ -103,6 +121,9 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                     $scope.location.uuid = location.uuid;
                 }
                 $scope.location.slug = location.slug;
+                /*
+                    Upload the associated photos
+                 */
                 if ($scope.files && $scope.files.length) {
                     async.mapSeries($scope.files, function (file, cb) {
                         apiService('photos').actions.upload({
@@ -125,6 +146,9 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
         });
     };
 
+    /*
+        Load an existing location to update
+     */
     if ($routeParams.uuid) {
         var deferred = $q.defer();
         $scope.promise = deferred.promise;
