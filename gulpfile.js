@@ -421,18 +421,6 @@ gulp.task('build:ios', function () {
 //
 // Docs
 
-gulp.task('apidocs', function () {
-    return serveApp({
-            name: 'Swagger API Docs',
-            root: 'bower_components/swagger-ui/dist',
-            port: 9292
-        })
-        .then(function () {
-            return gulp.src(__filename)
-                .pipe(open({uri: 'http://localhost:9292/?url=' + encodeURIComponent(config.global.api_url + '/api-docs')}));
-        });
-});
-
 gulp.task('doc', function () {
     return gulp.src(['README.md', './src/**/*.js'], {read: false})
         .pipe(jsdoc());
