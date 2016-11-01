@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
-var static = require('node-static'),
-    fserver = new static.Server(__dirname + '/../dist/web/'),
+'use strict';
+
+var nodeStatic = require('node-static'),
+    fserver = new nodeStatic.Server(__dirname + '/../dist/web/'),
     port = 9090;
 
 console.log('Starting static Leerstandsmelder UI server on port ' + port);

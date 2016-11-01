@@ -10,6 +10,9 @@ app.controller('Locations.RegionList', require('./locations/region-list'));
 app.controller('Locations.Show', require('./locations/show'));
 app.controller('Locations.User', require('./locations/user'));
 
+app.controller('Messages.List', require('./messages/list'));
+app.controller('Messages.Create', require('./messages/create'));
+
 app.controller('Posts.List', require('./posts/list'));
 app.controller('Posts.ListStatic', require('./posts/list-static'));
 app.controller('Posts.Show', require('./posts/show'));

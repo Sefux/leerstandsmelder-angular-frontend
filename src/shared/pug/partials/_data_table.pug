@@ -1,20 +1,7 @@
-md-table-container(layout-fill)
-    table(md-table md-row-select="settings.row_select" multiple="settings.multiple" ng-model="selected" md-progress="promise")
-        thead(md-head md-order="query.sort" md-on-reorder="onSort")
-            tr(md-row)
-                th(md-column md-order-by="{{ field.sort !== false ? field.property : null }}" ng-repeat="field in fields")
-                    span {{ field.label | translate }}
-                th(md-column ng-if="actions")
-            tr(md-row md-select="item" md-select-id="item.uuid" md-auto-select="false" ng-repeat="item in data")
-                td(md-cell ng-repeat="field in fields")
-                    span(ng-if="field.date") {{ getDataForProperty(field.property, item) | date : 'dd.MM.yy HH:mm' }}
-                    span(ng-if="!field.date") {{ getDataForProperty(field.property, item) }}
-                td(md-cell ng-if="actions")
-                    md-button.md-button.md-icon-button(ng-repeat='action in actions'
-                            ng-click='action.clickHandler(item)' aria-label='{{ action.label | translate }}')
-                        md-icon
-                            span.fa(style='font-size:1.6em' class='{{ action.css_class }}')
-
-    md-table-pagination(ng-if="settings.pagination" md-limit="settings.pagesize" mdBoundaryLinks="true"
-        md-page-select="true" md-limit-options="settings.limit_options"
-        md-page="query.page" md-total="{{query.total}}" md-on-paginate="onPaginate")
+mdt-table(selectable-rows='true', table-card='{title: Leerstandsmelder, actionIcons: true}'
+        paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
+        mdt-row-paginator="onPaginate(query.page, settings.pagesize)"
+        mdt-row-paginator-error-message="Error loading data." mdt-row="rowSetup")
+    mdt-header-row
+        mdt-column(ng-repeat="field in fields" align-rule='left')
+            span {{ field.label | translate }}

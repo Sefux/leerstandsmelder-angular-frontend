@@ -31,14 +31,15 @@ var LsmDataTableDirective = function ($q, apiService, assetPath) {
                     if (!err && results) {
                         scope.data = results.results || results;
                         scope.query.total = results.total;
-                        deferred.resolve();
+                        deferred.resolve(scope.data);
                     } else {
-                        deferred.reject();
+                        deferred.reject(err);
                     }
                 });
+                return deferred.promise;
             }
             scope.onPaginate = function (page, limit) {
-                fetchData(page, limit, null);
+                return fetchData(page, limit, null);
             };
             scope.onSort = function (order) {
                 scope.selected = [];

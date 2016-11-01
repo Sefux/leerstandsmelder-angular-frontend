@@ -1,6 +1,14 @@
 'use strict';
 
 var MessagesListController = function ($scope, apiService, responseHandler, $q) {
+    $scope.rowSetup = {
+        'table-row-id-key': 'fields.uuid',
+        'column-keys': [
+            'fields.user.nickname',
+            'fields.body',
+            'fields.created'
+        ],
+    };
     $scope.fields = [
         {
             label: 'messages.message',

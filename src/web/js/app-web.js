@@ -14,7 +14,6 @@ var lang_de = require('../../shared/js/lang/de'),
         require('ng-file-upload'),
         require('angular-busy2'),
         require('angular-material'),
-        // TODO: this is a new, more recent repo. check if this still works
         require('md-data-table'),
         // FIXME: this is breaking the app...
         //require('angular-markdown-directive'),
