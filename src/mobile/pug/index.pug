@@ -1,14 +1,14 @@
 doctype html
-html(lang='en', ng-app='leerstandsmelder')
+html(lang='en' ng-app='leerstandsmelder' ng-csp)
     head
         meta(http-equiv='X-UA-Compatible' content='IE=edge')
         meta(http-equiv='Content-Type' content='text/html; charset=utf-8')
         meta(name='format-detection' content='telephone=no')
         meta(name='msapplication-tap-highlight' content='no')
         meta(name='viewport' content='user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width')
-        meta(http-equiv='Content-Security-Policy' content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *")
-        //meta(name="fragment" content="!")
-        //base(href='/android_asset/www/')
+        // meta(http-equiv='Content-Security-Policy' content="default-src *; style-src 'self' 'unsafe-inline'; script-src http://* 'self' 'unsafe-inline' 'unsafe-eval'")
+        // meta(name="fragment" content="!")
+        // base(href='/')
 
         title Leerstandsmelder - Für mehr Transparenz und neue Möglichkeitsräume in der Stadt
         meta(name='description' content='Meldet Leerstände! Mit dem Leerstandsmelder können wir gemeinsam Informationen austauschen. Leerstände können auf der Leerstandskarte von allen NutzerInnen direkt und unkompliziert eingetragen werden.')

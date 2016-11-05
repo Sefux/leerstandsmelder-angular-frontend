@@ -81,7 +81,7 @@ app.config([
         $animateProvider.classNameFilter(/animate-/);
 
         $locationProvider.html5Mode({
-            enabled: false
+            enabled: true
         });
 
         for (var i in routes) {
@@ -93,5 +93,5 @@ app.config([
             }
         }
 
-        $routeProvider.otherwise({redirectTo: '#/'});
+        $routeProvider.otherwise({redirectTo: '/'});
     }]);

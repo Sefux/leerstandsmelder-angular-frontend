@@ -2,7 +2,7 @@
 
 var NavRewriteFilter = function () {
     return function (link) {
-        return '#!' + link;
+        return '#' + link;
     };
 };
 
