@@ -1,6 +1,15 @@
 'use strict';
 
 var PostsListController = function ($scope, $q, apiService, responseHandler, $location) {
+    $scope.rowSetup = {
+        'table-row-id-key': 'uuid',
+        'column-keys': [
+            'title',
+            'created',
+            'updated',
+            'edit'
+        ],
+    };
     $scope.fields = [
         {
             label: 'posts.title',
@@ -15,6 +24,10 @@ var PostsListController = function ($scope, $q, apiService, responseHandler, $lo
             label: 'author.updated',
             property: 'updated',
             date: true
+        },
+        {
+            label: 'edit',
+            property: 'edit'
         }
     ];
     $scope.settings = {
@@ -25,35 +38,9 @@ var PostsListController = function ($scope, $q, apiService, responseHandler, $lo
         limit_options: [25, 50, 100],
         resource: 'posts'
     };
-    $scope.actions = [
-        {
-            label: 'actions.edit',
-            css_class: 'fa-pencil-square-o',
-            clickHandler: function (item) {
-                $location.path('/admin/posts/' + item.uuid);
-            }
-        },
-        {
-            label: 'actions.delete',
-            css_class: 'fa-trash-o',
-            clickHandler: function (item) {
-                var deferred = $q.defer();
-                $scope.promise = deferred.promise;
-                apiService('posts').remove(item.uuid, function (err) {
-                    if (responseHandler.handleResponse(err, deferred)) {
-                        $location.path('/admin/posts');
-                    }
-                });
-            }
-        },
-        {
-            label: 'actions.show',
-            css_class: 'fa-eye',
-            clickHandler: function (item) {
-                $location.path('/posts/' + (item.slug || item.uuid));
-            }
-        }
-    ];
+    $scope.clickHandler = function (uuid) {
+        $location.path('/admin/posts/' + uuid);
+    };
 };
 
 PostsListController.$inject = ['$scope', '$q', 'apiService', 'responseHandler', '$location'];

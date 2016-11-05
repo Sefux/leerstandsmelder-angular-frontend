@@ -1,5 +1,5 @@
 include ..//mixins/_style
 
 div(layout='column' layout-align="start center" flex="100" layout-fill)
-    +headline('regions.region_plural {{ listHeadline | translate }')
+    +headline('regions.region_plural {{ listHeadline | translate }}')
     div(lsm-data-table data-fields='fields' data-settings='settings' data-actions='actions' data-row-setup='rowSetup')

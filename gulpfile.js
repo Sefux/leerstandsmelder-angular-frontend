@@ -97,7 +97,7 @@ gulp.task('deps', [
 gulp.task('deps:js', function (env) {
     return Promise.map(getPathsForEnv(env, 'js/'), function (dest) {
         var stream = gulp.src([
-                'node_modules/lodash/dist/lodash.min.js',
+                'bower_components/lodash/lodash.min.js',
                 'node_modules/jquery/dist/jquery.min.js',
                 'bower_components/showdown/compressed/Showdown.min.js',
                 'bower_components/codemirror/lib/codemirror.js',

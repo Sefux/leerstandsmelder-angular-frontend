@@ -25,13 +25,16 @@ var LsmDataTableDirective = function ($q, apiService, assetPath) {
             function fetchData(page, pagesize, sort) {
                 var deferred = $q.defer();
                 scope.promise = deferred.promise;
-                var resource = scope.settings.resource + '?pagesize=' + (pagesize || scope.settings.pagesize) +
+                var resource = scope.settings.resource + '?limit=' + (pagesize || scope.settings.pagesize) +
                     '&page=' + ((page || scope.query.page) - 1) + '&sort=' + (sort || scope.query.sort);
                 apiService(resource).actions.all(function (err, results) {
                     if (!err && results) {
                         scope.data = results.results || results;
                         scope.query.total = results.total;
-                        deferred.resolve(scope.data);
+                        deferred.resolve({
+                            results: scope.data,
+                            totalResultCount: results.total || scope.data.length
+                        });
                     } else {
                         deferred.reject(err);
                     }
@@ -50,7 +53,11 @@ var LsmDataTableDirective = function ($q, apiService, assetPath) {
                     fetchData();
                 }
             });
-            fetchData();
+            scope.itemClick = function (row) {
+                if (typeof scope.clickHandler === 'function') {
+                    scope.clickHandler(row.rowId);
+                }
+            };
         }
     };
 };
