@@ -26,7 +26,7 @@ var PostsListController = function ($scope, $q, apiService, responseHandler, $lo
             date: true
         },
         {
-            label: 'edit',
+            label: '',
             property: 'edit'
         }
     ];

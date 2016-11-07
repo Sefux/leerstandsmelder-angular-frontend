@@ -7,9 +7,18 @@ var PostsListStaticController = function ($scope, $q, apiService, responseHandle
             property: 'title'
         },
         {
+            label: 'author.created',
+            property: 'created',
+            date: true
+        },
+        {
             label: 'author.updated',
             property: 'updated',
             date: true
+        },
+        {
+            label: '',
+            property: 'edit'
         }
     ];
     $scope.settings = {
@@ -20,35 +29,18 @@ var PostsListStaticController = function ($scope, $q, apiService, responseHandle
         limit_options: [25, 50, 100],
         resource: 'posts/static'
     };
-    $scope.actions = [
-        {
-            label: 'actions.edit',
-            css_class: 'fa-pencil-square-o',
-            clickHandler: function (item) {
-                $location.path('/admin/posts/' + item.uuid);
-            }
-        },
-        {
-            label: 'actions.delete',
-            css_class: 'fa-trash-o',
-            clickHandler: function (item) {
-                var deferred = $q.defer();
-                $scope.promise = deferred.promise;
-                apiService('posts').remove(item.uuid, function (err) {
-                    if (responseHandler.handleResponse(err, deferred)) {
-                        $location.path('/admin/posts/static');
-                    }
-                });
-            }
-        },
-        {
-            label: 'actions.show',
-            css_class: 'fa-eye',
-            clickHandler: function (item) {
-                $location.path('/posts/' + (item.slug || item.uuid));
-            }
-        }
-    ];
+    $scope.rowSetup = {
+        'table-row-id-key': 'uuid',
+        'column-keys': [
+            'title',
+            'created',
+            'updated',
+            'edit'
+        ],
+    };
+    $scope.clickHandler = function (uuid) {
+        $location.path('/admin/posts/static/' + uuid);
+    };
 };
 
 PostsListStaticController.$inject = ['$scope', '$q', 'apiService', 'responseHandler', '$location'];
