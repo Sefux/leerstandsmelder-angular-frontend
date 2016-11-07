@@ -23,10 +23,11 @@ var LsmDataTableDirective = function ($q, apiService, assetPath) {
                 return found ? result : null;
             };
             function fetchData(page, pagesize, sort) {
-                var deferred = $q.defer();
+                var deferred = $q.defer(),
+                    pageSize = pagesize || scope.settings.pagesize;
                 scope.promise = deferred.promise;
-                var resource = scope.settings.resource + '?limit=' + (pagesize || scope.settings.pagesize) +
-                    '&page=' + ((page || scope.query.page) - 1) + '&sort=' + (sort || scope.query.sort);
+                var resource = scope.settings.resource + '?limit=' + pageSize +
+                    '&skip=' + (((page || scope.query.page) - 1) * pageSize) + '&sort=' + (sort || scope.query.sort);
                 apiService(resource).actions.all(function (err, results) {
                     if (!err && results) {
                         scope.data = results.results || results;
