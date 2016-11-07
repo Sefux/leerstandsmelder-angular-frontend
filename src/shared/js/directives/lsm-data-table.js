@@ -1,10 +1,16 @@
 'use strict';
 
-var LsmDataTableDirective = function ($q, apiService, assetPath) {
+var LsmDataTableDirective = function ($q, apiService, assetPath, $translate) {
     return {
         restrict: 'A',
         templateUrl: assetPath + 'partials/_data_table.html',
         link: function (scope) {
+            $translate('table.rowsPerPage').then(function(rowsPerPage) {
+                scope.rowsPerPage = rowsPerPage;
+
+            }, function(translationId) {
+                scope.rowsPerPage = translationId;
+            });
             scope.selected = [];
             scope.query = {
                 sort: scope.settings.sort ? scope.settings.sort : 'title',
@@ -25,6 +31,7 @@ var LsmDataTableDirective = function ($q, apiService, assetPath) {
             function fetchData(page, pagesize, sort) {
                 var deferred = $q.defer();
                 scope.promise = deferred.promise;
+                //TODO: implement sort in api server
                 var resource = scope.settings.resource + '?limit=' + (pagesize || scope.settings.pagesize) +
                     '&page=' + ((page || scope.query.page) - 1) + '&sort=' + (sort || scope.query.sort);
                 apiService(resource).actions.all(function (err, results) {
@@ -41,8 +48,20 @@ var LsmDataTableDirective = function ($q, apiService, assetPath) {
                 });
                 return deferred.promise;
             }
-            scope.onPaginate = function (page, limit) {
-                return fetchData(page, limit, null);
+            scope.onPaginate = function (page, limit, options) {
+                var columnSort = options.columnSort || null;
+                var sort = null;
+                var direction = null;
+                if(columnSort) {
+                    angular.forEach(columnSort, function(key,value) {
+                        if(key.sort != false){
+                            sort = scope.fields[value].property;
+                            direction = key.sort;
+                        }
+
+                    });
+                }
+                return fetchData(page, limit, sort);
             };
             scope.onSort = function (order) {
                 scope.selected = [];
@@ -58,10 +77,15 @@ var LsmDataTableDirective = function ($q, apiService, assetPath) {
                     scope.clickHandler(row.rowId);
                 }
             };
+            scope.deleteClick = function (row) {
+                if (typeof scope.clickDeleteHandler === 'function') {
+                    scope.clickDeleteHandler(row.rowId);
+                }
+            };
         }
     };
 };
 
-LsmDataTableDirective.$inject = ['$q', 'apiService', 'assetPath'];
+LsmDataTableDirective.$inject = ['$q', 'apiService', 'assetPath', '$translate'];
 
 module.exports = LsmDataTableDirective;
