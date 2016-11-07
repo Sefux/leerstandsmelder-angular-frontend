@@ -14,3 +14,4 @@ app.directive('msgPopup', require('./msg-popup'));
 app.directive('recentLocations', require('./recent-locations'));
 app.directive('recentPosts', require('./recent-posts'));
 app.directive('tableEditButton', require('./table-edit-button'));
+app.directive('tableDeleteButton', require('./table-delete-button'));

@@ -16,6 +16,9 @@ module.exports = {
         take_picture: 'Mach ein Foto',
         use_slider: 'Benutze den Schieberegler'
     },
+    table: {
+        rowsPerPage: 'Einträge pro Seite'
+    },
     admin:{
         dashboard: 'Dashboard'
     },
@@ -232,7 +235,7 @@ module.exports = {
         signup: 'Registrieren',
         username: 'Benutzername',
         login: 'Anmelden',
-        message_me: 'Andere Nutzer können mich Nachrichten auf Leerstandsmelder schicken.',
+        message_me: 'Andere Nutzer können mir Nachrichten auf Leerstandsmelder schicken.',
         notify: 'Benachrichtige mich per Email wenn meine Einträge geupdatet werden oder Nachrichten angekommen sind.',
         register_message: 'Registriere Dich!'
     }

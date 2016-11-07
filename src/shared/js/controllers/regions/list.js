@@ -1,20 +1,30 @@
 'use strict';
 
-var RegionsListController = function ($scope, $location) {
+var RegionsListController = function ($scope, $q, $location, $mdDialog ,$translate, responseHandler, apiService) {
     $scope.fields = [
         {
             label: 'regions.title',
-            property: 'title'
+            property: 'title',
+            sort: false
         },
         {
             label: 'author.created',
             property: 'created',
-            date: true
+            date: true,
+            sort: true
         },
         {
             label: 'author.updated',
             property: 'updated',
             date: true
+        },
+        {
+            label: '',
+            property: 'edit'
+        },
+        {
+            label: '',
+            property: 'delete'
         }
     ];
     $scope.settings = {
@@ -25,33 +35,41 @@ var RegionsListController = function ($scope, $location) {
         limit_options: [25, 50, 100],
         resource: 'regions'
     };
-    $scope.actions = [
-        {
-            label: 'actions.edit',
-            css_class: 'fa-pencil-square-o',
-            clickHandler: function (item) {
-                $location.path('/admin/regions/' + item.uuid);
-            }
-        },
-        /*
-         {
-         label: 'actions.delete',
-         css_class: 'fa-trash-o',
-         clickHandler: function (location) {
-         // TODO: delete function needs some work in the api to remove associated assets and entries
-         }
-         },
-         */
-        {
-            label: 'actions.show',
-            css_class: 'fa-eye',
-            clickHandler: function (item) {
-                $location.path('/' + item.slug);
-            }
-        }
-    ];
+    $scope.rowSetup = {
+        'table-row-id-key': 'uuid',
+        'column-keys': [
+            'title',
+            'created',
+            'updated',
+            'edit',
+            'delete'
+        ],
+    };
+    $scope.clickHandler = function (uuid) {
+        $location.path('/admin/regions/' + uuid);
+    };
+    $scope.clickDeleteHandler = function (uuid) {
+        var confirm = $mdDialog.confirm()
+            .title($translate.instant('regions.remove_confirm_title'))
+            .textContent($translate.instant('regions.remove_confirm_body'))
+            .ariaLabel('regions.remove_confirm_title')
+            .ok($translate.instant('actions.ok'))
+            .cancel($translate.instant('actions.cancel'));
+        $mdDialog.show(confirm).then(function () {
+            var deferred = $q.defer();
+            $scope.promise = deferred.promise;
+            apiService('regions').actions.remove(uuid, function (err) {
+                var msgs = {
+                    success: 'regions.remove_success'
+                };
+                if (responseHandler.handleResponse(err, deferred, msgs)) {
+                    window.document.location.reload();
+                }
+            });
+        });
+    };
 };
 
-RegionsListController.$inject = ['$scope', '$location'];
+RegionsListController.$inject = ['$scope', '$q', '$location', '$mdDialog', '$translate', 'responseHandler', 'apiService'];
 
 module.exports = RegionsListController;

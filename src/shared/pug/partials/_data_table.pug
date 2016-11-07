@@ -1,9 +1,11 @@
 mdt-table(selectable-rows='true', table-card='{title: Leerstandsmelder, actionIcons: true}'
         paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
-        mdt-row-paginator="onPaginate(page, pageSize)"
-        mdt-row-paginator-error-message="Error loading data." mdt-row="rowSetup")
+        mdt-row-paginator="onPaginate(page, pageSize, options)"
+        mdt-row-paginator-error-message="Error loading data." mdt-row="rowSetup" mdt-translations="{'rowsPerPage': rowsPerPage}")
     mdt-header-row
-        mdt-column(ng-repeat="field in fields" align-rule='left')
+        mdt-column(ng-repeat="field in fields" align-rule='left' column-sort="field.sort")
             span {{ field.label | translate }}
     mdt-custom-cell(column-key="edit")
         table-edit-button
+    mdt-custom-cell(column-key="delete")
+        table-delete-button

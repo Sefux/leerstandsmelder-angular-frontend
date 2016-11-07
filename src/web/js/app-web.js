@@ -15,11 +15,12 @@ var lang_de = require('../../shared/js/lang/de'),
         require('angular-busy2'),
         require('angular-material'),
         require('md-data-table'),
+        // FIXME: this is breaking the app...
+        //require('angular-markdown-directive'),
         require('angular-aria'),
         require('angular-cookies'),
         require('angular-route'),
-        require('angular-sanitize'),
-        require('angular-marked')
+        require('angular-sanitize')
     ]);
 
 require('../../shared/js/controllers');
@@ -39,10 +40,7 @@ app.config([
     '$mdThemingProvider',
     '$compileProvider',
     '$mdGestureProvider',
-    'markedProvider',
-    function ($routeProvider, $locationProvider, $animateProvider, $translateProvider, $mdThemingProvider, $compileProvider, $mdGestureProvider, markedProvider) {
-        markedProvider.setOptions({gfm: true});
-
+    function ($routeProvider, $locationProvider, $animateProvider, $translateProvider, $mdThemingProvider, $compileProvider, $mdGestureProvider) {
         // this should stop the clickjacker
         $mdGestureProvider.skipClickHijack();
 
