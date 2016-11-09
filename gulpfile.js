@@ -100,6 +100,7 @@ gulp.task('deps:js', function (env) {
                 'bower_components/lodash/lodash.min.js',
                 'node_modules/jquery/dist/jquery.min.js',
                 'bower_components/showdown/compressed/Showdown.min.js',
+                'node_modules/marked/marked.min.js',
                 'bower_components/codemirror/lib/codemirror.js',
                 'bower_components/codemirror-spell-checker/dist/spell-checker.min.js',
                 'bower_components/simplemde/dist/simplemde.min.js',

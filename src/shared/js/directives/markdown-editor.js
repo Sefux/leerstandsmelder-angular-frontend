@@ -14,6 +14,4 @@ var MarkdownEditorDirective = function () {
     };
 };
 
-MarkdownEditorDirective.$inject = ['markdownEditor'];
-
 module.exports = MarkdownEditorDirective;
