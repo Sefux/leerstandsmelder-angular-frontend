@@ -84,18 +84,15 @@ var LocationsRegionIndexControlller = function ($scope, apiService, $q, $locatio
 
     $scope.clickShowHandler =  function (row) {
         var uuid = row.rowId;
-        console.log('uuid',uuid);
-        var row =  _.find($scope.data, function(item){
+        var item =  _.find($scope.data, function(item){
             return item.uuid === uuid;
         });
-        console.log('row',row);
-        if(row.region_uuid) {
-            $location.path('/' + (row.region ? row.region.slug : row.region_uuid)+ '/' + (row.slug || row.uuid));
+        if(item.region_uuid) {
+            $location.path('/' + (item.region ? item.region.slug : item.region_uuid)+ '/' + (item.slug || item.uuid));
         } else {
-            $location.path('/locations/index/' + row.slug || row.uuid );
+            $location.path('/locations/index/' + item.slug || item.uuid );
         }
-
-    }
+    };
 
     async.waterfall([
         function (cb) {

@@ -60,7 +60,7 @@ var LsmDataTableDirective = function ($q, apiService, assetPath, $translate) {
                 var direction = null;
                 if(columnSort) {
                     angular.forEach(columnSort, function(key,value) {
-                        if(key.sort != false){
+                        if(key.sort !== false){
                             sort = scope.fields[value].property;
                             direction = key.sort;
                         }

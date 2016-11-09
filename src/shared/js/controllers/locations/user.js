@@ -1,6 +1,6 @@
 'use strict';
 
-var LocationsUserController = function ($scope, $location) {
+var LocationsUserController = function ($scope, $q, $location, $mdDialog ,$translate, responseHandler, apiService) {
     $scope.fields = [
         {
             label: 'locations.title',
@@ -67,7 +67,7 @@ var LocationsUserController = function ($scope, $location) {
     //TODO: implement show action
     $scope.clickShowHandler =  function (uuid) {
         $location.path('/location/' + uuid);
-    }
+    };
     $scope.clickEditHandler = function (uuid) {
         $location.path('/locations/update/' + uuid);
     };
@@ -91,34 +91,8 @@ var LocationsUserController = function ($scope, $location) {
             });
         });
     };
-
-    $scope.actions =[
-        {
-            label: 'actions.edit',
-            css_class: 'fa-pencil-square-o',
-            clickHandler: function (location) {
-                $location.path('/locations/update/' + location.uuid);
-            }
-        },
-        /*
-         {
-         label: 'actions.delete',
-         css_class: 'fa-trash-o',
-         clickHandler: function (location) {
-         // TODO: delete function needs some work in the api to remove associated assets and entries
-         }
-         },
-         */
-        {
-            label: 'actions.show',
-            css_class: 'fa-eye',
-            clickHandler: function (location) {
-                $location.path('/' + (location.region ? location.region.title : location.region_uuid) + '/' + location.uuid);
-            }
-        }
-    ];
 };
 
-LocationsUserController.$inject = ['$scope', '$location'];
+LocationsUserController.$inject = ['$scope', '$q', '$location', '$mdDialog', '$translate', 'responseHandler', 'apiService'];
 
 module.exports = LocationsUserController;

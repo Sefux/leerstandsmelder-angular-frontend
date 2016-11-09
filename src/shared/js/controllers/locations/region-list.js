@@ -77,7 +77,7 @@ var LocationsRegionListController = function ($scope, $q, $location, $mdDialog, 
 
     $scope.clickShowHandler =  function (uuid) {
         $location.path('/location/' + uuid);
-    }
+    };
     $scope.clickEditHandler = function (uuid) {
         $location.path('/admin/regions/' + uuid);
     };
