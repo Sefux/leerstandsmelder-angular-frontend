@@ -38,8 +38,8 @@ var PostsListStaticController = function ($scope, $q, apiService, responseHandle
             'edit'
         ],
     };
-    $scope.clickHandler = function (uuid) {
-        $location.path('/admin/posts/static/' + uuid);
+    $scope.clickEditHandler = function (uuid) {
+        $location.path('/admin/posts/' + uuid);
     };
 };
 

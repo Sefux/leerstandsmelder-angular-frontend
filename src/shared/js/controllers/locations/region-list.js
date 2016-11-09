@@ -21,6 +21,18 @@ var LocationsRegionListController = function ($scope, $q, $location, $mdDialog, 
             label: 'author.updated',
             property: 'updated',
             date: true
+        },
+        {
+            label: '',
+            property: 'edit'
+        },
+        {
+            label: '',
+            property: 'show'
+        },
+        {
+            label: '',
+            property: 'delete'
         }
     ];
     var rowSetup = {
@@ -45,6 +57,8 @@ var LocationsRegionListController = function ($scope, $q, $location, $mdDialog, 
     }
     //TODO: check permitions
     rowSetup['column-keys'].push('edit');
+    rowSetup['column-keys'].push('show');
+
     rowSetup['column-keys'].push('delete');
     regionService.setCurrentRegion($routeParams.region_uuid, function () {
         $scope.currentRegion = regionService.currentRegion.title;
@@ -61,12 +75,10 @@ var LocationsRegionListController = function ($scope, $q, $location, $mdDialog, 
     };
     $scope.rowSetup = rowSetup;
 
-    //TODO: implement show action
-    $scope.showHandler =  function (location) {
-        $location.path('/' + (location.region ? location.region.title : location.region_uuid) + '/' +
-            location.uuid);
+    $scope.clickShowHandler =  function (uuid) {
+        $location.path('/location/' + uuid);
     }
-    $scope.clickHandler = function (uuid) {
+    $scope.clickEditHandler = function (uuid) {
         $location.path('/admin/regions/' + uuid);
     };
     $scope.clickDeleteHandler = function (uuid) {

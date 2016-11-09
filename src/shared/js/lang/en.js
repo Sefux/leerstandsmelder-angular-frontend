@@ -16,6 +16,10 @@ module.exports = {
         take_picture: 'Take a Picture',
         use_slider: 'Use the slider'
     },
+    table: {
+        rowsPerPage: 'Rows per page',
+        pageOf: 'of'
+    },
     admin:{
         dashboard: 'Dashboard'
     },
@@ -184,7 +188,8 @@ module.exports = {
         post_plural: 'Posts',
         site_post_plural: 'Page content',
         title: 'Title',
-        update_success: 'Post updated successfully.'
+        update_success: 'Post updated successfully.',
+        create_post: 'Create post'
     },
     regions: {
         hide_message: 'Message if Region is hidden',

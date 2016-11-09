@@ -38,7 +38,7 @@ var PostsListController = function ($scope, $q, apiService, responseHandler, $lo
         limit_options: [25, 50, 100],
         resource: 'posts'
     };
-    $scope.clickHandler = function (uuid) {
+    $scope.clickEditHandler = function (uuid) {
         $location.path('/admin/posts/' + uuid);
     };
 };

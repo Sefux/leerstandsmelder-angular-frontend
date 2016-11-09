@@ -2,9 +2,101 @@
 
 var async = require('async');
 
-var LocationsRegionIndexControlller = function ($scope, apiService, $q, $routeParams, responseHandler, $translate) {
+var LocationsRegionIndexControlller = function ($scope, apiService, $q, $location, $routeParams, responseHandler, $translate) {
     var deferred = $q.defer();
     $scope.promise = deferred.promise;
+    if ($routeParams.region_uuid) {
+        $scope.fields = [
+            {
+                label: 'locations.title',
+                property: 'title_link',
+                sort: true
+            },
+            {
+                label: 'locations.street',
+                property: 'street'
+            },
+            {
+                label: 'locations.building_type',
+                property: 'buildingType',
+                date: true
+            },
+            {
+                label: 'locations.owner',
+                property: 'owner'
+            },
+            {
+                label: 'author.updated',
+                property: 'updated',
+                date: true
+            },
+            {
+                label: '',
+                property: 'link'
+            }
+
+        ];
+        $scope.columnKeys = [
+            'title',
+            'street',
+            'buildingType',
+            'owner',
+            'updated',
+            'link'
+
+        ];
+    } else {
+        $scope.fields = [
+            {
+                label: 'regions.title',
+                property: 'title',
+                sort: true
+            },
+            {
+                label: 'regions.count',
+                property: 'locations'
+            },
+            {
+                label: '',
+                property: 'link'
+            }
+        ];
+        $scope.columnKeys = [
+            'title',
+            'locations',
+            'link'
+
+        ];
+
+    }
+
+    $scope.getTitleLink = function(id){
+        var row =  _.find($scope.data, function(item){
+            return item.id === id;
+        });
+        if(row.region_uuid) {
+            return '<a href="/' + (row.region ? row.region.slug : row.region_uuid)+ '/' + row.slug || row.uuid  + '">' + row.title + '</a>';
+        } else {
+            return '<a href="/locations/index/' + row.slug || row.uuid  + '">' + row.title + '</a>';
+        }
+    };
+
+
+    $scope.clickShowHandler =  function (row) {
+        var uuid = row.rowId;
+        console.log('uuid',uuid);
+        var row =  _.find($scope.data, function(item){
+            return item.uuid === uuid;
+        });
+        console.log('row',row);
+        if(row.region_uuid) {
+            $location.path('/' + (row.region ? row.region.slug : row.region_uuid)+ '/' + (row.slug || row.uuid));
+        } else {
+            $location.path('/locations/index/' + row.slug || row.uuid );
+        }
+
+    }
+
     async.waterfall([
         function (cb) {
             if ($routeParams.region_uuid) {
@@ -34,6 +126,6 @@ var LocationsRegionIndexControlller = function ($scope, apiService, $q, $routePa
     });
 };
 
-LocationsRegionIndexControlller.$inject = ['$scope', 'apiService', '$q', '$routeParams', 'responseHandler', '$translate'];
+LocationsRegionIndexControlller.$inject = ['$scope', 'apiService', '$q', '$location', '$routeParams', 'responseHandler', '$translate'];
 
 module.exports = LocationsRegionIndexControlller;

@@ -24,6 +24,10 @@ var RegionsListController = function ($scope, $q, $location, $mdDialog ,$transla
         },
         {
             label: '',
+            property: 'show'
+        },
+        {
+            label: '',
             property: 'delete'
         }
     ];
@@ -42,12 +46,19 @@ var RegionsListController = function ($scope, $q, $location, $mdDialog ,$transla
             'created',
             'updated',
             'edit',
+            'show',
             'delete'
         ],
     };
-    $scope.clickHandler = function (uuid) {
+    $scope.clickEditHandler = function (uuid) {
         $location.path('/admin/regions/' + uuid);
     };
+    $scope.clickShowHandler =  function (uuid) {
+        console.log('uuid',uuid);
+
+        $location.path('/admin/regions/' + uuid + '/locations');
+    };
+
     $scope.clickDeleteHandler = function (uuid) {
         var confirm = $mdDialog.confirm()
             .title($translate.instant('regions.remove_confirm_title'))

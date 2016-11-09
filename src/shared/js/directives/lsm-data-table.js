@@ -11,6 +11,12 @@ var LsmDataTableDirective = function ($q, apiService, assetPath, $translate) {
             }, function(translationId) {
                 scope.rowsPerPage = translationId;
             });
+            $translate('table.pageOf').then(function(pageOf) {
+                scope.pageOf = pageOf;
+
+            }, function(translationId) {
+                scope.pageOf = translationId;
+            });
             scope.selected = [];
             scope.query = {
                 sort: scope.settings.sort ? scope.settings.sort : 'title',
@@ -72,9 +78,14 @@ var LsmDataTableDirective = function ($q, apiService, assetPath, $translate) {
                     fetchData();
                 }
             });
-            scope.itemClick = function (row) {
-                if (typeof scope.clickHandler === 'function') {
-                    scope.clickHandler(row.rowId);
+            scope.editClick = function (row) {
+                if (typeof scope.clickEditHandler === 'function') {
+                    scope.clickEditHandler(row.rowId);
+                }
+            };
+            scope.showClick = function (row) {
+                if (typeof scope.clickShowHandler === 'function') {
+                    scope.clickShowHandler(row.rowId);
                 }
             };
             scope.deleteClick = function (row) {

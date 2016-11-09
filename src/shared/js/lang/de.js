@@ -17,7 +17,8 @@ module.exports = {
         use_slider: 'Benutze den Schieberegler'
     },
     table: {
-        rowsPerPage: 'Einträge pro Seite'
+        rowsPerPage: 'Einträge pro Seite',
+        pageOf: 'von'
     },
     admin:{
         dashboard: 'Dashboard'
@@ -187,7 +188,8 @@ module.exports = {
         post_plural: 'Einträge',
         site_post_plural: 'Seiteninhalte',
         title: 'Titel',
-        update_success: 'Eintrag erfolgreich aktualisiert..'
+        update_success: 'Eintrag erfolgreich aktualisiert..',
+        create_post: 'Eintrag erstellen'
     },
     regions: {
         hide_message: 'Nachricht, wenn Region nicht angezeigt wird',
@@ -200,7 +202,8 @@ module.exports = {
         set_moderate: 'Diese Region moderieren',
         title: 'Titel',
         update_success: 'Region erfolgreich aktualisiert.',
-        zoom: 'Zoom'
+        zoom: 'Zoom',
+        count: 'Anzahl'
     },
     site: {
         banned: 'Gesperrt',
