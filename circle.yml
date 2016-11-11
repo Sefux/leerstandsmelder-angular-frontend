@@ -1,0 +1,16 @@
+test:
+  override:
+    # Install CLI commands
+    - npm install -g gulp
+    - npm install -g phonegap
+    - npm install -g bower
+    # Install dependencies
+    - npm install
+    - bower install
+    # Build mobile UI
+    - gulp clean
+    - gulp build --env=mobile
+    # Build APK
+    - gulp build:android
+    # Copy APK to artifacts
+    - cp -r dist/android $CIRCLE_ARTIFACTS
