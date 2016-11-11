@@ -10,10 +10,34 @@
   },
   "android": {
     "app_name": "Leerstandsmelder",
-    "app_id": "de.leerstandsmelder.mobile.android"
+    "app_id": "de.leerstandsmelder.mobile.android",
+    "access_origins": {
+      "https://www.leerstandsmelder.de": true,
+      "https://leerstandsmelder.de": true,
+      "https://api.leerstandsmelder.de": true
+    },
+    "prefs": {},
+    "plugins": {
+      "org.apache.cordova.dialogs": "latest",
+      "org.apache.cordova.camera": "latest",
+      "org.apache.cordova.geolocation": "latest",
+      "org.apache.cordova.media": "latest"
+    }
   },
   "ios": {
     "app_name": "Leerstandsmelder",
-    "app_id": "de.leerstandsmelder.mobile.ios"
+    "app_id": "de.leerstandsmelder.mobile.ios",
+    "access_origins": {
+      "https://www.leerstandsmelder.de": true,
+      "https://leerstandsmelder.de": true,
+      "https://api.leerstandsmelder.de": true
+    },
+    "prefs": {},
+    "plugins": {
+      "org.apache.cordova.dialogs": "latest",
+      "org.apache.cordova.camera": "latest",
+      "org.apache.cordova.geolocation": "latest",
+      "org.apache.cordova.media": "latest"
+    }
   }
 }

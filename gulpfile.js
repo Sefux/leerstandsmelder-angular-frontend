@@ -383,10 +383,12 @@ gulp.task('build:android', function () {
         plugin = require('gulp-cordova-plugin'),
         // xml = require('gulp-cordova-xml'),
         android = require('gulp-cordova-build-android');
-    return gulp.src('dist/mobile').pipe(create({
+    var dst = gulp.dest('dist/android'),
+        src = gulp.src('dist/mobile').pipe(create({
             dir: 'dist/cordova',
             id: config.android.app_id,
-            name: config.android.app_name
+            name: config.android.app_name,
+            buildMethod: 'gradle'
         }))
         .pipe(access(config.android.access_origins))
         .pipe(pref(config.android.prefs))
@@ -397,8 +399,8 @@ gulp.task('build:android', function () {
         // .pipe(xml('<access origin="*" />'))
         .pipe(plugin(config.android.plugins))
         // TODO: make release configurable
-        .pipe(android({release: false}))
-        .pipe(gulp.dest('dist/android'));
+        .pipe(android({release: false}));
+    return streamToPromise(src.pipe(dst));
 });
 
 gulp.task('build:ios', function () {
@@ -406,14 +408,15 @@ gulp.task('build:ios', function () {
         version = require('gulp-cordova-version'),
         plugin = require('gulp-cordova-plugin'),
         ios = require('gulp-cordova-build-ios');
-    return gulp.src('dist/mobile').pipe(create({
+    var dst = ios(),
+        src = gulp.src('dist/mobile').pipe(create({
             dir: 'dist/cordova',
             id: config.ios.app_id,
             name: config.ios.app_name
         }))
         .pipe(version(require('./package.json').version))
-        .pipe(plugin(config.ios.plugins))
-        .pipe(ios());
+        .pipe(plugin(config.ios.plugins));
+    return src.pipe(dst);
 });
 
 
