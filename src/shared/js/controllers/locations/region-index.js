@@ -5,6 +5,11 @@ var async = require('async');
 var LocationsRegionIndexControlller = function ($scope, apiService, $q, $location, $routeParams, responseHandler, $translate) {
     var deferred = $q.defer();
     $scope.promise = deferred.promise;
+    //find out if on seo page
+    var seo_state = 'all';
+    if($location.path().indexOf('index') > 0) {
+        seo_state = 'index';
+    }
     if ($routeParams.region_uuid) {
         $scope.fields = [
             {
@@ -77,7 +82,7 @@ var LocationsRegionIndexControlller = function ($scope, apiService, $q, $locatio
         if(row.region_uuid) {
             return '<a href="/' + (row.region ? row.region.slug : row.region_uuid)+ '/' + row.slug || row.uuid  + '">' + row.title + '</a>';
         } else {
-            return '<a href="/locations/index/' + row.slug || row.uuid  + '">' + row.title + '</a>';
+            return '<a href="/locations/' + seo_state + '/' + row.slug || row.uuid  + '">' + row.title + '</a>';
         }
     };
 
@@ -90,7 +95,7 @@ var LocationsRegionIndexControlller = function ($scope, apiService, $q, $locatio
         if(item.region_uuid) {
             $location.path('/' + (item.region ? item.region.slug : item.region_uuid)+ '/' + (item.slug || item.uuid));
         } else {
-            $location.path('/locations/index/' + item.slug || item.uuid );
+            $location.path('/locations/' + seo_state + '/' + item.slug || item.uuid );
         }
     };
 

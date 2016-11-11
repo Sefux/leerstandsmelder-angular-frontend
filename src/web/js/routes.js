@@ -170,6 +170,16 @@ module.exports = [
         controller: 'Locations.RegionIndex'
     },
     {
+        route: '/locations/all',
+        templateUrl: '/locations/region_all.html',
+        controller: 'Locations.RegionIndex'
+    },
+    {
+        route: '/locations/all/:region_uuid',
+        templateUrl: '/locations/region_all.html',
+        controller: 'Locations.RegionIndex'
+    },
+    {
         route: '/locations/create',
         templateUrl: '/locations/update.html',
         controller: 'Locations.Create'
