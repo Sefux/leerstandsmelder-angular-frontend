@@ -87,5 +87,5 @@
   "yui"           : false,    // Yahoo User Interface
 
   // Custom Globals
-  "globals"       : {"L": true, "PruneCluster": true, "PruneClusterForLeaflet": true, "SimpleMDE": true, "LMApi": true}
+  "globals"       : {"angular": true, "_": true, "L": true, "PruneCluster": true, "PruneClusterForLeaflet": true, "SimpleMDE": true, "LMApi": true}
 }
