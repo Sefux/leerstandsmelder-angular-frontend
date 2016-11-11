@@ -6,6 +6,8 @@ test:
     - npm install -g bower
     # Install bower dependencies
     - bower install
+    # Copy default config
+    - cp config.default.json config.json
     # Build mobile UI
     - gulp clean
     - gulp build --env=mobile
