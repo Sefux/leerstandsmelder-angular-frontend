@@ -81,7 +81,7 @@ app.config([
         $animateProvider.classNameFilter(/animate-/);
 
         $locationProvider.html5Mode({
-            enabled: true
+            enabled: false
         });
 
         for (var i in routes) {
