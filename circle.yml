@@ -15,11 +15,10 @@ dependencies:
     - /usr/local/android-sdk-linux/extras/android/m2repository
 test:
   override:
-    # Install CLI commands
+    # Install Gulp & Bower CLI
     - npm install -g gulp
-    - npm install -g phonegap
     - npm install -g bower
-    # Install bower dependencies
+    # Install dependencies
     - bower install
     # Copy default config
     - cp config.default.json config.json
