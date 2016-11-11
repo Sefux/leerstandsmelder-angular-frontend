@@ -1,5 +1,7 @@
 {
   "global": {
+    "serve_web_ui_port": 9090,
+    "serve_mobile_ui_port": 9292,
     "api_url": "https://api.leerstandsmelder.de",
     "airbrake": {
       "project_id": null,

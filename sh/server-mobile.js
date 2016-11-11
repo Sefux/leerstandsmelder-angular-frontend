@@ -4,7 +4,7 @@
 
 var nodeStatic = require('node-static'),
     fserver = new nodeStatic.Server(__dirname + '/../dist/mobile/'),
-    port = 9090;
+    port = require('../config.json').global.serve_mobile_ui_port || 9090;
 
 console.log('Starting static Leerstandsmelder UI server on port ' + port);
 require('http').createServer(function (req, res) {
