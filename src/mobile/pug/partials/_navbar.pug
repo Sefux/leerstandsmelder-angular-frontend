@@ -15,7 +15,7 @@ md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as 
                         // it would also be nice to have it auto-change depending
                         // on where the user is on the map...
                         //+select('location.emptySince', '_sys.emptySince', false, 'locations.empty_for')
-                        a.metatext(ng-href='/{{ currentRegion.slug || currentRegion.uuid }}') {{ currentRegion.title }}&nbsp;
+                        a.metatext(ng-href='{{ '/' + (currentRegion.slug || currentRegion.uuid) | navRewrite }}') {{ currentRegion.title }}&nbsp;
 
             // Old News
             div(flex="15" layout="row" layout-align="end center")
@@ -28,19 +28,19 @@ md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as 
                             h3(flex) &nbsp;&nbsp;Admin
                             .fa.fa-fw.fa-close.fa-2x(flex="20")
                         md-menu-item(ng-if="api_key.scopes.indexOf('editor') > -1")
-                            +button('posts.manage_posts',null,'btn-default','fa-newspaper-o fa-fw fa-2x','userSession', '#/admin/posts')
+                            +button('posts.manage_posts',null,'btn-default','fa-newspaper-o fa-fw fa-2x','userSession', '/admin/posts | navRewrite')
                         md-menu-item(ng-if="api_key.scopes.indexOf('editor') > -1")
-                            +button('posts.site_post_plural',null,'btn-default','fa-newspaper-o fa-fw fa-2x','userSession', '#/admin/posts/static')
+                            +button('posts.site_post_plural',null,'btn-default','fa-newspaper-o fa-fw fa-2x','userSession', '/admin/posts/static| navRewrite')
                         md-menu-item(ng-if="api_key.scopes.indexOf('editor') > -1")
-                            +button('posts.create_post',null,'btn-default','fa-newspaper-o fa-fw fa-2x','userSession', '#/admin/posts/create')
+                            +button('posts.create_post',null,'btn-default','fa-newspaper-o fa-fw fa-2x','userSession', '/admin/posts/create| navRewrite')
                         md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
-                            +button('regions.manage_regions','','btn-default','fa-globe fa-fw fa-2x ','userSession', '#/admin/regions')
+                            +button('regions.manage_regions','','btn-default','fa-globe fa-fw fa-2x ','userSession', '/admin/regions| navRewrite')
                         md-menu-item(ng-repeat="region in admin_regions")
                             // todo: turn this into a select list.
                             +button_notranslate_tmp('region.title', 'close_sidebar()','btn-default','fa-fw fa-2x fa-globe','admin_regions', '#/admin/regions/{{ region.slug }}/locations')
 
                         //md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
-                            +button('admin.dashboard', '','btn-default','fa-fw fa-2x fa-dashboard','userSession', '/admin/dashboard')
+                            +button('admin.dashboard', '','btn-default','fa-fw fa-2x fa-dashboard','userSession', '/admin/dashboard | navRewrite')
 
                 // map
                 md-menu()

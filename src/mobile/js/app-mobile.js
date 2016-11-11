@@ -14,20 +14,20 @@ var lang_de = require('../../shared/js/lang/de'),
         require('ng-file-upload'),
         require('angular-busy2'),
         require('angular-material'),
-        // TODO: this is a new, more recent repo. check if this still works
         require('md-data-table'),
-        // FIXME: this is breaking the app...
-        //require('angular-markdown-directive'),
         require('angular-aria'),
         require('angular-cookies'),
         require('angular-route'),
-        require('angular-sanitize')
+        require('angular-sanitize'),
+        require('angular-marked')
     ]);
 
 require('../../shared/js/controllers');
 require('../../shared/js/directives');
 require('../../shared/js/filters');
 require('../../shared/js/services');
+
+require('../../mobile/js/filters');
 
 app.provider('PubSub', require('angular-pubsub'));
 
@@ -95,3 +95,7 @@ app.config([
 
         $routeProvider.otherwise({redirectTo: '/'});
     }]);
+
+angular.element(function () {
+    angular.bootstrap(document, ['leerstandsmelder']);
+});
