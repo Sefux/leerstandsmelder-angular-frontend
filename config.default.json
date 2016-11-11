@@ -11,6 +11,7 @@
   "android": {
     "app_name": "Leerstandsmelder",
     "app_id": "de.leerstandsmelder.mobile.android",
+    "app_description": "Leerstandsmelder Mobile App",
     "access_origins": {
       "https://www.leerstandsmelder.de": true,
       "https://leerstandsmelder.de": true,

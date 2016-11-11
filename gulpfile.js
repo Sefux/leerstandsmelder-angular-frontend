@@ -373,49 +373,34 @@ gulp.task('build', [
 // FIXME: build only works when cordova dir is removed, also runs through entire build for each update
 
 gulp.task('build:android', function () {
-    var create = require('gulp-cordova-create'),
-        access = require('gulp-cordova-access'),
-        pref = require('gulp-cordova-preference'),
-        // icon = require('gulp-cordova-icon'),
-        version = require('gulp-cordova-version'),
-        author = require('gulp-cordova-author'),
-        description = require('gulp-cordova-description'),
-        plugin = require('gulp-cordova-plugin'),
-        // xml = require('gulp-cordova-xml'),
-        android = require('gulp-cordova-build-android');
     var dst = gulp.dest('dist/android'),
-        src = gulp.src('dist/mobile').pipe(create({
+        src = gulp.src('dist/mobile').pipe(require('gulp-cordova-create')({
             dir: 'dist/cordova',
             id: config.android.app_id,
-            name: config.android.app_name,
-            buildMethod: 'gradle'
+            name: config.android.app_name
         }))
-        .pipe(access(config.android.access_origins))
-        .pipe(pref(config.android.prefs))
-        // .pipe(icon('res/my-icon.png'))
-        .pipe(version(require('./package.json').version))
-        .pipe(author('Gängeviertel e.V.', 'info@leerstandsmelder.de'))
-        .pipe(description(''))
-        // .pipe(xml('<access origin="*" />'))
-        .pipe(plugin(config.android.plugins))
+        .pipe(require('gulp-cordova-access')(config.android.access_origins))
+        .pipe(require('gulp-cordova-preference')(config.android.prefs))
+        // TODO: add android app icon!
+        // .pipe(require('gulp-cordova-icon')('res/my-icon.png'))
+        .pipe(require('gulp-cordova-version')(require('./package.json').version))
+        .pipe(require('gulp-cordova-author')('Gängeviertel e.V.', 'info@leerstandsmelder.de'))
+        .pipe(require('gulp-cordova-description')(config.android.app_description))
+        .pipe(require('gulp-cordova-plugin')(config.android.plugins))
         // TODO: make release configurable
-        .pipe(android({release: false}));
+        .pipe(require('gulp-cordova-build-android')({release: false}));
     return streamToPromise(src.pipe(dst));
 });
 
 gulp.task('build:ios', function () {
-    var create = require('gulp-cordova-create'),
-        version = require('gulp-cordova-version'),
-        plugin = require('gulp-cordova-plugin'),
-        ios = require('gulp-cordova-build-ios');
-    var dst = ios(),
-        src = gulp.src('dist/mobile').pipe(create({
+    var dst = require('gulp-cordova-build-ios')(),
+        src = gulp.src('dist/mobile').pipe(require('gulp-cordova-create')({
             dir: 'dist/cordova',
             id: config.ios.app_id,
             name: config.ios.app_name
         }))
-        .pipe(version(require('./package.json').version))
-        .pipe(plugin(config.ios.plugins));
+        .pipe(require('gulp-cordova-version')(require('./package.json').version))
+        .pipe(require('gulp-cordova-plugin')(config.ios.plugins));
     return src.pipe(dst);
 });
 
