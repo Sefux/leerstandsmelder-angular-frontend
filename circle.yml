@@ -4,8 +4,7 @@ test:
     - npm install -g gulp
     - npm install -g phonegap
     - npm install -g bower
-    # Install dependencies
-    - npm install
+    # Install bower dependencies
     - bower install
     # Build mobile UI
     - gulp clean
