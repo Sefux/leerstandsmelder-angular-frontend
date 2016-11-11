@@ -9,8 +9,7 @@ test:
     # Copy default config
     - cp config.default.json config.json
     # Build mobile UI
-    - gulp clean
-    - gulp build --env=mobile
+    - gulp release --env=mobile
     # Build APK
     - gulp build:android
     # Copy APK to artifacts
