@@ -19,6 +19,7 @@ var CheckLoginDirective = function (apiService, authService) {
                             apiService('users/me/api_keys').actions.all(cb);
                         },
                         function (api_keys, cb) {
+                            api_keys = api_keys.results || api_keys;
                             if (api_keys.length > 0) {
                                 scope.api_key = api_keys[0];
                                 scope.admin_regions = [];

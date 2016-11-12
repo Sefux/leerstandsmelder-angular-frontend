@@ -107,7 +107,8 @@ var LocationsRegionIndexControlller = function ($scope, apiService, $q, $locatio
                 apiService('regions?sort=title').actions.all(cb);
             }
         },
-        function (region_data, cb) {
+        function (regions, cb) {
+            var region_data = regions.results || regions;
             if (Array.isArray(region_data)) {
                 $scope.data = region_data.results || region_data;
                 cb();

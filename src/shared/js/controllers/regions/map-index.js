@@ -15,6 +15,7 @@ var RegionsMapIndex = function ($scope, $q, apiService, regionService, responseH
             apiService('regions').actions.all(cb);
         },
         function (regions, cb) {
+            regions = regions.results || regions;
             async.map(regions, function (region, next) {
                 regions[regions.indexOf(region)].popup = "<strong>" + region.title + "</strong>";
                 next();

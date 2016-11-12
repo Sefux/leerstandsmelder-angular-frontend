@@ -4,7 +4,7 @@ var PostsShowController = function ($scope, $rootScope, $q, $routeParams, apiSer
     var deferred = $q.defer();
     $scope.promise = deferred.promise;
     apiService('posts').actions.find($routeParams.uuid, function (err, post) {
-        $scope.post = post;
+        $scope.post = post.results || post;
         responseHandler.handleResponse(err, deferred);
     });
 };

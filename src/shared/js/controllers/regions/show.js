@@ -14,6 +14,7 @@ var RegionsShow = function ($scope, regionService, $q, $routeParams, apiService,
             if (!region) {
                 return cb(new Error('errors.region.no_data'));
             }
+            region = region.results || region;
             $scope.region = region;
             $scope.mapcenter = [$scope.region.lonlat[1], $scope.region.lonlat[0]];
             $scope.zoom = $scope.region.zoom;
