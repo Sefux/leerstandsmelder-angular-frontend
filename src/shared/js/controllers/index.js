@@ -30,6 +30,11 @@ app.controller('Users.Login', require('./users/login'));
 app.controller('Users.Logout', require('./users/logout'));
 app.controller('Users.Update', require('./users/update'));
 
+app.controller('Comments.List', require('./comments/list'));
+app.controller('Comments.Show', require('./comments/show'));
+app.controller('Comments.Update', require('./comments/update'));
+
+
 app.controller('Widgets.Alerts', require('./widgets/alerts'));
 app.controller('Widgets.Navbar', require('./widgets/navbar'));
 app.controller('Widgets.StaticPage', require('./widgets/static-page'));

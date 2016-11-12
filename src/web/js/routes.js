@@ -74,6 +74,30 @@ module.exports = [
         templateUrl: '/posts/update.html',
         controller: 'Posts.Update'
     },
+    //
+    //
+    // Comments
+
+    {
+        route: '/comments/:uuid',
+        templateUrl: '/comments/show.html',
+        controller: 'Comments.Show'
+    },
+    {
+        route: '/admin/comments',
+        templateUrl: '/comments/list.html',
+        controller: 'Comments.List'
+    },
+    {
+        route: '/admin/comments/create',
+        templateUrl: '/comments/update.html',
+        controller: 'Comments.Update'
+    },
+    {
+        route: '/admin/comments/:uuid',
+        templateUrl: '/comments/update.html',
+        controller: 'Comments.Update'
+    },
 
     //
     //

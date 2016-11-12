@@ -1,0 +1,13 @@
+include ../mixins/_form
+include ../mixins/_buttons
+include ../mixins/_layout
+include ../mixins/_style
+
+div(layout="row" layout-xs="column")
+    div(flex flex-gt-xs="66" layout='column')
+        .md-padding.type-post(flex)
+            p.metatext-lg {{author.on | translate}} {{ post.created | date : 'dd.MM.yy' }}
+            h1 {{post.title}}
+            div(marked='post.body')
+            hr
+            div(comments uuid='post.uuid' resource="posts")
