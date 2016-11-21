@@ -3,7 +3,7 @@ node_js:
   - "6"
   - "4"
 before_script:
-  - cp config.default.json config.json
+  - cp configuration.default.js configuration.js
   - npm install -g gulp
   - npm install -g bower
   - bower install
