@@ -4,6 +4,7 @@ node_js:
   - "4"
 before_script:
   - cp configuration.default.js configuration.js
+  - cp phonegap.default.json phonegap.json
   - npm install -g gulp
   - npm install -g bower
   - bower install
