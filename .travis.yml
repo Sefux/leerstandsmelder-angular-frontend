@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "6"
+  - "4"
+before_script:
+  - cp config.default.json config.json
+  - npm install -g gulp
+  - npm install -g bower
+  - bower install
+script: gulp
