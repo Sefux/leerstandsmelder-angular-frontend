@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Leerstandsmelder App - Angular.JS based frontend for Desktop & Mobile",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Warning: no test specified\" && exit 0"
   },
   "author": "Gängeviertel e.V. <info@das-gaengeviertel.info>",
   "license": "MIT",
