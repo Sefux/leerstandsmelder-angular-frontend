@@ -30,8 +30,8 @@ html(lang='en' ng-csp)
                 span {{ 'site.copyright_notice' | translate }}
                 span {{ 'site.map_notice' | translate }}
                 span(flex)
-                a(href='#/site/terms') {{ 'site.subnav.terms' | translate }}
-                a(href='#/site/imprint') {{ 'site.subnav.imprint' | translate }}
+                a(ng-href='{{ "site/terms" | navRewrite }}') {{ 'site.subnav.terms' | translate }}
+                a(ng-href='{{ "site/imprint" | navRewrite }}') {{ 'site.subnav.imprint' | translate }}
 
         div(msg-popup popup-id='relaunch')
         scripts
