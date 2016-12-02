@@ -63,7 +63,7 @@ define([
                                     }
                                     popup += '<div>';
                                     popup += "<strong>" + data.title + "</strong><br />";
-                                    if (data.locations) {
+                                    if (data.hasOwnProperty('locations')) {
                                         popup += data.locations + " " + $translate.instant('locations.location_plural') +"<br />";
                                     } else {
                                         popup += data.street + "<br />";
