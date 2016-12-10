@@ -5,7 +5,7 @@ var RegionsListController = function ($scope, $q, $location, $mdDialog ,$transla
         {
             label: 'regions.title',
             property: 'title',
-            sort: false
+            sort: true
         },
         {
             label: 'author.created',

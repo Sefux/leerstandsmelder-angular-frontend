@@ -16,7 +16,7 @@ module.exports = [
     {
         route: '/site/:slug',
         templateUrl: '/site/static_page.html',
-        controller: 'Site.StaticPage'
+        controller: 'Widgets.StaticPage'
     },
 
 
@@ -38,6 +38,11 @@ module.exports = [
         route: '/admin/regions',
         templateUrl: '/regions/list.html',
         controller: 'Regions.List'
+    },
+    {
+        route: '/admin/regions/create',
+        templateUrl: '/regions/update.html',
+        controller: 'Regions.Update'
     },
     {
         route: '/admin/regions/:uuid',
@@ -172,6 +177,11 @@ module.exports = [
         route: '/messages/create',
         templateUrl: '/messages/create.html',
         controller: 'Messages.Create'
+    },
+    {
+        route: '/messages/list',
+        templateUrl: '/messages/list.html',
+        controller: 'Messages.List'
     },
     {
         route: '/messages/:uuid/reply',

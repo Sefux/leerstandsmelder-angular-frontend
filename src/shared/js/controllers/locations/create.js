@@ -169,7 +169,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                 apiService('locations/' + location.uuid + '/photos').actions.all(cb);
             },
             function (photos, cb) {
-                $scope.photos = photos.results;
+                $scope.photos =  photos.result || photos;
                 cb();
             },
             function (cb) {
