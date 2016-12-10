@@ -2,11 +2,11 @@
 
 var async = require('async');
 
-var RegionsMapIndex = function ($scope, $q, apiService, regionService, responseHandler) {
+var RegionsMapIndex = function ($scope, $q, apiService, regionService, responseHandler, configuration) {
     var deferred = $q.defer();
     $scope.promise = deferred.promise;
     $scope.mapcenter = [51.0, 9.0];
-    $scope.urlbase = '/';
+    $scope.urlbase = configuration.urlbase || '/';
     async.waterfall([
         function (cb) {
             regionService.setCurrentRegion(null, cb);
@@ -29,6 +29,6 @@ var RegionsMapIndex = function ($scope, $q, apiService, regionService, responseH
     });
 };
 
-RegionsMapIndex.$inject = ['$scope', '$q', 'apiService', 'regionService', 'responseHandler'];
+RegionsMapIndex.$inject = ['$scope', '$q', 'apiService', 'regionService', 'responseHandler','configuration'];
 
 module.exports = RegionsMapIndex;

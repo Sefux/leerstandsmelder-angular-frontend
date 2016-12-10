@@ -1,19 +1,28 @@
 'use strict';
 
-var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$timeout, $q, apiService) {
+var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$timeout, $q, apiService, regionService, $mdSidenav) {
     // var deferred = $q.defer();
     var self = this;
     self.currentSearchText = null;
     self.repos = [];
-    /*
-     // sidenav changes
-     $scope.open_sidebar = function () {
-     $mdSidenav('right').open();
-     };
+    self.simulateQuery = false;
+    self.isDisabled    = false;
 
-     $scope.close_sidebar = function () {
-     $mdSidenav('right').close();
-     };*/
+    // sidenav changes
+    $scope.open_sidebar = function () {
+        $mdSidenav('right').open();
+    };
+    $scope.toogle_sidebar = function () {
+        console.log('toogle');
+        if($mdSidenav('right').isOpen()) {
+            $mdSidenav('right').close();
+        } else {
+            $mdSidenav('right').open();
+        }
+    };
+    $scope.close_sidebar = function () {
+        $mdSidenav('right').close();
+    };
 
     $scope.$on('currentRegion:updated', function (event, region) {
         $scope.currentRegion = region;
@@ -86,10 +95,21 @@ var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$
             repo.value = repo.slug;
             return repo;
         });
+        $scope.regions = self.repos;
+
     });
+
+    $scope.change = function() {
+        $location.path(($scope.currentRegion.slug || $scope.currentRegion.uuid)); //
+    };
+
+    $scope.home = function() {
+        $location.path('/'); //
+        regionService.setCurrentRegion(null);
+    };
 
 };
 
-WidgetsNavbarController.$inject = ['$scope','$rootScope','$translate','$location','$timeout', '$q', 'apiService'];
+WidgetsNavbarController.$inject = ['$scope','$rootScope','$translate','$location','$timeout', '$q', 'apiService','regionService', '$mdSidenav'];
 
 module.exports = WidgetsNavbarController;

@@ -1,6 +1,6 @@
 'use strict';
 
-var RecentPostsDirective = function (apiService, assetPath) {
+var RecentPostsDirective = function (apiService, assetPath, configuration) {
     return {
         restrict: 'A',
         scope: {
@@ -8,6 +8,7 @@ var RecentPostsDirective = function (apiService, assetPath) {
         },
         templateUrl: assetPath + 'partials/_recent_posts.html',
         link: function (scope, elem, attrs) {
+            scope.urlbase = configuration.urlbase || '/';
             scope.$watch(attrs.pageSize, function () {
                 apiService('posts?sort=-created&limit=' + (parseInt(scope.pageSize) || 10))
                     .actions.all(function (err, posts) {
@@ -24,6 +25,6 @@ var RecentPostsDirective = function (apiService, assetPath) {
     };
 };
 
-RecentPostsDirective.$inject = ['apiService', 'assetPath'];
+RecentPostsDirective.$inject = ['apiService', 'assetPath', 'configuration'];
 
 module.exports = RecentPostsDirective;

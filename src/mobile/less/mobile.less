@@ -1,3 +1,39 @@
 @import "../../shared/less/main";
 
 // mobile specific styles go here
+
+md-toolbar.site-content-toolbar {
+  min-height: 100%;
+}
+
+md-sidenav {
+  md-content {
+    .layout-padding {
+      padding: 8px 0px;
+    }
+    .layout-padding md-list {
+      padding: 0px;
+    }
+    md-input-container {
+      margin: 0px;
+      md-icon {
+        margin: 0px 0 0 0;
+      }
+      md-autocomplete {
+        margin-left: 37px;
+      }
+    }
+    .md-button {
+      border-radius: 0px;
+      margin: 0px;
+      padding: 4px 14px;
+      line-height: 40px;
+      width: 100%;
+      text-align: left;
+
+      > span {
+        padding-left: 1.28571em;
+      }
+    }
+  }
+}
