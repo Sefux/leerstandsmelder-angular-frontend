@@ -22,8 +22,8 @@ var LocationsRegionIndexControlller = function ($scope, apiService, $q, $locatio
                 property: 'street'
             },
             {
-                label: 'locations.building_type',
-                property: 'buildingType',
+                label: 'locations.artwork_type',
+                property: 'artworkType',
                 date: true
             },
             {
@@ -44,7 +44,7 @@ var LocationsRegionIndexControlller = function ($scope, apiService, $q, $locatio
         $scope.columnKeys = [
             'title',
             'street',
-            'buildingType',
+            'artworkType',
             'owner',
             'updated',
             'link'

@@ -9,5 +9,5 @@ div(layout="column" layout-align="start start")
                 a(ng-href='/{{ region.slug || region.uuid }}/{{ location.slug }}')
                     h3 {{ location.title }}
                     p
-                        | {{location.buildingType | translate}} {{ ' ' }}
+                        | {{location.artworkType | translate}} {{ ' ' }}
                         span(ng-if='location.owner') / {{location.owner | translate}}

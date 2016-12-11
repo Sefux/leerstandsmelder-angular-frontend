@@ -23,13 +23,11 @@ div(layout layout-xs="column" layout-wrap layout-fill)
             small(marked="location.description")
         hr
         small
-            p(ng-if="location.emptySince") {{ 'locations.empty_for' | translate }}: {{ location.emptySince | translate }}
+            p(ng-if="location.artworkSince") {{ 'locations.artwork_for' | translate }}: {{ location.artworkSince | translate }}
             p {{ 'locations.address' | translate }}: {{location.street || ('locations.unknown' | translate)}}
             p {{ 'locations.city' | translate }}: {{location.postcode}} {{location.city || ('locations.unknown' | translate)}}
             p {{ 'locations.degree' | translate }}: {{(location.degree | translate) || ('locations.unknown' | translate)}}
             p {{ 'locations.demolished' | translate }}: {{(location.demolished ? ('locations.demolished_yes' | translate) : null) || ('site.no' | translate)}} &nbsp;
-            p {{ 'locations.demolition_rumor' | translate }}: {{(location.rumor ? ('locations.demolition_rumor_yes' | translate) : null) || ('locations.unknown' | translate)}}
-            p {{ 'locations.building_type' | translate }}: {{(location.buildingType | translate) || ('locations.unknown' | translate)}}
-            p {{ 'locations.owner' | translate }}: {{(location.owner | translate) || ('locations.unknown' | translate)}}
+            p {{ 'locations.artwork_type' | translate }}: {{(location.artworkType | translate) || ('locations.unknown' | translate)}}
         hr
         div(comments uuid='location.uuid' resource='locations')

@@ -75,14 +75,17 @@ module.exports = {
     },
     locations: {
         address: 'Address',
-        building_type: 'Building Type',
-        building_type_options: {
-            residential: 'Residential',
-            commercial: 'Commercial',
-            industrial: 'Industrial',
-            historical: 'Historical',
-            public_work: 'Public Work',
-            other: 'Other'
+        artwork_type: 'Building Type',
+        artwork_type_options: {
+            mural: 'Pizza/Mural/Wandbild',
+            tag: 'OZ-Tag',
+            parole: 'Parole',
+            kringel: 'Kringel/Spirale',
+            piece: 'OZ-Piece',
+            smiley: 'Smiley',
+            for_oz: 'Für OZ',
+            line: 'Linien/Striche/abstrakt einfarbig',
+            others: 'andere Tags / sonstiges'
         },
         city: 'City',
         create_new: 'Submit location',
@@ -101,8 +104,8 @@ module.exports = {
         demolition_rumor: 'Rumors of Demolition',
         demolition_rumor_yes: 'Yes',
         edit: 'Edit Location',
-        empty_for: 'Empty for',
-        empty_options: {
+        artwork_for: 'Empty for',
+        artwork_since_options: {
             recently: 'just recently',
             min_five_years: 'at least 5 years',
             min_three_years: 'at least 3 years',

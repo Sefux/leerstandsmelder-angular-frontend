@@ -4,13 +4,12 @@
 
 var LocationFormDefaultsService = function () {
     return {
-        emptySince: [
+        artworkSince: [
             'locations.unknown',
-            'locations.empty_options.recently',
-            'locations.empty_options.about_half_year',
-            'locations.empty_options.min_one_year',
-            'locations.empty_options.min_three_years',
-            'locations.empty_options.min_five_years'
+            'locations.artwork_since_options.min_three_years',
+            'locations.artwork_since_options.min_four_years',
+            'locations.artwork_since_options.min_five_years',
+            'locations.artwork_since_options.min_ten_years',
         ],
         degree: [
             'locations.unknown',
@@ -26,14 +25,17 @@ var LocationFormDefaultsService = function () {
         hidden: [
             'locations.hidden_yes'
         ],
-        buildingType: [
+        artworkType: [
             'locations.unknown',
-            'locations.building_type_options.residential',
-            'locations.building_type_options.commercial',
-            'locations.building_type_options.industrial',
-            'locations.building_type_options.historical',
-            'locations.building_type_options.public_work',
-            'locations.building_type_options.other'
+            'locations.artwork_type_options.mural',
+            'locations.artwork_type_options.tag',
+            'locations.artwork_type_options.parole',
+            'locations.artwork_type_options.kringel',
+            'locations.artwork_type_options.piece',
+            'locations.artwork_type_options.smiley',
+            'locations.artwork_type_options.for_oz',
+            'locations.artwork_type_options.line',
+            'locations.artwork_type_options.others'
         ],
         owner: [
             'locations.unknown',

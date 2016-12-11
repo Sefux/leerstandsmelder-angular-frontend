@@ -1,5 +1,5 @@
 {
-  "name": "leerstandsmelder-frontend",
+  "name": "mapoz-frontend",
   "version": "0.2.0",
   "description": "Leerstandsmelder App - Angular.JS based frontend for Desktop & Mobile",
   "scripts": {

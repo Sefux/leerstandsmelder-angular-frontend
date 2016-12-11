@@ -54,17 +54,12 @@ div(layout="row" layout-xs="column" layout-wrap layout-fill)
                 div(layout="row" layout-padding)
                     div(flex layout-padding)
                         div(layout-gt-xs="row")
-                            +select('location.emptySince', '_sys.emptySince', false, 'locations.empty_for')
+                            +select('location.artworkSince', '_sys.artworkSince', false, 'locations.artwork_for')
                         div(layout-gt-xs="row")
-                            +select('location.owner', '_sys.owner', false, 'locations.owner')
-                        div(layout-gt-xs="row")
-                            +select('location.buildingType', '_sys.buildingType', false, 'locations.building_type')
+                            +select('location.artworkType', '_sys.artworkType', false, 'locations.artwork_type')
                     div(flex layout-padding)
                         div(layout-gt-xs="row")
                             +input('radio','location.degree','locations.degree', '_sys.degree', false)
-                        div(layout-gt-xs="row")
-                            +input('checkbox','location.demolition_rumor','locations.demolition_rumor', '_sys.demolition_rumor', false)
-
                         div(layout-gt-xs="row")
                             +input('checkbox','location.demolished','locations.demolished', '_sys.demolished', false)
                 hr
@@ -92,14 +87,12 @@ div(layout="row" layout-xs="column" layout-wrap layout-fill)
                         strong {{ "locations.title" | translate }} : {{location.title}}
                     p(btf-markdown="location.description" ng-if="location.description")
                     small
-                        p(ng-if="location.emptySince") {{ 'locations.empty_for' | translate }}: {{ location.emptySince | translate }}
+                        p(ng-if="location.artworkSince") {{ 'locations.artwork_for' | translate }}: {{ location.artworkSince | translate }}
                         p {{ 'locations.address' | translate }}: {{location.street || ('locations.unknown' | translate)}}
                         p {{ 'locations.city' | translate }}: {{location.postcode}} {{location.city || ('locations.unknown' | translate)}}
                         p {{ 'locations.degree' | translate }}: {{(location.degree | translate) || ('locations.unknown' | translate)}}
                         p {{ 'locations.demolished' | translate }}: {{(location.demolished ? ('locations.demolished_yes' | translate) : null) || ('site.no' | translate)}}
-                        p {{ 'locations.demolition_rumor' | translate }}: {{(location.rumor ? ('locations.demolition_rumor_yes' | translate) : null) || ('locations.unknown' | translate)}}
-                        p {{ 'locations.building_type' | translate }}: {{(location.buildingType | translate) || ('locations.unknown' | translate)}}
-                        p {{ 'locations.owner' | translate }}: {{(location.owner | translate) || ('locations.unknown' | translate)}}
+                        p {{ 'locations.artwork_type' | translate }}: {{(location.artworkType | translate) || ('locations.unknown' | translate)}}
                     hr
                     div(ng-if="photos && photos.length > 0")
                         p

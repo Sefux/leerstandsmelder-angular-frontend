@@ -63,8 +63,8 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                                 popup += data.locations + " " + $translate.instant('locations.location_plural') +"<br />";
                             } else {
                                 popup += data.street + "<br />";
-                                if (data.buildingType !== undefined) {
-                                    popup += $translate.instant(data.buildingType)  + " / ";
+                                if (data.artworkType !== undefined) {
+                                    popup += $translate.instant(data.artworkType)  + " / ";
                                 } else {
                                     popup += $translate.instant('locations.unknown')  + " / ";
                                 }

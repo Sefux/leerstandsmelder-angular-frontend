@@ -6,7 +6,7 @@ var nodeStatic = require('node-static'),
     fserver = new nodeStatic.Server(__dirname + '/../dist/web/'),
     port = require('../config.json').global.serve_web_ui_port || 9090;
 
-console.log('Starting static Leerstandsmelder UI server on port ' + port);
+console.log('Starting static MAPOZ UI server on port ' + port);
 require('http').createServer(function (req, res) {
     req.addListener('end', function () {
         fserver.serve(req, res, function (err) {

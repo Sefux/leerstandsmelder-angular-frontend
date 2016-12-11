@@ -75,23 +75,26 @@ module.exports = {
     },
     locations: {
         address: 'Adresse',
-        building_type: 'Gebäudeart',
-        building_type_options: {
-            residential: 'Wohngebäude',
-            commercial: 'Gewerblich',
-            industrial: 'Industriell',
-            historical: 'Historisch',
-            public_work: 'Öffentlich',
-            other: 'was anders'
+        artwork_type: 'Werkart',
+        artwork_type_options: {
+            mural: 'Pizza/Mural/Wandbild',
+            tag: 'OZ-Tag',
+            parole: 'Parole',
+            kringel: 'Kringel/Spirale',
+            piece: 'OZ-Piece',
+            smiley: 'Smiley',
+            for_oz: 'Für OZ',
+            line: 'Linien/Striche/abstrakt einfarbig',
+            others: 'andere Tags / sonstiges'
         },
         city: 'Stadt',
-        create_new: 'Leerstand melden',
-        degree: 'Grad des Leerstands',
+        create_new: 'Werk eintragen',
+        degree: 'Zustand des Werkes',
         degree_options: {
-            complete: 'Vollständig',
-            partial: 'Teilweise'
+            complete: 'Vollständig erhalten',
+            partial: 'Teilweise zerstört'
         },
-        demolished: 'Abgerissen',
+        demolished: 'Buffed',
         demolished_yes: 'Ja',
         demolition_options: {
             rumor: 'Gerüchte',
@@ -100,14 +103,16 @@ module.exports = {
         demolition_rumor: 'Abrissgerüchte',
         demolition_rumor_yes: 'Ja',
         description: 'Beschreibung',
-        edit: 'Leerstand bearbeiten',
-        empty_for: 'Leer seit',
-        empty_options: {
+        edit: 'Werk bearbeiten',
+        artwork_for: 'Werk wurde erstellt',
+        artwork_since_options: {
             recently: 'Kurzem',
             min_five_years: 'wenigstens fünf Jahren',
             min_three_years: 'wenigstens drei Jahren',
-            min_one_year: 'wenigstens einem Jahr',
-            about_half_year: 'ungefähr einem haben Jahr',
+            min_four_years: 'wenigstens vier Jahren',
+            min_six_years: 'wenigstens sechs Jahr',
+            min_ten_years: 'wenigstens zehn Jahr',
+            about_half_year: 'ungefähr einem halben Jahr',
             less_than_one_quarter_year: 'weniger als ein viertel Jahr',
             less_than_one_half_year: 'wengier als ein halbes Jahr',
             less_than_three_quarters_year: 'weniger als ein dreiviertel Jahr',
@@ -121,9 +126,9 @@ module.exports = {
             and: 'und'
         },
         help: {
-            info: 'Gib hier einen aussagekräftigen Titel und eine Beschreibung für diesen Leerstand ein.',
+            info: 'Gib hier einen aussagekräftigen Titel und eine Beschreibung für diesen Werk ein.',
             location: 'Gib eine Adresse ein und die Karte sollte sich nach einem kurzen Moment aktualisieren. Du kannst den Marker auf der Karte ziehen, um damit die Adresse zu aktualisieren.',
-            details: 'Trag ein, welche Details dir über den Leerstand bekannt sind. Wenn Du etwas nicht weißt, lass es einfach unausgewählt.',
+            details: 'Trag ein, welche Details dir über das Werk bekannt sind. Wenn Du etwas nicht weißt, lass es einfach unausgewählt.',
             admin:'Setz das Häkchen auf "Ausgeblendet" um es für nicht-Administratoren unsichtbar zu machen.'
         },
         hidden: 'Ausgeblendet',
@@ -207,7 +212,7 @@ module.exports = {
     },
     site: {
         banned: 'Gesperrt',
-        copyright_notice: '© 2016 Leerstandsmelder.de',
+        copyright_notice: '© 2016 city-of-oz.hamburg',
         map_notice: 'Karten: © OpenStreetMap contributors, ODbL 1.0',
         lang: 'Sprache',
         lang_de: 'Deutsch',
@@ -225,7 +230,7 @@ module.exports = {
             press: 'Presse',
             terms: 'AGB'
         },
-        title: 'Leerstandsmelder'
+        title: 'City of OZ'
     },
     users: {
         anonymous: 'Nicht eingeloggt',
