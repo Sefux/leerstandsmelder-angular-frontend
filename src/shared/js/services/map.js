@@ -35,7 +35,7 @@ var MapService = function ($http, assetPath) {
              new L.Control.GeoSearch(geoConf).addTo(map);
             }
 
-            map.zoomControl.setPosition('topleft');
+            map.zoomControl.setPosition('bottomleft');
 
             if (addMiniMap) {
                 var tileLayer = new L.TileLayer(config.miniMap.osmUrl, config.miniMap.tileLayer);

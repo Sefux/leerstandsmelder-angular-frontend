@@ -34,6 +34,10 @@ app.provider('PubSub', require('angular-pubsub'));
 app.factory('assetPath', require('./services/assetpath'));
 app.factory('deviceReady', require('./services/deviceready'));
 
+app.constant("configuration", {
+    'urlbase': '/#/'
+});
+
 app.config([
     '$routeProvider',
     '$locationProvider',
@@ -42,7 +46,10 @@ app.config([
     '$mdThemingProvider',
     '$compileProvider',
     '$mdGestureProvider',
-    function ($routeProvider, $locationProvider, $animateProvider, $translateProvider, $mdThemingProvider, $compileProvider, $mdGestureProvider) {
+    'markedProvider',
+    function ($routeProvider, $locationProvider, $animateProvider, $translateProvider, $mdThemingProvider, $compileProvider, $mdGestureProvider, markedProvider) {
+        markedProvider.setOptions({gfm: true});
+
         // this should stop the clickjacker
         $mdGestureProvider.skipClickHijack();
 

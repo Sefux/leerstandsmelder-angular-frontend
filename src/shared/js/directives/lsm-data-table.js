@@ -57,12 +57,14 @@ var LsmDataTableDirective = function ($q, apiService, assetPath, $translate) {
             scope.onPaginate = function (page, limit, options) {
                 var columnSort = options.columnSort || null;
                 var sort = null;
-                var direction = null;
+
                 if(columnSort) {
                     angular.forEach(columnSort, function(key,value) {
                         if(key.sort !== false){
-                            sort = scope.fields[value].property;
-                            direction = key.sort;
+                            if(key.sort === 'asc') {
+                                sort = '-';
+                            }
+                            sort = sort + scope.fields[value].property;
                         }
 
                     });

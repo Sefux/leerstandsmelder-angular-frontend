@@ -1,0 +1,9 @@
+include ..//..//..//shared/pug/mixins/_form
+include ..//..//..//shared/pug/mixins/_buttons
+include ..//..//..//shared/pug/mixins/_layout
+include ..//..//..//shared/pug/mixins/_style
+
+div(layout="row" layout-xs="column" layout-wrap layout-fill)
+	#map(flex flex-gt-xs="66" lsm-map ng-model=mapModel geosearch=0 zoom=6 urlbase="urlbase" center='mapcenter' style=mapStyle mapType='mapType' locations='locations')
+	div(flex flex-gt-xs="33" layout='column')
+		div(flex recent-posts page-size='10')

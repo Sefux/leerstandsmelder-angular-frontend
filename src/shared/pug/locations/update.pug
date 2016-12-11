@@ -26,7 +26,7 @@ div(layout="row" layout-xs="column" layout-wrap layout-fill)
             md-tab(label='{{ "creator.tabs.location" | translate }}')
                 div.md-padding
                     small {{ "locations.help.location" | translate }}
-                div(layout="row" layout-padding)
+                div(layout="row" layout-xs="column" layout-padding)
                     div(flex)
                         +input('text','location.street','locations.street', null, null)
                         +input('text','location.city','locations.city', null, null)
@@ -51,7 +51,7 @@ div(layout="row" layout-xs="column" layout-wrap layout-fill)
             md-tab(label='{{ "creator.tabs.details" | translate }}')
                 div.md-padding
                     small {{ "locations.help.details" | translate }}
-                div(layout="row" layout-padding)
+                div(layout="row" layout-xs="column" layout-padding)
                     div(flex layout-padding)
                         div(layout-gt-xs="row")
                             +select('location.artworkSince', '_sys.artworkSince', false, 'locations.artwork_for')
@@ -98,10 +98,11 @@ div(layout="row" layout-xs="column" layout-wrap layout-fill)
                         p
                             strong {{ "locations.location_photos" | translate }}:
                         div(layout="row")
-                            img.photo-preview(ng-repeat="photo in photos" ng-src="{{ photo.thumb_url }}")
+                            img.photo-preview(ng-repeat="photo in photos" ng-src="{{ photo.thumb_large_url }}")
                         hr
                     p(ng-if='!files') {{ 'actions.choose_images' | translate }}
-                        +input('fileimage','assets.file','assets.file', null, null)
+                        //+input('fileimage','assets.file','assets.file', null, null)
+                        input(type="file" ng-model="file" name="file" accept="image/*" id="capture" ngf-capture="camera" ngf-select)
                     hr
                     div(layout-gt-xs="row" layout-align="space-between start")
                         +button("actions.previous",'selectedIndex = selectedIndex - 1','md-raised',null,null)
