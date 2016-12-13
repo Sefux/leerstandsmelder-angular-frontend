@@ -188,6 +188,8 @@ define([], function () {
             update_success: 'Eintrag erfolgreich aktualisiert..'
         },
         regions: {
+            create_regions: 'Region anlegen',
+            create_success: 'Region erfolgreich angelegt.',
             hide_message: 'Nachricht, wenn Region nicht angezeigt wird',
             latitude: 'Breitengrad',
             longitude: 'Längengrad',

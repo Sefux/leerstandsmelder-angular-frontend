@@ -125,26 +125,50 @@ define([
             });
 
         }])
-        .controller('Regions.Update', ['$scope', '$q', '$routeParams', 'apiService', 'responseHandler',
-            function ($scope, $q, $routeParams, apiService, responseHandler) {
-            var deferred = $q.defer();
-            $scope.promise = deferred.promise;
-            apiService('regions').actions.find($routeParams.uuid, function (err, region) {
-                if (!region.hasOwnProperty('moderate')) {
-                    region.moderate = false;
-                }
-                $scope.region = region;
-                responseHandler.handleResponse(err, deferred);
-            });
+        .controller('Regions.Update', ['$scope', '$q', '$routeParams', '$location', 'apiService', 'responseHandler',
+            function ($scope, $q, $routeParams, $location, apiService, responseHandler) {
+            var deferred;
+            $scope.region = {
+                lonlat: [null, null]
+            };
             $scope.submit = function () {
                 deferred = $q.defer();
                 $scope.promise = deferred.promise;
-                apiService('regions').actions.update($routeParams.uuid, $scope.region, function (err) {
-                    var msgs = {
-                        success: 'regions.update_success'
-                    };
-                    responseHandler.handleResponse(err, deferred, msgs);
-                });
+                if ($scope.region.lonlat) {
+                    for (var i in $scope.region.lonlat) {
+                        if (typeof $scope.region.lonlat[i] !== 'number') {
+                            $scope.region.lonlat[i] = parseFloat($scope.region.lonlat[i]);
+                        }
+                    }
+                }
+                if ($routeParams.uuid) {
+                    apiService('regions').actions.update($routeParams.uuid, $scope.region, function (err) {
+                        var msgs = {
+                            success: 'regions.update_success'
+                        };
+                        responseHandler.handleResponse(err, deferred, msgs);
+                    });
+                } else {
+                    apiService('regions').actions.create($scope.region, function (err, region) {
+                        var msgs = {
+                            success: 'regions.create_success'
+                        };
+                        responseHandler.handleResponse(err, deferred, msgs);
+                        $location.path('/admin/regions/' + region.uuid);
+                    });
+                }
             };
+
+            if ($routeParams.uuid) {
+                deferred = $q.defer();
+                $scope.promise = deferred.promise;
+                apiService('regions').actions.find($routeParams.uuid, function (err, region) {
+                    if (!region.hasOwnProperty('moderate')) {
+                        region.moderate = false;
+                    }
+                    $scope.region = region;
+                    responseHandler.handleResponse(err, deferred);
+                });
+            }
         }]);
 });

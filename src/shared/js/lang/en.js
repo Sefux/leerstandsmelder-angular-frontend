@@ -185,9 +185,11 @@ define([], function () {
             post_plural: 'Posts',
             site_post_plural: 'Page content',
             title: 'Title',
-            update_success: 'Post updated successfully.'
+            update_success: 'Post successfully updated.'
         },
         regions: {
+            create_regions: 'Create Region',
+            create_success: 'Region successfully created.',
             hide_message: 'Message if Region is hidden',
             latitude: 'Latitude',
             longitude: 'Longitude',
@@ -197,7 +199,7 @@ define([], function () {
             set_hide: 'Hide this Region',
             set_moderate: 'Moderate this Region',
             title: 'Title',
-            update_success: 'Region updated successfully.',
+            update_success: 'Region successfully updated.',
             zoom: 'Zoom'
         },
         site: {
