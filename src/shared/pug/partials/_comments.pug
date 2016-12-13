@@ -11,7 +11,7 @@ div(ng-if="comments" ng-repeat="comment in comments")
         | {{ 'author.by' | translate }}&nbsp;
         strong {{ comment.user.nickname || user.nickname }}&nbsp;
         span {{ 'author.on' | translate }} {{ comment.created | date : 'dd.MM.yy HH:mm' }}
-    p(btf-markdown="comment.body")
+    p(marked="comment.body")
 p(ng-if="comments.length === 0")
     small {{ "comments.no_comments" | translate }}
 hr
