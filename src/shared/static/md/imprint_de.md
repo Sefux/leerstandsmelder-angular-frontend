@@ -27,8 +27,7 @@ Schwerin: schwerin [at] leerstandsmelder.de
 Stuttgart: stuttgart [at] leerstandsmelder.de  
 Tübingen-Reutlingen: tuereu [at] leerstandsmelder.de  
 Weimar: weimar [at] leerstandsmelder.de  
-Wien: wien [at] leerstandsmelder.de  
-Wiesbaden: wiesbaden@leerstandsmelder.de  
+Wien: wien [at] leerstandsmelder.de   
 Wuppertal: wuppertal [at] leerstandsmelder.de  
 
 Bei Interesse Leerstandsmelder.de in deiner Stadt zu starten:  
@@ -288,16 +287,6 @@ mail: office [at] igkulturwien.net
 fon: +43 (01) 236 23 14  
 fax: +43 (01) 236 23 14 9  
 [www.igkulturwien.net](http://igkulturwien.net/)  
-
-**Verantwortlich für www.leerstandsmelder.de/wiesbaden ist**  
-PlanWerkStadt  
-Institut für Stadtentwicklung und Projektberatung e.V.  
-vertreten durch Mathias Sommer  
-Rüdesheimer Str. 2  
-65197 Wiesbaden  
-mail: info [at] planwerkstadt.de  
-fon: 0176 - 567 52 807  
-[www.planwerkstadt.de](http://www.planwerkstadt.de/)  
 
 **Verantwortlich für www.leerstandsmelder.de/wuppertal ist**  
 422 Quartierbüro Soziale Stadt  
