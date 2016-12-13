@@ -31,6 +31,10 @@ app.provider('PubSub', require('angular-pubsub'));
 
 app.factory('assetPath', require('./services/assetpath'));
 
+app.constant("configuration", {
+    'urlbase': '/#/'
+});
+
 app.config([
     '$routeProvider',
     '$locationProvider',
