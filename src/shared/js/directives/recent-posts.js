@@ -11,10 +11,10 @@ var RecentPostsDirective = function (apiService, assetPath, configuration) {
             scope.urlbase = configuration.urlbase || '/';
             scope.$watch(attrs.pageSize, function () {
                 apiService('posts?sort=-created&limit=' + (parseInt(scope.pageSize) || 10))
-                    .actions.all(function (err, posts) {
+                    .actions.all(function (err, data) {
                     scope.$applyAsync(function () {
-                        if (!err && posts) {
-                            scope.posts = posts;
+                        if (!err && data.results) {
+                            scope.posts = data.results;
                         } else {
                             scope.posts = [];
                         }
