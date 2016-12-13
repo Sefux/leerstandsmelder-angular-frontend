@@ -1,5 +1,7 @@
 **E-Mail Kontakte**  
-Berlin: berlin [at] leerstandsmelder.de  
+Augsburg: Augsburg [at] leerstandsmelder.de
+Berlin: berlin [at] leerstandsmelder.de
+Bochum: mensch.mieter [at] mvbo.de
 Bonn: bonn [at] leerstandsmelder.de  
 Bremen: bremen [at] leerstandsmelder.de  
 Chemnitz: chemnitz [at] leerstandsmelder.de  
@@ -10,8 +12,7 @@ Gießen: giessen [at] leerstandsmelder.de
 Görlitz: goerlitz [at] leerstandsmelder.de  
 Hamburg: hamburg [at] leerstandsmelder.de  
 Kaiserslautern: kaiserslautern [at] leerstandsmelder.de  
-Kassel: kassel [at] leerstandsmelder.de  
-Köln: koeln [at] leerstandsmelder.de  
+Kassel: kassel [at] leerstandsmelder.de
 Luxemburg: luxemburg [at] leerstandsmelder.de  
 Mainz: mainz [at] leerstandsmelder.de  
 Münster: muenster [at] leerstandsmelder.de  
@@ -46,12 +47,29 @@ mail: info [at] das-gaengeviertel.info
 fon: 040 - 22 60 07 91  
 [www.das-gaengeviertel.info](http://www.das-gaengeviertel.info)  
 
+**Verantwortlich für www.leerstandsmelder.de/augsburg ist**
+Markus Siefer
+Stainingerstr. 8
+86157 Augsburg
+mail: masief [at] posteo.de
+
 **Verantwortlich für www.leerstandsmelder.de/berlin ist**  
 openBerlin e.V., vertreten durch den Vorstand  
 Emserstraße 5  
 12051 Berlin  
 mail: kontakt.openberlin [at] googlemail.com  
 [www.open-berlin.org](http://www.open-berlin.org/)  
+
+**Verantwortlich für www.leerstandsmelder.de/bochum ist**
+Mieterverein Bochum, Hattingen und Umgegend e. V.
+vertreten durch den Vorstand
+Vereinsregister: AG Bochum VR 1022
+Brückstraße 58
+44787 Bochum
+Mail: mensch.mieter [at] mvbo.de
+Fon: 0234 / 96114-44
+Fax: 0234 / 96114-74
+[www.mvbo.de](http://www.mvbo.de)
 
 **Verantwortlich für www.leerstandsmelder.de/bonn ist**  
 Rhizom e.V., vertreten durch den Vorstand  
@@ -144,15 +162,7 @@ fon: 0631 - 20 57 5 - 12 10
 Norma Tiedemann  
 Philosophenweg 16  
 34121 Kassel  
-mail: normat [at] posteo.de  
-
-**Verantwortlich für www.leerstandsmelder.de/koeln ist**  
-Autonomes Zentrum Köln  
-Eifelwall 7  
-51103 Köln  
-mail: unsersquat-presse [at] riseup.net  
-fon: 0178 88 62 613  
-[www.az-koeln.org](http://az-koeln.org/)  
+mail: normat [at] posteo.de 
 
 **Verantwortlich für www.leerstandsmelder.de/luxemburg ist**  
 Sauvegarde du Patrimoine a.s.b.l.  
