@@ -4,7 +4,7 @@
     'use strict';
 
     require.config({
-        urlArgs: "build=16112101",
+        urlArgs: "build=16121301",
         paths: {
             lang_en: '/src/shared/js/lang/en',
             lang_de: '/src/shared/js/lang/de',
