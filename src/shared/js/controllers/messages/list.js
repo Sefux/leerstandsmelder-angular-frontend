@@ -4,9 +4,9 @@ var MessagesListController = function ($scope, apiService, responseHandler, $q) 
     $scope.rowSetup = {
         'table-row-id-key': 'fields.uuid',
         'column-keys': [
-            'fields.user.nickname',
-            'fields.body',
-            'fields.created'
+            'body',
+            'user.nickname',
+            'created'
         ],
     };
     $scope.fields = [
