@@ -1,8 +1,9 @@
 include ..//mixins/_form
 include ..//mixins/_buttons
 
++input('text','message.to', 'messages.to', null, null)
 +input('textarea','message.body','messages.message_text', null, null)
 hr
 div(layout="row")
     span(flex)
-    +button("actions.submit",'submitMessage()','md-raised',null,null)
+    +button("actions.submit",'submit()','md-raised',null,null)
