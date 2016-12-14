@@ -1,0 +1,12 @@
+include ..//mixins/_style
+include ..//mixins/_layout
+include ..//mixins/_style
+
+
++layout('column','start center',true)
+    md-tabs(md-dynamic-height md-border-bottom)
+        md-tab(label="{users.all}")
+            md-content(class="md-padding")
+                +headline('users.all')
+                div(layout='column' layout-align="start center" flex="100" layout-fill)
+                    div(lsm-data-table layout-fill data-fields='fields' data-settings='settings' data-actions='actions')

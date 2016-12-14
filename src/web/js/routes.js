@@ -156,6 +156,15 @@ module.exports = [
 
     //
     //
+    // Admin Users
+    {
+        route: '/admin/users/list',
+        templateUrl: '/users/list.html',
+        controller: 'Users.List'
+    },
+
+    //
+    //
     // Regions
 
     {
