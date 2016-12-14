@@ -19,6 +19,6 @@ include ..//mixins/_style
                 +content('column', 'start start')
                     md-checkbox(ng-model="region.hide" aria-label="{{ 'regions.set_hide' | translate }}") {{ 'regions.set_hide' | translate }}
                     +input('textarea', 'region.hide_message', 'regions.hide_message')
-        .md-actions(layout="row" layout-align="start end")
+        md-card-actions.md-actions(layout="column" layout-align="end end")
             span(flex)
-            +button_fab('actions.submit','submit()','md-warn','fa-check')
+                +button_fab('actions.submit','submit()','md-warn','fa-check')
