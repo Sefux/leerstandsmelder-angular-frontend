@@ -3,13 +3,13 @@ include ..//mixins/_buttons
 include ..//mixins/_layout
 include ..//mixins/_style
 
-+layout('column','center center',true)
++layout('column','start center',true)
     md-card()
         md-toolbar(md-scroll-shrink)
             +layout('row','center center','padding')
                 +headline('users.settings')
         md-card-content
-            +layout('row','start start')
+            div(layout="row" layout-xs="column" layout-align="start start")
                 +content('column', 'start start')
                     +input('text', 'region.title', 'regions.title', null, null)
                     +input('text', 'region.zoom', 'regions.zoom', null, null)
