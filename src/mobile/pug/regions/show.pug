@@ -4,6 +4,6 @@ include ..//..//..//shared/pug/mixins/_layout
 include ..//..//..//shared/pug/mixins/_style
 
 div.scrollbar_fix(layout="row" layout-xs="row" layout-wrap layout-fill)
-    #map.scrollbar_fix(lsm-map  flex="100" layout-align='stretch' geosearch=0 urlbase='urlbase' center='mapcenter' zoom='zoom' locations='locations')
-    div.scrollbar_fix( flex="35" layout-align='stretch')
+    #map.scrollbar_fix(lsm-map  flex="100" style="max-height:80vh !important;min-height:80vh !important;height:80vh !important;" layout-align='stretch' geosearch=0 urlbase='urlbase' center='mapcenter' zoom='zoom' locations='locations')
+    div.scrollbar_fix( flex="100" layout-align='stretch')
         div(flex recent-locations region='region' page-size='10')

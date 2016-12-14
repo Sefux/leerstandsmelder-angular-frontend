@@ -1,6 +1,8 @@
 'use strict';
 
-var LocationsUserController = function ($scope, $q, $location, $mdDialog ,$translate, responseHandler, apiService) {
+var LocationsUserController = function ($scope, $q, $location, $mdDialog ,$translate, responseHandler, apiService, configuration) {
+
+    $scope.urlbase = configuration.urlbase || '/';
     $scope.fields = [
         {
             label: 'locations.title',
@@ -42,10 +44,12 @@ var LocationsUserController = function ($scope, $q, $location, $mdDialog ,$trans
         row_select: false,
         multiple: false,
         pagination: true,
+        sort: '-created',
         pagesize: 25,
         limit_options: [25, 50, 100],
         resource: 'users/me/locations'
     };
+
     $scope.page = {
         list_title: 'locations.my_locations',
         list_title_empty: 'locations.my_locations_empty'
@@ -66,10 +70,11 @@ var LocationsUserController = function ($scope, $q, $location, $mdDialog ,$trans
 
     //TODO: implement show action
     $scope.clickShowHandler =  function (uuid) {
-        $location.path('/location/' + uuid);
+        var path = 'location/' + uuid;
+        $location.path(path);
     };
     $scope.clickEditHandler = function (uuid) {
-        $location.path('/locations/update/' + uuid);
+        $location.path('locations/update/' + uuid);
     };
     $scope.clickDeleteHandler = function (uuid) {
         var confirm = $mdDialog.confirm()
@@ -93,6 +98,6 @@ var LocationsUserController = function ($scope, $q, $location, $mdDialog ,$trans
     };
 };
 
-LocationsUserController.$inject = ['$scope', '$q', '$location', '$mdDialog', '$translate', 'responseHandler', 'apiService'];
+LocationsUserController.$inject = ['$scope', '$q', '$location', '$mdDialog', '$translate', 'responseHandler', 'apiService', 'configuration'];
 
 module.exports = LocationsUserController;

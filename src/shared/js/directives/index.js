@@ -7,6 +7,7 @@ app.directive('checkLogin', require('./check-login'));
 app.directive('comments', require('./comments'));
 app.directive('lightbox', require('./lightbox'));
 app.directive('lsmDataTable', require('./lsm-data-table'));
+app.directive('lsmDataList', require('./lsm-data-list'));
 app.directive('lsmMap', require('./lsm-map'));
 app.directive('markdownEditor', require('./markdown-editor'));
 app.directive('messageForm', require('./message-form'));
