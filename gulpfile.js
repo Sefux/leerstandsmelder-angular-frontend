@@ -111,6 +111,7 @@ gulp.task('deps:js', function (env) {
                 'bower_components/L.GeoSearch/src/js/l.control.geosearch.js',
                 'bower_components/L.GeoSearch/src/js/l.geosearch.provider.openstreetmap.js',
                 'bower_components/airbrake-js-client/dist/client.min.js'
+
             ])
             .pipe(concat('leerstandsmelder-angular-dependencies.min.js'))
             .pipe(header(banner, {pkg: pkg}));
@@ -263,6 +264,16 @@ gulp.task('assets', function (env) {
                     './assets/fonts/*'
                 ]);
                 stream.pipe(gulp.dest(destBase + 'fonts/'));
+                return streamToPromise(stream);
+            })
+            .then(function () {
+                var stream = gulp.src([
+                    './node_modules/angular-ui-grid/ui-grid.ttf',
+                    './node_modules/angular-ui-grid/ui-grid.woff',
+                    './node_modules/angular-ui-grid/ui-grid.svg',
+                    './node_modules/angular-ui-grid/ui-grid.eot',
+                ]);
+                stream.pipe(gulp.dest(destBase + 'css/'));
                 return streamToPromise(stream);
             })
             .then(function () {

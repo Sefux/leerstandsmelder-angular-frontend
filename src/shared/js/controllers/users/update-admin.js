@@ -1,6 +1,6 @@
 'use strict';
 
-var UsersUpdateController = function ($scope, $q, apiService, responseHandler, PubSub) {
+var UsersUpdateAdminController = function ($scope, $q, $routeParams, apiService, responseHandler, PubSub) {
     var deferred = $q.defer();
     $scope.user = {
         nickname: null,
@@ -8,13 +8,12 @@ var UsersUpdateController = function ($scope, $q, apiService, responseHandler, P
         password: null,
         password_confirm: null,
         share_email: null,
-        notify: null,
-        message_me: null
+        notify: null
     };
     $scope._sys = {
-        notify:'notify_me',
+        notify:'notify me',
         share_email:'share my email',
-        message_me: 'message_me'
+        userScope: ['Admin','Editor','User',]
     };
 
     $scope.submit = function () {
@@ -30,7 +29,7 @@ var UsersUpdateController = function ($scope, $q, apiService, responseHandler, P
             }
         }
         delete $scope.user.password_confirm;
-        apiService('users').actions.update('me', $scope.user, function (err) {
+        apiService('users').actions.update($routeParams.uuid, $scope.user, function (err) {
             var msgs = {
                 success: 'messages.users.update_success'
             };
@@ -40,22 +39,19 @@ var UsersUpdateController = function ($scope, $q, apiService, responseHandler, P
             }
         });
     };
-    $scope.promise = deferred.promise;
-    apiService('users').actions.find('me', function (err, user) {
-        if (responseHandler.handleResponse(err, deferred)) {
-            $scope.user = {
-                nickname: user.nickname,
-                email: user.email,
-                password: null,
-                password_confirm: null,
-                share_email: user.share_email,
-                notify: user.notify,
-                message_me: user.message_me
-            };
-        }
-    });
+    if($routeParams.uuid) {
+        $scope.promise = deferred.promise;
+        apiService('users').actions.find($routeParams.uuid, function (err, user) {
+            if (responseHandler.handleResponse(err, deferred)) {
+                $scope.user = user;
+                $scope.user.password = null;
+                $scope.user.password_confirm = null;
+
+            }
+        });
+    }
 };
 
-UsersUpdateController.$inject = ['$scope', '$q', 'apiService', 'responseHandler', 'PubSub'];
+UsersUpdateAdminController.$inject = ['$scope', '$q', '$routeParams', 'apiService', 'responseHandler', 'PubSub'];
 
-module.exports = UsersUpdateController;
+module.exports = UsersUpdateAdminController;
