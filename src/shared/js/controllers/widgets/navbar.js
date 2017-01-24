@@ -76,6 +76,7 @@ var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$
     self.searchTextChange = searchTextChange;
 
     apiService('regions').actions.all(function (err, regions) {
+        regions = regions.results || regions;
         if (!regions || !Array.isArray(regions)) {
             if (err) {
                 console.log(err);

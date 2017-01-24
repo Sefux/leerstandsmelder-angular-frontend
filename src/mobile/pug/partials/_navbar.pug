@@ -2,9 +2,9 @@ include ../../../shared/pug/mixins/_form
 include ../../../shared/pug/mixins/_buttons
 
 div(ng-controller="Widgets.Navbar as ctrl")
-    md-toolbar.site-content-toolbar(check-login)
+    md-toolbar.site-content-toolbar(md-scroll-shrink check-login)
         #navbar(name="navbar" layout='column' layout-align='center end' layout-fill )
-            div.md-toolbar-tools(flex layout='row' layout-align='space-between center')
+            div.md-toolbar-tools(flex layout='row' layout-align='space-between center' )
                 +button_icon('','home()','','fa-fw fa-2x  fa-home',null)
                 md-input-container
                     label.currentRegion {{ 'locations.location_plural' | translate }}
