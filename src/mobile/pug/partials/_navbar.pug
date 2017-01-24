@@ -28,32 +28,32 @@ div(ng-controller="Widgets.Navbar as ctrl")
                 div(ng-if="api_key.scopes.indexOf('admin') > -1 || api_key.scopes.indexOf('editor') > -1 || admin_regions.length > 0")
                     // admin
                     md-menu-item(ng-if="api_key.scopes.indexOf('editor') > -1")
-                        +button('posts.manage_posts',null,'btn-default','fa-newspaper-o fa-fw fa-2x','userSession', '/#/admin/posts')
+                        +button('posts.manage_posts',null,'btn-default','fa-newspaper-o fa-fw fa-2x','userSession', '#!/admin/posts')
                     md-menu-item(ng-if="api_key.scopes.indexOf('editor') > -1")
-                        +button('posts.site_post_plural',null,'btn-default','fa-newspaper-o fa-fw fa-2x','userSession', '/#/admin/posts/static')
+                        +button('posts.site_post_plural',null,'btn-default','fa-newspaper-o fa-fw fa-2x','userSession', '#!/admin/posts/static')
                     md-menu-item(ng-if="api_key.scopes.indexOf('editor') > -1")
-                        +button('posts.create_post',null,'btn-default','fa-newspaper-o fa-fw fa-2x','userSession', '/#/admin/posts/create')
+                        +button('posts.create_post',null,'btn-default','fa-newspaper-o fa-fw fa-2x','userSession', '#!/admin/posts/create')
                     md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
-                        +button('regions.manage_regions','','btn-default','fa-globe fa-fw fa-2x ','userSession', '/#/admin/regions')
+                        +button('regions.manage_regions','','btn-default','fa-globe fa-fw fa-2x ','userSession', '#!/admin/regions')
                     md-menu-item(ng-repeat="region in admin_regions")
                         // todo: turn this into a select list.
-                        +button_notranslate_tmp('region.title', 'close_sidebar()','btn-default','fa-fw fa-2x fa-globe','admin_regions', '#/admin/regions/{{ region.slug }}/locations')
+                        +button_notranslate_tmp('region.title', 'close_sidebar()','btn-default','fa-fw fa-2x fa-globe','admin_regions', '#!/admin/regions/{{ region.slug }}/locations')
 
                     //md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
                         +button('admin.dashboard', '','btn-default','fa-fw fa-2x fa-dashboard','userSession', '/admin/dashboard | navRewrite')
                     md-divider()
 
                 md-list-item(ng-if="!userSession")
-                    +button('locations.create_new','','md-primary','fa-fw fa-2x fa-minus-circle',null,'#/users/login')
+                    +button('locations.create_new','','md-primary','fa-fw fa-2x fa-minus-circle',null,'#!/users/login')
 
                 md-list-item(ng-if="userSession")
-                    +button('locations.create_new','','md-primary','fa-fw fa-2x fa-minus-circle',null,'#/locations/create')
+                    +button('locations.create_new','','md-primary','fa-fw fa-2x fa-minus-circle',null,'#!/locations/create')
 
                 md-list-item()
-                    +button('site.subnav.index','','','fa-fw fa-2x fa-map-o',null,'#/locations/all')
+                    +button('site.subnav.index','','','fa-fw fa-2x fa-map-o',null,'#!/locations/all')
 
                 md-list-item(ng-if="userSession")
-                    +button('locations.my_locations','','btn-default','fa-fw fa-2x fa-list','userSession', '#/users/me/locations')
+                    +button('locations.my_locations','','btn-default','fa-fw fa-2x fa-list','userSession', '#!/users/me/locations')
 
                 // search
                 md-list-item(layout="row" layout-align="start center" ng-click="$event.stopPropagation();")
@@ -83,18 +83,18 @@ div(ng-controller="Widgets.Navbar as ctrl")
                 // user
                 md-divider()
                 md-list-item(ng-if="!userSession")
-                    +button('users.login','','btn-default btn-small','fa-fw fa-2x fa-sign-in','!userSession', '#/users/login')
+                    +button('users.login','','btn-default btn-small','fa-fw fa-2x fa-sign-in','!userSession', '#!/users/login')
                 md-list-item(ng-if="!userSession")
-                    +button('users.signup','','btn-default','fa-fw fa-2x fa-user-plus','!userSession','#/users/create')
+                    +button('users.signup','','btn-default','fa-fw fa-2x fa-user-plus','!userSession','#!/users/create')
                 //md-menu-item(ng-if="userSession")
                     +button('users.messages','','btn-default','fa-fw fa-2x fa-envelope','userSession', '#/users/messages')
                     //span.badge.messageNo(ng-if="user.messages") {{user.messages}} 12
                     span.badge.messageNo() 12
 
                 md-list-item(ng-if="userSession")
-                    +button('users.settings','','btn-default','fa-fw fa-2x fa-user','userSession', '#/users/me')
+                    +button('users.settings','','btn-default','fa-fw fa-2x fa-user','userSession', '#!/users/me')
                 md-list-item(ng-if="userSession")
-                    +button('users.logout','','btn-default','fa-fw fa-2x fa-sign-out','userSession', '#/users/logout')
+                    +button('users.logout','','btn-default','fa-fw fa-2x fa-sign-out','userSession', '#!/users/logout')
                 md-divider
                 // Language Change
                 md-list-item(layout="row" layout-align="start start")

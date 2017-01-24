@@ -35,7 +35,7 @@ app.factory('assetPath', require('./services/assetpath'));
 app.factory('deviceReady', require('./services/deviceready'));
 
 app.constant("configuration", {
-    'urlbase': '/#/'
+    'urlbase': '#!/'
 });
 
 app.config([
