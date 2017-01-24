@@ -32,7 +32,8 @@ require('../../mobile/js/filters');
 app.provider('PubSub', require('angular-pubsub'));
 
 app.factory('assetPath', require('./services/assetpath'));
-app.factory('deviceReady', require('./services/deviceready'));
+app.factory('DeviceReadyService', require('./services/deviceready'));
+app.factory('GeolocationService', require('./services/geolocation'));
 
 app.constant("configuration", {
     'urlbase': '#!/'

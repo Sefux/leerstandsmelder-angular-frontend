@@ -3,7 +3,7 @@
 var async = require('async');
 
 var LocationsCreateController = function ($scope, $routeParams, apiService, authService, $q, $location, mapService,
-                                          responseHandler, locationFormDefaults, regionService) {
+                                          responseHandler, locationFormDefaults, regionService, GeolocationService) {
     var changeTimer, lockUpdate;
     $scope.location = {};
     $scope.assets = {
@@ -15,6 +15,12 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
     };
     $scope._sys = locationFormDefaults;
 
+    GeolocationService.getCurrentPosition(function (position) {
+        $scope.marker.lat = position.coords.latitude;
+        $scope.marker.lng = position.coords.longitude;
+        $scope.updateLocation({ 'lat' : position.coords.latitude , 'lng': position.coords.longitude});
+
+    });
     /*
         Update the map to a new geolocation
         Also retrieves the new address
@@ -187,6 +193,6 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
 };
 
 LocationsCreateController.$inject = ['$scope', '$routeParams', 'apiService', 'authService', '$q', '$location',
-    'mapService', 'responseHandler', 'locationFormDefaults', 'regionService',];
+    'mapService', 'responseHandler', 'locationFormDefaults', 'regionService','GeolocationService'];
 
 module.exports = LocationsCreateController;
