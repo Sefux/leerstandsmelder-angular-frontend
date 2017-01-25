@@ -156,6 +156,26 @@ module.exports = [
 
     //
     //
+    // Admin Users
+    {
+        route: '/admin/users/list',
+        templateUrl: '/users/list.html',
+        controller: 'Users.List'
+    },
+    {
+        route: '/admin/users/create',
+        templateUrl: '/users/update-admin.html',
+        controller: 'Users.Update.Admin'
+    },
+    {
+        route: '/admin/users/:uuid',
+        templateUrl: '/users/update-admin.html',
+        controller: 'Users.Update.Admin'
+    },
+
+
+    //
+    //
     // Regions
 
     {

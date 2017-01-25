@@ -1,6 +1,6 @@
 'use strict';
 
-var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$timeout, $q, apiService, regionService, $mdSidenav) {
+var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$timeout, $q, apiService, regionService, $mdSidenav, GeolocationService) {
     // var deferred = $q.defer();
     var self = this;
     self.currentSearchText = null;
@@ -76,6 +76,7 @@ var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$
     self.searchTextChange = searchTextChange;
 
     apiService('regions').actions.all(function (err, regions) {
+        regions = regions.results || regions;
         if (!regions || !Array.isArray(regions)) {
             if (err) {
                 console.log(err);
@@ -107,9 +108,23 @@ var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$
         $location.path('/'); //
         regionService.setCurrentRegion(null);
     };
+/*
+    //if (navigator.geolocation) {
+    GeolocationService.getCurrentPosition(function (position) {
+            console.log('Latitude: ' + position.coords.latitude + '\n' +
+                'Longitude: ' + position.coords.longitude + '\n' +
+                'Altitude: ' + position.coords.altitude + '\n' +
+                'Accuracy: ' + position.coords.accuracy + '\n' +
+                'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
+                'Heading: ' + position.coords.heading + '\n' +
+                'Speed: ' + position.coords.speed + '\n' +
+                'Timestamp: ' + position.timestamp + '\n');
+        });
 
+    //}
+    */
 };
 
-WidgetsNavbarController.$inject = ['$scope','$rootScope','$translate','$location','$timeout', '$q', 'apiService','regionService', '$mdSidenav'];
+WidgetsNavbarController.$inject = ['$scope','$rootScope','$translate','$location','$timeout', '$q', 'apiService','regionService', '$mdSidenav','GeolocationService'];
 
 module.exports = WidgetsNavbarController;

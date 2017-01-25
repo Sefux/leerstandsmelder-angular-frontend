@@ -1,0 +1,12 @@
+include ..//mixins/_style
+include ..//mixins/_layout
+include ..//mixins/_style
+
+
+md-content(class="md-padding layout-column layout-fill" layout-fill flex)
+	md-card(class="md-padding layout-column layout-fill" layout-fill flex)
+		+headline('users.all')
+		.main-fab(style="position:absolute;right:20px;top:20px;")
+			md-button(class="md-fab md-accent" href="/admin/users/create") +
+		div(layout='column' layout-align="start center" layout-fill  flex style="height:100%")
+			div(ag-grid="gridOptions" class="ag-material" style="height:100%; min-height: 100%; min-width: 200px; width: 100%;")

@@ -111,6 +111,7 @@ gulp.task('deps:js', function (env) {
                 'bower_components/L.GeoSearch/src/js/l.control.geosearch.js',
                 'bower_components/L.GeoSearch/src/js/l.geosearch.provider.openstreetmap.js',
                 'bower_components/airbrake-js-client/dist/client.min.js'
+
             ])
             .pipe(concat('leerstandsmelder-angular-dependencies.min.js'))
             .pipe(header(banner, {pkg: pkg}));
@@ -251,6 +252,7 @@ gulp.task('assets', function (env) {
             .then(function () {
                 var stream = gulp.src([
                     './assets/images/*',
+                    './assets/images/icons/*',
                     './bower_components/leaflet/dist/images/*',
                     './bower_components/leaflet-minimap/dist/images/*'
                 ]);
@@ -263,6 +265,16 @@ gulp.task('assets', function (env) {
                     './assets/fonts/*'
                 ]);
                 stream.pipe(gulp.dest(destBase + 'fonts/'));
+                return streamToPromise(stream);
+            })
+            .then(function () {
+                var stream = gulp.src([
+                    './node_modules/angular-ui-grid/ui-grid.ttf',
+                    './node_modules/angular-ui-grid/ui-grid.woff',
+                    './node_modules/angular-ui-grid/ui-grid.svg',
+                    './node_modules/angular-ui-grid/ui-grid.eot',
+                ]);
+                stream.pipe(gulp.dest(destBase + 'css/'));
                 return streamToPromise(stream);
             })
             .then(function () {
@@ -393,14 +405,33 @@ gulp.task('build:android', function () {
 });
 
 gulp.task('build:ios', function () {
+    var icon = require('gulp-cordova-icon');
+    var xml = require('gulp-cordova-xml');
+    var author = require('gulp-cordova-author');
+    var plugin = require('gulp-cordova-plugin');
     var dst = require('gulp-cordova-build-ios')(),
         src = gulp.src('dist/mobile').pipe(require('gulp-cordova-create')({
             dir: 'dist/cordova',
             id: config.ios.app_id,
             name: config.ios.app_name
         }))
+        .pipe(require('gulp-cordova-description')(config.android.app_description))
+        .pipe(author(config.author.name,config.author.email,config.author.url))
+        //.pipe(icon('www/images/leerstandsmelder_icon.png', { errorHandlingStrategy: 'warn' }))
         .pipe(require('gulp-cordova-version')(require('./package.json').version))
-        .pipe(require('gulp-cordova-plugin')(config.ios.plugins));
+        .pipe(plugin(config.ios.plugins));
+        //.pipe(plugin('org.apache.cordova.camera'))
+        //.pipe(plugin('org.apache.cordova.media'))
+        //.pipe(plugin('org.apache.cordova.geolocation'));
+
+
+        src.pipe(xml([
+            '<splash src="www/images/leerstandsmelder_splash.png" width="320" height="480" />',
+            '<splash src="www/images/Default@2x~iphone.png" width="640" height="960" />',
+            '<preference name="BackupWebStorage" value="local" />'
+        ]));
+        src.pipe(icon('www/images/leerstandsmelder_icon.png', { errorHandlingStrategy: 'warn' }));
+
     return src.pipe(dst);
 });
 

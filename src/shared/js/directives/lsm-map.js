@@ -26,7 +26,8 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                 });
 
             var resizeMap = function (el) {
-                el[0].style.height = ($window.innerHeight - 88) + "px";
+                //console.log('height',$window.innerHeight);
+                el[0].style.height = ($window.innerHeight) + "px";
             };
 
             var updatedMapData = function (data, callback) {
@@ -41,6 +42,10 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                 icon.iconUrl = assetPath + 'images/marker-inactive.png';
                 icon.iconRetinaUrl = assetPath + 'images/marker-inactive@2x.png';
                 var iconInactive = L.icon(icon);
+
+                //add Cluster
+                //var markers = L.markerClusterGroup();
+
                 async.map(data, function (entry, cb) {
                     if (entry.lonlat) {
                         var options = {
@@ -83,7 +88,9 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                             e.target.unbindPopup();
                             e.target.bindPopup(popup).openPopup();
                         });
-                        markers.push(marker);
+                        //markers.addLayer(marker);
+                        //map.addLayer(markers);
+                        //markers.push(marker);
                         cb(null);
                     }
                 }, callback);
@@ -102,7 +109,8 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                     miniMap,
                     geoSearch
                 );
-                leafletView = new PruneClusterForLeaflet();
+
+	            leafletView = new PruneClusterForLeaflet();
                 leafletView.BuildLeafletClusterIcon = function (cluster) {
                     var e = new L.Icon.MarkerCluster();
                     e.stats = cluster.stats;
@@ -110,6 +118,7 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                     return e;
                 };
                 map.addLayer(leafletView);
+
             };
 
             angular.element($window).ready(function () {

@@ -1,12 +1,12 @@
 'use strict';
 
-var CommentsListController = function ($scope, $q, apiService, responseHandler, $location) {
+var CommentsListController = function ($scope, $q, apiService, responseHandler, $location, $filter) {
     $scope.rowSetup = {
         'table-row-id-key': 'uuid',
         'column-keys': [
             'body',
-            'user_uuid',
-            'subject_uuid',
+            'user.nickname',
+            'location.title',
             'created',
             'edit',
             'show'
@@ -19,13 +19,13 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
         },
         {
             label: 'author.author',
-            property: 'user_uuid',
+            property: 'user.nickname',
             date: true,
             sort: true
         },
         {
             label: 'Location',
-            property: 'subject_uuid',
+            property: 'location.title',
             sort: true
         },
         {
@@ -47,29 +47,49 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
         row_select: false,
         multiple: false,
         pagination: true,
-        pagesize: 25,
+        pagesize: 25000,
         limit_options: [25, 50, 100],
         resource: 'comments'
     };
-    $scope.clickEditHandler = function (uuid) {
-        $location.path('/admin/comments/' + uuid);
-    };
-    $scope.clickShowHandler =  function (uuid) {
-        console.log('data',$scope.data);
-        console.log('click-uuid',uuid);
 
-        for (var i = 0, len = $scope.data.length; i < len; i++) {
-            var obj = $scope.data[i];
-            if(obj.uuid === uuid) {
-                //$location.path('/location/' + obj.subject_uuid);
-                break;
-            }
+
+    var columnDefs = [
+        {headerName: "comments.body", field: "body", width: 120, sort: 'asc'},
+        {headerName: "Author", field: "user.nickname", width: 90},
+        {headerName: "Location", field: "location.title", width: 90},
+        {headerName: "Created", field: "created", width: 90, cellRenderer: dateFormatter},
+        {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
+            return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="admin/comments/' + params.value + '" aria-label="{{ \'actions.edit\' | translate }}"><md-icon md-font-icon="fa-pencil" class="fa fa-pencil"></md-icon></a>';
         }
+        },
+
+    ];
 
 
+    $scope.gridOptions = {
+
+        columnDefs: columnDefs,
+
+        rowData: null,
+        rowHeight: 58,
+
+        enableSorting: true,
+
+        enableFilter: true,
+        animateRows: true,
+
+        enableColResize: true,
+
+        onGridReady: function() {
+            setTimeout(function() {
+                $scope.gridOptions.api.sizeColumnsToFit();
+            }, 600);
+        }
     };
+
+
 };
 
-CommentsListController.$inject = ['$scope', '$q', 'apiService', 'responseHandler', '$location'];
+CommentsListController.$inject = ['$scope', '$q', 'apiService', 'responseHandler', '$location','$filter'];
 
 module.exports = CommentsListController;

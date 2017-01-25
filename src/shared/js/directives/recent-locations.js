@@ -13,7 +13,7 @@ var RecentLocationsDirective = function (apiService, assetPath, configuration) {
             scope.$watch(attrs.region, function () {
                 var region = scope.$eval(attrs.region);
                 if (region) {
-                    apiService('regions/' + scope.region.uuid + '/locations?sort=-created&pagesize=' +
+                    apiService('regions/' + scope.region.uuid + '/locations?sort=-created&limit=' +
                         (parseInt(scope.pageSize) || 10)).actions.all(function (err, locations) {
                         scope.$applyAsync(function () {
                             scope.locations =  locations.results || locations;

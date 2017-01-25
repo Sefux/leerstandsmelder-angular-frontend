@@ -101,8 +101,9 @@ div(layout="row" layout-xs="column" layout-wrap layout-fill)
                             img.photo-preview(ng-repeat="photo in photos" ng-src="{{ photo.thumb_large_url }}")
                         hr
                     p(ng-if='!files') {{ 'actions.choose_images' | translate }}
-                        //+input('fileimage','assets.file','assets.file', null, null)
-                        input(type="file" ng-model="file" name="file" accept="image/*" id="capture" ngf-capture="camera" ngf-select)
+                        +input('fileimage','assets.file','assets.file', null, null)
+                        //input(type="file" ng-model="files" name="file" accept="image/*" id="capture" ngf-capture="camera" ngf-select)
+                        //button(class='md-button button-positive' camera ng-model='myPicture') camera
                     hr
                     div(layout-gt-xs="row" layout-align="space-between start")
                         +button("actions.previous",'selectedIndex = selectedIndex - 1','md-raised',null,null)

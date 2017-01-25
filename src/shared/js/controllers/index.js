@@ -29,6 +29,8 @@ app.controller('Users.Forgot', require('./users/forgot'));
 app.controller('Users.Login', require('./users/login'));
 app.controller('Users.Logout', require('./users/logout'));
 app.controller('Users.Update', require('./users/update'));
+app.controller('Users.Update.Admin', require('./users/update-admin'));
+app.controller('Users.List', require('./users/list'));
 
 app.controller('Comments.List', require('./comments/list'));
 app.controller('Comments.Show', require('./comments/show'));

@@ -235,6 +235,10 @@ module.exports = {
         title: 'City of OZ'
     },
     users: {
+        manage_users: 'Nutzer verwalten',
+        create_user: 'Nutzer erstellen',
+        admin_edit: 'Nutzer bearbeiten',
+        admin_create: 'Nutzer erstellen',
         anonymous: 'Nicht eingeloggt',
         email: 'E-Mail',
         forgot: 'Passwort Vergessen',
@@ -247,6 +251,12 @@ module.exports = {
         login: 'Anmelden',
         message_me: 'Andere Nutzer können mir Nachrichten auf Leerstandsmelder schicken.',
         notify: 'Benachrichtige mich per Email wenn meine Einträge geupdatet werden oder Nachrichten angekommen sind.',
-        register_message: 'Registriere Dich!'
+        register_message: 'Registriere Dich!',
+        all: 'Alle Nutzer',
+        confirmed: "Bestättigt",
+        blocked: "Blockiert",
+        last_login: "Letzter login",
+        failed_logins: "Fehlgeschlagene Logins",
+        scope: "Berechtigungen"
     }
 };

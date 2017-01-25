@@ -1,5 +1,10 @@
 include ..//mixins/_style
+include ..//mixins/_layout
 
-div(layout='column' layout-align="start center" flex="100" layout-fill)
-    h2 {{ 'messages.my_messages' | translate }}
-    div(lsm-data-table layout-fill data-fields='fields' data-settings='settings' data-actions='actions')
++layout('column','start center',true)
+    md-tabs(md-dynamic-height md-border-bottom)
+        md-tab(label="{messages.my_messages}")
+            md-content(class="md-padding")
+                +headline('messages.my_messages')
+                div(layout='column' layout-align="start center" flex="100" layout-fill)
+                    div(lsm-data-table layout-fill data-fields='fields' data-settings='settings' data-actions='actions')

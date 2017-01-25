@@ -1,0 +1,22 @@
+include ../../../shared/pug/mixins/_form
+include ../../../shared/pug/mixins/_buttons
+
+
+md-content(class="md-padding _md layout-xs-column layout-row" layout-xs="column" layout="row" layout-wrap)
+    div(flex-xs flex-gt-xs="50" layout="column" ng-repeat="user in data")
+        md-card()
+            md-card-title
+                md-card-title-text
+                    a(ng-href='{{ urlbase +  "admin/users/" + user.uuid  }}' )
+                        span.md-headline {{ user.nickname }}
+                    span.md-subhead {{ user.email }}
+                    span.metatext {{ 'author.on' | translate }} {{ user.created | date : 'dd.MM.yy' }} / {{ user.updated | date : 'dd.MM.yy'}}
+
+            md-card-actions(layout="row" layout-align="start center")
+                +button_icon('','clickShowHandler(user.uuid)','','fa-fw fa-2x fa-eye')
+                +button_icon('','clickEditHandler(user.uuid)','','fa-fw fa-2x fa-pencil')
+                +button_icon('','clickDeleteHandler(user.uuid)','','fa-fw fa-2x fa-trash')
+
+            md-card-content
+                p(ng-repeat="scope in user.api_keys.scopes")
+                    span()  {{scope | translate}}

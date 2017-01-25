@@ -7,7 +7,8 @@ var DeviceReadyService = function () {
                 queue.push(Array.prototype.slice.call(arguments));
             };
 
-        queue.addEventListener('deviceready', function () {
+        document.addEventListener('deviceready', function () {
+	        console.log('EventListener deviceready');
             queue.forEach(function (args) {
                 fn.apply(this, args);
             });
