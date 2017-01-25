@@ -1,10 +1,11 @@
 'use strict';
 
-var LsmDataListDirective = function ($q, apiService, assetPath, $translate) {
+var LsmUserCardListDirective = function ($q, apiService, assetPath, $translate) {
     return {
         restrict: 'A',
-        templateUrl: assetPath + 'partials/_data_list.html',
+        templateUrl: assetPath + 'partials/_user_card_list.html',
         link: function (scope) {
+
             $translate('table.rowsPerPage').then(function(rowsPerPage) {
                 scope.rowsPerPage = rowsPerPage;
 
@@ -54,7 +55,10 @@ var LsmDataListDirective = function ($q, apiService, assetPath, $translate) {
                 });
                 return deferred.promise;
             }
-            fetchData(0,1000);
+            fetchData(0,10000);
+
+
+
             scope.onPaginate = function (page, limit, options) {
                 var columnSort = options.columnSort || null;
                 var sort = null;
@@ -84,6 +88,8 @@ var LsmDataListDirective = function ($q, apiService, assetPath, $translate) {
             scope.editClick = function (row) {
                 if (typeof scope.clickEditHandler === 'function') {
                     scope.clickEditHandler(row.rowId);
+                } else {
+
                 }
             };
             scope.showClick = function (row) {
@@ -100,6 +106,6 @@ var LsmDataListDirective = function ($q, apiService, assetPath, $translate) {
     };
 };
 
-LsmDataListDirective.$inject = ['$q', 'apiService', 'assetPath', '$translate'];
+LsmUserCardListDirective.$inject = ['$q', 'apiService', 'assetPath', '$translate'];
 
-module.exports = LsmDataListDirective;
+module.exports = LsmUserCardListDirective;

@@ -9,10 +9,7 @@ div(layout="row" layout-wrap layout-fill)
             +headline('posts.edit_post')
 
             textarea(markdown-editor ng-model='post.body')
-            div(layout="row" layout-padding)
-                div(flex layout-padding)
-                    div(layout-gt-xs="row")
-                        +input('checkbox','post.static','posts.static', null, null)
+
             hr
             div(layout="row")
                 span(flex)
