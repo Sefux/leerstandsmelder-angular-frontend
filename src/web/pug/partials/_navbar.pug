@@ -6,16 +6,16 @@ md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as 
         div.md-toolbar-tools(flex layout='row' layout-align='space-between center')
             div(flex="20" layout='row' layout-align='start center')
                 a(href='/')
-<                   img(src="/images/", alt="{{ 'site.title' | translate }}" style="height:100%!important;margin-top:0px;margin:20px;padding-top:30px;z-index:100000")
-=               div.currentLocation(style="position:absolute;left:54px;top:60px;text-align:center;width:150px;color:white!important")
+                    img(src="/images/", alt="{{ 'site.title' | translate }}" style="height:100%!important;margin-top:0px;margin:20px;padding-top:30px;z-index:100000")
+                div.currentLocation(style="position:absolute;left:54px;top:60px;text-align:center;width:150px;color:white!important")
                     //h2
                         a(href='/') {{ 'site.title' | translate }}
-                    strong
+                    //strong
                         // todo: this should be a secondary nav to change cities.
                         // it would also be nice to have it auto-change depending
                         // on where the user is on the map...
                         //+select('location.emptySince', '_sys.emptySince', false, 'locations.empty_for')
-                        a.metatext(ng-href='/{{ currentRegion.slug || currentRegion.uuid }}') {{ currentRegion.title }}&nbsp;
+                        //a.metatext(ng-href='/{{ currentRegion.slug || currentRegion.uuid }}') {{ currentRegion.title }}&nbsp;
 
             // Old News
             div(flex="25" layout="row" layout-align="end center")

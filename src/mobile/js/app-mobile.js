@@ -61,18 +61,19 @@ app.config([
         });
         $mdThemingProvider.definePalette('white', whiteMap);
 
-        // added the leerstand color to the palette
+        // added the oz color to the palette
 
-        var leerstandMap = $mdThemingProvider.extendPalette('white', {
-            '500': 'ed1c24'
+        var ozMap = $mdThemingProvider.extendPalette('white', {
+            '500': '#000000'
         });
-        $mdThemingProvider.definePalette('leerstand', leerstandMap);
+        $mdThemingProvider.definePalette('oz', ozMap);
 
         // TODO: abstract this theme style out to config
         $mdThemingProvider.theme('default')
-            .primaryPalette('leerstand')
-            .accentPalette('deep-orange')
-            .warnPalette('red');
+            .primaryPalette('grey',{
+                'default': '900'})
+            .accentPalette('grey',{
+                'default': '700'}); //.dark();
 
         // TODO: check user preference with custom pref
         // see: http://angular-translate.github.io/docs/en/#/guide/11_custom-storages
