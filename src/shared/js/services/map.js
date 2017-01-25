@@ -76,9 +76,9 @@ var MapService = function ($http, assetPath) {
             $http({
                 method: 'GET', url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat +
                 '&lon=' + lon + '&zoom=18&addressdetails=1'
-            }).success(function (message) {
+            }).then(function (message) {
                 callback(null, message);
-            }).error(function (data, status) {
+            }).catch(function (data, status) {
                 // TODO: handle this properly
                 console.log(data, status);
                 callback(new Error('Could not get address:'));
@@ -96,9 +96,9 @@ var MapService = function ($http, assetPath) {
                 method: 'GET',
                 url: 'https://nominatim.openstreetmap.org/search?format=json&q=' +
                 address.street + '+' + address.city + '+' + address.country
-            }).success(function (message) {
+            }).then(function (message) {
                 callback(null, message);
-            }).error(function (data, status) {
+            }).catch(function (data, status) {
                 callback(new Error('Service error starring image:', data, status), null);
             });
         },

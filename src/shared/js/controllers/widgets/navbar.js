@@ -108,7 +108,7 @@ var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$
         $location.path('/'); //
         regionService.setCurrentRegion(null);
     };
-    
+/*
     //if (navigator.geolocation) {
     GeolocationService.getCurrentPosition(function (position) {
             console.log('Latitude: ' + position.coords.latitude + '\n' +
@@ -120,7 +120,9 @@ var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$
                 'Speed: ' + position.coords.speed + '\n' +
                 'Timestamp: ' + position.timestamp + '\n');
         });
+
     //}
+    */
 };
 
 WidgetsNavbarController.$inject = ['$scope','$rootScope','$translate','$location','$timeout', '$q', 'apiService','regionService', '$mdSidenav','GeolocationService'];

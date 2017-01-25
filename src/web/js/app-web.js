@@ -34,6 +34,7 @@ require('../../shared/js/services');
 app.provider('PubSub', require('angular-pubsub'));
 
 app.factory('assetPath', require('./services/assetpath'));
+app.factory('GeolocationService', require('./services/geolocation'));
 
 app.constant("configuration", {
     'urlbase': '/'

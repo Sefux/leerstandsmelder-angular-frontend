@@ -13,14 +13,28 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
         lat: null,
         lng: null
     };
+    $scope.selectedIndex = 0;
     $scope._sys = locationFormDefaults;
 
-    GeolocationService.getCurrentPosition(function (position) {
-        $scope.marker.lat = position.coords.latitude;
-        $scope.marker.lng = position.coords.longitude;
-        $scope.updateLocation({ 'lat' : position.coords.latitude , 'lng': position.coords.longitude});
 
-    });
+    GeolocationService.getCurrentPosition().then(
+        function(position) { //
+            console.log('Position',position);
+            $scope.marker.lat = position.coords.latitude;
+            $scope.marker.lng = position.coords.longitude;
+            $scope.updateLocation({ 'lat' : position.coords.latitude , 'lng': position.coords.longitude});
+        },
+        function(errorCode) {
+            if(errorCode === false) {
+                alert('GeoLocation is not supported by browser.');
+            }
+            else if(errorCode == 1) {
+                alert('User either denied GeoLocation or waited for long to respond.');
+            }
+        }
+    );
+
+
     /*
         Update the map to a new geolocation
         Also retrieves the new address
@@ -28,13 +42,15 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
     $scope.updateLocation = function (latlon) {
         $scope.marker = latlon;
 
-        mapService.reverseGeoCode(latlon.lat,latlon.lng,function(err, data){
+        mapService.reverseGeoCode(latlon.lat,latlon.lng,function(err, result){
             if (err) {
                 throw err;
             }
             lockUpdate = true;
-            if (!data.error) {
-                var address = mapService.createAddressFromGeo(data.address);
+            if (!result.error) {
+                console.log('updateLocation',result.data);
+
+                var address = mapService.createAddressFromGeo(result.data.address);
                 if (address) {
                     $scope.location.street = address.street;
                     $scope.location.city = address.city;
@@ -76,11 +92,14 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                     city: $scope.location.city,
                     postcode: $scope.location.postcode,
                     country: $scope.location.country
-                }, function (err, data) {
-                    if (Array.isArray(data) && data.length > 0) {
-                        $scope.marker.lat = data[0].lat;
-                        $scope.marker.lng = data[0].lon;
-                        $scope.location.display_name = data[0].display_name || "";
+                }, function (err, result) {
+                    console.log('found locations',result.data);
+                    if (Array.isArray(result.data) && result.data.length > 0) {
+                        $scope.marker.lat = result.data[0].lat;
+                        $scope.marker.lng = result.data[0].lon;
+                        $scope.location.display_name = result.data[0].display_name || "";
+                        $scope.center = [result.data[0].lat,result.data[0].lon];
+
                     }
                 });
             },1000);
