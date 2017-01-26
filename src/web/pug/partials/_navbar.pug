@@ -31,7 +31,7 @@ md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as 
                         md-menu-item(ng-if="api_key.scopes.indexOf('editor') > -1")
                             +button('posts.site_post_plural',null,'btn-default','fa-newspaper-o fa-fw fa-2x','userSession', '/admin/posts/static')
                         md-menu-item(ng-if="api_key.scopes.indexOf('editor') > -1")
-                            +button('posts.create_post',null,'btn-default','fa-pencil-o fa-fw fa-2x','userSession', '/admin/posts/create')
+                            +button('posts.create_post',null,'btn-default','fa-pencil-square-o fa-fw fa-2x','userSession', '/admin/posts/create')
                         md-menu-divider
                         md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
                             +button('regions.manage_regions','','btn-default','fa-globe fa-fw fa-2x ','userSession', '/admin/regions')
