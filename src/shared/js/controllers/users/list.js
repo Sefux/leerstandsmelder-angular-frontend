@@ -5,7 +5,7 @@ var UsersListController = function ($scope, apiService, responseHandler, $q, $fi
         row_select: false,
         multiple: false,
         pagination: true,
-        pagesize: 2500,
+        pagesize: 25000,
         limit_options: [25, 50, 100],
         resource: 'users'
     };
@@ -14,7 +14,7 @@ var UsersListController = function ($scope, apiService, responseHandler, $q, $fi
         {headerName: "Nickname", field: "nickname", width: 120, sort: 'asc'},
 	    {headerName: "Email", field: "email", width: 90},
         {headerName: "Created", field: "created", width: 90, cellRenderer: dateFormatter},
-        {headerName: "Notify", field: "notify", width: 60, cellRenderer: function (params) {if(params.value){ return 'ja'} else {return 'nein'} }},
+        {headerName: "Notify", field: "notify", width: 60, cellRenderer: function (params) {if(params.value){ return 'ja';} else {return 'nein';} }},
 	    {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
 		        return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="admin/users/' + params.value + '" aria-label="{{ \'actions.edit\' | translate }}"><md-icon md-font-icon="fa-pencil" class="fa fa-pencil"></md-icon></a>';
 	        }
@@ -61,7 +61,6 @@ var UsersListController = function ($scope, apiService, responseHandler, $q, $fi
             $scope.gridOptions.api.setRowData(results.results || results);
             $scope.gridOptions.api.sizeColumnsToFit();
             $scope.query.total = results.total;
-        } else {
         }
     });
 

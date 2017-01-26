@@ -9,7 +9,7 @@ var LsmDataGridDirective = function ($q, apiService, assetPath, $translate, $fil
 
 			scope.dateFormatter = function(params) {
 				return $filter('date')(params.value,'yyyy-MM-dd');
-			}
+			};
 
 			scope.query = {
 				sort: scope.settings.sort ? scope.settings.sort : 'title',
@@ -24,7 +24,6 @@ var LsmDataGridDirective = function ($q, apiService, assetPath, $translate, $fil
 					scope.gridOptions.api.setRowData(results.results || results);
 					scope.gridOptions.api.sizeColumnsToFit();
 					scope.query.total = results.total;
-				} else {
 				}
 			});
 

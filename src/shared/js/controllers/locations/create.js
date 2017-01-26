@@ -28,7 +28,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
             if(errorCode === false) {
                 alert('GeoLocation is not supported by browser.');
             }
-            else if(errorCode == 1) {
+            else if(errorCode === 1) {
                 alert('User either denied GeoLocation or waited for long to respond.');
             }
         }
