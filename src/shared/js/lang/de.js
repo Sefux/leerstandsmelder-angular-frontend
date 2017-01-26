@@ -38,6 +38,7 @@ module.exports = {
     },
     comments: {
         all: 'Kommentare',
+        manage_comments: 'Kommentare verwalten',
         comment: 'Kommentar',
         comment_plural: 'Kommentare',
         comment_text: 'Kommentartext',
