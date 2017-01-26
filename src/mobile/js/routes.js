@@ -40,6 +40,11 @@ module.exports = [
         controller: 'Regions.List'
     },
     {
+        route: '/admin/regions/create',
+        templateUrl: 'regions/update.html',
+        controller: 'Regions.Update'
+    },
+    {
         route: '/admin/regions/:uuid',
         templateUrl: 'regions/update.html',
         controller: 'Regions.Update'
@@ -73,6 +78,30 @@ module.exports = [
         route: '/admin/posts/:uuid',
         templateUrl: 'posts/update.html',
         controller: 'Posts.Update'
+    },
+    //
+    //
+    // Comments
+
+    {
+        route: '/comments/:uuid',
+        templateUrl: 'comments/show.html',
+        controller: 'Comments.Show'
+    },
+    {
+        route: '/admin/comments',
+        templateUrl: 'comments/list.html',
+        controller: 'Comments.List'
+    },
+    {
+        route: '/admin/comments/create',
+        templateUrl: 'comments/update.html',
+        controller: 'Comments.Update'
+    },
+    {
+        route: '/admin/comments/:uuid',
+        templateUrl: 'comments/update.html',
+        controller: 'Comments.Update'
     },
 
     //
@@ -124,6 +153,24 @@ module.exports = [
         templateUrl: 'users/reset.html',
         controller: 'Users.Confirm'
     },
+    //
+    //
+    // Admin Users
+    {
+        route: '/admin/users/list',
+        templateUrl: 'users/list.html',
+        controller: 'Users.List'
+    },
+    {
+        route: '/admin/users/create',
+        templateUrl: 'users/update-admin.html',
+        controller: 'Users.Update.Admin'
+    },
+    {
+        route: '/admin/users/:uuid',
+        templateUrl: 'users/update-admin.html',
+        controller: 'Users.Update.Admin'
+    },
 
     //
     //
@@ -140,6 +187,7 @@ module.exports = [
         controller: 'Regions.List'
     },
 
+
     //
     //
     // Messages
@@ -148,6 +196,11 @@ module.exports = [
         route: '/messages/create',
         templateUrl: 'messages/create.html',
         controller: 'Messages.Create'
+    },
+    {
+        route: '/messages/list',
+        templateUrl: 'messages/list.html',
+        controller: 'Messages.List'
     },
     {
         route: '/messages/:uuid/reply',

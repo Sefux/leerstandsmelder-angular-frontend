@@ -36,6 +36,6 @@ include ..//mixins/_style
                     +select('user.scope', '_sys.userScope', false, 'users.scope', true)
 
         .md-actions(layout="row" layout-align="start end")
-            +button('actions.cancel',null,'md-raised',null,null,'/admin/users/list')
+            +button('actions.cancel',null,'md-raised',null,null,'{{ urlbase }}admin/users/list')
             span(flex)
             +button_fab('actions.submit','submit()','md-warn','fa-check')

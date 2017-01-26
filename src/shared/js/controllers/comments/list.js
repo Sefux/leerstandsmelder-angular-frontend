@@ -1,6 +1,8 @@
 'use strict';
 
-var CommentsListController = function ($scope, $q, apiService, responseHandler, $location, $filter) {
+var CommentsListController = function ($scope, $q, apiService, responseHandler, $location, $filter, configuration) {
+
+    $scope.urlbase = configuration.urlbase || '/';
     $scope.rowSetup = {
         'table-row-id-key': 'uuid',
         'column-keys': [
@@ -54,12 +56,12 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
 
 
     var columnDefs = [
-        {headerName: "comments.body", field: "body", width: 120, sort: 'asc'},
+        {headerName: $filter('translate')("comments.body"), field: "body", width: 120, sort: 'asc'},
         {headerName: "Author", field: "user.nickname", width: 90},
         {headerName: "Location", field: "location.title", width: 90},
         {headerName: "Created", field: "created", width: 90, cellRenderer: dateFormatter},
         {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
-            return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="admin/comments/' + params.value + '" aria-label="{{ \'actions.edit\' | translate }}"><md-icon md-font-icon="fa-pencil" class="fa fa-pencil"></md-icon></a>';
+            return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase + 'admin/comments/' + params.value + '" aria-label="{{ \'actions.edit\' | translate }}"><md-icon md-font-icon="fa-pencil" class="fa fa-pencil"></md-icon></a>';
         }
         },
 
@@ -110,6 +112,6 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
 
 };
 
-CommentsListController.$inject = ['$scope', '$q', 'apiService', 'responseHandler', '$location','$filter'];
+CommentsListController.$inject = ['$scope', '$q', 'apiService', 'responseHandler', '$location','$filter', 'configuration'];
 
 module.exports = CommentsListController;

@@ -21,7 +21,8 @@ module.exports = {
         pageOf: 'von'
     },
     admin:{
-        dashboard: 'Dashboard'
+        dashboard: 'Dashboard',
+        menu: 'Menue'
     },
     assets: {
         file: 'Datei'

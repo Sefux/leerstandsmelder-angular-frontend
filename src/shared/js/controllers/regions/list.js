@@ -1,6 +1,7 @@
 'use strict';
 
-var RegionsListController = function ($scope, $q, $location, $mdDialog ,$translate, responseHandler, apiService) {
+var RegionsListController = function ($scope, $q, $location, $mdDialog ,$translate, responseHandler, apiService, configuration) {
+    $scope.urlbase = configuration.urlbase || '/';
     $scope.fields = [
         {
             label: 'regions.title',
@@ -81,6 +82,6 @@ var RegionsListController = function ($scope, $q, $location, $mdDialog ,$transla
     };
 };
 
-RegionsListController.$inject = ['$scope', '$q', '$location', '$mdDialog', '$translate', 'responseHandler', 'apiService'];
+RegionsListController.$inject = ['$scope', '$q', '$location', '$mdDialog', '$translate', 'responseHandler', 'apiService', 'configuration'];
 
 module.exports = RegionsListController;

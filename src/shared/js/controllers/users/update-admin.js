@@ -1,7 +1,8 @@
 'use strict';
 
-var UsersUpdateAdminController = function ($scope, $q, $routeParams, apiService, responseHandler, PubSub) {
+var UsersUpdateAdminController = function ($scope, $q, $routeParams, apiService, responseHandler, PubSub, configuration) {
     var deferred = $q.defer();
+    $scope.urlbase = configuration.urlbase || '/';
     $scope.user = {
         nickname: null,
         email: null,
@@ -52,6 +53,6 @@ var UsersUpdateAdminController = function ($scope, $q, $routeParams, apiService,
     }
 };
 
-UsersUpdateAdminController.$inject = ['$scope', '$q', '$routeParams', 'apiService', 'responseHandler', 'PubSub'];
+UsersUpdateAdminController.$inject = ['$scope', '$q', '$routeParams', 'apiService', 'responseHandler', 'PubSub', 'configuration'];
 
 module.exports = UsersUpdateAdminController;

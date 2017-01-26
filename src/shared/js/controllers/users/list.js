@@ -1,6 +1,7 @@
 'use strict';
 
-var UsersListController = function ($scope, apiService, responseHandler, $q, $filter) {
+var UsersListController = function ($scope, apiService, responseHandler, $q, $filter, configuration) {
+    $scope.urlbase = configuration.urlbase || '/';
     $scope.settings = {
         row_select: false,
         multiple: false,
@@ -16,7 +17,7 @@ var UsersListController = function ($scope, apiService, responseHandler, $q, $fi
         {headerName: "Created", field: "created", width: 90, cellRenderer: dateFormatter},
         {headerName: "Notify", field: "notify", width: 60, cellRenderer: function (params) {if(params.value){ return 'ja';} else {return 'nein';} }},
 	    {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
-		        return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="admin/users/' + params.value + '" aria-label="{{ \'actions.edit\' | translate }}"><md-icon md-font-icon="fa-pencil" class="fa fa-pencil"></md-icon></a>';
+		        return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase + 'admin/users/' + params.value + '" aria-label="{{ \'actions.edit\' | translate }}"><md-icon md-font-icon="fa-pencil" class="fa fa-pencil"></md-icon></a>';
 	        }
 	    },
 
@@ -67,6 +68,6 @@ var UsersListController = function ($scope, apiService, responseHandler, $q, $fi
 
 };
 
-UsersListController.$inject = ['$scope', 'apiService', 'responseHandler', '$q', '$filter'];
+UsersListController.$inject = ['$scope', 'apiService', 'responseHandler', '$q', '$filter', 'configuration'];
 
 module.exports = UsersListController;

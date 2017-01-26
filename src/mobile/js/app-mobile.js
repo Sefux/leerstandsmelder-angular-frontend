@@ -3,8 +3,10 @@
 var lang_de = require('../../shared/js/lang/de'),
     lang_en = require('../../shared/js/lang/en'),
     routes = require('./routes'),
-    angular = require('angular'),
-    app = angular.module('leerstandsmelder', [
+    angular = require('angular');
+    var agGrid = require("ag-grid");
+    agGrid.initialiseAgGridWithAngular1(angular);
+    var app = angular.module('leerstandsmelder', [
         require('angular-animate'),
         require('angular-messages'),
         require('angular-translate'),
@@ -19,7 +21,8 @@ var lang_de = require('../../shared/js/lang/de'),
         require('angular-cookies'),
         require('angular-route'),
         require('angular-sanitize'),
-        require('angular-marked')
+        require('angular-marked'),
+        "agGrid"
     ]);
 
 require('../../shared/js/controllers');

@@ -8,6 +8,6 @@ div(flex layout="column" layout-align="start center" layout-fill="layout-fill" l
         md-card(class="md-padding layout-column layout-fill" layout-fill flex)
             +headline('comments.all')
             .main-fab(style="position:absolute;right:20px;top:20px;")
-                md-button(class="md-fab md-accent" href="/admin/comments/create") +
+                md-button(class="md-fab md-accent" href="{{ urlbase }}admin/comments/create") +
             div(layout='column' layout-align="start center" layout-fill  flex style="height:100%")
                 div(ag-grid="gridOptions" class="ag-material" style="height:100%; min-height: 100%; min-width: 200px; width: 100%;")
