@@ -1,5 +1,6 @@
 # Leerstandsmelder Angular Frontend #
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/26b4319a9e8d49c98203abea4d646ef2)](https://www.codacy.com/app/dasantonym/leerstandsmelder-angular-frontend?utm_source=github.com&utm_medium=referral&utm_content=Leerstandsmelder/leerstandsmelder-angular-frontend&utm_campaign=badger)
 [![CircleCI](https://circleci.com/gh/Leerstandsmelder/leerstandsmelder-angular-frontend/tree/master.svg?style=svg)](https://circleci.com/gh/Leerstandsmelder/leerstandsmelder-angular-frontend/tree/master) [![Build Status](https://travis-ci.org/Leerstandsmelder/leerstandsmelder-angular-frontend.svg?branch=master)](https://travis-ci.org/Leerstandsmelder/leerstandsmelder-angular-frontend) [![Dependency Status](https://gemnasium.com/Leerstandsmelder/leerstandsmelder-angular-frontend.svg)](https://gemnasium.com/Leerstandsmelder/leerstandsmelder-angular-frontend) [![bitHound Code](https://www.bithound.io/github/Leerstandsmelder/leerstandsmelder-angular-frontend/badges/code.svg)](https://www.bithound.io/github/Leerstandsmelder/leerstandsmelder-angular-frontend)
 
 The UI package for the [Leerstandsmelder](http://lm.htmhell.de) service based on [AngularJS](https://angularjs.org/) and [Angular Material](https://material.angularjs.org) for the browser and mobile devices.
