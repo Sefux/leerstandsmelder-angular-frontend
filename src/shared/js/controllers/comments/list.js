@@ -87,6 +87,26 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
         }
     };
 
+    function dateFormatter(params) {
+        return $filter('date')(params.value,'yyyy-MM-dd');
+    }
+
+    $scope.query = {
+        sort: $scope.settings.sort ? $scope.settings.sort : 'title',
+        page: 1
+    };
+
+    var pageSize =  $scope.settings.pagesize;
+    var resource = $scope.settings.resource + '?limit=' + pageSize +
+        '&skip=' + ((( $scope.query.page) - 1) * pageSize) + '&sort=' + ( $scope.query.sort);
+    apiService(resource).actions.all(function (err, results) {
+        if (!err && results) {
+            $scope.gridOptions.api.setRowData(results.results || results);
+            $scope.gridOptions.api.sizeColumnsToFit();
+            $scope.query.total = results.total;
+        }
+    });
+
 
 };
 

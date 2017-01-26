@@ -37,12 +37,14 @@ module.exports = {
         enter_captcha: 'Gib den Code ein'
     },
     comments: {
+        all: 'Kommentare',
         comment: 'Kommentar',
         comment_plural: 'Kommentare',
         comment_text: 'Kommentartext',
         new_comment: 'Neuer Kommentar',
         new_comment_login: 'Melde Dich an, um einen neuen Kommentar zu schreiben.',
-        no_comments: 'Keine Kommentare'
+        no_comments: 'Keine Kommentare',
+        body: 'Nachricht'
     },
     creator: {
         tabs: {
