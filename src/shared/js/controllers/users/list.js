@@ -3,21 +3,17 @@
 var UsersListController = function ($scope, apiService, responseHandler, $q, $filter, configuration) {
     $scope.urlbase = configuration.urlbase || '/';
     $scope.settings = {
-        row_select: false,
-        multiple: false,
-        pagination: true,
         pagesize: 25000,
-        limit_options: [25, 50, 100],
         resource: 'users'
     };
 
     var columnDefs = [
-        {headerName: "Nickname", field: "nickname", width: 120, sort: 'asc'},
-	    {headerName: "Email", field: "email", width: 90},
-        {headerName: "Created", field: "created", width: 90, cellRenderer: dateFormatter},
-        {headerName: "Notify", field: "notify", width: 60, cellRenderer: function (params) {if(params.value){ return 'ja';} else {return 'nein';} }},
+        {headerName: $filter('translate')("users.nickname"), field: "nickname", width: 120, sort: 'asc'},
+	    {headerName: $filter('translate')("users.email"), field: "email", width: 90},
+        {headerName: $filter('translate')("users.created"), field: "created", width: 90, cellRenderer: dateFormatter},
+        {headerName: $filter('translate')("users.notify"), field: "notify", width: 60, cellRenderer: function (params) {if(params.value){ return $filter('translate')('generel.yes');} else {return $filter('translate')('generel.no');} }},
 	    {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
-		        return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase + 'admin/users/' + params.value + '" aria-label="{{ \'actions.edit\' | translate }}"><md-icon md-font-icon="fa-pencil" class="fa fa-pencil"></md-icon></a>';
+		        return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase + 'admin/users/' + params.value + '" aria-label="' + $filter('translate')("actions.edit") + '"><md-icon md-font-icon="fa-pencil" class="fa fa-pencil"></md-icon></a>';
 	        }
 	    },
 
