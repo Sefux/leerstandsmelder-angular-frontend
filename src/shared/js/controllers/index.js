@@ -14,7 +14,6 @@ app.controller('Messages.List', require('./messages/list'));
 app.controller('Messages.Create', require('./messages/create'));
 
 app.controller('Posts.List', require('./posts/list'));
-app.controller('Posts.ListStatic', require('./posts/list-static'));
 app.controller('Posts.Show', require('./posts/show'));
 app.controller('Posts.Update', require('./posts/update'));
 

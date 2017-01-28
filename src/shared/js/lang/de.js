@@ -1,6 +1,10 @@
 'use strict';
 
 module.exports = {
+    generel: {
+        yes: 'Ja',
+        no: 'Nein',
+    },
     actions: {
         cancel: 'Abbrechen',
         choose_images: 'Wähle eines oder mehrere Bilder aus, welche Du zu diesem Eintrag hinzufügen möchtest.',
