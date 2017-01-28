@@ -55,6 +55,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "ag-grid": "7.1.x",
     "angular": "^1.6.1",
     "angular-animate": "^1.6.1",
     "angular-aria": "^1.6.1",
@@ -74,8 +75,9 @@
     "async": "^2.1.1",
     "lodash": "^3.10.1",
     "md-data-table": "^2.0.1",
+    "mobicon": "^2.0.1",
+    "mobisplash": "^0.2.0",
     "ng-file-upload": "^12.2.12",
-    "node-static": "^0.7.9",
-    "ag-grid": "7.1.x"
+    "node-static": "^0.7.9"
   }
 }
