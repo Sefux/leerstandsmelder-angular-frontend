@@ -1,37 +1,70 @@
 'use strict';
 
-var RegionsListController = function ($scope, $q, $location, $mdDialog ,$translate, responseHandler, apiService, configuration) {
+var RegionsListController = function ($scope, $q, $location, $mdDialog ,$translate, responseHandler, apiService, configuration, $filter) {
     $scope.urlbase = configuration.urlbase || '/';
-    $scope.fields = [
-        {
-            label: 'regions.title',
-            property: 'title',
-            sort: true
-        },
-        {
-            label: 'author.created',
-            property: 'created',
-            date: true,
-            sort: true
-        },
-        {
-            label: 'author.updated',
-            property: 'updated',
-            date: true
-        },
-        {
-            label: '',
-            property: 'edit'
-        },
-        {
-            label: '',
-            property: 'show'
-        },
-        {
-            label: '',
-            property: 'delete'
+    $scope.settings = {
+        pagesize: 25000,
+        resource: 'regions'
+    };
+
+
+    var columnDefs = [
+        {headerName: $filter('translate')("regions.title"), field: "title", width: 120, sort: 'asc'},
+        {headerName: $filter('translate')("regions.created"), field: "created", width: 90, cellRenderer: dateFormatter},
+        {headerName: $filter('translate')("regions.updated"), field: "updated", width: 90, cellRenderer: dateFormatter},
+        {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
+            return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase + 'admin/regions/' + params.value + '" aria-label="' + $filter('translate')("actions.edit") + '"><md-icon md-font-icon="fa-pencil" class="fa fa-pencil"></md-icon></a>';
         }
+        },
+
     ];
+
+
+    $scope.gridOptions = {
+
+        columnDefs: columnDefs,
+
+        rowData: null,
+        rowHeight: 58,
+
+        enableSorting: true,
+
+        enableFilter: true,
+        animateRows: true,
+
+        enableColResize: true,
+
+        onGridReady: function() {
+            setTimeout(function() {
+                $scope.gridOptions.api.sizeColumnsToFit();
+            }, 600);
+        }
+    };
+
+    function dateFormatter(params) {
+        return $filter('date')(params.value,'yyyy-MM-dd');
+    }
+
+    $scope.filterGrid = function() {
+        $scope.gridOptions.api.setQuickFilter($scope.filterStr);
+    };
+
+    $scope.query = {
+        sort: $scope.settings.sort ? $scope.settings.sort : 'title',
+        page: 1
+    };
+
+    var pageSize =  $scope.settings.pagesize;
+    var resource = $scope.settings.resource + '?limit=' + pageSize +
+        '&skip=' + ((( $scope.query.page) - 1) * pageSize) + '&sort=' + ( $scope.query.sort);
+    apiService(resource).actions.all(function (err, results) {
+        if (!err && results) {
+            $scope.gridOptions.api.setRowData(results.results || results);
+            $scope.gridOptions.api.sizeColumnsToFit();
+            $scope.query.total = results.total;
+        }
+    });
+
     $scope.settings = {
         row_select: false,
         multiple: false,
@@ -39,17 +72,6 @@ var RegionsListController = function ($scope, $q, $location, $mdDialog ,$transla
         pagesize: 25,
         limit_options: [25, 50, 100],
         resource: 'regions'
-    };
-    $scope.rowSetup = {
-        'table-row-id-key': 'uuid',
-        'column-keys': [
-            'title',
-            'created',
-            'updated',
-            'edit',
-            'show',
-            'delete'
-        ],
     };
     $scope.clickEditHandler = function (uuid) {
         $location.path('/admin/regions/' + uuid);
@@ -82,6 +104,6 @@ var RegionsListController = function ($scope, $q, $location, $mdDialog ,$transla
     };
 };
 
-RegionsListController.$inject = ['$scope', '$q', '$location', '$mdDialog', '$translate', 'responseHandler', 'apiService', 'configuration'];
+RegionsListController.$inject = ['$scope', '$q', '$location', '$mdDialog', '$translate', 'responseHandler', 'apiService', 'configuration','$filter'];
 
 module.exports = RegionsListController;

@@ -45,6 +45,10 @@ var PostsListController = function ($scope, $q, apiService, responseHandler, $lo
         }
     };
 
+    $scope.filterGrid = function() {
+        $scope.gridOptions.api.setQuickFilter($scope.filterStr);
+    };
+
     function dateFormatter(params) {
         return $filter('date')(params.value,'yyyy-MM-dd');
     }

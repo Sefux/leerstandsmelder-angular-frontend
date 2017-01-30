@@ -3,48 +3,6 @@
 var CommentsListController = function ($scope, $q, apiService, responseHandler, $location, $filter, configuration) {
 
     $scope.urlbase = configuration.urlbase || '/';
-    $scope.rowSetup = {
-        'table-row-id-key': 'uuid',
-        'column-keys': [
-            'body',
-            'user.nickname',
-            'location.title',
-            'created',
-            'edit',
-            'show'
-        ],
-    };
-    $scope.fields = [
-        {
-            label: 'comments.body',
-            property: 'body'
-        },
-        {
-            label: 'author.author',
-            property: 'user.nickname',
-            date: true,
-            sort: true
-        },
-        {
-            label: 'Location',
-            property: 'location.title',
-            sort: true
-        },
-        {
-            label: 'author.created',
-            property: 'created',
-            date: true,
-            sort: true
-        },
-        {
-            label: '',
-            property: 'edit'
-        },
-        {
-            label: '',
-            property: 'show'
-        }
-    ];
     $scope.settings = {
         row_select: false,
         multiple: false,
@@ -57,9 +15,9 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
 
     var columnDefs = [
         {headerName: $filter('translate')("comments.body"), field: "body", width: 120, sort: 'asc'},
-        {headerName: "Author", field: "user.nickname", width: 90},
-        {headerName: "Location", field: "location.title", width: 90},
-        {headerName: "Created", field: "created", width: 90, cellRenderer: dateFormatter},
+        {headerName: $filter('translate')("author.author"), field: "user.nickname", width: 90},
+        {headerName: $filter('translate')("locations.location"), field: "location.title", width: 90},
+        {headerName: $filter('translate')("comments.created"), field: "created", width: 90, cellRenderer: dateFormatter},
         {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
             return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase + 'admin/comments/' + params.value + '" aria-label="{{ \'actions.edit\' | translate }}"><md-icon md-font-icon="fa-pencil" class="fa fa-pencil"></md-icon></a>';
         }
@@ -89,7 +47,12 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
         }
     };
 
-    function dateFormatter(params) {
+	$scope.filterGrid = function() {
+		$scope.gridOptions.api.setQuickFilter($scope.filterStr);
+	};
+
+
+	function dateFormatter(params) {
         return $filter('date')(params.value,'yyyy-MM-dd');
     }
 

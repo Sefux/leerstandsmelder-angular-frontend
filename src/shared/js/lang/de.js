@@ -197,7 +197,9 @@ module.exports = {
         site_post_plural: 'Seiteninhalte',
         title: 'Titel',
         update_success: 'Eintrag erfolgreich aktualisiert..',
-        create_post: 'Eintrag erstellen'
+        create_post: 'Eintrag erstellen',
+	    slug: 'Kurzform URL',
+	    static: 'Statische Seite'
     },
     regions: {
         hide_message: 'Nachricht, wenn Region nicht angezeigt wird',
@@ -212,7 +214,10 @@ module.exports = {
         title: 'Titel',
         update_success: 'Region erfolgreich aktualisiert.',
         zoom: 'Zoom',
-        count: 'Anzahl'
+        count: 'Anzahl',
+        created: 'Erstelllt',
+        updated: 'Aktualisiert',
+
     },
     site: {
         banned: 'Gesperrt',
@@ -237,10 +242,10 @@ module.exports = {
         title: 'Leerstandsmelder'
     },
     users: {
-        manage_users: 'Nutzer verwalten',
-        create_user: 'Nutzer erstellen',
-        admin_edit: 'Nutzer bearbeiten',
-        admin_create: 'Nutzer erstellen',
+        manage_users: 'Nutzer*innen verwalten',
+        create_user: 'Nutzer*innen erstellen',
+        admin_edit: 'Nutzer*innen bearbeiten',
+        admin_create: 'Nutzer*innen erstellen',
         anonymous: 'Nicht eingeloggt',
         email: 'E-Mail',
         forgot: 'Passwort Vergessen',
@@ -249,16 +254,17 @@ module.exports = {
         password_confirm: 'Passwort bestätigen',
         settings: 'Einstellungen',
         signup: 'Registrieren',
-        username: 'Benutzername',
-        login: 'Anmelden',
-        message_me: 'Andere Nutzer können mir Nachrichten auf Leerstandsmelder schicken.',
-        notify: 'Benachrichtige mich per Email wenn meine Einträge geupdatet werden oder Nachrichten angekommen sind.',
-        register_message: 'Registriere Dich!',
-        all: 'Alle Nutzer',
-        confirmed: "Bestättigt",
-        blocked: "Blockiert",
-        last_login: "Letzter login",
+	    username: 'Benutzername',
+	    login: 'Anmelden',
+	    message_me: 'Andere Nutzer können mir Nachrichten auf Leerstandsmelder schicken.',
+	    notify: 'Benachrichtige mich per Email wenn meine Einträge geupdatet werden oder Nachrichten angekommen sind.',
+	    register_message: 'Registriere Dich!',
+	    all: 'Alle Nutzer*innen',
+	    confirmed: "Bestättigt",
+	    blocked: "Blockiert",
+	    last_login: "Letzter login",
         failed_logins: "Fehlgeschlagene Logins",
-        scope: "Berechtigungen"
+        scope: "Berechtigungen",
+	    created: 'Angemeldet'
     }
 };

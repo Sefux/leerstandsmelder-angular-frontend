@@ -1,20 +1,16 @@
 include ..//mixins/_style
 
-div(layout='column' layout-align="start center" flex="100")
-    +headline('{{ listHeadline }}')
-    md-table-container(layout-fill)
-        table(md-table)
-            thead(md-head)
-                tr(md-row ng-repeat="item in data")
-                    td(md-cell)
-                        span
-                            a(ng-if="item.region_uuid" ng-href="/{{ item.region ? item.region.slug : item.region_uuid }}/{{ item.slug || item.uuid }}") {{ item.title }}
-                            a(ng-if="!item.region_uuid" ng-href="/locations/index/{{ item.slug || item.uuid }}") {{ item.title }}
-                    td(md-cell ng-if="!item.region_uuid")
-                        span {{ item.locations }}
-                    td(md-cell ng-if="item.region_uuid")
-                        span {{ item.street }}, {{ item.postcode }} {{ item.city }}
-                    td(md-cell ng-if="item.region_uuid")
-                        span {{ item.buildingType | translate}}
-                    td(md-cell ng-if="item.region_uuid")
-                        span {{ item.owner | translate}}
+div(flex layout="column" layout-align="start center" layout-fill="layout-fill" layout-padding="layout-padding" class="layout-fill layout-padding layout-align-start-center layout-column")
+    md-content(class="md-padding layout-column layout-fill" layout-fill flex)
+        md-card(class="md-padding layout-column layout-fill" layout-fill flex)
+            +headline('{{ listHeadline }}')
+            md-input-container()
+                md-icon.fa.fa-search()
+                input(
+                ng-model="filterStr"
+                ng-change="filterGrid()"
+                style=""
+                placeholder="Filter..."
+                type="text")
+            div(layout='column' layout-align="start center" layout-fill  flex style="height:100%; border-bottom: 1px solid #aaa;")
+                div(ag-grid="gridOptions" class="ag-material" style="height:100%; min-height: 100%; min-width: 200px; width: 100%;")

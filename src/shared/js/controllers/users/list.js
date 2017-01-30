@@ -1,6 +1,8 @@
 'use strict';
 
 var UsersListController = function ($scope, apiService, responseHandler, $q, $filter, configuration) {
+    var deferred = $q.defer();
+    $scope.promise = deferred.promise;
     $scope.urlbase = configuration.urlbase || '/';
     $scope.settings = {
         pagesize: 25000,
@@ -8,7 +10,7 @@ var UsersListController = function ($scope, apiService, responseHandler, $q, $fi
     };
 
     var columnDefs = [
-        {headerName: $filter('translate')("users.nickname"), field: "nickname", width: 120, sort: 'asc'},
+        {headerName: $filter('translate')("users.username"), field: "nickname", width: 120, sort: 'asc'},
 	    {headerName: $filter('translate')("users.email"), field: "email", width: 90},
         {headerName: $filter('translate')("users.created"), field: "created", width: 90, cellRenderer: dateFormatter},
         {headerName: $filter('translate')("users.notify"), field: "notify", width: 60, cellRenderer: function (params) {if(params.value){ return $filter('translate')('generel.yes');} else {return $filter('translate')('generel.no');} }},
@@ -41,6 +43,10 @@ var UsersListController = function ($scope, apiService, responseHandler, $q, $fi
         }
     };
 
+    $scope.filterGrid = function() {
+        $scope.gridOptions.api.setQuickFilter($scope.filterStr);
+    };
+
     function dateFormatter(params) {
         return $filter('date')(params.value,'yyyy-MM-dd');
     }
@@ -58,7 +64,8 @@ var UsersListController = function ($scope, apiService, responseHandler, $q, $fi
             $scope.gridOptions.api.setRowData(results.results || results);
             $scope.gridOptions.api.sizeColumnsToFit();
             $scope.query.total = results.total;
-        }
+            deferred.resolve();
+        } else deferred.reject(err);
     });
 
 

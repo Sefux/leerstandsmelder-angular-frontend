@@ -32,7 +32,7 @@ div(ng-controller="Widgets.Navbar as ctrl")
                     +button('locations.create_new','','md-primary','fa-fw fa-2x fa-minus-circle',null,'#!/locations/create')
 
                 md-list-item()
-                    +button('site.subnav.index','','','fa-fw fa-2x fa-map-o',null,'#!/locations/all')
+                    +button('site.subnav.index','','','fa-fw fa-2x fa-map-o',null,'#!/locations/index')
 
                 md-list-item(ng-if="userSession")
                     +button('locations.my_locations','','btn-default','fa-fw fa-2x fa-list','userSession', '#!/users/me/locations')

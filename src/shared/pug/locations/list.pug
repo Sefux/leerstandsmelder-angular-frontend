@@ -1,5 +1,18 @@
 include ..//mixins/_style
 
-div(layout='column' layout-align="start center" flex="100" layout-fill)
-    h2 {{ page.list_title | translate }} {{ currentRegion }}
-    div(lsm-data-table layout-fill data-fields='fields' data-settings='settings' data-row-setup='rowSetup')
+div(flex layout="column" layout-align="start center" layout-fill="layout-fill" layout-padding="layout-padding" class="layout-fill layout-padding layout-align-start-center layout-column")
+    md-content(class="md-padding layout-column layout-fill" layout-fill flex)
+        md-card(class="md-padding layout-column layout-fill" layout-fill flex)
+            +headline('{{ page.list_title | translate }} {{ currentRegion }}')
+            .main-fab(style="position:absolute;right:20px;top:20px;")
+                md-button(class="md-fab md-accent" href="{{ urlbase }}locations/create") +
+            md-input-container()
+                md-icon.fa.fa-search()
+                input(
+                ng-model="filterStr"
+                ng-change="filterGrid()"
+                style=""
+                placeholder="Filter..."
+                type="text")
+            div(layout='column' layout-align="start center" layout-fill  flex style="height:100%; border-bottom: 1px solid #aaa;")
+                div(ag-grid="gridOptions" class="ag-material" style="height:100%; min-height: 100%; min-width: 200px; width: 100%;")
