@@ -16,6 +16,7 @@ var Promise = require('bluebird'),
     sourcemaps = require('gulp-sourcemaps'),
     watch = require('gulp-watch'),
     jshint = require('gulp-jshint'),
+    uglify = require('gulp-uglify'),
     del = require('del'),
     connect = require('connect'),
     serveStatic = require('serve-static'),
@@ -143,7 +144,7 @@ gulp.task('js', function (env) {
             .pipe(sourcemaps.init({loadMaps: true}))
             .on('error', gutil.log)
             .pipe(header(banner, {pkg: pkg}))
-            //.pipe(uglify())
+            .pipe(uglify())
             .pipe(rename('leerstandsmelder-angular-frontend.min.js'))
             .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../../'}));
         stream.pipe(gulp.dest(sd.dest));
@@ -251,8 +252,7 @@ gulp.task('assets', function (env) {
             })
             .then(function () {
                 var stream = gulp.src([
-                    './assets/images/*',
-                    './assets/images/icons/*',
+                    './assets/images/**/*.*',
                     './bower_components/leaflet/dist/images/*',
                     './bower_components/leaflet-minimap/dist/images/*'
                 ]);
@@ -385,7 +385,12 @@ gulp.task('build', [
 // FIXME: build only works when cordova dir is removed, also runs through entire build for each update
 
 gulp.task('build:android', function () {
-    var dst = gulp.dest('dist/android'),
+    var icon = require('gulp-cordova-icon');
+    var xml = require('gulp-cordova-xml');
+    var author = require('gulp-cordova-author');
+    var plugin = require('gulp-cordova-plugin');
+    var android = require('gulp-cordova-build-android'),
+        dst = gulp.dest('dist/android'),
         src = gulp.src('dist/mobile').pipe(require('gulp-cordova-create')({
             dir: 'dist/cordova',
             id: config.android.app_id,
@@ -393,14 +398,37 @@ gulp.task('build:android', function () {
         }))
         .pipe(require('gulp-cordova-access')(config.android.access_origins))
         .pipe(require('gulp-cordova-preference')(config.android.prefs))
-        // TODO: add android app icon!
-        // .pipe(require('gulp-cordova-icon')('res/my-icon.png'))
-        .pipe(require('gulp-cordova-version')(require('./package.json').version))
-        .pipe(require('gulp-cordova-author')('Gängeviertel e.V.', 'info@leerstandsmelder.de'))
+        .pipe(require('gulp-cordova-version')(pkg.version))
+        .pipe(author(config.author.name,config.author.email,config.author.url))
         .pipe(require('gulp-cordova-description')(config.android.app_description))
-        .pipe(require('gulp-cordova-plugin')(config.android.plugins))
+        .pipe(plugin(config.android.plugins));
         // TODO: make release configurable
-        .pipe(require('gulp-cordova-build-android')({release: false}));
+        // .pipe(android({storeFile: '/Path/to/key.keystore', keyAlias: 'my_alias'}))
+
+        src.pipe(xml([
+            '<splash src="www/images/leerstandsmelder_splash.png" width="320" height="480" />',
+            '<splash src="www/images/Default@2x~iphone.png" width="640" height="960" />',
+            '<preference name="BackupWebStorage" value="local" />'
+        ]));
+        src.pipe(icon('www/images/icons/leerstandsmelder_icon.png', { errorHandlingStrategy: 'warn' }));
+
+            // <!--
+            //     ldpi    : 36x36 px
+            //     mdpi    : 48x48 px
+            //     hdpi    : 72x72 px
+            //     xhdpi   : 96x96 px
+            //     xxhdpi  : 144x144 px
+            //     xxxhdpi : 192x192 px
+            // -->
+            //     <icon src="www/images/icons/android/drawable-ldpi/icon.png" density="ldpi" />
+            //     <icon src="www/images/icons/android/drawable-mdpi/icon.png" density="mdpi" />
+            //     <icon src="www/images/icons/android/drawable-hdpi/icon.png" density="hdpi" />
+            //     <icon src="www/images/icons/android/drawable-xhdpi/icon.png" density="xhdpi" />
+            //     <icon src="www/images/icons/android/drawable-xxhdpi/icon.png" density="xxhdpi" />
+            //     <icon src="www/images/icons/android/drawable-xxxhdpi/icon.png" density="xxxhdpi" />
+            //
+
+        src.pipe(android({release: false}));
     return streamToPromise(src.pipe(dst));
 });
 
@@ -417,13 +445,8 @@ gulp.task('build:ios', function () {
         }))
         .pipe(require('gulp-cordova-description')(config.android.app_description))
         .pipe(author(config.author.name,config.author.email,config.author.url))
-        //.pipe(icon('www/images/leerstandsmelder_icon.png', { errorHandlingStrategy: 'warn' }))
-        .pipe(require('gulp-cordova-version')(require('./package.json').version))
+        .pipe(require('gulp-cordova-version')(pkg.version))
         .pipe(plugin(config.ios.plugins));
-        //.pipe(plugin('org.apache.cordova.camera'))
-        //.pipe(plugin('org.apache.cordova.media'))
-        //.pipe(plugin('org.apache.cordova.geolocation'));
-
 
         src.pipe(xml([
             '<splash src="www/images/leerstandsmelder_splash.png" width="320" height="480" />',
