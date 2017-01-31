@@ -17,24 +17,6 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
     $scope._sys = locationFormDefaults;
 
 
-    GeolocationService.getCurrentPosition().then(
-        function(position) { //
-            console.log('Position',position);
-            $scope.marker.lat = position.coords.latitude;
-            $scope.marker.lng = position.coords.longitude;
-            $scope.updateLocation({ 'lat' : position.coords.latitude , 'lng': position.coords.longitude});
-        },
-        function(errorCode) {
-            if(errorCode === false) {
-                alert('GeoLocation is not supported by browser.');
-            }
-            else if(errorCode === 1) {
-                alert('User either denied GeoLocation or waited for long to respond.');
-            }
-        }
-    );
-
-
     /*
         Update the map to a new geolocation
         Also retrieves the new address
@@ -209,6 +191,24 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
         ], function (err) {
             responseHandler.handleResponse(err, deferred);
         });
+    } else {
+        //create a new location: ask user to use his geoloaction
+        GeolocationService.getCurrentPosition().then(
+            function (position) { //
+                console.log('Position', position);
+                $scope.marker.lat = position.coords.latitude;
+                $scope.marker.lng = position.coords.longitude;
+                $scope.updateLocation({'lat': position.coords.latitude, 'lng': position.coords.longitude});
+            },
+            function (errorCode) {
+                if (errorCode === false) {
+                    alert('GeoLocation is not supported by browser.');
+                }
+                else if (errorCode === 1) {
+                    alert('User either denied GeoLocation or waited for long to respond.');
+                }
+            }
+        );
     }
 };
 
