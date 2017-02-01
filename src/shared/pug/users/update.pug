@@ -6,8 +6,8 @@ include ..//mixins/_style
 
 div(layout='column' layout-align='start center' flex layout-padding)
     md-card()
-        md-card-header()
-            md-card-header-text
+        md-card-header
+            md-card-header-text(layout-align="center center")
                 +headline("users.settings")
         md-card-content()
             div(layout-padding)

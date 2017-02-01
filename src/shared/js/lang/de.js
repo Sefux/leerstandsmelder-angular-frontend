@@ -248,7 +248,7 @@ module.exports = {
         admin_create: 'Nutzer*innen erstellen',
         anonymous: 'Nicht eingeloggt',
         email: 'E-Mail',
-        forgot: 'Passwort Vergessen',
+        forgot: 'Passwort vergessen',
         logout: 'Abmelden',
         password: 'Passwort',
         password_confirm: 'Passwort bestätigen',
