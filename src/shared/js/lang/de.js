@@ -32,6 +32,7 @@ module.exports = {
         file: 'Datei'
     },
     author: {
+	    author: 'Autor',
         by: 'von',
         created: 'Erstellt',
         in: 'in',
@@ -202,6 +203,7 @@ module.exports = {
 	    static: 'Statische Seite'
     },
     regions: {
+        settings: 'Einstellungen',
         hide_message: 'Nachricht, wenn Region nicht angezeigt wird',
         latitude: 'Breitengrad',
         longitude: 'Längengrad',
