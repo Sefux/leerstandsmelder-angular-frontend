@@ -107,11 +107,11 @@ gulp.task('deps:js', function (env) {
                 'bower_components/simplemde/dist/simplemde.min.js',
                 'bower_components/bluebird/js/browser/bluebird.min.js',
                 'bower_components/leaflet/dist/leaflet.js',
-                'bower_components/PruneCluster/dist/PruneCluster.js',
                 'bower_components/leaflet-minimap/dist/Control.MiniMap.min.js',
                 'bower_components/L.GeoSearch/src/js/l.control.geosearch.js',
                 'bower_components/L.GeoSearch/src/js/l.geosearch.provider.openstreetmap.js',
-                'bower_components/airbrake-js-client/dist/client.min.js'
+                'bower_components/airbrake-js-client/dist/client.min.js',
+	            'node_modules/leaflet.markercluster/dist/leaflet.markercluster.js'
 
             ])
             .pipe(concat('leerstandsmelder-angular-dependencies.min.js'))

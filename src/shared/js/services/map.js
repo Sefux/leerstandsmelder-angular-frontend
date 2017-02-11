@@ -26,7 +26,7 @@ var MapService = function ($http, assetPath) {
 
             // PREP CLUSTERS //
             // var pruneCluster = new PruneClusterForLeaflet();
-            PruneCluster.Cluster.ENABLE_MARKERS_LIST = true;
+            //PruneCluster.Cluster.ENABLE_MARKERS_LIST = true;
 
             // CONTROLS //
             L.control.scale().addTo(map).setPosition('bottomleft');
