@@ -14,7 +14,7 @@ var UsersUpdateAdminController = function ($scope, $q, $routeParams, apiService,
     $scope._sys = {
         notify:'notify me',
         share_email:'share my email',
-        userScope: ['Admin','Editor','User',]
+        userScope: ['admin','editor','user',]
     };
 
     $scope.submit = function () {
@@ -47,6 +47,18 @@ var UsersUpdateAdminController = function ($scope, $q, $routeParams, apiService,
                 $scope.user = user;
                 $scope.user.password = null;
                 $scope.user.password_confirm = null;
+                var keys = [];
+
+                user.api_keys.forEach(function(el) {
+                    if(el.scopes) {
+                        var scopes =  el.scopes;
+                        scopes.forEach(function(sco) {
+                            keys.push(sco);
+                        });
+                    }
+                });
+
+                $scope.user.scopes = keys;
 
             }
         });
