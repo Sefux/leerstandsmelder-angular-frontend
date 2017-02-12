@@ -41,7 +41,9 @@ app.factory('GeolocationService', require('./services/geolocation'));
 app.constant("configuration", {
     'urlbase': '#!/'
 });
-
+app.config(['$qProvider', function ($qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
+}]);
 app.config([
     '$routeProvider',
     '$locationProvider',
@@ -77,6 +79,9 @@ app.config([
             .primaryPalette('leerstand')
             .accentPalette('deep-orange')
             .warnPalette('red');
+        
+        $mdThemingProvider.theme("success-toast");
+        $mdThemingProvider.theme("error-toast");
 
         // TODO: check user preference with custom pref
         // see: http://angular-translate.github.io/docs/en/#/guide/11_custom-storages

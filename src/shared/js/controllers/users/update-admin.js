@@ -1,6 +1,6 @@
 'use strict';
 
-var UsersUpdateAdminController = function ($scope, $q, $routeParams, apiService, responseHandler, PubSub, configuration) {
+var UsersUpdateAdminController = function ($scope, $q, $routeParams, apiService, responseHandler, PubSub, configuration, $translate) {
     var deferred = $q.defer();
     $scope.urlbase = configuration.urlbase || '/';
     $scope.user = {
@@ -25,7 +25,7 @@ var UsersUpdateAdminController = function ($scope, $q, $routeParams, apiService,
             delete $scope.user.password;
         } else {
             if ($scope.user.password !== $scope.user.password_confirm) {
-                PubSub.publish('alert', 'error', 'errors.users.password_confirm_mismatch');
+                PubSub.publish('alert', {type: 'error', message: $translate.instant('errors.users.password_confirm_mismatch')});
                 return deferred.reject();
             }
         }
@@ -65,6 +65,6 @@ var UsersUpdateAdminController = function ($scope, $q, $routeParams, apiService,
     }
 };
 
-UsersUpdateAdminController.$inject = ['$scope', '$q', '$routeParams', 'apiService', 'responseHandler', 'PubSub', 'configuration'];
+UsersUpdateAdminController.$inject = ['$scope', '$q', '$routeParams', 'apiService', 'responseHandler', 'PubSub', 'configuration', '$translate'];
 
 module.exports = UsersUpdateAdminController;

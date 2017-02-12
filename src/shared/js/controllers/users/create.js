@@ -1,6 +1,6 @@
 'use strict';
 
-var UsersCreateController = function ($scope, $q, apiService, PubSub, responseHandler) {
+var UsersCreateController = function ($scope, $q, apiService, PubSub, responseHandler, $translate) {
     $scope.user = {
         email:null,
         login: null,
@@ -11,7 +11,7 @@ var UsersCreateController = function ($scope, $q, apiService, PubSub, responseHa
     $scope.submit = function () {
         var deferred = $q.defer();
         if ($scope.user.password !== $scope.user.password_confirm) {
-            PubSub.publish('alert', 'error', 'errors.users.password_confirm_mismatch');
+            PubSub.publish('alert', {type: 'error', message: $translate.instant('errors.users.password_confirm_mismatch')});
             return deferred.reject();
         }
         $scope.promise = deferred.promise;
@@ -24,6 +24,6 @@ var UsersCreateController = function ($scope, $q, apiService, PubSub, responseHa
     };
 };
 
-UsersCreateController.$inject = ['$scope', '$q', 'apiService', 'PubSub', 'responseHandler'];
+UsersCreateController.$inject = ['$scope', '$q', 'apiService', 'PubSub', 'responseHandler', '$translate'];
 
 module.exports = UsersCreateController;
