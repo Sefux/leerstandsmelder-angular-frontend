@@ -115,7 +115,7 @@ gulp.task('deps:js', function (env) {
 
             ])
             .pipe(concat('leerstandsmelder-angular-dependencies.min.js'))
-            .pipe(header(banner, {pkg: pkg}));
+            .pipe(header(banner, {pkg: pkg})).pipe(uglify());
         stream.pipe(gulp.dest(dest));
         return streamToPromise(stream);
     });
@@ -136,15 +136,44 @@ gulp.task('js', function (env) {
     return Promise.map(filterSourceDestPairs(srcDest, env), function (sd) {
         var b = browserify({
             entries: sd.src,
-            debug: true
+            debug: false
         });
         var stream = b.bundle()
             .pipe(source(path.basename(sd.src)))
             .pipe(buffer())
-            .pipe(sourcemaps.init({loadMaps: true}))
+            //.pipe(sourcemaps.init({loadMaps: true}))
             .on('error', gutil.log)
             .pipe(header(banner, {pkg: pkg}))
             .pipe(uglify())
+            .pipe(rename('leerstandsmelder-angular-frontend.min.js'))
+            //.pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../../'}));
+        stream.pipe(gulp.dest(sd.dest));
+        return streamToPromise(stream);
+    });
+});
+
+//
+//
+// JS
+
+gulp.task('js:maps', function (env) {
+    var srcDest = [
+        {src: 'src/web/js/app-web.js', dest: 'dist/web/js/'},
+        {src: 'src/mobile/js/app-mobile.js', dest: 'dist/mobile/js/'}
+    ];
+
+    return Promise.map(filterSourceDestPairs(srcDest, env), function (sd) {
+        var b = browserify({
+            entries: sd.src,
+            debug: false
+        });
+        var stream = b.bundle()
+            .pipe(source(path.basename(sd.src)))
+            .pipe(buffer())
+            .pipe(sourcemaps.init())
+            .on('error', gutil.log)
+            .pipe(header(banner, {pkg: pkg}))
+            //.pipe(uglify())
             .pipe(rename('leerstandsmelder-angular-frontend.min.js'))
             .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../../'}));
         stream.pipe(gulp.dest(sd.dest));
@@ -403,15 +432,17 @@ gulp.task('build:android', function () {
         .pipe(require('gulp-cordova-description')(config.android.app_description))
         .pipe(plugin(config.android.plugins));
         // TODO: make release configurable
-        // .pipe(android({storeFile: '/Path/to/key.keystore', keyAlias: 'my_alias'}))
+        //
 
         src.pipe(xml([
-            '<splash src="www/images/leerstandsmelder_splash.png" width="320" height="480" />',
-            '<splash src="www/images/Default@2x~iphone.png" width="640" height="960" />',
+            '<splash src="www/images/splash/leerstandsmelder_splash.png"  />',
             '<preference name="BackupWebStorage" value="local" />'
         ]));
+
+
         src.pipe(icon('www/images/icons/leerstandsmelder_icon.png', { errorHandlingStrategy: 'warn' }));
 
+    //'<splash src="www/images/Default@2x~iphone.png" width="640" height="960" />',
             // <!--
             //     ldpi    : 36x36 px
             //     mdpi    : 48x48 px
@@ -427,8 +458,8 @@ gulp.task('build:android', function () {
             //     <icon src="www/images/icons/android/drawable-xxhdpi/icon.png" density="xxhdpi" />
             //     <icon src="www/images/icons/android/drawable-xxxhdpi/icon.png" density="xxxhdpi" />
             //
-
-        src.pipe(android({release: false}));
+       // src.pipe(android({storeFile: '../keys', keyAlias: 'leerstandsmelder'}));
+        src.pipe(android({release: true}));
     return streamToPromise(src.pipe(dst));
 });
 
@@ -449,11 +480,11 @@ gulp.task('build:ios', function () {
         .pipe(plugin(config.ios.plugins));
 
         src.pipe(xml([
-            '<splash src="www/images/leerstandsmelder_splash.png" width="320" height="480" />',
+            '<splash src="www/images/splash/leerstandsmelder_splash.png" width="320" height="480" />',
             '<splash src="www/images/Default@2x~iphone.png" width="640" height="960" />',
             '<preference name="BackupWebStorage" value="local" />'
         ]));
-        src.pipe(icon('www/images/leerstandsmelder_icon.png', { errorHandlingStrategy: 'warn' }));
+        src.pipe(icon('www/images/icons/leerstandsmelder_icon.png', { errorHandlingStrategy: 'warn' }));
 
     return src.pipe(dst);
 });
