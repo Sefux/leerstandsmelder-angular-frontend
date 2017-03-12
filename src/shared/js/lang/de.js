@@ -72,6 +72,11 @@ module.exports = {
             'no_data': 'Region konnte nicht geladen werden.'
         },
         unknown: 'Ein unbekannter Fehler ist aufgetreten.',
+        noconnection: 'Die Anwendung konnte keine Verbindung zum Server herstellen. Probiere es zu einem späteren Zeitpunkt noch einmal.',
+        critical: {
+          title: 'Mieser Fehler',
+          resolve: 'Ok, neu starten?'
+        },
         users: {
             confirmation_failed: 'Bestätigung fehlgeschlagen. Möglicherweise wurde dieser Link bereits verwendet.',
             email_exists: 'E-Mail Adresse ist bereits registriert.',
@@ -81,6 +86,12 @@ module.exports = {
             reset_failed: 'Passwort Zurücksetzen fehlgeschlagen. Dieser Link ist nicht (mehr) gültig.',
             too_many_failed_logins: 'Zu viele fehlgeschlagene Anmeldungen. Versuche es in fünf Minuten wieder.'
         }
+    },
+    successes: {
+      user: {
+        login: 'Du hast dich erfolgreich angemeldet.',
+        logout: 'Du hast dich erfolgreich abgemeldet.'
+      }  
     },
     locations: {
         address: 'Adresse',

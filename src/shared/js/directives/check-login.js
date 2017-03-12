@@ -2,7 +2,7 @@
 
 var async = require('async');
 
-var CheckLoginDirective = function (apiService, authService) {
+var CheckLoginDirective = function (apiService, authService, PubSub, $translate) {
     return {
         link: function (scope) {
             scope.$parent.$on('currentUser:updated', function () {
@@ -42,12 +42,16 @@ var CheckLoginDirective = function (apiService, authService) {
                         }
                     ], function (err) {
                         if (err) {
+                            PubSub.publish('alert', {type: 'error', message: $translate.instant('user.error.fetchin')});
                             console.log('error fetching user', err.message);
                             scope.userSession = null;
                             return;
                         }
                         scope.$apply();
                     });
+                } else {
+                  scope.userSession = null;
+                  scope.api_key = null;
                 }
             };
             scope.updateUser();
@@ -55,6 +59,6 @@ var CheckLoginDirective = function (apiService, authService) {
     };
 };
 
-CheckLoginDirective.$inject = ['apiService', 'authService'];
+CheckLoginDirective.$inject = ['apiService', 'authService', 'PubSub', '$translate'];
 
 module.exports = CheckLoginDirective;

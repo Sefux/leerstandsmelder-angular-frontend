@@ -59,14 +59,11 @@ md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as 
                             .fa.fa-fw.fa-close.fa-2x(flex="20")
                         md-menu-divider()
                         md-menu-item(ng-if="!userSession")
-                            +button('locations.create_new','','md-primary','fa-fw fa-2x fa-minus-circle',null,'/users/login')
-
+                            +button('locations.create_new','','md-primary','fa-fw fa-2x fa-minus-circle',null,'/users/login?redirectTo=locations/create')
                         md-menu-item(ng-if="userSession")
                             +button('locations.create_new','','md-primary','fa-fw fa-2x fa-minus-circle',null,'/locations/create')
-
                         md-menu-item()
                             +button('site.subnav.index','','','fa-fw fa-2x fa-map-o',null,'/locations/index')
-
                         md-menu-item(ng-if="userSession")
                             +button('locations.my_locations','','btn-default','fa-fw fa-2x fa-list','userSession', '/users/me/locations')
 
@@ -138,4 +135,3 @@ md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as 
                                     span.fa.fa-fw.fa-2x.fa-check-square-o(ng-if="lang_active=='en'")
                                     span.fa.fa-fw.fa-2x.fa-square-o(ng-if="lang_active!='en'")
                                 span(translate='site.lang_en')
-

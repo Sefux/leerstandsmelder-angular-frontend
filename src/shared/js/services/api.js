@@ -52,6 +52,9 @@ var ApiService = function (authService, Upload) {
                             callback(new Error('upload error status ' + status), data);
                         }
                     });
+                },
+                ping: function(callback, progress) {
+                  apiClient.resource('ping').action('get', '0', callback, progress);
                 }
             },
             getCredentials: function (access_token, callback) {

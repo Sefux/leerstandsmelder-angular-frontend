@@ -1,6 +1,6 @@
 'use strict';
 
-var ResponseHandlerService = function ($translate, PubSub, errorReporter, $location) {
+var ResponseHandlerService = function ($translate, PubSub, errorReporter, $location, apiService) {
     return {
         handleResponse: function (err, deferred, msgs) {
             if (err) {
@@ -27,7 +27,15 @@ var ResponseHandlerService = function ($translate, PubSub, errorReporter, $locat
                         PubSub.publish('alert', {type: 'error', message: $translate.instant(err.message)});
                     } else {
                         errorReporter.notify(err);
-                        PubSub.publish('alert', {type: 'error', message: $translate.instant('errors.unknown') + ' Code ' + err.code});
+                        apiService('ping').actions.ping(function (ping_err, ping_results) {
+                            if (!err && results) {
+                                // some other unknown error appeared
+                                PubSub.publish('alert', {type: 'error', delay: 0, message: $translate.instant('errors.unknown') + ' Code ' + err.code});
+                            } else {
+                                // server is offline or connection broken
+                                PubSub.publish('alert', {type: 'critical', delay: 0, message: $translate.instant('errors.noconnection') + ' Code ' + err.code});
+                            }
+                        });
                     }
                 }
                 if (deferred) {
@@ -46,6 +54,6 @@ var ResponseHandlerService = function ($translate, PubSub, errorReporter, $locat
     };
 };
 
-ResponseHandlerService.$inject = ['$translate', 'PubSub', 'errorReporter', '$location'];
+ResponseHandlerService.$inject = ['$translate', 'PubSub', 'errorReporter', '$location', 'apiService'];
 
 module.exports = ResponseHandlerService;
