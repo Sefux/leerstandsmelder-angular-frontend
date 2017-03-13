@@ -480,8 +480,17 @@ gulp.task('build:ios', function () {
         .pipe(plugin(config.ios.plugins));
 
         src.pipe(xml([
-            '<splash src="www/images/splash/leerstandsmelder_splash.png" width="320" height="480" />',
-            '<splash src="www/images/Default@2x~iphone.png" width="640" height="960" />',
+            '<splash src="www/images/splash/ios/Default~iphone.png" width="320" height="480"/>',
+            '<splash src="www/images/splash/ios/Default@2x~iphone.png" width="640" height="960"/>',
+            '<splash src="www/images/splash/ios/Default-Portrait~ipad.png" width="768" height="1024"/>',
+            '<splash src="www/images/splash/ios/Default-Portrait@2x~ipad.png" width="1536" height="2048"/>',
+            '<splash src="www/images/splash/ios/Default-Landscape~ipad.png" width="1024" height="768"/>',
+            '<splash src="www/images/splash/ios/Default-Landscape@2x~ipad.png" width="2048" height="1536"/>',
+            '<splash src="www/images/splash/ios/Default-568h@2x~iphone.png" width="640" height="1136"/>',
+            '<splash src="www/images/splash/ios/Default-667h.png" width="750" height="1334"/>',
+            '<splash src="www/images/splash/ios/Default-736h.png" width="1242" height="2208"/>',
+            '<splash src="www/images/splash/ios/Default-Landscape-736h.png" width="2208" height="1242"/>',
+            '<splash src="www/images/splash/ios/Default@2x~universal~anyany.png" />',
             '<preference name="BackupWebStorage" value="local" />'
         ]));
         src.pipe(icon('www/images/icons/leerstandsmelder_icon.png', { errorHandlingStrategy: 'warn' }));

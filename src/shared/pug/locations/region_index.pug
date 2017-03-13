@@ -1,12 +1,13 @@
 include ..//mixins/_style
 
 
-div(flex layout="column" layout-align="start center"  layout-padding="layout-padding")
+div.list(flex layout="column" layout-align="start center"  layout-padding="layout-padding")
     md-card(layout="column" layout-fill  layout-padding flex)
         md-card-header
-            md-card-header-text()
-                +headline('{{ listHeadline }}')
-                .main-fab(style="position:absolute;right:15px;top:15px;")
+            md-card-header-text(layout="row" layout-xs="column")
+                div(flex)
+                  +headline('{{ listHeadline }}')
+                .main-fab(flex)
                     md-input-container()
                         md-icon.fa.fa-search()
                         input(

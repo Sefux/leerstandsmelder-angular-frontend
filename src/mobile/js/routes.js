@@ -66,8 +66,8 @@ module.exports = [
     },
     {
         route: '/admin/posts/static',
-        templateUrl: 'posts/list_static.html',
-        controller: 'Posts.ListStatic'
+        templateUrl: 'posts/list.html',
+        controller: 'Posts.List'
     },
     {
         route: '/admin/posts/create',

@@ -8,7 +8,7 @@ var UsersLogoutController = function ($scope, authService, $rootScope, PubSub, $
     // if($routeParams.hasOwnProperty('redirectTo') {
     //     //redirect = $routeParams.redirectTo;
     // }
-    //console.log('logout_redirect:'+redirect,$routeParams);
+    console.log('logout_redirect:'+redirect,$routeParams);
     $location.path(redirect);
 
 };

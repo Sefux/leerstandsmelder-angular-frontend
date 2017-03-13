@@ -1,0 +1,13 @@
+include ..//mixins/_form
+include ..//mixins/_buttons
+include ..//mixins/_layout
+include ..//mixins/_style
+
+div(layout='column' layout-align='start center' flex layout-padding)
+    md-card()
+        md-card-header()
+            md-card-header-text(layout-align="center center")
+                +headline("users.logout")
+        md-card-content()
+            div(layout-padding)
+              good by

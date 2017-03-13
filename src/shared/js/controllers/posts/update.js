@@ -1,6 +1,6 @@
 'use strict';
 
-var PostsUpdateController = function ($scope, $q, $routeParams, apiService, responseHandler, configuration) {
+var PostsUpdateController = function ($scope, $q, $routeParams, apiService, responseHandler, configuration, $location) {
     var deferred;
     $scope.urlbase = configuration.urlbase || '/';
     if ($routeParams.uuid) {
@@ -31,8 +31,11 @@ var PostsUpdateController = function ($scope, $q, $routeParams, apiService, resp
             });
         }
     };
+    $scope.cancel = function () {
+      $location.path('/admin/posts/');
+    };
 };
 
-PostsUpdateController.$inject = ['$scope', '$q', '$routeParams', 'apiService', 'responseHandler', 'configuration'];
+PostsUpdateController.$inject = ['$scope', '$q', '$routeParams', 'apiService', 'responseHandler', 'configuration', '$location'];
 
 module.exports = PostsUpdateController;

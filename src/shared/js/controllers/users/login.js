@@ -18,7 +18,7 @@ var UsersLoginController = function ($scope, $q, $location, apiService, response
                 // //    redirect = $routeParams.redirectTo;
                 // }
                 //var redirect_path = (configuration.urlbase || '/') + redirect;
-                //console.log('login_redirect',$routeParams);
+                console.log('login_redirect',$routeParams);
                 $location.path( redirect);
 
             }

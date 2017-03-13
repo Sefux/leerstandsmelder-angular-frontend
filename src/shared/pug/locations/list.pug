@@ -1,10 +1,11 @@
 include ..//mixins/_style
 
 div(flex layout="column" layout-align="start center" layout-fill="layout-fill" layout-padding="layout-padding" class="layout-fill layout-padding layout-align-start-center layout-column")
-    md-content(class="md-padding layout-column layout-fill" layout-fill flex)
-        md-card(class="md-padding layout-column layout-fill" layout-fill flex)
-            +headline('{{ page.list_title | translate }} {{ currentRegion }}')
-            .main-fab(style="position:absolute;right:20px;top:20px;")
+    md-content(class="md-padding layout-column layout-fill list" layout-fill flex)
+        md-card(layout-xs="row" layout="column" class="md-padding" layout-fill flex)
+            div(flex)
+              +headline('{{ page.list_title | translate }} {{ currentRegion }}')
+            .main-fab(flex)
                 md-button(class="md-fab md-accent" href="{{ urlbase }}locations/create") +
             md-input-container()
                 md-icon.fa.fa-search()
