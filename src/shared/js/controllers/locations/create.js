@@ -3,7 +3,7 @@
 var async = require('async');
 
 var LocationsCreateController = function ($scope, $routeParams, apiService, authService, $q, $location, mapService,
-                                          responseHandler, locationFormDefaults, regionService, GeolocationService) {
+                                          responseHandler, locationFormDefaults, regionService, GeolocationService, $mdDialog, $translate) {
     var changeTimer, lockUpdate;
     $scope.location = {};
     $scope.assets = {
@@ -87,6 +87,44 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
             },1000);
         }
     });
+    
+    
+    $scope.deletePhoto = function (uuid) {
+        console.log('deletePhoto',uuid);
+        var confirm = $mdDialog.confirm()
+            .title($translate.instant('photos.remove_confirm_title'))
+            .textContent($translate.instant('photos.remove_confirm_body'))
+            .ariaLabel('photos.remove_confirm_title')
+            .ok($translate.instant('actions.ok'))
+            .cancel($translate.instant('actions.cancel'));
+        $mdDialog.show(confirm).then(function () {
+            var deferred = $q.defer();
+            $scope.promise = deferred.promise;
+            apiService('photos').actions.remove(uuid, function (err) {
+                var msgs = {
+                    success: 'photos.remove_success'
+                };
+                if (responseHandler.handleResponse(err, deferred, msgs)) {
+                    //window.document.location.reload();
+                }
+            });
+        });
+    };
+
+    $scope.abort = function () {
+        $location.path('/' + ($scope.location.region_slug || $scope.location.region_uuid) + '/' +
+            $scope.location.slug);
+    }
+    
+    $scope.promiseShow = function () {
+        var deferred = $q.defer();
+        $scope.promise = deferred.promise;
+        
+    }
+    $scope.promiseHide = function () {
+        var deferred = $q.defer();
+        $scope.promise.resolve();
+    }
 
     /*
         Submit the new location
@@ -144,6 +182,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                 }
             }
         ], function (err) {
+            console.log('update/insert error',err);
             var msgs = {
                 success: $routeParams.uuid ? 'messages.locations.update_success' : 'messages.locations.create_success'
             };
@@ -153,7 +192,22 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
             }
         });
     };
-
+    
+    /**
+    Get camera image
+    **/
+    
+    //$scope.files = [];
+    //var files;
+    $scope.$watch('files', function(newValue, oldValue, scope) {
+        console.log('files',scope.files);
+        if ( newValue !== oldValue ) {
+           if(newValue) {
+              //scope.files.push(newValue);
+           }
+       }
+    });
+    
     /*
         Load an existing location to update
      */
@@ -174,16 +228,20 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                     lat: location.lonlat[1]
                 };
                 $scope.formTitle = 'Edit "' + location.title + '"';
+                console.log('location',location);
                 apiService('locations/' + location.uuid + '/photos').actions.all(cb);
             },
             function (photos, cb) {
-                $scope.photos =  photos.result || photos;
+                console.log('photos',photos);
+                $scope.photos =  photos.results || photos;
                 cb();
             },
             function (cb) {
+                console.log('setCurrentRegion',$scope.location.region_uuid);
                 regionService.setCurrentRegion($scope.location.region_uuid, cb);
             },
             function (cb) {
+                console.log('admin',regionService.currentRegion.title);
                 $scope.currentRegion = regionService.currentRegion.title;
                 $scope.isAdmin = authService.hasScopes(['admin', 'region-' + $scope.location.region_uuid]);
                 cb();
@@ -213,6 +271,6 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
 };
 
 LocationsCreateController.$inject = ['$scope', '$routeParams', 'apiService', 'authService', '$q', '$location',
-    'mapService', 'responseHandler', 'locationFormDefaults', 'regionService','GeolocationService'];
+    'mapService', 'responseHandler', 'locationFormDefaults', 'regionService','GeolocationService', '$mdDialog', '$translate'];
 
 module.exports = LocationsCreateController;

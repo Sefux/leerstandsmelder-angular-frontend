@@ -30,6 +30,7 @@ require('../../shared/js/filters');
 require('../../shared/js/services');
 
 require('../../mobile/js/filters');
+require('../../mobile/js/directive');
 
 app.provider('PubSub', require('angular-pubsub'));
 

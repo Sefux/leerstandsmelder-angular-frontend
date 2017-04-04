@@ -68,15 +68,14 @@ mixin input(field_type, field_key, field_i18n_key, resource_list, sys_val, no_la
 						span() {{"Choose a file" | translate}}
 
 				else if field_type == 'fileimage'
-					div(layout='row')
+					div(layout='row' style="background-color:yellow;")
 						+media('image',150,100)
 					div(layout='row')
 						md-button.md-raised(
 						ngf-select
-						ngf-multiple="true"
 						ng-model='files'
 						ngf-accept="'image/*'"
-						capture='camera'
+						ngf-fix-orientation="true"
 						ngf-capture='camera'
 						ng-show='!asset.disabled'
 						)

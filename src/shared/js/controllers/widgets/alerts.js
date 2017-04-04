@@ -24,7 +24,7 @@ var WidgetsAlertsController = function ($scope, $translate, $mdToast, $mdDialog,
           if(message.hasOwnProperty(delay)) {
             delay = message.delay;
           }
-          //console.log('alert:' + delay,message);
+          console.log('alert:' ,message);
           $mdToast.hide();
           $mdToast.show(
             $mdToast.simple()

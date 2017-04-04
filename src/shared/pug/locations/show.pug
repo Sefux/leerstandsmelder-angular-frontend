@@ -20,7 +20,7 @@ div(layout layout-xs="column" layout-wrap layout-fill)
         div( ng-if="photos.length > 0")
             md-grid-list(md-cols="2"  md-gutter="4px" md-row-height="4:3")
                 md-grid-tile(ng-repeat="photo in photos")
-                    img(ng-src="{{ photo.thumb_large_url }}" lightbox)
+                    img.photo-preview(ng-src="{{ photo.thumb_large_url }}" lightbox)
         p(ng-if="location.description")
             small(marked="location.description")
         hr
