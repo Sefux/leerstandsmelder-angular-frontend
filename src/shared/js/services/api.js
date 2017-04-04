@@ -42,12 +42,15 @@ var ApiService = function (authService, Upload) {
                             progress(evt.loaded, evt.total);
                         }
                     }).success(function (data, status, headers, config) {
-                        console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+                        console.log('file ' + config.file.name + ' uploaded. Response: ', data);
+                        console.log('status: ', status);
+                        console.log('headers: ', headers);
+                        console.log('config: ', config);
                         if (typeof callback === 'function') {
                             callback(null, data);
                         }
                     }).error(function (data, status) {
-                        console.log('error status: ' + status);
+                        console.log('error status: ', status);
                         if (typeof callback === 'function') {
                             callback(new Error('upload error status ' + status), data);
                         }

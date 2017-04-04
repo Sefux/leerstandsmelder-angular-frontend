@@ -16,7 +16,7 @@ var CameraDirective = function () {
                     ctrl.$setValidity('error', false);
                 }, {
                     quality : 50,
-                    destinationType : Camera.DestinationType.FILE_URL,
+                    destinationType : Camera.DestinationType.DATA_URL,
                     sourceType : Camera.PictureSourceType.CAMERA,
                     allowEdit : true,
                     encodingType: Camera.EncodingType.JPEG,

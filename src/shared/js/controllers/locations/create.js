@@ -170,8 +170,11 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                 /*
                     Upload the associated photos
                  */
+                 console.log('before upload files:',$scope.files);
+                 console.log('before upload new_files:',$scope.new_files);
                 if ($scope.files && $scope.files.length) {
                     async.mapSeries($scope.files, function (file, cb) {
+                        console.log('create photo:',file);
                         apiService('photos').actions.upload({
                             file: file,
                             fields: {location_uuid: location.uuid}
@@ -197,15 +200,34 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
     Get camera image
     **/
     
-    //$scope.files = [];
-    //var files;
+    $scope.files = [];
+    var files = [];
+    $scope.new_files = {};
+    /*
     $scope.$watch('files', function(newValue, oldValue, scope) {
         console.log('files',scope.files);
+        console.log('new_file',newValue);
+        //scope.new_files.push(newValue);
+        scope.uploaded_pic = newValue;
         if ( newValue !== oldValue ) {
            if(newValue) {
               //scope.files.push(newValue);
            }
        }
+    });
+    */
+    
+    $scope.$watch('new_files', function(newValue, oldValue, scope) {
+        console.log('new_file',newValue);
+        if ( newValue !== oldValue ) {
+           if(newValue) {
+               scope.files.push(newValue);
+               scope.uploaded_pic = newValue;
+           }
+       }
+        
+        //scope.uploaded_pic = "data:image/jpeg;base64," + newValue;
+        console.log('new_file scope.uploaded_pic',scope.uploaded_pic);
     });
     
     /*

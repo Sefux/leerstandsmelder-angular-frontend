@@ -108,12 +108,19 @@ div(layout="row" layout-xs="column" layout-wrap layout-fill)
                             md-grid-tile(ng-repeat="photo in photos")
                                 img.photo-preview(ng-src="{{ photo.thumb_large_url }}" ng-click="deletePhoto(photo.uuid)" lightbox)
                     hr
-                    p(ng-if='!files' style="background-color:green;") {{ 'actions.choose_images' | translate }}
-                        +input('fileimage','assets.file','assets.file', null, null)
+                    p(style="background-color:green;") {{ 'actions.choose_images' | translate }}    
+                        img.photo-preview(ng-if="uploaded_pic" ng-src="{{ uploaded_pic }}")
+                        //+input('fileimage','assets.file','assets.file', null, null)
                         //input(type="file" ng-model="files" name="file" ngf-accept="image/*" id="capture" ngf-capture="camera" ngf-select)
-                        //button(class='md-button button-positive' ng-click="promiseShow()") show
+                        button(class='md-button button-positive' ng-model="new_files" camera) show
                         //button(class='md-button button-positive' ng-click="promiseHide()") hide
                         
+                    //p(style="background-color:yellow;") {{ 'actions.choose_images' | translate }}
+                        //+input('fileimage','assets.file','assets.file', null, null)
+                        //input(type="file" ng-model="files" name="file" ngf-accept="image/*" id="capture" ngf-capture="camera" ngf-select)
+                        //button(class='md-button button-positive' ng-model="files" camera) show
+                        //button(class='md-button button-positive' ng-click="promiseHide()") hide
+                            
                     hr
                     div(layout-gt-xs="row" layout-align="space-between start")
                         +button("actions.previous",'selectedIndex = selectedIndex - 1','md-raised',null,null)

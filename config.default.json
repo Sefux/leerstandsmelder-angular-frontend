@@ -47,7 +47,10 @@
       "org.apache.cordova.camera": "latest",
       "org.apache.cordova.geolocation": "latest",
       "org.apache.cordova.splashscreen": "latest",
-      "org.apache.cordova.media": "latest"
+      "org.apache.cordova.media": "latest",
+      "org.apache.cordova.media-capture": "latest",
+      "org.apache.cordova.file": "latest",
+      "org.apache.cordova.file-transfer": "latest"
     }
   }
 }
