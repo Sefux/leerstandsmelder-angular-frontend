@@ -1,6 +1,6 @@
 include ..//..//..//shared/pug/mixins/_style
 
-div(layout='column' layout-align="start center" flex="100" layout-fill)
+div.my-list(layout='column' layout-align="start center" flex="100" layout-fill)
   h2 {{ page.list_title | translate }} {{ currentRegion }}
 
   div(lsm-data-card-list layout-fill data-fields='fields' data-settings='settings' data-row-setup='rowSetup')

@@ -4,7 +4,7 @@ include ..//..//..//shared/pug/mixins/_buttons
 include ..//..//..//shared/pug/mixins/_layout
 include ..//..//..//shared/pug/mixins/_style
 
-div(layout="row" layout-xs="column" layout-wrap layout-fill)
+div.update-form(layout="row" layout-xs="column" layout-wrap layout-fill)
     #map(lsm-map flex flex-gt-xs="40" ng-model='location' select-mode select-handler='updateLocation(latlon)' select-marker='marker' )
     div(flex flex-gt-xs="60")
         md-tabs(class="md-primary" md-dynamic-height md-border-bottom md-no-pagination="false" md-swipe-content md-selected="selectedIndex")
@@ -101,26 +101,26 @@ div(layout="row" layout-xs="column" layout-wrap layout-fill)
                         p {{ 'locations.building_type' | translate }}: {{(location.buildingType | translate) || ('locations.unknown' | translate)}}
                         p {{ 'locations.owner' | translate }}: {{(location.owner | translate) || ('locations.unknown' | translate)}}
                     hr
-                    div( ng-if="photos.length > 0" style="background-color:pink;")
+                    div( ng-if="photos.length > 0")
                         p
                             strong {{ "locations.location_photos" | translate }}:
-                        md-grid-list(md-cols="2"  md-gutter="4px" md-row-height="4:3")
+                        md-grid-list(md-cols="3" md-row-height="4:3")
                             md-grid-tile(ng-repeat="photo in photos")
-                                img.photo-preview(ng-src="{{ photo.thumb_large_url }}" ng-click="deletePhoto(photo.uuid)" lightbox)
+                                img.photo-preview(alt="{{ photo.uuid }}" ng-src="{{ photo.thumb_large_url }}" ng-click="deletePhoto(photo)" layout-fill)
+                                    
                     hr
-                    p(style="background-color:green;") {{ 'actions.choose_images' | translate }}    
-                        img.photo-preview(ng-if="uploaded_pic" ng-src="{{ uploaded_pic }}")
-                        //+input('fileimage','assets.file','assets.file', null, null)
-                        //input(type="file" ng-model="files" name="file" ngf-accept="image/*" id="capture" ngf-capture="camera" ngf-select)
-                        button(class='md-button button-positive' ng-model="new_files" camera) show
-                        //button(class='md-button button-positive' ng-click="promiseHide()") hide
+                    p() {{ 'actions.choose_image' | translate }}    
+                        div(ng-if="uploaded_pic.length > 0")
+                            md-grid-list(md-cols="3" md-row-height="4:3")
+                                md-grid-tile(ng-repeat="pic in uploaded_pic")
+                                    img.photo-preview(ng-src="{{ pic }}" layout-fill)
+                        button(class='md-button button-positive md-raised' ng-click="getPicture('camera')") 
+                            span.fa.fa-file-o &nbsp;
+                            span() {{ 'actions.choose_camera' | translate }}
+                        button(class='md-button button-positive md-raised' ng-click="getPicture('library')") 
+                            span.fa.fa-file-o &nbsp;
+                            span() {{ 'actions.choose_library' | translate }}
                         
-                    //p(style="background-color:yellow;") {{ 'actions.choose_images' | translate }}
-                        //+input('fileimage','assets.file','assets.file', null, null)
-                        //input(type="file" ng-model="files" name="file" ngf-accept="image/*" id="capture" ngf-capture="camera" ngf-select)
-                        //button(class='md-button button-positive' ng-model="files" camera) show
-                        //button(class='md-button button-positive' ng-click="promiseHide()") hide
-                            
                     hr
                     div(layout-gt-xs="row" layout-align="space-between start")
                         +button("actions.previous",'selectedIndex = selectedIndex - 1','md-raised',null,null)

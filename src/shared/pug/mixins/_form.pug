@@ -68,7 +68,7 @@ mixin input(field_type, field_key, field_i18n_key, resource_list, sys_val, no_la
 						span() {{"Choose a file" | translate}}
 
 				else if field_type == 'fileimage'
-					div(layout='row' style="background-color:yellow;")
+					div(layout='row')
 						+media('image',150,100)
 					div(layout='row')
 						md-button.md-raised(
@@ -79,6 +79,8 @@ mixin input(field_type, field_key, field_i18n_key, resource_list, sys_val, no_la
 						ngf-capture="'camera'"
 						ng-show='!asset.disabled'
 						ngf-keep="'distinct'"
+						ngf-multiple='true'
+						multiple
 						)
 							span.fa.fa-file-o &nbsp;
 							span() {{"Choose an image" | translate}}

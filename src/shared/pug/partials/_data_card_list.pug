@@ -6,13 +6,14 @@ md-content(class="md-padding _md layout-xs-column layout-row" layout-xs="column"
     div(flex layout-padding layout-fill layout="column" ng-repeat="location in data")
         md-card(flex layout-padding  layout-fill)
             md-card-title(layout="column" layout-padding)
-                md-card-title-text(flex layout-padding)
+                md-card-title-text(layout-padding)
                     a(ng-href='{{ urlbase + (region.slug || location.region_uuid) + "/" + location.slug  }}' )
                         span.md-headline {{ location.title }}
                     div(layout="column")
-                      span.md-subhead(flex) {{ location.city }}
-                      span.metatext(flex) {{ 'author.on' | translate }} {{ location.created | date : 'dd.MM.yy' }} / {{ location.updated | date : 'dd.MM.yy'}}
-                md-card-title-media(flex)
+                        span.md-subhead(flex) {{ location.street }}    
+                        span.md-subhead(flex) {{ location.city }} {{ location.postcode }}
+                        span.metatext(flex) {{ 'author.on' | translate }} {{ location.created | date : 'dd.MM.yy' }} / {{ location.updated | date : 'dd.MM.yy'}}
+                md-card-title-media()
                     div(ng-if="location.photo.thumb_square_url" )
                         img(ng-if='location.photo.thumb_square_url' ng-src='{{location.photo.thumb_square_url}}')
             md-card-actions(layout="row" flex layout-align="start center")

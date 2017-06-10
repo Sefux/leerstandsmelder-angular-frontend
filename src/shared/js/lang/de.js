@@ -8,6 +8,9 @@ module.exports = {
     actions: {
         cancel: 'Abbrechen',
         choose_images: 'Wähle eines oder mehrere Bilder aus, welche Du zu diesem Eintrag hinzufügen möchtest.',
+        choose_image: 'Füge ein Bild zu diesem Eintrag hinzu.',
+        choose_camera: 'Kamera',
+        choose_library: 'Library',
         delete: 'Löschen',
         dont_show_again: 'Nicht mehr anzeigen',
         edit: 'Bearbeiten',
@@ -18,7 +21,8 @@ module.exports = {
         show: 'Ansehen',
         submit: 'Absenden',
         take_picture: 'Mach ein Foto',
-        use_slider: 'Benutze den Schieberegler'
+        use_slider: 'Benutze den Schieberegler',
+        abort: 'Abbrechen'
     },
     table: {
         rowsPerPage: 'Einträge pro Seite',
@@ -92,6 +96,11 @@ module.exports = {
         login: 'Du hast dich erfolgreich angemeldet.',
         logout: 'Du hast dich erfolgreich abgemeldet.'
       }  
+    },
+    photos: {
+        remove_confirm_title: 'Bild löschen?',
+        remove_confirm_body: 'Bist du dir wirklich ganz sicher das du das Bild löschen willst?',
+        remove_success: 'Das Bild wurde gelöscht'
     },
     locations: {
         address: 'Adresse',

@@ -98,6 +98,7 @@ gulp.task('deps', [
 gulp.task('deps:js', function (env) {
     return Promise.map(getPathsForEnv(env, 'js/'), function (dest) {
         var stream = gulp.src([
+                'bower_components/angular/angular.min.js',
                 'bower_components/lodash/lodash.min.js',
                 'node_modules/jquery/dist/jquery.min.js',
                 'bower_components/showdown/compressed/Showdown.min.js',
@@ -111,8 +112,8 @@ gulp.task('deps:js', function (env) {
                 'bower_components/L.GeoSearch/src/js/l.control.geosearch.js',
                 'bower_components/L.GeoSearch/src/js/l.geosearch.provider.openstreetmap.js',
                 'bower_components/airbrake-js-client/dist/client.min.js',
-	            'node_modules/leaflet.markercluster/dist/leaflet.markercluster.js'
-
+	            'node_modules/leaflet.markercluster/dist/leaflet.markercluster.js',
+                'bower_components/ngCordova/dist/ng-cordova.min.js'
             ])
             .pipe(concat('leerstandsmelder-angular-dependencies.min.js'))
             .pipe(header(banner, {pkg: pkg})).pipe(uglify());

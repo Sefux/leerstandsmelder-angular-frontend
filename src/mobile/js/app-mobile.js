@@ -21,7 +21,8 @@ var lang_de = require('../../shared/js/lang/de'),
         require('angular-route'),
         require('angular-sanitize'),
         require('angular-marked'),
-        "agGrid"
+        "agGrid",
+        'ngCordova'
     ]);
 
 require('../../shared/js/controllers');
@@ -37,6 +38,8 @@ app.provider('PubSub', require('angular-pubsub'));
 app.factory('assetPath', require('./services/assetpath'));
 app.factory('DeviceReadyService', require('./services/deviceready'));
 app.factory('GeolocationService', require('./services/geolocation'));
+app.factory('CameraService', require('./services/camera'));
+app.factory('uploadService', require('./services/upload'));
 
 app.constant("configuration", {
     'urlbase': '#!/'
@@ -65,6 +68,10 @@ app.config([
             '500': '#dddddd',
             'contrastDefaultColor': 'dark'
         });
+        $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|fi‌​le|blob|cdvfile|cont‌​ent):|data:image/);
+        //$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|cdvphotolibrary):/);
+            // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
+        
         $mdThemingProvider.definePalette('white', whiteMap);
 
         // added the leerstand color to the palette

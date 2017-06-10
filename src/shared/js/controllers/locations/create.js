@@ -1,9 +1,11 @@
 'use strict';
 
 var async = require('async');
+var config = require('../../../../../config.json');
 
 var LocationsCreateController = function ($scope, $routeParams, apiService, authService, $q, $location, mapService,
-                                          responseHandler, locationFormDefaults, regionService, GeolocationService, $mdDialog, $translate) {
+                                          responseHandler, locationFormDefaults, regionService, GeolocationService, 
+                                          $mdDialog, $translate, CameraService) {
     var changeTimer, lockUpdate;
     $scope.location = {};
     $scope.assets = {
@@ -88,9 +90,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
         }
     });
     
-    
-    $scope.deletePhoto = function (uuid) {
-        console.log('deletePhoto',uuid);
+    $scope.deletePhoto = function (photo) {
         var confirm = $mdDialog.confirm()
             .title($translate.instant('photos.remove_confirm_title'))
             .textContent($translate.instant('photos.remove_confirm_body'))
@@ -100,16 +100,83 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
         $mdDialog.show(confirm).then(function () {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
-            apiService('photos').actions.remove(uuid, function (err) {
+            apiService('photos').actions.remove(photo.uuid, function (err) {
                 var msgs = {
-                    success: 'photos.remove_success'
+                    success: 'photos.remove_success',
+                    data:  photo.filename
                 };
                 if (responseHandler.handleResponse(err, deferred, msgs)) {
-                    //window.document.location.reload();
+                    $scope.photos.splice($scope.photos.indexOf(photo),1);
                 }
             });
         });
     };
+    
+    /*
+    Get camera image
+    */
+    
+    $scope.files = [];
+    $scope.uploaded_pic = [];
+    
+    $scope.getPicture = function(type) {
+        
+        var options = {};
+        if(type == 'library') { //TODO: refactor: needs pass parameter to service???
+            //options.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
+            CameraService.getLibrary(options).then(
+                function (imageData) { 
+                    //var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");    
+                    /*
+                    window.resolveLocalFileSystemURL(filePreview, function (fileEntry) {
+                        file = fileEntry;
+                        console.log('resolveLocalFileSystemURI', file);
+                        $scope.files.push(file);
+                    });
+                    */
+                    
+                    var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");    
+                    $scope.uploaded_pic.push(filePreview);
+                    $scope.files.push(filePreview);
+                },
+                function (errorCode) {
+                    if (errorCode === false) {
+                        alert('Camera is not supported by browser.');
+                    }
+                    else if (errorCode === 1) {
+                        alert('User shit on camera or waited for long to respond.');
+                    }
+                },options
+            );
+
+        } else {
+            CameraService.getPicture().then(
+                function (imageData) { 
+                    //var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");    
+                    /*
+                    window.resolveLocalFileSystemURL(filePreview, function (fileEntry) {
+                        file = fileEntry;
+                        console.log('resolveLocalFileSystemURI', file);
+                        $scope.files.push(file);
+                    });
+                    */
+                    
+                    var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");    
+                    $scope.uploaded_pic.push(filePreview);
+                    $scope.files.push(filePreview);
+                },
+                function (errorCode) {
+                    if (errorCode === false) {
+                        alert('Camera is not supported by browser.');
+                    }
+                    else if (errorCode === 1) {
+                        alert('User shit on camera or waited for long to respond.');
+                    }
+                }
+            );
+        }
+        
+    }
 
     $scope.abort = function () {
         $location.path('/' + ($scope.location.region_slug || $scope.location.region_uuid) + '/' +
@@ -170,11 +237,8 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                 /*
                     Upload the associated photos
                  */
-                 console.log('before upload files:',$scope.files);
-                 console.log('before upload new_files:',$scope.new_files);
                 if ($scope.files && $scope.files.length) {
                     async.mapSeries($scope.files, function (file, cb) {
-                        console.log('create photo:',file);
                         apiService('photos').actions.upload({
                             file: file,
                             fields: {location_uuid: location.uuid}
@@ -196,39 +260,6 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
         });
     };
     
-    /**
-    Get camera image
-    **/
-    
-    $scope.files = [];
-    var files = [];
-    $scope.new_files = {};
-    /*
-    $scope.$watch('files', function(newValue, oldValue, scope) {
-        console.log('files',scope.files);
-        console.log('new_file',newValue);
-        //scope.new_files.push(newValue);
-        scope.uploaded_pic = newValue;
-        if ( newValue !== oldValue ) {
-           if(newValue) {
-              //scope.files.push(newValue);
-           }
-       }
-    });
-    */
-    
-    $scope.$watch('new_files', function(newValue, oldValue, scope) {
-        console.log('new_file',newValue);
-        if ( newValue !== oldValue ) {
-           if(newValue) {
-               scope.files.push(newValue);
-               scope.uploaded_pic = newValue;
-           }
-       }
-        
-        //scope.uploaded_pic = "data:image/jpeg;base64," + newValue;
-        console.log('new_file scope.uploaded_pic',scope.uploaded_pic);
-    });
     
     /*
         Load an existing location to update
@@ -293,6 +324,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
 };
 
 LocationsCreateController.$inject = ['$scope', '$routeParams', 'apiService', 'authService', '$q', '$location',
-    'mapService', 'responseHandler', 'locationFormDefaults', 'regionService','GeolocationService', '$mdDialog', '$translate'];
+    'mapService', 'responseHandler', 'locationFormDefaults', 'regionService','GeolocationService', '$mdDialog', 
+    '$translate', 'CameraService'];
 
 module.exports = LocationsCreateController;
