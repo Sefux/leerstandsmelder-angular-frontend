@@ -3,20 +3,18 @@ include ..//mixins/_buttons
 include ..//mixins/_layout
 include ..//mixins/_style
 
-+layout('column','start center',true)
-    div
-    div
+div(layout='column' layout-align='start center' flex layout-padding)
     md-card()
-        md-toolbar(md-scroll-shrink)
-            +layout('row','center center','padding')
+        md-card-header()
+            md-card-header-text(layout-align="center center")
                 +headline("users.login")
-        md-card-content(layout-padding)
-            +layout('row','center center')
-                +content('column','start center')
-                    +input('email','user.email','users.email', null, null)
-                +content('column','start center')
-                    +input('password','user.password','users.password', null, null)
-        .md-actions(layout="row" layout-align="start end")
-            +button('users.forgot','forgot()','md-raised','',null,'/users/forgot')
-            span(flex)
-            +button_fab('actions.submit','submit()','md-accent','fa-sign-in')
+        md-card-content()
+            div(layout-padding)
+                div(layout="row" layout-xs="column")
+                    +text('email','user.email','users.email', null, null)
+                    +text('password','user.password','users.password', null, null)
+        md-card-actions( layout-align="start center"  style="align-self: stretch;")
+            div(layout="row" layout-align="space-around start")
+                +button('users.forgot','forgot()','md-raised','',null,'/users/forgot')
+                span(flex)
+                +button_fab('actions.submit','submit()','md-accent','fa-sign-in')

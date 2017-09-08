@@ -1,5 +1,22 @@
 include ..//mixins/_style
+include ..//mixins/_layout
 
-div(layout='column' layout-align="start center" flex="100" layout-fill)
-    +headline('regions.region_plural {{ listHeadline | translate }}')
-    div(lsm-data-table layout-fill data-fields='fields' data-settings='settings' data-row-setup='rowSetup')
+div.list(flex layout="column" layout-align="start center"  layout-padding="layout-padding")
+    md-card(layout="column" layout-fill  layout-padding flex)
+        md-card-header
+            md-card-header-text(layout="row" layout-xs="column")
+                div(flex)
+                  +headline('regions.region_plural')
+                .main-fab(flex)
+                    md-input-container()
+                        md-icon.fa.fa-search()
+                        input(
+                        ng-model="filterStr"
+                        ng-change="filterGrid()"
+                        style=""
+                        placeholder="Filter..."
+                        type="text")
+                    md-button(class="md-fab md-accent" href="{{ urlbase }}admin/regions/create") +
+        md-card-content(layout='column' layout-align="start center" class="layout-fille" layout-fill  flex)
+            div(layout='column' layout-align="start center" layout-fill  flex style=" position: relative; border-bottom: 1px solid #aaa; overflow:hidden;")
+                div(ag-grid="gridOptions" class="ag-material" layout-fill style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;")

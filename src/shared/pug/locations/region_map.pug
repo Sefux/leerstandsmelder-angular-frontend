@@ -4,6 +4,6 @@ include ..//mixins/_layout
 include ..//mixins/_style
 
 div(layout="row" layout-xs="column" layout-wrap layout-fill)
-	#map(flex flex-gt-xs="66" lsm-map ng-model=mapModel geosearch=0 zoom=6 urlbase='urlbase' center='mapcenter' style=mapStyle mapType='mapType' locations='locations')
+	#map(flex flex-gt-xs="66" lsm-map ng-model=mapModel geosearch=0 zoom=6 urlbase='urlbase' useCluster=false center='mapcenter' style=mapStyle mapType='mapType' locations='locations')
 	div(flex flex-gt-xs="33" layout='column')
 		div(flex recent-posts page-size='10')

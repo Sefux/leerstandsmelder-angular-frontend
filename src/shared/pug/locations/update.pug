@@ -4,7 +4,7 @@ include ..//mixins/_buttons
 include ..//mixins/_layout
 include ..//mixins/_style
 
-div(layout="row" layout-xs="column" layout-wrap layout-fill)
+div.update-form(layout="row" layout-xs="column" layout-wrap layout-fill)
     #map(lsm-map flex flex-gt-xs="40" ng-model='location' select-mode select-handler='updateLocation(latlon)' select-marker='marker' )
     div(flex flex-gt-xs="60")
         md-tabs(class="md-primary" md-dynamic-height md-border-bottom md-no-pagination="false" md-swipe-content md-selected="selectedIndex")
@@ -94,11 +94,12 @@ div(layout="row" layout-xs="column" layout-wrap layout-fill)
                         p {{ 'locations.demolished' | translate }}: {{(location.demolished ? ('locations.demolished_yes' | translate) : null) || ('site.no' | translate)}}
                         p {{ 'locations.artwork_type' | translate }}: {{(location.artworkType | translate) || ('locations.unknown' | translate)}}
                     hr
-                    div(ng-if="photos && photos.length > 0")
-                        p
+                    div(layout="row" ng-if="photos && photos.length > 0")
+                        div(flex)
                             strong {{ "locations.location_photos" | translate }}:
-                        div(layout="row")
-                            img.photo-preview(ng-repeat="photo in photos" ng-src="{{ photo.thumb_large_url }}")
+                            md-grid-list(md-cols="2"  md-gutter="4px" md-row-height="4:3")
+                                md-grid-tile(ng-repeat="photo in photos" md-colspan="1")
+                                    img.photo-preview(alt="{{ photo.uuid }}" ng-src="{{ photo.thumb_large_url }}" ng-click="deletePhoto(photo)" layout-fill)
                         hr
                     p(ng-if='!files') {{ 'actions.choose_images' | translate }}
                         +input('fileimage','assets.file','assets.file', null, null)

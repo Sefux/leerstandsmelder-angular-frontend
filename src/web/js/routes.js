@@ -66,8 +66,8 @@ module.exports = [
     },
     {
         route: '/admin/posts/static',
-        templateUrl: '/posts/list_static.html',
-        controller: 'Posts.ListStatic'
+        templateUrl: '/posts/list.html',
+        controller: 'Posts.List'
     },
     {
         route: '/admin/posts/create',
@@ -221,16 +221,6 @@ module.exports = [
     {
         route: '/locations/index/:region_uuid',
         templateUrl: '/locations/region_index.html',
-        controller: 'Locations.RegionIndex'
-    },
-    {
-        route: '/locations/all',
-        templateUrl: '/locations/region_all.html',
-        controller: 'Locations.RegionIndex'
-    },
-    {
-        route: '/locations/all/:region_uuid',
-        templateUrl: '/locations/region_all.html',
         controller: 'Locations.RegionIndex'
     },
     {

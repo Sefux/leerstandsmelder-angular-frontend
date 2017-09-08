@@ -3,23 +3,20 @@ include ..//mixins/_buttons
 include ..//mixins/_layout
 include ..//mixins/_style
 
-+layout('column','start center',true)
-	div
-	div
+div(layout='column' layout-align='start center' flex layout-padding)
 	md-card()
-		md-toolbar(md-scroll-shrink)
-			+layout('row','center center','padding')
+		md-card-header
+			md-card-header-text(layout-align="center center")
 				+headline("users.signup")
-		md-card-content
-			+layout('row','center center')
-				+content('column','start center')
-					+input('email','user.email', 'users.email')
-					+input('password','user.password', 'users.password')
-				+content('column','start center')
-					+input('text','user.nickname', 'users.username')
-					+input('password','user.password_confirm', 'users.password_confirm')
-
-		.md-actions(layout="row" layout-align="end center")
-			+button('cancel','cancel()','md-raised','',null,'/')
-			span(flex)
-			+button_fab('actions.submit','submit()','md-accent','fa-sign-in')
+		md-card-content()
+			div(layout-padding)
+				div(layout="row" layout-xs="column")
+					+text('email','user.email', 'users.email')
+					+text('text','user.nickname', 'users.username')
+				div(layout="row" layout-xs="column")
+					+text('password','user.password', 'users.password')
+					+text('password','user.password_confirm', 'users.password_confirm')
+		md-card-actions( layout-align="start center"  style="align-self: stretch;")
+			div(layout="row" layout-align="space-around start")
+				span(flex)
+				+button_fab('actions.submit','submit()','md-accent','fa-sign-in')

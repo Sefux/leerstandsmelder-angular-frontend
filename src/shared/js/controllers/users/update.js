@@ -1,6 +1,6 @@
 'use strict';
 
-var UsersUpdateController = function ($scope, $q, apiService, responseHandler, PubSub) {
+var UsersUpdateController = function ($scope, $q, apiService, responseHandler, PubSub, $translate) {
     var deferred = $q.defer();
     $scope.user = {
         nickname: null,
@@ -18,18 +18,20 @@ var UsersUpdateController = function ($scope, $q, apiService, responseHandler, P
     };
 
     $scope.submit = function () {
-        var deferred = $q.defer();
+        deferred = $q.defer();
         $scope.promise = deferred.promise;
         if (!$scope.user.password ||
             $scope.user.password.length === 0) {
             delete $scope.user.password;
         } else {
             if ($scope.user.password !== $scope.user.password_confirm) {
-                PubSub.publish('alert', 'error', 'errors.users.password_confirm_mismatch');
+                PubSub.publish('alert', {type: 'error', message: $translate.instant('errors.users.password_confirm_mismatch')});
+                //FIX: throughs an unhandled rejection??
                 return deferred.reject();
             }
         }
         delete $scope.user.password_confirm;
+
         apiService('users').actions.update('me', $scope.user, function (err) {
             var msgs = {
                 success: 'messages.users.update_success'
@@ -56,6 +58,6 @@ var UsersUpdateController = function ($scope, $q, apiService, responseHandler, P
     });
 };
 
-UsersUpdateController.$inject = ['$scope', '$q', 'apiService', 'responseHandler', 'PubSub'];
+UsersUpdateController.$inject = ['$scope', '$q', 'apiService', 'responseHandler', 'PubSub', '$translate'];
 
 module.exports = UsersUpdateController;

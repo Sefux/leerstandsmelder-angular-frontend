@@ -3,23 +3,30 @@ mixin mime(type)
 	.mimetype()
 
 mixin media(field_type, width, height, clickaction)
-	// ngf-thumbnail -> binds to the file button
-	- width = (isNaN(parseInt(width))) ? 80 : width
-	- height = (isNaN(parseInt(height))) ? width : height
+	// - ngf-thumbnail -> binds to the file button
+	- var width = (isNaN(parseInt(width))) ? 80 : width
+	- var height = (isNaN(parseInt(height))) ? width : height
+	//- var img_src = 'http://placehold.it/'+ width + 'x' + height + '/0000cc/000000'
+	- var img_style = 'max-width:'+ width +'px;max-height:'+ height +'px;text-align:center'
+
 	div(class=field_type)
 		if field_type == 'image'
 
-			- _img_src = 'http://placehold.it/'+ width + 'x' + height + '/0000cc/000000'
-			- _img_style = 'max-width:'+ width +'px;max-height:'+ height +'px;text-align:center'
-
+			
 			img(
 			ng-repeat='file in files'
 			ngf-src="file"
-			ngf-thumbnail='file'
-			style=_img_style
-			ngf-default-src=_img_src
+			ngf-size="{width: 80, height: 80, quality: 0.6}"
+			style=img_style
 			)
-
+		else if field_type == 'thumbnail'
+				
+				div(ng-repeat='file in files')
+					img(
+					ngf-size="{width: 80, height: 80, quality: 0.6}"
+					ngf-thumbnail='file'
+					style=img_style
+					)
 		else if field_type == 'video'
 			+controls('video')
 			video(

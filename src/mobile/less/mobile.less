@@ -3,9 +3,18 @@
 // mobile specific styles go here
 
 md-toolbar.site-content-toolbar {
-  height: 66px;
+  height: 56px;
+  padding-top: 10px;
 }
 
+#navbar {
+  .md-button {
+    min-width: 48px;
+  }
+  .md-button.md-default-theme:hover:not([disabled]), .md-button:hover:not([disabled]) {
+    background-color: rgba(54, 51, 51, 0.2);
+  }
+}
 md-sidenav {
   md-content {
     .layout-padding {
@@ -36,4 +45,31 @@ md-sidenav {
       }
     }
   }
+}
+
+.list {
+  md-card-header {
+    h1, h2, h3 {
+      font-size: 16px;
+      padding:0px;
+      margin:0px;
+      font-weight: bold;
+    }
+    .main-fab {
+      md-input-container {
+        margin:12px 0px 0px 0px;
+      }
+    }
+  }
+  .md-button.md-fab {
+    line-height: 36px;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+.my-list {
+    h2 {
+        margin: 20px 0 30px;
+    }
 }

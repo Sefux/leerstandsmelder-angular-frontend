@@ -6,7 +6,7 @@ html(lang='en')
         meta(name='format-detection' content='telephone=no')
         meta(name='msapplication-tap-highlight' content='no')
         meta(name='viewport' content='user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width')
-        meta(http-equiv='Content-Security-Policy' content="default-src 'self' http://* https://* data: gap:; style-src 'self' 'unsafe-inline'; script-src http://* https://* 'self' 'unsafe-inline' 'unsafe-eval'")
+        meta(http-equiv='Content-Security-Policy' content="default-src 'self' data: gap: blob: assets-library: cdvfile: 'unsafe-eval' http://* https://* ; style-src 'self' 'unsafe-inline'; script-src http://* https://* 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' blob: cdvphotolibrary: filesystem: cdvfile: 'unsafe-eval' cdvfile://* http://* https://* data: file: file://*; media-src * blob:")
         // meta(name="fragment" content="!")
         // base(href='/')
 
@@ -24,11 +24,12 @@ html(lang='en')
             div(ng-controller="Widgets.Alerts")
                 div(ng-repeat="alert in alerts" type="alert.status" close="closeAlert($index)")
                     span {{ alert.message }}
-        md-content.main_container.scrollbar_fix(role='main' flex layout="row" layout-xs="column" layout-wrap layout-fill layout-align="start stretch" ng-view cg-busy="{promise:promise, message:'Loading...', templateUrl:'partials/_busy.html',minDuration:0}")
+        md-content.main_container.scrollbar_fix(role='main' flex layout="row" layout-xs="row" layout-wrap layout-fill layout-align="start stretch" ng-view cg-busy="{promise:promise, message:'Loading...', templateUrl:'partials/_busy.html',minDuration:0}")
 
         div(msg-popup popup-id='relaunch')
         scripts
-            script(src='cordova.js')
+            
             script(src='js/leerstandsmelder-apiclient-web.js?build=16050301')
             script(src='js/leerstandsmelder-angular-dependencies.min.js?build=16050301')
             script(src='js/leerstandsmelder-angular-frontend.min.js?build=16061002')
+            script(src='cordova.js')

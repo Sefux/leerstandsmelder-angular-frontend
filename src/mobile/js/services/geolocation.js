@@ -1,39 +1,39 @@
 'use strict';
 
 var GeolocationService = function ($rootScope, DeviceReadyService, $q) {
+    return {
+        getCurrentPosition: function(onSuccess, onError, options) {
+            return DeviceReadyService.ready.then(function () {
+                var deferred;
+                deferred = $q.defer();
+                navigator.geolocation.getCurrentPosition(function () {
+                        var _this = this,
+                            args = arguments;
 
-	return {
-		getCurrentPosition: function() {
-			var deferred;
-			deferred = $q.defer();
-			DeviceReadyService(function (onSuccess, onError, options) {
-				navigator.geolocation.getCurrentPosition(function () {
-						var that = this,
-							args = arguments;
+                        if (typeof onSuccess === 'function') {
+                            $rootScope.$apply(function () {
+                                onSuccess.apply(_this, args[0]);
+                            });
+                        }
 
-						if (onSuccess) {
-							$rootScope.$apply(function () {
-								onSuccess.apply(that, args);
-							});
-						}
-						deferred.resolve(args);
-					}, function () {
-						var that = this,
-							args = arguments;
+                        deferred.resolve(args[0]);
+                    }, function () {
+                        var _this = this,
+                            args = arguments;
 
-						if (onError) {
-							$rootScope.$apply(function () {
-								onError.apply(that, args);
-							});
-						}
+                        if (typeof onError === 'function') {
+                            $rootScope.$apply(function () {
+                                onError.apply(_this, args[0]);
+                            });
+                        }
 
-						deferred.reject(args);
-					},
-					options);
-			});
-			return deferred.promise;
-		}
-	};
+                        deferred.reject(args[0]);
+                    },
+                    options);
+                return deferred.promise;
+            });
+        }
+    };
 };
 
 GeolocationService.$inject = ['$rootScope', 'DeviceReadyService', '$q'];

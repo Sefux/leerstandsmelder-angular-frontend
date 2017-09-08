@@ -43,9 +43,13 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                 icon.iconRetinaUrl = assetPath + 'images/marker-inactive@2x.png';
                 var iconInactive = L.icon(icon);
 
-                //add Cluster
-                //var markers = L.markerClusterGroup();
-
+                if(attrs.usecluster) {
+                    //add Cluster
+                    var markers = L.markerClusterGroup({
+                        polygonOptions: { stroke: true, weight: 1, color: '#999', opacity: 0.5 },
+                        removeOutsideVisibleBounds: true
+                    });
+                }
                 async.map(data, function (entry, cb) {
                     if (entry.lonlat) {
                         var options = {
@@ -54,7 +58,7 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                             draggable: false
                         };
                         var marker = new customMarker([entry.lonlat[1], entry.lonlat[0]], options);
-                        marker.addTo(map);
+
                         marker.on('click', function (e) {
                             var data = e.target.options.data;
                             var popup = "";
@@ -88,12 +92,19 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                             e.target.unbindPopup();
                             e.target.bindPopup(popup).openPopup();
                         });
-                        //markers.addLayer(marker);
-                        //map.addLayer(markers);
+                        if(attrs.usecluster) {
+                            markers.addLayer(marker);
+                        } else {
+                            marker.addTo(map);
+                        }
+
                         //markers.push(marker);
                         cb(null);
                     }
                 }, callback);
+                if(attrs.usecluster) {
+                    map.addLayer(markers);
+                }
             };
 
             angular.element($window).bind('resize', function () {
@@ -109,16 +120,6 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                     miniMap,
                     geoSearch
                 );
-
-	            leafletView = new PruneClusterForLeaflet();
-                leafletView.BuildLeafletClusterIcon = function (cluster) {
-                    var e = new L.Icon.MarkerCluster();
-                    e.stats = cluster.stats;
-                    e.population = cluster.population;
-                    return e;
-                };
-                map.addLayer(leafletView);
-
             };
 
             angular.element($window).ready(function () {

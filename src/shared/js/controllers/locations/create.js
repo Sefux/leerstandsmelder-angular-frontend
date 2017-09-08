@@ -1,9 +1,11 @@
 'use strict';
 
 var async = require('async');
+var config = require('../../../../../config.json');
 
 var LocationsCreateController = function ($scope, $routeParams, apiService, authService, $q, $location, mapService,
-                                          responseHandler, locationFormDefaults, regionService, GeolocationService) {
+                                          responseHandler, locationFormDefaults, regionService, GeolocationService, 
+                                          $mdDialog, $translate, CameraService) {
     var changeTimer, lockUpdate;
     $scope.location = {};
     $scope.assets = {
@@ -15,24 +17,6 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
     };
     $scope.selectedIndex = 0;
     $scope._sys = locationFormDefaults;
-
-
-    GeolocationService.getCurrentPosition().then(
-        function(position) { //
-            console.log('Position',position);
-            $scope.marker.lat = position.coords.latitude;
-            $scope.marker.lng = position.coords.longitude;
-            $scope.updateLocation({ 'lat' : position.coords.latitude , 'lng': position.coords.longitude});
-        },
-        function(errorCode) {
-            if(errorCode === false) {
-                alert('GeoLocation is not supported by browser.');
-            }
-            else if(errorCode == 1) {
-                alert('User either denied GeoLocation or waited for long to respond.');
-            }
-        }
-    );
 
 
     /*
@@ -105,6 +89,109 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
             },1000);
         }
     });
+    
+    $scope.deletePhoto = function (photo) {
+        var confirm = $mdDialog.confirm()
+            .title($translate.instant('photos.remove_confirm_title'))
+            .textContent($translate.instant('photos.remove_confirm_body'))
+            .ariaLabel('photos.remove_confirm_title')
+            .ok($translate.instant('actions.ok'))
+            .cancel($translate.instant('actions.cancel'));
+        $mdDialog.show(confirm).then(function () {
+            var deferred = $q.defer();
+            $scope.promise = deferred.promise;
+            apiService('photos').actions.remove(photo.uuid, function (err) {
+                var msgs = {
+                    success: 'photos.remove_success',
+                    data:  photo.filename
+                };
+                if (responseHandler.handleResponse(err, deferred, msgs)) {
+                    $scope.photos.splice($scope.photos.indexOf(photo),1);
+                }
+            });
+        });
+    };
+    
+    /*
+    Get camera image
+    */
+    
+    $scope.files = [];
+    $scope.uploaded_pic = [];
+    
+    $scope.getPicture = function(type) {
+        
+        var options = {};
+        if(type == 'library') { //TODO: refactor: needs pass parameter to service???
+            //options.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
+            CameraService.getLibrary(options).then(
+                function (imageData) { 
+                    //var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");    
+                    /*
+                    window.resolveLocalFileSystemURL(filePreview, function (fileEntry) {
+                        file = fileEntry;
+                        console.log('resolveLocalFileSystemURI', file);
+                        $scope.files.push(file);
+                    });
+                    */
+                    
+                    var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");    
+                    $scope.uploaded_pic.push(filePreview);
+                    $scope.files.push(filePreview);
+                },
+                function (errorCode) {
+                    if (errorCode === false) {
+                        alert('Camera is not supported by browser.');
+                    }
+                    else if (errorCode === 1) {
+                        alert('User shit on camera or waited for long to respond.');
+                    }
+                },options
+            );
+
+        } else {
+            CameraService.getPicture().then(
+                function (imageData) { 
+                    //var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");    
+                    /*
+                    window.resolveLocalFileSystemURL(filePreview, function (fileEntry) {
+                        file = fileEntry;
+                        console.log('resolveLocalFileSystemURI', file);
+                        $scope.files.push(file);
+                    });
+                    */
+                    
+                    var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");    
+                    $scope.uploaded_pic.push(filePreview);
+                    $scope.files.push(filePreview);
+                },
+                function (errorCode) {
+                    if (errorCode === false) {
+                        alert('Camera is not supported by browser.');
+                    }
+                    else if (errorCode === 1) {
+                        alert('User shit on camera or waited for long to respond.');
+                    }
+                }
+            );
+        }
+        
+    }
+
+    $scope.abort = function () {
+        $location.path('/' + ($scope.location.region_slug || $scope.location.region_uuid) + '/' +
+            $scope.location.slug);
+    }
+    
+    $scope.promiseShow = function () {
+        var deferred = $q.defer();
+        $scope.promise = deferred.promise;
+        
+    }
+    $scope.promiseHide = function () {
+        var deferred = $q.defer();
+        $scope.promise.resolve();
+    }
 
     /*
         Submit the new location
@@ -162,6 +249,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                 }
             }
         ], function (err) {
+            console.log('update/insert error',err);
             var msgs = {
                 success: $routeParams.uuid ? 'messages.locations.update_success' : 'messages.locations.create_success'
             };
@@ -171,7 +259,8 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
             }
         });
     };
-
+    
+    
     /*
         Load an existing location to update
      */
@@ -192,16 +281,20 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                     lat: location.lonlat[1]
                 };
                 $scope.formTitle = 'Edit "' + location.title + '"';
+                console.log('location',location);
                 apiService('locations/' + location.uuid + '/photos').actions.all(cb);
             },
             function (photos, cb) {
-                $scope.photos =  photos.result || photos;
+                console.log('photos',photos);
+                $scope.photos =  photos.results || photos;
                 cb();
             },
             function (cb) {
+                console.log('setCurrentRegion',$scope.location.region_uuid);
                 regionService.setCurrentRegion($scope.location.region_uuid, cb);
             },
             function (cb) {
+                console.log('admin',regionService.currentRegion.title);
                 $scope.currentRegion = regionService.currentRegion.title;
                 $scope.isAdmin = authService.hasScopes(['admin', 'region-' + $scope.location.region_uuid]);
                 cb();
@@ -209,10 +302,29 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
         ], function (err) {
             responseHandler.handleResponse(err, deferred);
         });
+    } else {
+        //create a new location: ask user to use his geoloaction
+        GeolocationService.getCurrentPosition().then(
+            function (position) { //
+                console.log('Position', position);
+                $scope.marker.lat = position.coords.latitude;
+                $scope.marker.lng = position.coords.longitude;
+                $scope.updateLocation({'lat': position.coords.latitude, 'lng': position.coords.longitude});
+            },
+            function (errorCode) {
+                if (errorCode === false) {
+                    alert('GeoLocation is not supported by browser.');
+                }
+                else if (errorCode === 1) {
+                    alert('User either denied GeoLocation or waited for long to respond.');
+                }
+            }
+        );
     }
 };
 
 LocationsCreateController.$inject = ['$scope', '$routeParams', 'apiService', 'authService', '$q', '$location',
-    'mapService', 'responseHandler', 'locationFormDefaults', 'regionService','GeolocationService'];
+    'mapService', 'responseHandler', 'locationFormDefaults', 'regionService','GeolocationService', '$mdDialog', 
+    '$translate', 'CameraService'];
 
 module.exports = LocationsCreateController;

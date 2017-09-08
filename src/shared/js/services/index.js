@@ -10,3 +10,5 @@ app.factory('mapService', require('./map'));
 app.factory('regionService', require('./region'));
 app.factory('responseHandler', require('./response-handler'));
 app.factory('staticContent', require('./static-content'));
+app.factory('CameraService', require('./camera'));
+app.factory('uploadService', require('./upload'));

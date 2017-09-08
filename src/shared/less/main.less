@@ -212,6 +212,21 @@ md-tooltip {
   right:30px;
   margin-right:40px!important
 }
+//Toast
+
+md-toast.md-success-toast-theme {
+  .md-toast-content {
+    background-color: #509d4d;
+  }
+}
+
+md-toast.md-error-toast-theme {
+  .md-toast-content {
+    background-color: #ED1C24;
+    color: white;
+  }
+}
+
 // OUR DISABLED STYLES
 
 md-radio-button[disabled] {
@@ -532,8 +547,22 @@ md-sidenav {
 // md lightbox
 
 .photo-preview {
-  height:120px;
-  margin-right: 16px;
+  
+  width:auto;
+  
+}
+.update-form {
+img.photo-preview:hover {
+  border: 2px solid black;  
+    opacity: 0.5;
+}
+
+md-grid-list md-grid-tile figure {
+    :hover {
+      border: 2px solid black;  
+        opacity: 0.5;
+    }
+}
 }
 
 .lightbox-image-holder {
@@ -570,9 +599,33 @@ md-sidenav {
 // basic list replacement for md-list
 
 .lsm-list {
-  margin:1.6em;
+  padding: 0px;
+
+  .md-subheader {
+    border-bottom: 1px solid #e3e3e3;
+  }
+  h2 {
+    margin: 0px;
+  }
+  md-list-item {
+    padding: 0px;
+    min-height: 10px;
+  }
+  .md-list-item-inner::before, md-list-item::before {
+    min-height: 10px;
+  }
+  .odd {
+    border-bottom: 1px solid #e3e3e3;
+    width:100%;
+    padding: 16px;
+  }
+  .even {
+    border-bottom: 1px solid #e3e3e3;
+    width:100%;
+    padding: 16px;
+  }
   .lsm-list-item {
-    margin:0 0 1.6em 0;
+    margin:0 0 0 0;
     height:auto;
     min-height:88px;
     a {
@@ -584,7 +637,17 @@ md-sidenav {
   }
   .lsm-list-item-text {
     h3 {
-      font-size: 1.1em;
+      font-size: 1em;
+      margin: 0 0 0.1em 0;
+
+      span {
+        margin-left: 4px;
+        font-size: 0.8em;
+        color: #999;
+      }
+    }
+    h4 {
+      font-size: 0.9em;
       margin: 0 0 0.1em 0;
     }
     p {
@@ -660,4 +723,34 @@ md-icon svg {
   max-width:40px;
   margin:5px 0 0 5px;
   font-size:0.8em;
+}
+.update-form {
+    grid-item-tile:hover {
+      border: 2px solid black;  
+        opacity: 0.5;
+    }
+}
+
+.cg-busy {
+    z-index: 3001;
+    position: fixed;
+    md-progress-circular {
+        top: 50% !important;
+        left: 50% !important;
+    }
+}
+
+.md-dialog-backdrop {
+    z-index: 3050;
+}
+
+.main-fab {
+    .md-errors-spacer {
+        min-height: auto;
+    }
+    .md-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
 }

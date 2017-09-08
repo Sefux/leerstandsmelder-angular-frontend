@@ -1,10 +1,12 @@
 div(layout="column" layout-align="start start" layout-wrap layout-fill)
-    .lsm-list(flex)
-        h2(ng-if="posts") {{ 'site.latest_posts' | translate }}
-        h2(ng-if="posts.length === 0") {{ 'site.no_latest_posts' | translate }}
-        .lsm-list-item(layout='column' layout-align="start left" ng-repeat='post in posts')
-            a(ng-href='{{ urlbase + "posts/" + post.slug }}')
-                .lsm-list-item-text(flex)
-                    h3 {{ post.title }}
-                    p.metatext {{'author.on' | translate}} {{ post.created | date : 'dd.MM.yy' }}
-                    p.smalltext {{post.abstract | limitTo: 140}}...
+    md-list.lsm-list(flex)
+        md-subheader
+            h2(ng-if="posts") {{ 'site.latest_posts' | translate }}
+            h2(ng-if="posts.length === 0") {{ 'site.no_latest_posts' | translate }}
+        md-list-item(layout='column' layout-align="start left" ng-repeat='post in posts')
+            .lsm-list-item(layout='row' layout-align="start center"  ng-class-odd="'odd'" ng-class-even="'even'")
+                a(ng-href='{{ urlbase + "posts/" + post.slug }}')
+                    .lsm-list-item-text(flex)
+                        h3 {{ post.title }}
+                        p.metatext {{'author.on' | translate}} {{ post.created | date : 'dd.MM.yy' }}
+                        p.smalltext {{post.abstract | limitTo: 140}}...

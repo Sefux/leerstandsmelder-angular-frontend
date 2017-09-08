@@ -1,24 +1,26 @@
 'use strict';
 
-var DeviceReadyService = function () {
-    return function (fn) {
-        var queue = [],
-            impl = function () {
-                queue.push(Array.prototype.slice.call(arguments));
-            };
+var DeviceReadyService = function ($document, $timeout, $window, $q) {
+    var timeoutMs = 2000,
+        isReady = $q.defer();
+    this.ready =  isReady.promise;
 
-        document.addEventListener('deviceready', function () {
-	        console.log('EventListener deviceready');
-            queue.forEach(function (args) {
-                fn.apply(this, args);
-            });
-            impl = fn;
-        }, false);
+    var cordovaTimeout = $timeout(function() {
+        if ($window.cordova){
+            isReady.resolve($window.cordova);
+        } else {
+            isReady.reject("cordova init timeout");
+        }
+    }, timeoutMs);
 
-        return function () {
-            return impl.apply(this, arguments);
-        };
-    };
+    angular.element($document)[0].addEventListener('deviceready', function() {
+        $timeout.cancel(cordovaTimeout);
+        isReady.resolve($window.cordova);
+    });
+
+    return this;
 };
+
+DeviceReadyService.$inject = ['$document', '$timeout', '$window', '$q'];
 
 module.exports = DeviceReadyService;

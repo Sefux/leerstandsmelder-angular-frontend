@@ -3,8 +3,10 @@
 var lang_de = require('../../shared/js/lang/de'),
     lang_en = require('../../shared/js/lang/en'),
     routes = require('./routes'),
-    angular = require('angular'),
-    app = angular.module('leerstandsmelder', [
+    angular = require('angular');
+    var agGrid = require("ag-grid");
+    agGrid.initialiseAgGridWithAngular1(angular);
+    var app = angular.module('leerstandsmelder', [
         require('angular-animate'),
         require('angular-messages'),
         require('angular-translate'),
@@ -14,12 +16,13 @@ var lang_de = require('../../shared/js/lang/de'),
         require('ng-file-upload'),
         require('angular-busy2'),
         require('angular-material'),
-        require('md-data-table'),
         require('angular-aria'),
         require('angular-cookies'),
         require('angular-route'),
         require('angular-sanitize'),
-        require('angular-marked')
+        require('angular-marked'),
+        "agGrid",
+        'ngCordova'
     ]);
 
 require('../../shared/js/controllers');
@@ -28,17 +31,22 @@ require('../../shared/js/filters');
 require('../../shared/js/services');
 
 require('../../mobile/js/filters');
+require('../../mobile/js/directive');
 
 app.provider('PubSub', require('angular-pubsub'));
 
 app.factory('assetPath', require('./services/assetpath'));
 app.factory('DeviceReadyService', require('./services/deviceready'));
 app.factory('GeolocationService', require('./services/geolocation'));
+app.factory('CameraService', require('./services/camera'));
+app.factory('uploadService', require('./services/upload'));
 
 app.constant("configuration", {
     'urlbase': '#!/'
 });
-
+app.config(['$qProvider', function ($qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
+}]);
 app.config([
     '$routeProvider',
     '$locationProvider',
@@ -60,6 +68,10 @@ app.config([
             '500': '#dddddd',
             'contrastDefaultColor': 'dark'
         });
+        $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|fi‌​le|blob|cdvfile|cont‌​ent):|data:image/);
+        //$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|cdvphotolibrary):/);
+            // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
+        
         $mdThemingProvider.definePalette('white', whiteMap);
 
         // added the oz color to the palette
@@ -75,6 +87,9 @@ app.config([
                 'default': '900'})
             .accentPalette('grey',{
                 'default': '700'}); //.dark();
+        
+        $mdThemingProvider.theme("success-toast");
+        $mdThemingProvider.theme("error-toast");
 
         // TODO: check user preference with custom pref
         // see: http://angular-translate.github.io/docs/en/#/guide/11_custom-storages

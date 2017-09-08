@@ -1,9 +1,16 @@
 'use strict';
 
 module.exports = {
+    generel: {
+        yes: 'Ja',
+        no: 'Nein',
+    },
     actions: {
         cancel: 'Abbrechen',
         choose_images: 'Wähle eines oder mehrere Bilder aus, welche Du zu diesem Eintrag hinzufügen möchtest.',
+        choose_image: 'Füge ein Bild zu diesem Eintrag hinzu.',
+        choose_camera: 'Kamera',
+        choose_library: 'Library',
         delete: 'Löschen',
         dont_show_again: 'Nicht mehr anzeigen',
         edit: 'Bearbeiten',
@@ -14,19 +21,22 @@ module.exports = {
         show: 'Ansehen',
         submit: 'Absenden',
         take_picture: 'Mach ein Foto',
-        use_slider: 'Benutze den Schieberegler'
+        use_slider: 'Benutze den Schieberegler',
+        abort: 'Abbrechen'
     },
     table: {
         rowsPerPage: 'Einträge pro Seite',
         pageOf: 'von'
     },
     admin:{
-        dashboard: 'Dashboard'
+        dashboard: 'Dashboard',
+        menu: 'Menue'
     },
     assets: {
         file: 'Datei'
     },
     author: {
+	    author: 'Autor',
         by: 'von',
         created: 'Erstellt',
         in: 'in',
@@ -37,12 +47,15 @@ module.exports = {
         enter_captcha: 'Gib den Code ein'
     },
     comments: {
+        all: 'Kommentare',
+        manage_comments: 'Kommentare verwalten',
         comment: 'Kommentar',
         comment_plural: 'Kommentare',
         comment_text: 'Kommentartext',
         new_comment: 'Neuer Kommentar',
         new_comment_login: 'Melde Dich an, um einen neuen Kommentar zu schreiben.',
-        no_comments: 'Keine Kommentare'
+        no_comments: 'Keine Kommentare',
+        body: 'Nachricht'
     },
     creator: {
         tabs: {
@@ -63,6 +76,11 @@ module.exports = {
             'no_data': 'Region konnte nicht geladen werden.'
         },
         unknown: 'Ein unbekannter Fehler ist aufgetreten.',
+        noconnection: 'Die Anwendung konnte keine Verbindung zum Server herstellen. Probiere es zu einem späteren Zeitpunkt noch einmal.',
+        critical: {
+          title: 'Mieser Fehler',
+          resolve: 'Ok, neu starten?'
+        },
         users: {
             confirmation_failed: 'Bestätigung fehlgeschlagen. Möglicherweise wurde dieser Link bereits verwendet.',
             email_exists: 'E-Mail Adresse ist bereits registriert.',
@@ -72,6 +90,17 @@ module.exports = {
             reset_failed: 'Passwort Zurücksetzen fehlgeschlagen. Dieser Link ist nicht (mehr) gültig.',
             too_many_failed_logins: 'Zu viele fehlgeschlagene Anmeldungen. Versuche es in fünf Minuten wieder.'
         }
+    },
+    successes: {
+      user: {
+        login: 'Du hast dich erfolgreich angemeldet.',
+        logout: 'Du hast dich erfolgreich abgemeldet.'
+      }  
+    },
+    photos: {
+        remove_confirm_title: 'Bild löschen?',
+        remove_confirm_body: 'Bist du dir wirklich ganz sicher das du das Bild löschen willst?',
+        remove_success: 'Das Bild wurde gelöscht'
     },
     locations: {
         address: 'Adresse',
@@ -195,9 +224,12 @@ module.exports = {
         site_post_plural: 'Seiteninhalte',
         title: 'Titel',
         update_success: 'Eintrag erfolgreich aktualisiert..',
-        create_post: 'Eintrag erstellen'
+        create_post: 'Eintrag erstellen',
+	    slug: 'Kurzform URL',
+	    static: 'Statische Seite'
     },
     regions: {
+        settings: 'Einstellungen',
         hide_message: 'Nachricht, wenn Region nicht angezeigt wird',
         latitude: 'Breitengrad',
         longitude: 'Längengrad',
@@ -210,7 +242,10 @@ module.exports = {
         title: 'Titel',
         update_success: 'Region erfolgreich aktualisiert.',
         zoom: 'Zoom',
-        count: 'Anzahl'
+        count: 'Anzahl',
+        created: 'Erstelllt',
+        updated: 'Aktualisiert',
+
     },
     site: {
         banned: 'Gesperrt',
@@ -235,13 +270,13 @@ module.exports = {
         title: 'City of OZ'
     },
     users: {
-        manage_users: 'Nutzer verwalten',
-        create_user: 'Nutzer erstellen',
-        admin_edit: 'Nutzer bearbeiten',
-        admin_create: 'Nutzer erstellen',
+        manage_users: 'Nutzer*innen verwalten',
+        create_user: 'Nutzer*innen erstellen',
+        admin_edit: 'Nutzer*innen bearbeiten',
+        admin_create: 'Nutzer*innen erstellen',
         anonymous: 'Nicht eingeloggt',
         email: 'E-Mail',
-        forgot: 'Passwort Vergessen',
+        forgot: 'Passwort vergessen',
         logout: 'Abmelden',
         password: 'Passwort',
         password_confirm: 'Passwort bestätigen',
@@ -257,6 +292,7 @@ module.exports = {
         blocked: "Blockiert",
         last_login: "Letzter login",
         failed_logins: "Fehlgeschlagene Logins",
-        scope: "Berechtigungen"
+        scope: "Berechtigungen",
+	    created: 'Angemeldet'
     }
 };
