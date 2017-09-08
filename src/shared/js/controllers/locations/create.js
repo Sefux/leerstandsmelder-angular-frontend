@@ -124,6 +124,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                 apiService('regions?lat=' + $scope.marker.lat + '&lon=' + $scope.marker.lng).actions.all(cb);
             },
             function (region, cb) {
+                region = region.results || region;
                 if (region && region.length > 0) {
                     if (!payload.hasOwnProperty('region_uuid')) {
                         payload.region_uuid = region[0].uuid;

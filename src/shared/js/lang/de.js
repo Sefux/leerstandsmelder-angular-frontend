@@ -134,13 +134,13 @@ module.exports = {
         },
         hidden: 'Ausgeblendet',
         hidden_yes: 'Ja',
-        location: 'Leerstand',
-        location_photos: 'Fotos zu diesem Leerstand',
-        location_plural: 'Leerstände',
-        locations_by_region: 'Leerstände nach Region',
-        my_locations: 'Meine Leerstände',
-        no_recent_activity: 'Keine Leerstände',
-        none_found: 'Keine Leerstände gefunden.',
+        location: 'Werk',
+        location_photos: 'Fotos zu diesem Werk',
+        location_plural: 'Werke',
+        locations_by_region: 'Werke nach Region',
+        my_locations: 'Meine Spots',
+        no_recent_activity: 'Keine Spots',
+        none_found: 'Keine Spots gefunden.',
         owner: 'Eigentümer',
         owner_options: {
             private: 'Privat',
@@ -149,10 +149,10 @@ module.exports = {
             city: 'Stadt'
         },
         postcode: 'Postleitzahl',
-        recent_activity: 'Neueste Leerstände',
-        remove_confirm_title: 'Leerstand löschen',
+        recent_activity: 'Neueste Spots',
+        remove_confirm_title: 'Spot löschen',
         remove_confirm_body: 'Diese Aktion kann nicht rückgängig gemacht werden. Bist Du sicher?',
-        remove_success: 'Leerstand wurde gelöscht',
+        remove_success: 'Spot wurde gelöscht',
         search: 'Suchen',
         street: 'Straße',
         title: 'Titel',
@@ -171,8 +171,8 @@ module.exports = {
             create_success: 'Kommentar erfolgreich gespeichert.'
         },
         locations: {
-            create_success: 'Leerstand erfolgreich eingetragen.',
-            update_success: 'Leerstand erfolgreich aktualisiert.'
+            create_success: 'Spot erfolgreich eingetragen.',
+            update_success: 'Spot erfolgreich aktualisiert.'
         },
         users: {
             confirmation_success: 'Deine E-Mail wurde erfolgreich bestätigt. Du bist jetzt eingeloggt!',
@@ -249,7 +249,7 @@ module.exports = {
         signup: 'Registrieren',
         username: 'Benutzername',
         login: 'Anmelden',
-        message_me: 'Andere Nutzer können mir Nachrichten auf Leerstandsmelder schicken.',
+        message_me: 'Andere Nutzer können mir Nachrichten auf City-of-OZ schicken.',
         notify: 'Benachrichtige mich per Email wenn meine Einträge geupdatet werden oder Nachrichten angekommen sind.',
         register_message: 'Registriere Dich!',
         all: 'Alle Nutzer',
