@@ -3,6 +3,19 @@
 var angular = require('angular'),
     async = require('async'),
     lsmMapconfig = require('../lsm-mapconfig');
+    
+var getIcon = {
+    'locations.unknown': '_andere',
+    'locations.artwork_type_options.mural': '_pizza',
+    'locations.artwork_type_options.tag': '_oztag',
+    'locations.artwork_type_options.parole': '_parole',
+    'locations.artwork_type_options.kringel': '_kringel',
+    'locations.artwork_type_options.piece': '_ozpiece',
+    'locations.artwork_type_options.smiley': '_smiley',
+    'locations.artwork_type_options.for_oz': '_fueroz',
+    'locations.artwork_type_options.line': '_linien',
+    'locations.artwork_type_options.others': '_andere'
+    };    
 
 var MapDirective = function ($window, $timeout, mapService, $translate, assetPath) {
     return {
@@ -35,8 +48,8 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                     iconSize: [32, 44],
                     iconAnchor: [16, 43],
                     popupAnchor: [-3, -47],
-                    iconUrl: assetPath + 'images/marker-active.png',
-                    iconRetinaUrl: assetPath + 'images/marker-active@2x.png'
+                    iconUrl: assetPath + 'images/marker-active_andere.png',
+                    iconRetinaUrl: assetPath + 'images/marker-active_andere@2x.png'
                 };
                 var iconActive = L.icon(icon);
                 icon.iconUrl = assetPath + 'images/marker-inactive.png';
@@ -52,6 +65,14 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                 }
                 async.map(data, function (entry, cb) {
                     if (entry.lonlat) {
+                        console.log('entry',entry);
+                        if(entry.artworkType !== undefined && getIcon[entry.artworkType] !== undefined) {
+                            icon.iconUrl = assetPath + 'images/marker-active'+ getIcon[entry.artworkType] +'.png';
+                            icon.iconRetinaUrl = assetPath + 'images/marker-active'+ getIcon[entry.artworkType] +'@2x.png';
+                            console.log('icon.iconUrl',icon.iconUrl);
+                            iconActive = L.icon(icon);
+                        }
+                        
                         var options = {
                             icon: entry.active === false || entry.demolished === true ? iconInactive : iconActive,
                             data: entry,
