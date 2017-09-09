@@ -3,6 +3,10 @@
 var async = require('async');
 
 var RegionsShow = function ($scope, regionService, $q, $routeParams, apiService, responseHandler, configuration) {
+    if($routeParams.uuid == undefined) {
+        //TODO: miesser hack um nur eine region anzuzeigen...
+        $routeParams.uuid = 'de698977-48a6-4b40-b566-76c2b2923f95';
+    }
     var deferred = $q.defer();
     $scope.promise = deferred.promise;
     $scope.urlbase = configuration.urlbase || '/';

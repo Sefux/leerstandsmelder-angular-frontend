@@ -62,8 +62,8 @@ md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as 
                             +button('locations.create_new','','md-primary','fa-fw fa-2x fa-minus-circle',null,'/users/login?redirectTo=locations/create')
                         md-menu-item(ng-if="userSession")
                             +button('locations.create_new','','md-primary','fa-fw fa-2x fa-minus-circle',null,'/locations/create')
-                        md-menu-item()
-                            +button('site.subnav.index','','','fa-fw fa-2x fa-map-o',null,'/locations/index')
+                        //md-menu-item()
+                            //+button('site.subnav.index','','','fa-fw fa-2x fa-map-o',null,'/locations/index')
                         md-menu-item(ng-if="userSession")
                             +button('locations.my_locations','','btn-default','fa-fw fa-2x fa-list','userSession', '/users/me/locations')
 

@@ -10,9 +10,12 @@ module.exports = [
 
     {
         route: '/',
-        templateUrl: '/locations/region_map.html',
-        controller: 'Regions.MapIndex'
+        //templateUrl: '/locations/region_map.html',
+        //controller: 'Regions.MapIndex'
+        templateUrl: '/regions/show.html',
+        controller: 'Regions.Show'
     },
+    
     {
         route: '/site/:slug',
         templateUrl: '/site/static_page.html',
