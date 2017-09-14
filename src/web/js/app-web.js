@@ -17,7 +17,6 @@ var app = angular.module('leerstandsmelder', [
         require('ng-file-upload'),
         require('angular-busy2'),
         require('angular-material'),
-        require('md-data-table'),
         require('angular-aria'),
         require('angular-cookies'),
         require('angular-route'),
