@@ -115,7 +115,7 @@ gulp.task('deps:js', function (env) {
 	            'node_modules/leaflet.markercluster/dist/leaflet.markercluster.js',
                 'bower_components/ngCordova/dist/ng-cordova.min.js'
             ])
-            .pipe(concat('leerstandsmelder-angular-dependencies.min.js'))
+            .pipe(concat('mapoz-angular-dependencies.min.js'))
             .pipe(header(banner, {pkg: pkg})).pipe(uglify());
         stream.pipe(gulp.dest(dest));
         return streamToPromise(stream);
@@ -146,7 +146,7 @@ gulp.task('js', function (env) {
             .on('error', gutil.log)
             .pipe(header(banner, {pkg: pkg}))
             .pipe(uglify())
-            .pipe(rename('leerstandsmelder-angular-frontend.min.js'))
+            .pipe(rename('mapoz-angular-frontend.min.js'))
             //.pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../../'}));
         stream.pipe(gulp.dest(sd.dest));
         return streamToPromise(stream);
@@ -175,7 +175,7 @@ gulp.task('js:maps', function (env) {
             .on('error', gutil.log)
             .pipe(header(banner, {pkg: pkg}))
             //.pipe(uglify())
-            .pipe(rename('leerstandsmelder-angular-frontend.min.js'))
+            .pipe(rename('mapoz-angular-frontend.min.js'))
             .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../../'}));
         stream.pipe(gulp.dest(sd.dest));
         return streamToPromise(stream);
@@ -212,7 +212,7 @@ function cssPipe(sd) {
         .pipe(cleanCSS())
         .pipe(header(banner, {pkg: pkg}))
         .pipe(rename({
-            basename: 'leerstandsmelder-frontend-' + path.basename(sd.src, '.less')
+            basename: 'mapoz-frontend-' + path.basename(sd.src, '.less')
         }));
     stream.pipe(gulp.dest(sd.dest));
     return streamToPromise(stream);
@@ -436,12 +436,12 @@ gulp.task('build:android', function () {
         //
 
         src.pipe(xml([
-            '<splash src="www/images/splash/leerstandsmelder_splash.png"  />',
+            '<splash src="www/images/splash/mapoz_splash.png"  />',
             '<preference name="BackupWebStorage" value="local" />'
         ]));
 
 
-        src.pipe(icon('www/images/icons/leerstandsmelder_icon.png', { errorHandlingStrategy: 'warn' }));
+        src.pipe(icon('www/images/icons/mapoz_icon.png', { errorHandlingStrategy: 'warn' }));
 
     //'<splash src="www/images/Default@2x~iphone.png" width="640" height="960" />',
             // <!--
@@ -459,7 +459,7 @@ gulp.task('build:android', function () {
             //     <icon src="www/images/icons/android/drawable-xxhdpi/icon.png" density="xxhdpi" />
             //     <icon src="www/images/icons/android/drawable-xxxhdpi/icon.png" density="xxxhdpi" />
             //
-       // src.pipe(android({storeFile: '../keys', keyAlias: 'leerstandsmelder'}));
+       // src.pipe(android({storeFile: '../keys', keyAlias: 'mapoz'}));
         src.pipe(android({release: true}));
     return streamToPromise(src.pipe(dst));
 });
@@ -494,7 +494,7 @@ gulp.task('build:ios', function () {
             '<splash src="www/images/splash/ios/Default@2x~universal~anyany.png" />',
             '<preference name="BackupWebStorage" value="local" />'
         ]));
-        src.pipe(icon('www/images/icons/leerstandsmelder_icon.png', { errorHandlingStrategy: 'warn' }));
+        src.pipe(icon('www/images/icons/mapoz_icon.png', { errorHandlingStrategy: 'warn' }));
 
     return src.pipe(dst);
 });

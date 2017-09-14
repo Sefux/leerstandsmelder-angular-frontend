@@ -1,6 +1,6 @@
 'use strict';
 
-var app = require('angular').module('leerstandsmelder');
+var app = require('angular').module('mapoz');
 
 app.factory('apiService', require('./api'));
 app.factory('authService', require('./auth'));

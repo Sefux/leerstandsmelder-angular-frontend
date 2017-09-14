@@ -75,7 +75,7 @@ module.exports = {
     },
     locations: {
         address: 'Address',
-        artwork_type: 'Building Type',
+        artwork_type: 'Art work type',
         artwork_type_options: {
             mural: 'Pizza/Mural/Wandbild',
             tag: 'OZ-Tag',
@@ -83,12 +83,12 @@ module.exports = {
             kringel: 'Kringel/Spirale',
             piece: 'OZ-Piece',
             smiley: 'Smiley',
-            for_oz: 'Für OZ',
+            for_oz: 'For OZ',
             line: 'Linien/Striche/abstrakt einfarbig',
             others: 'andere Tags / sonstiges'
         },
         city: 'City',
-        create_new: 'Submit location',
+        create_new: 'Submit art work',
         degree: 'Degree of Emptiness',
         degree_options: {
             complete: 'Complete',
@@ -131,10 +131,10 @@ module.exports = {
         },
         hidden: 'Hidden',
         hidden_yes: 'Yes',
-        location: 'Location',
-        location_photos: 'Photos for this location',
-        location_plural: 'Locations',
-        locations_by_region: 'Locations by Region',
+        location: 'Art work',
+        location_photos: 'Photos for this art work',
+        location_plural: 'Art work',
+        locations_by_region: 'Art works by Region',
         my_locations: 'My Locations',
         no_recent_activity: 'No Recent Activity',
         none_found: 'No locations found.',
@@ -147,7 +147,7 @@ module.exports = {
         },
         postcode: 'Postal code',
         recent_activity: 'Latest Activity',
-        remove_confirm_title: 'Delete Location',
+        remove_confirm_title: 'Delete Art work',
         remove_confirm_body: 'This action cannot be undone. Are you sure?',
         remove_success: 'Location deleted',
         search: 'Search',
@@ -168,8 +168,8 @@ module.exports = {
             create_success: 'Comment successfully posted.'
         },
         locations: {
-            create_success: 'Location created successfully.',
-            update_success: 'Leerstand updated successfully.'
+            create_success: 'Spot created successfully.',
+            update_success: 'Spot updated successfully.'
         },
         users: {
             confirmation_success: 'Successfully confirmed! You are now logged in.',
@@ -209,7 +209,7 @@ module.exports = {
     },
     site: {
         banned: 'Banned',
-        copyright_notice: '© 2016 Leerstandsmelder.de',
+        copyright_notice: '© 2017 city-of-oz.hamburg',
         map_notice: 'Maps: © OpenStreetMap contributors, ODbL 1.0.',
         lang: 'Language',
         lang_de: 'Deutsch',
@@ -227,7 +227,7 @@ module.exports = {
             press: 'Press',
             terms: 'Terms'
         },
-        title: 'Leerstandsmelder'
+        title: 'City of OZ'
     },
     users: {
         anonymous: 'Not logged in',
@@ -240,7 +240,7 @@ module.exports = {
         signup: 'Sign up',
         username: 'Username',
         login: 'Login',
-        message_me: 'Other Users can send me messages via Leerstandsmelder.',
+        message_me: 'Other Users can send me messages via city-of-oz.',
         notify: 'Send me an Email when my entries are updated or other users send me a message.',
         register_message: 'Register now!'
     }

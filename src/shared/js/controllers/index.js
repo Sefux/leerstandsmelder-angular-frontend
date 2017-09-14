@@ -1,6 +1,6 @@
 'use strict';
 
-var app = require('angular').module('leerstandsmelder');
+var app = require('angular').module('mapoz');
 
 // TODO: there should be quite a bit of redundancy here... look into abstracting all CRUD-related stuff
 

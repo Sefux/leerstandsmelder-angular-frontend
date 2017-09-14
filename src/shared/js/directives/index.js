@@ -1,6 +1,6 @@
 'use strict';
 
-var app = require('angular').module('leerstandsmelder');
+var app = require('angular').module('mapoz');
 
 app.directive('captcha', require('./captcha'));
 app.directive('checkLogin', require('./check-login'));

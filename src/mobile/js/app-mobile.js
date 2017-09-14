@@ -6,7 +6,7 @@ var lang_de = require('../../shared/js/lang/de'),
     angular = require('angular');
     var agGrid = require("ag-grid");
     agGrid.initialiseAgGridWithAngular1(angular);
-    var app = angular.module('leerstandsmelder', [
+    var app = angular.module('mapoz', [
         require('angular-animate'),
         require('angular-messages'),
         require('angular-translate'),
@@ -121,5 +121,5 @@ app.config([
     }]);
 
 angular.element(function () {
-    angular.bootstrap(document, ['leerstandsmelder']);
+    angular.bootstrap(document, ['mapoz']);
 });
