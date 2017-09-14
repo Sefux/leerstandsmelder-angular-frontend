@@ -2,26 +2,27 @@
   "global": {
     "serve_web_ui_port": 9090,
     "serve_mobile_ui_port": 9292,
-    "api_url": "https://dev-api.leerstandsmelder.de",
+    "api_url": "https://api.city-of-oz.hamburg",
     "airbrake": {
       "project_id": null,
       "project_key": null
-    }
+    },
+    "default_region": "de-xxxx"
   },
   "author": {
     "name": "Verein Gängeviertel e.V.",
-    "email": "hamburg@leerstandsmelder.de",
-    "url": "https://leerstandsmelder.de"
+    "email": "info@city-of-oz.hamburg",
+    "url": "http://city-of-oz.hamburg"
   },
   "android": {
-    "app_name": "Leerstandsmelder",
-    "app_id": "de.leerstandsmelder.mobile.android",
-    "app_description": "Leerstandsmelder Mobile App",
+    "app_name": "Map OZ",
+    "app_id": "de.mapoz.mobile.android",
+    "app_description": "MAP OZ Mobile App",
     "access_origins": {
-      "https://www.leerstandsmelder.de": true,
-      "https://leerstandsmelder.de": true,
-      "https://api.leerstandsmelder.de": true,
-      "http://dev-api.leerstandsmelder.de": true
+      "https://www.city-of-oz.hamburg": true,
+      "https://city-of-oz.hamburg": true,
+      "https://oz-api.leerstandsmelder.de": true,
+      "http://api.city-of-oz.hamburg": true
     },
     "prefs": {},
     "plugins": {
@@ -33,13 +34,13 @@
     }
   },
   "ios": {
-    "app_name": "Leerstandsmelder",
-    "app_id": "BY7M364NN5.de.leerstandsmelder.MobileApp",
+    "app_name": "Map OZ",
+    "app_id": "xxxx.de.mapoz.MobileApp",
     "access_origins": {
-      "https://www.leerstandsmelder.de": true,
-      "https://leerstandsmelder.de": true,
-      "https://api.leerstandsmelder.de": true,
-      "http://dev-api.leerstandsmelder.de": true
+        "https://www.city-of-oz.hamburg": true,
+        "https://city-of-oz.hamburg": true,
+        "https://oz-api.leerstandsmelder.de": true,
+        "http://api.city-of-oz.hamburg": true
     },
     "prefs": {},
     "plugins": {
