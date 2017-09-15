@@ -1,9 +1,16 @@
 'use strict';
 
 module.exports = {
+    generel: {
+        yes: 'Yes',
+        no: 'No',
+    },
     actions: {
         cancel: 'Cancel',
         choose_images: 'You may choose one or more image to add to this entry.',
+        choose_image: 'Add an image to this entry.',
+        choose_camera: 'Camera',
+        choose_library: 'Library',
         delete: 'Delete',
         dont_show_again: 'Don\'t show again',
         edit: 'Edit',
@@ -14,19 +21,22 @@ module.exports = {
         show: 'View',
         submit: 'Submit',
         take_picture: 'Take a Picture',
-        use_slider: 'Use the slider'
+        use_slider: 'Use the slider',
+        abort: 'Abort'
     },
     table: {
         rowsPerPage: 'Rows per page',
         pageOf: 'of'
     },
     admin:{
-        dashboard: 'Dashboard'
+        dashboard: 'Dashboard',
+        menu: 'Menu'
     },
     asset: {
         file: 'Datei'
     },
     author: {
+        author: 'Author',
         by: 'by',
         created: 'Created',
         in: 'in',
@@ -37,12 +47,17 @@ module.exports = {
         enter_captcha: 'Enter the code'
     },
     comments: {
+        all: 'Comments',
+        manage_comments: 'Manage comments',
         comment: 'Comment',
         comment_plural: 'Comments',
         comment_text: 'Comment text',
         new_comment: 'New Comment',
         new_comment_login: 'Log in to post a new comment.',
-        no_comments: 'No Comments'
+        no_comments: 'No Comments',
+        body: 'Message',
+        hidden: 'Hide comment',
+        created: 'Created'
     },
     creator: {
         tabs: {
@@ -63,6 +78,11 @@ module.exports = {
             'no_data': 'Region could not be loaded.'
         },
         unknown: 'An unknown error occurred.',
+        noconnection: 'The app could not reach the server. Try again later.',
+        critical: {
+          title: 'Critical error',
+          resolve: 'Ok, try again?'
+        },
         users: {
             confirmation_failed: 'Confirmation failed. This link might already be used.',
             email_exists: 'This email is already registered.',
@@ -72,6 +92,17 @@ module.exports = {
             reset_failed: 'Password reset failed. This link is invalid and may have already been used.',
             too_many_failed_logins: 'Too many failed logins. Please try again in five minutes.'
         }
+    },
+    successes: {
+      user: {
+        login: 'You are now logged in.',
+        logout: 'You have been logged out.'
+      }  
+    },
+    photos: {
+        remove_confirm_title: 'Delete image?',
+        remove_confirm_body: 'Are you sure that you want to delete this image?',
+        remove_success: 'Image has been deleted.'
     },
     locations: {
         address: 'Address',
@@ -103,7 +134,7 @@ module.exports = {
         },
         demolition_rumor: 'Rumors of Demolition',
         demolition_rumor_yes: 'Yes',
-        edit: 'Edit Location',
+        edit: 'Edit location',
         artwork_for: 'Empty for',
         artwork_since_options: {
             recently: 'just recently',
@@ -192,20 +223,27 @@ module.exports = {
         site_post_plural: 'Page content',
         title: 'Title',
         update_success: 'Post updated successfully.',
-        create_post: 'Create post'
+        create_post: 'Create post',
+        slug: 'Slug URL',
+	    static: 'Static side'
     },
     regions: {
+        settings: 'Settings',
         hide_message: 'Message if Region is hidden',
         latitude: 'Latitude',
         longitude: 'Longitude',
         manage_regions: 'Manage Regions',
+        create_regions: 'Create region',
         region: 'Region',
         region_plural: 'Regions',
         set_hide: 'Hide this Region',
         set_moderate: 'Moderate this Region',
         title: 'Title',
         update_success: 'Region updated successfully.',
-        zoom: 'Zoom'
+        zoom: 'Zoom',
+        count: 'Count',
+        created: 'Created',
+        updated: 'Updated',
     },
     site: {
         banned: 'Banned',
@@ -230,6 +268,10 @@ module.exports = {
         title: 'City of OZ'
     },
     users: {
+        manage_users: 'Manage users',
+        create_user: 'Create user',
+        admin_edit: 'Edit user',
+        admin_create: 'Create user',
         anonymous: 'Not logged in',
         email: 'Email',
         forgot: 'Forgot Password',
@@ -242,6 +284,13 @@ module.exports = {
         login: 'Login',
         message_me: 'Other Users can send me messages via city-of-oz.',
         notify: 'Send me an Email when my entries are updated or other users send me a message.',
-        register_message: 'Register now!'
+        register_message: 'Register now!',
+        all: 'All users',
+	    confirmed: "Confirmed",
+	    blocked: "Blocked",
+	    last_login: "Last login",
+        failed_logins: "Failed logins",
+        scope: "Scopes",
+	    created: 'Created'
     }
 };

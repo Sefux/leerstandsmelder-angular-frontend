@@ -31,7 +31,7 @@ module.exports = {
     },
     admin:{
         dashboard: 'Dashboard',
-        menu: 'Menue'
+        menu: 'Menü'
     },
     assets: {
         file: 'Datei'
@@ -56,7 +56,9 @@ module.exports = {
         new_comment: 'Neuer Kommentar',
         new_comment_login: 'Melde Dich an, um einen neuen Kommentar zu schreiben.',
         no_comments: 'Keine Kommentare',
-        body: 'Nachricht'
+        body: 'Nachricht',
+        hidden: 'Kommentar ausblenden',
+        created: 'Erstellt'
     },
     creator: {
         tabs: {
@@ -71,7 +73,7 @@ module.exports = {
         access_denied: 'Du hast keine Berechtigung, um diese Aktion auszuführen.',
         authorization_failed: 'Anmeldung fehlgeschlagen.',
         location: {
-            'no_data': 'Leerstand konnte nicht geladen werden.'
+            'no_data': 'Werke konnte nicht geladen werden.'
         },
         region: {
             'no_data': 'Region konnte nicht geladen werden.'
@@ -246,7 +248,6 @@ module.exports = {
         count: 'Anzahl',
         created: 'Erstelllt',
         updated: 'Aktualisiert',
-
     },
     site: {
         banned: 'Gesperrt',
