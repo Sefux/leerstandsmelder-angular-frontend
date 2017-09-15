@@ -30,7 +30,7 @@ module.exports = {
     },
     admin:{
         dashboard: 'Dashboard',
-        menu: 'Menue'
+        menu: 'Menü'
     },
     assets: {
         file: 'Datei'
@@ -55,7 +55,9 @@ module.exports = {
         new_comment: 'Neuer Kommentar',
         new_comment_login: 'Melde Dich an, um einen neuen Kommentar zu schreiben.',
         no_comments: 'Keine Kommentare',
-        body: 'Nachricht'
+        body: 'Nachricht',
+        hidden: 'Kommentar ausblenden',
+        created: 'Erstellt'
     },
     creator: {
         tabs: {
@@ -120,6 +122,7 @@ module.exports = {
             complete: 'Vollständig',
             partial: 'Teilweise'
         },
+        description: 'Beschreibung',
         demolished: 'Abgerissen',
         demolished_yes: 'Ja',
         demolition_options: {
@@ -128,7 +131,6 @@ module.exports = {
         },
         demolition_rumor: 'Abrissgerüchte',
         demolition_rumor_yes: 'Ja',
-        description: 'Beschreibung',
         edit: 'Leerstand bearbeiten',
         empty_for: 'Leer seit',
         empty_options: {
@@ -239,7 +241,6 @@ module.exports = {
         count: 'Anzahl',
         created: 'Erstelllt',
         updated: 'Aktualisiert',
-
     },
     site: {
         banned: 'Gesperrt',
