@@ -251,7 +251,7 @@ module.exports = {
     },
     site: {
         banned: 'Gesperrt',
-        copyright_notice: '© 2016 city-of-oz.hamburg',
+        copyright_notice: '© 2017 city-of-oz.hamburg',
         map_notice: 'Karten: © OpenStreetMap contributors, ODbL 1.0',
         lang: 'Sprache',
         lang_de: 'Deutsch',
