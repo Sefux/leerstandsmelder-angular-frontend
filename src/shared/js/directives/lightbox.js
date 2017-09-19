@@ -21,7 +21,7 @@ var LightboxDirective = function ($mdDialog, $translate) {
                 */
                 $mdDialog.show($mdDialog.confirm()
                     .clickOutsideToClose(true)
-                    .htmlContent('<img class="spot-image" src="'+attrs.src+'" style="width:100%" />')
+                    .htmlContent('<img class="spot-image" src="'+ attrs.ngOriginalUrl +'" style="width:100%" />')
                     .hasBackdrop(false)
                     .ariaLabel('.title')
                     .ok($translate.instant('actions.close')));
