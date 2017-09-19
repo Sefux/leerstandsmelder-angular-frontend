@@ -34,7 +34,8 @@ module.exports = {
         menu: 'Menü'
     },
     assets: {
-        file: 'Datei'
+        file: 'Datei',
+        choose_images: 'Foto auswählen'
     },
     author: {
 	    author: 'Autor',
@@ -64,7 +65,7 @@ module.exports = {
         tabs: {
             admin: 'Verwaltung',
             details: 'Details',
-            info: 'Info',
+            info: 'Werk eintragen',
             location: 'Ort',
             preview: 'Vorschau'
         }
@@ -123,10 +124,12 @@ module.exports = {
         create_new: 'Werk eintragen',
         degree: 'Zustand des Werkes',
         degree_options: {
-            complete: 'Vollständig erhalten',
-            partial: 'Teilweise zerstört'
+            complete: 'gut erhalten',
+            partial: 'verwittert',
+            sprayed: 'übersprüht',
+            buffed: 'gebuffed'
         },
-        demolished: 'Buffed',
+        demolished: 'Nicht mehr erhalten',
         demolished_yes: 'Ja',
         demolition_options: {
             rumor: 'Gerüchte',
@@ -136,9 +139,13 @@ module.exports = {
         demolition_rumor_yes: 'Ja',
         description: 'Beschreibung',
         edit: 'Werk bearbeiten',
-        artwork_for: 'Werk wurde erstellt',
+        artwork_for: 'Entstehungsjahr',
         artwork_since_options: {
             recently: 'Kurzem',
+            before_2010: 'vor 2010',
+            before_2000: 'vor 2000',
+            before_1990: 'vor 1990',
+            since_2011: 'seit 2011',
             min_five_years: 'wenigstens fünf Jahren',
             min_three_years: 'wenigstens drei Jahren',
             min_four_years: 'wenigstens vier Jahren',
@@ -159,7 +166,8 @@ module.exports = {
             and: 'und'
         },
         help: {
-            info: 'Gib hier einen aussagekräftigen Titel und eine Beschreibung für diesen Werk ein.',
+            photo: 'Lade Fotos von diesem Werk hoch. Wähle eines oder mehrer Fotos von deinem Computer aus. Diese werden dir daraufhin angezeigt. Durch speichern des Eintrag werden sie hochgeladen.',
+            info: 'Gib hier eine Beschreibung für dieses Werk ein.',
             location: 'Gib eine Adresse ein und die Karte sollte sich nach einem kurzen Moment aktualisieren. Du kannst den Marker auf der Karte ziehen, um damit die Adresse zu aktualisieren.',
             details: 'Trag ein, welche Details dir über das Werk bekannt sind. Wenn Du etwas nicht weißt, lass es einfach unausgewählt.',
             admin:'Setz das Häkchen auf "Ausgeblendet" um es für nicht-Administratoren unsichtbar zu machen.'

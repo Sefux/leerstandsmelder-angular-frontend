@@ -6,15 +6,17 @@ var LocationFormDefaultsService = function () {
     return {
         artworkSince: [
             'locations.unknown',
-            'locations.artwork_since_options.min_three_years',
-            'locations.artwork_since_options.min_four_years',
-            'locations.artwork_since_options.min_five_years',
-            'locations.artwork_since_options.min_ten_years',
+            'locations.artwork_since_options.before_1990',
+            'locations.artwork_since_options.before_2000',
+            'locations.artwork_since_options.before_2010',
+            'locations.artwork_since_options.since_2011',
         ],
         degree: [
             'locations.unknown',
             'locations.degree_options.complete',
-            'locations.degree_options.partial'
+            'locations.degree_options.partial',
+            'locations.degree_options.sprayed',
+            'locations.degree_options.buffed'
         ],
         rumor: [
             'locations.demolition_rumor_yes'

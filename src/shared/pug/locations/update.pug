@@ -9,21 +9,26 @@ div.update-form(layout="row" layout-xs="column" layout-wrap layout-fill)
     div(flex flex-gt-xs="60")
         md-tabs(class="md-primary" md-dynamic-height md-border-bottom md-no-pagination="false" md-swipe-content md-selected="selectedIndex")
             md-tab(label='{{ "creator.tabs.info" | translate }}')
-                div.md-padding
-                    small {{ "locations.help.info" | translate }}
-                div.md-padding
-                    div(flex)
-                        div(layout-gt-xs="row" flex="60")
-                            +input('text','location.title','locations.title', null, null)
-                    div()
-                        div(layout-gt-xs="row")
-                            +input('textarea','location.description','locations.description', null, null)
                 hr
-                div(layout="row" layout-align="start end")
+                div.md-padding
+                    small {{ "locations.help.photo" | translate }}    
+                div(layout="row" ng-if="photos && photos.length > 0")
+                    div(flex)
+                        strong.md-padding {{ "locations.location_photos" | translate }}:
+                        md-grid-list(md-cols="2"  md-gutter="4px" md-row-height="4:3")
+                            md-grid-tile(ng-repeat="photo in photos" md-colspan="1")
+                                img.photo-preview(alt="{{ photo.uuid }}" ng-src="{{ photo.thumb_large_url }}" ng-click="deletePhoto(photo)" layout-fill)
+                hr
+                div.md-padding    
+                    p(ng-if='!files') {{ 'actions.choose_images' | translate }}
+                        +input('fileimage','assets.file','assets.file', null, null)
+                        //input(type="file" ng-model="files" name="file" accept="image/*" id="capture" ngf-capture="camera" ngf-select)
+                        //button(class='md-button button-positive' camera ng-model='myPicture') camera
+                hr
+                div(layout-gt-xs="row" layout-align="space-between start")
                     span(flex)
-                    +button("actions.next",'selectedIndex = selectedIndex + 1','md-raised',null,null)
-
-            md-tab(label='{{ "creator.tabs.location" | translate }}')
+                    +button_fab('actions.submit','submit()','md-warn','fa-check','location')
+                hr    
                 div.md-padding
                     small {{ "locations.help.location" | translate }}
                 div(layout="row" layout-xs="column" layout-padding)
@@ -43,12 +48,13 @@ div.update-form(layout="row" layout-xs="column" layout-wrap layout-fill)
                             span © OpenStreetMap contributors,&nbsp;
                                 a(href='http://www.openstreetmap.org/copyright', target='_blank') ODbL 1.0.
                 hr
-                div(layout="row" layout-align="start end")
-                    +button("actions.previous",'selectedIndex = selectedIndex - 1','md-raised',null,null)
-                    span(flex)
-                    +button("actions.next",'selectedIndex = selectedIndex + 1','md-raised',null,null)
-
-            md-tab(label='{{ "creator.tabs.details" | translate }}')
+                div.md-padding
+                    small {{ "locations.help.info" | translate }}
+                div.md-padding
+                    div()
+                        div(layout-gt-xs="row")
+                            +input('textarea','location.description','locations.description', null, null)
+                hr
                 div.md-padding
                     small {{ "locations.help.details" | translate }}
                 div(layout="row" layout-xs="column" layout-padding)
@@ -63,10 +69,10 @@ div.update-form(layout="row" layout-xs="column" layout-wrap layout-fill)
                         div(layout-gt-xs="row")
                             +input('checkbox','location.demolished','locations.demolished', '_sys.demolished', false)
                 hr
-                div(layout="row" layout-align="start end")
-                    +button("actions.previous",'selectedIndex = selectedIndex - 1','md-raised',null,null)
+                div(layout-gt-xs="row" layout-align="space-between start")
                     span(flex)
-                    +button("actions.next",'selectedIndex = selectedIndex + 1','md-raised',null,null)
+                    +button_fab('actions.submit','submit()','md-warn','fa-check','location')    
+                
 
             md-tab(ng-if='isAdmin' label='{{ "creator.tabs.admin" | translate }}')
                 div.md-padding
@@ -75,38 +81,3 @@ div.update-form(layout="row" layout-xs="column" layout-wrap layout-fill)
                     div(flex layout-padding)
                         div(layout-gt-xs="row")
                             +input('checkbox','location.hidden','locations.hidden', '_sys.hidden', null)
-                hr
-                div(layout="row" layout-align="start end")
-                    +button("actions.previous",'selectedIndex = selectedIndex - 1','md-raised',null,null)
-                    span(flex)
-                    +button("actions.next",'selectedIndex = selectedIndex + 1','md-raised',null,null)
-
-            md-tab(label='{{ "creator.tabs.preview" | translate }}')
-                div.md-padding
-                    p
-                        strong {{ "locations.title" | translate }} : {{location.title}}
-                    p(btf-markdown="location.description" ng-if="location.description")
-                    small
-                        p(ng-if="location.artworkSince") {{ 'locations.artwork_for' | translate }}: {{ location.artworkSince | translate }}
-                        p {{ 'locations.address' | translate }}: {{location.street || ('locations.unknown' | translate)}}
-                        p {{ 'locations.city' | translate }}: {{location.postcode}} {{location.city || ('locations.unknown' | translate)}}
-                        p {{ 'locations.degree' | translate }}: {{(location.degree | translate) || ('locations.unknown' | translate)}}
-                        p {{ 'locations.demolished' | translate }}: {{(location.demolished ? ('locations.demolished_yes' | translate) : null) || ('site.no' | translate)}}
-                        p {{ 'locations.artwork_type' | translate }}: {{(location.artworkType | translate) || ('locations.unknown' | translate)}}
-                    hr
-                    div(layout="row" ng-if="photos && photos.length > 0")
-                        div(flex)
-                            strong {{ "locations.location_photos" | translate }}:
-                            md-grid-list(md-cols="2"  md-gutter="4px" md-row-height="4:3")
-                                md-grid-tile(ng-repeat="photo in photos" md-colspan="1")
-                                    img.photo-preview(alt="{{ photo.uuid }}" ng-src="{{ photo.thumb_large_url }}" ng-click="deletePhoto(photo)" layout-fill)
-                        hr
-                    p(ng-if='!files') {{ 'actions.choose_images' | translate }}
-                        +input('fileimage','assets.file','assets.file', null, null)
-                        //input(type="file" ng-model="files" name="file" accept="image/*" id="capture" ngf-capture="camera" ngf-select)
-                        //button(class='md-button button-positive' camera ng-model='myPicture') camera
-                    hr
-                    div(layout-gt-xs="row" layout-align="space-between start")
-                        +button("actions.previous",'selectedIndex = selectedIndex - 1','md-raised',null,null)
-                        span(flex)
-                        +button_fab('actions.submit','submit()','md-warn','fa-check','location')

@@ -63,7 +63,7 @@ module.exports = {
         tabs: {
             admin: 'Admin',
             details: 'Details',
-            info: 'Info',
+            info: 'Add art work',
             location: 'Location',
             preview: 'Preview'
         }
@@ -120,10 +120,12 @@ module.exports = {
         },
         city: 'City',
         create_new: 'Submit art work',
-        degree: 'Degree of Emptiness',
+        degree: 'State of decomposition',
         degree_options: {
-            complete: 'Complete',
-            partial: 'Partial'
+            complete: 'well preserved ',
+            partial: 'weather-beaten',
+            sprayed: 'oversprayed',
+            buffed: 'buffed'
         },
         description: 'Description',
         demolished: 'Demolished',
@@ -135,8 +137,12 @@ module.exports = {
         demolition_rumor: 'Rumors of Demolition',
         demolition_rumor_yes: 'Yes',
         edit: 'Edit location',
-        artwork_for: 'Empty for',
+        artwork_for: 'Year of origin',
         artwork_since_options: {
+            before_2010: 'before 2010',
+            before_2000: 'before 2000',
+            before_1990: 'before 1990',
+            since_2011: 'since 2011',
             recently: 'just recently',
             min_five_years: 'at least 5 years',
             min_three_years: 'at least 3 years',
@@ -155,7 +161,8 @@ module.exports = {
             and: 'and'
         },
         help: {
-            info: 'Enter a descriptive title and a description for this location.',
+            info: 'Enter a description for this art work.',
+            photo: 'Upload a photo of this art work. Choose one or more photos from your computer. They will be shown here. By saving this entry they will be uploaded.',
             location: 'Enter an address and the map should update after a short moment. You can drag the marker on the map to update the address.',
             details: 'Fill out those details that you know about the location. If you do not know something, just leave it blank.',
             admin: 'Set this Asset to "Hidden" to prevent non-administrators from seeing it.'
