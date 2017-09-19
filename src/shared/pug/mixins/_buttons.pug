@@ -6,6 +6,7 @@ mixin button(TEXT, _ng_click, _class, icon, _ng_if, _ng_href)
 	class=_class
 	ng-click=_ng_click
 	aria-label=_i18n_field_key
+	title=_i18n_field_key
 	ng-if=_ng_if
 	ng-href=_ng_href
 	)
@@ -53,6 +54,7 @@ mixin button_fab(TEXT, _ng_click, _class, icon, _ng_if, _ng_href)
 	ng-click=_ng_click
 	aria-label=_i18n_field_key
 	ng-if=_ng_if
+	title=_i18n_field_key
 	)
 		md-icon.fa(class=icon)
 
