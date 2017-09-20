@@ -164,7 +164,7 @@ module.exports = {
             info: 'Enter a description for this art work.',
             photo: 'Upload a photo of this art work. Choose one or more photos from your computer. They will be shown here. By saving this entry they will be uploaded.',
             location: 'Enter an address and the map should update after a short moment. You can drag the marker on the map to update the address.',
-            details: 'Fill out those details that you know about the location. If you do not know something, just leave it blank.',
+            details: 'Fill out those details that you know about the art work. If you do not know something, just leave it blank.',
             admin: 'Set this Asset to "Hidden" to prevent non-administrators from seeing it.'
         },
         hidden: 'Hidden',
