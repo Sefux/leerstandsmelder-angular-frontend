@@ -332,7 +332,8 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                     PubSub.publish('alert',{type: 'error', message: 'GeoLocation is not supported by browser.'});
                 }
                 else if (errorCode === 1) {
-                    PubSub.publish('alert',{type: 'error', message: 'User either denied GeoLocation or waited for long to respond.'});
+                    //TODO: change for https 
+                    //PubSub.publish('alert',{type: 'error', message: 'User either denied GeoLocation or waited for long to respond.'});
                     
                 }
             }
