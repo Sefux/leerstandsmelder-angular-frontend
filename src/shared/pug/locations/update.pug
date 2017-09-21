@@ -49,6 +49,13 @@ div.update-form(layout="row" layout-xs="column" layout-wrap layout-fill)
                                 a(href='http://www.openstreetmap.org/copyright', target='_blank') ODbL 1.0.
                 hr
                 div.md-padding
+                    small {{ "locations.help.info" | translate }}
+                div.md-padding
+                    div()
+                        div(layout-gt-xs="row")
+                            +input('textarea','location.description','locations.description', null, null)
+                hr
+                div.md-padding
                     small {{ "locations.help.details" | translate }}
                 div(layout="row" layout-xs="column" layout-padding)
                     div(flex layout-padding)
