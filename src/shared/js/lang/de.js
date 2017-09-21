@@ -130,7 +130,7 @@ module.exports = {
             sprayed: 'übersprüht',
             buffed: 'gebuffed'
         },
-        demolished: 'Nicht mehr erhalten',
+        demolished: 'Zerstört',
         demolished_yes: 'Ja',
         demolition_options: {
             rumor: 'Gerüchte',
