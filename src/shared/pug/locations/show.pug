@@ -25,9 +25,8 @@ div(layout layout-xs="column" layout-wrap layout-fill)
             small(marked="location.description")
         hr
         small
+            p {{ 'locations.address' | translate }}: {{location.street || ('locations.unknown' | translate)}} {{location.postcode}} {{location.city || ('locations.unknown' | translate)}}
             p(ng-if="location.artworkSince") {{ 'locations.artwork_for' | translate }}: {{ location.artworkSince | translate }}
-            p {{ 'locations.address' | translate }}: {{location.street || ('locations.unknown' | translate)}}
-            p {{ 'locations.city' | translate }}: {{location.postcode}} {{location.city || ('locations.unknown' | translate)}}
             p {{ 'locations.degree' | translate }}: {{(location.degree | translate) || ('locations.unknown' | translate)}}
             p {{ 'locations.demolished' | translate }}: {{(location.demolished ? ('locations.demolished_yes' | translate) : null) || ('site.no' | translate)}} &nbsp;
             p {{ 'locations.artwork_type' | translate }}: {{(location.artworkType | translate) || ('locations.unknown' | translate)}}
