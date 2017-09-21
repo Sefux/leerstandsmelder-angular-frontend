@@ -5,7 +5,7 @@ var config = require('../../../../../config.json');
 
 var LocationsCreateController = function ($scope, $routeParams, apiService, authService, $q, $location, mapService,
                                           responseHandler, locationFormDefaults, regionService, GeolocationService, 
-                                          $mdDialog, $translate, CameraService) {
+                                          $mdDialog, $translate, CameraService, PubSub) {
     var changeTimer, lockUpdate;
     $scope.location = {};
     $scope.assets = {
@@ -46,6 +46,22 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
         $scope.showLatLng = false;
     };
 
+    $scope.$watch('files', function(files) {
+        if(files.length > 0) {    
+            var file = files[files.length-1];
+            EXIF.getData(file, function() {
+              var GPSLat = EXIF.getTag(this,"GPSLatitude");
+              var GPSLong = EXIF.getTag(this,"GPSLongitude");
+              if(GPSLat && GPSLat.length > 0 && GPSLong && GPSLong.length > 0 ) {
+                  var lat = GPSLat[0] + (GPSLat[1]/60) + (GPSLat[2]/3600);
+                  var long = GPSLong[0] + (GPSLong[1]/60) + (GPSLong[2]/3600);
+                  console.log('latlng',{lat: lat, lng: long});
+                  $scope.updateLocation({lat: lat, lng: long});
+                  PubSub.publish('alert',{type: 'success', message: $translate.instant('photos.gpsfromphoto')});
+              }
+            }); 
+         }  
+    });
     /*
         Watches the address fields for updates
         Updates the map on address changes
@@ -141,10 +157,10 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                 },
                 function (errorCode) {
                     if (errorCode === false) {
-                        alert('Camera is not supported by browser.');
+                        PubSub.publish('alert',{type: 'error', message: 'Camera is not supported by browser.'});
                     }
                     else if (errorCode === 1) {
-                        alert('User shit on camera or waited for long to respond.');
+                        PubSub.publish('alert',{type: 'error', message: 'User shit on camera or waited to long for a responds.'});
                     }
                 },options
             );
@@ -167,10 +183,10 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                 },
                 function (errorCode) {
                     if (errorCode === false) {
-                        alert('Camera is not supported by browser.');
+                        PubSub.publish('alert',{type: 'error', message: 'Camera is not supported by browser.'});
                     }
                     else if (errorCode === 1) {
-                        alert('User shit on camera or waited for long to respond.');
+                        PubSub.publish('alert',{type: 'error', message: 'User shit on camera or waited to long for a responds.'});
                     }
                 }
             );
@@ -313,10 +329,11 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
             },
             function (errorCode) {
                 if (errorCode === false) {
-                    alert('GeoLocation is not supported by browser.');
+                    PubSub.publish('alert',{type: 'error', message: 'GeoLocation is not supported by browser.'});
                 }
                 else if (errorCode === 1) {
-                    alert('User either denied GeoLocation or waited for long to respond.');
+                    PubSub.publish('alert',{type: 'error', message: 'User either denied GeoLocation or waited for long to respond.'});
+                    
                 }
             }
         );
@@ -325,6 +342,6 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
 
 LocationsCreateController.$inject = ['$scope', '$routeParams', 'apiService', 'authService', '$q', '$location',
     'mapService', 'responseHandler', 'locationFormDefaults', 'regionService','GeolocationService', '$mdDialog', 
-    '$translate', 'CameraService'];
+    '$translate', 'CameraService', 'PubSub'];
 
 module.exports = LocationsCreateController;

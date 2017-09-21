@@ -12,13 +12,18 @@ mixin media(field_type, width, height, clickaction)
 	div(class=field_type)
 		if field_type == 'image'
 
-			
-			img(
-			ng-repeat='file in files'
-			ngf-src="file"
-			ngf-size="{width: 80, height: 80, quality: 0.6}"
-			style=img_style
-			)
+			div(ng-repeat='file in files')
+				img(
+				ngf-src="file"
+				ngf-size="{width: 80, height: 80, quality: 0.6}"
+				style=img_style
+				)
+				p(ng-if="file.exifdata.GPSLatitude")
+					small GPS Daten: 
+					br
+					small Latitude: {{ file.exifdata.GPSLatitude }}
+					br
+					small Longitude: {{ file.exifdata.GPSLongitude }}
 		else if field_type == 'thumbnail'
 				
 				div(ng-repeat='file in files')

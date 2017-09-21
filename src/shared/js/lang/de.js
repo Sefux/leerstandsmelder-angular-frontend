@@ -104,7 +104,8 @@ module.exports = {
     photos: {
         remove_confirm_title: 'Bild löschen?',
         remove_confirm_body: 'Bist du dir wirklich ganz sicher das du das Bild löschen willst?',
-        remove_success: 'Das Bild wurde gelöscht'
+        remove_success: 'Das Bild wurde gelöscht',
+        gpsfromphoto: 'GPS Koordinaten wurden aus dem Foto übernommen.'
     },
     locations: {
         address: 'Adresse',
