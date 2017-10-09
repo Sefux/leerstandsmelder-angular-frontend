@@ -32,6 +32,11 @@ module.exports = {
         dashboard: 'Dashboard',
         menu: 'Menu'
     },
+    menu: {
+        admin: 'Administration',
+        map: 'Map',
+        user: 'User'
+    },
     asset: {
         file: 'Datei'
     },
@@ -109,15 +114,15 @@ module.exports = {
         address: 'Address',
         artwork_type: 'Art work type',
         artwork_type_options: {
-            mural: 'Pizza/Mural/Wandbild',
-            tag: 'OZ-Tag',
+            mural: 'Pizza/Mural/Wall painting',
+            tag: 'OZ tag',
             parole: 'Parole',
-            kringel: 'Kringel/Spirale',
+            kringel: 'Loop/spiral',
             piece: 'OZ-Piece',
             smiley: 'Smiley',
             for_oz: 'For OZ',
-            line: 'Linien/Striche/abstrakt einfarbig',
-            others: 'andere Tags / sonstiges'
+            line: 'Dottes/line/abstract one color',
+            others: 'other Tags'
         },
         city: 'City',
         create_new: 'Submit art work',

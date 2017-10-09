@@ -60,7 +60,8 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                     //add Cluster
                     var markers = L.markerClusterGroup({
                         polygonOptions: { stroke: true, weight: 1, color: '#999', opacity: 0.5 },
-                        removeOutsideVisibleBounds: true
+                        removeOutsideVisibleBounds: true,
+                        maxClusterRadius: 60
                     });
                 }
                 async.map(data, function (entry, cb) {

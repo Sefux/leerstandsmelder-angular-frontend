@@ -3,7 +3,7 @@ include ..//mixins/_buttons
 include ..//mixins/_layout
 include ..//mixins/_style
 
-div.scrollbar_fix(layout="row" layout-xs="column" layout-wrap layout-fill)
+div.scrollbar_fix(layout="row" layout-xs="column" layout-fill)
     #map.scrollbar_fix(lsm-map flex flex-gt-xs="65" layout-align='stretch' useCluster=true geosearch=0 urlbase='urlbase' center='mapcenter' zoom='zoom' locations='locations')
     div.scrollbar_fix(flex flex-gt-xs="35" layout-align='stretch')
         div(flex recent-locations region='region' page-size='10')

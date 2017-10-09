@@ -28,16 +28,16 @@ var LocationFormDefaultsService = function () {
             'locations.hidden_yes'
         ],
         artworkType: [
-            'locations.unknown',
-            'locations.artwork_type_options.mural',
-            'locations.artwork_type_options.tag',
-            'locations.artwork_type_options.parole',
-            'locations.artwork_type_options.kringel',
-            'locations.artwork_type_options.piece',
             'locations.artwork_type_options.smiley',
+            'locations.artwork_type_options.kringel',
+            'locations.artwork_type_options.tag',
+            'locations.artwork_type_options.others',
+            'locations.artwork_type_options.mural',
+            'locations.artwork_type_options.parole',
             'locations.artwork_type_options.for_oz',
+            'locations.artwork_type_options.piece',
             'locations.artwork_type_options.line',
-            'locations.artwork_type_options.others'
+            'locations.unknown',
         ],
         owner: [
             'locations.unknown',

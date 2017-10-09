@@ -33,6 +33,11 @@ module.exports = {
         dashboard: 'Dashboard',
         menu: 'Menü'
     },
+    menu: {
+        admin: 'Administration',
+        map: 'Karte',
+        user: 'Benutzer'
+    },
     assets: {
         file: 'Datei',
         choose_images: 'Foto auswählen'
@@ -118,8 +123,8 @@ module.exports = {
             piece: 'OZ-Piece',
             smiley: 'Smiley',
             for_oz: 'Für OZ',
-            line: 'Linien/Striche/abstrakt einfarbig',
-            others: 'andere Tags / sonstiges'
+            line: 'Punkte/Linien/abstrakt einfarbig',
+            others: 'andere Tags'
         },
         city: 'Stadt',
         create_new: 'Werk eintragen',
@@ -190,14 +195,14 @@ module.exports = {
             city: 'Stadt'
         },
         postcode: 'Postleitzahl',
-        recent_activity: 'Neueste Spots',
+        recent_activity: 'Neueste Fotos',
         remove_confirm_title: 'Spot löschen',
         remove_confirm_body: 'Diese Aktion kann nicht rückgängig gemacht werden. Bist Du sicher?',
         remove_success: 'Spot wurde gelöscht',
         search: 'Suchen',
         street: 'Straße',
         title: 'Titel',
-        unknown: 'Unbekannt'
+        unknown: 'unbekannt/sonstiges'
     },
     messages: {
         answer_message: 'Nachricht beantworten',
