@@ -142,7 +142,7 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                 );
             };
 
-            angular.element($window).ready(function () {
+        //angular.element($window).ready(function () {
                 if (attrs.selectMode) {
                     setupMap(true, false);
                     var marker = mapService.createMarker(null, {draggable: true, latlon: map.getCenter()});
@@ -184,7 +184,8 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                                 }, 500);
                             });
                         }
-                    });
+                    }, true);
+                    
                 }
                 scope.$watch(attrs.zoom, function () {
                     if (map && scope.$eval(attrs.zoom)) {
@@ -196,7 +197,7 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                         map.setView(scope.center, scope.zoom || 16);
                     }
                 });
-            });
+            //});
         }
     };
 };
