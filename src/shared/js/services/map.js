@@ -47,8 +47,8 @@ var MapService = function ($http, assetPath) {
         createMarker: function (data, config) {
             var marker;
             var icon = L.icon({
-                iconUrl: assetPath + 'images/marker-active.png',
-                iconRetinaUrl: assetPath + 'images/marker-active@2x.png',
+                iconUrl: assetPath + 'images/marker-active_andere.png',
+                iconRetinaUrl: assetPath + 'images/marker-active_andere@2x.png',
                 iconSize: [32, 44],
                 iconAnchor: [16, 43],
                 popupAnchor: [-3, -47]

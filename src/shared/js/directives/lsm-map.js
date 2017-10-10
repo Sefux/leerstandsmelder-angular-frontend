@@ -52,8 +52,8 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                     iconRetinaUrl: assetPath + 'images/marker-active_andere@2x.png'
                 };
                 var iconActive = L.icon(icon);
-                icon.iconUrl = assetPath + 'images/marker-inactive.png';
-                icon.iconRetinaUrl = assetPath + 'images/marker-inactive@2x.png';
+                icon.iconUrl = assetPath + 'images/marker-inactive_andere.png';
+                icon.iconRetinaUrl = assetPath + 'images/marker-inactive_andere@2x.png';
                 var iconInactive = L.icon(icon);
 
                 if(attrs.usecluster) {
@@ -67,13 +67,18 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                 async.map(data, function (entry, cb) {
                     if (entry.lonlat) {
                         if(entry.artworkType !== undefined && getIcon[entry.artworkType] !== undefined) {
-                            icon.iconUrl = assetPath + 'images/marker-active'+ getIcon[entry.artworkType] +'.png';
-                            icon.iconRetinaUrl = assetPath + 'images/marker-active'+ getIcon[entry.artworkType] +'@2x.png';
-                            iconActive = L.icon(icon);
+                            if(entry.active === false || entry.demolished === true) {
+                                icon.iconUrl = assetPath + 'images/marker-inactive'+ getIcon[entry.artworkType] +'.png';
+                                icon.iconRetinaUrl = assetPath + 'images/marker-inactive'+ getIcon[entry.artworkType] +'@2x.png';
+                            } else {
+                                icon.iconUrl = assetPath + 'images/marker-active'+ getIcon[entry.artworkType] +'.png';
+                                icon.iconRetinaUrl = assetPath + 'images/marker-active'+ getIcon[entry.artworkType] +'@2x.png';
+                            }
+                            var showIcon = L.icon(icon); 
                         }
                         
                         var options = {
-                            icon: entry.active === false || entry.demolished === true ? iconInactive : iconActive,
+                            icon: showIcon,
                             data: entry,
                             draggable: false
                         };
