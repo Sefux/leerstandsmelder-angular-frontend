@@ -55,6 +55,8 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                 icon.iconUrl = assetPath + 'images/marker-inactive_andere.png';
                 icon.iconRetinaUrl = assetPath + 'images/marker-inactive_andere@2x.png';
                 var iconInactive = L.icon(icon);
+                
+                var showIcon = L.icon(icon); 
 
                 if(attrs.usecluster) {
                     //add Cluster
@@ -74,7 +76,7 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                                 icon.iconUrl = assetPath + 'images/marker-active'+ getIcon[entry.artworkType] +'.png';
                                 icon.iconRetinaUrl = assetPath + 'images/marker-active'+ getIcon[entry.artworkType] +'@2x.png';
                             }
-                            var showIcon = L.icon(icon); 
+                            showIcon = L.icon(icon); 
                         }
                         
                         var options = {
@@ -88,7 +90,7 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                             var data = e.target.options.data;
                             var popup = "";
                             popup += '<div>';
-                            if (data.photo.thumb_square_url) {
+                            if (data.photo && data.photo.thumb_square_url) {
                                 popup += '<img class="popup_thumb" src="'+data.photo.thumb_square_url+'" width="80px" height="80px" style="width:80px;height:80px;padding-right:1em" flex/>';
                             }
                             popup += '<div>';
