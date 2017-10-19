@@ -24,7 +24,7 @@ var LocationsRegionListController = function ($scope, $q, $location, $mdDialog, 
         }
         },
         {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
-           return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " ng-click="clickDeleteHandler(\'' + params.value + '\',' + params.rowIndex + ')" aria-label="' + $filter('translate')("actions.delete") + '"><md-icon md-font-icon="fa-trash" class="fa fa-trash"></md-icon></a>';
+           return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " ng-click="clickDeleteHandler(\'' + params.value + '\')" aria-label="' + $filter('translate')("actions.delete") + '"><md-icon md-font-icon="fa-trash" class="fa fa-trash"></md-icon></a>';
         }
         }
     ];
@@ -103,7 +103,7 @@ var LocationsRegionListController = function ($scope, $q, $location, $mdDialog, 
         responseHandler.handleResponse(err, deferred);
     });
     
-    $scope.clickDeleteHandler = function (uuid, index) {
+    $scope.clickDeleteHandler = function (uuid) {
         var confirm = $mdDialog.confirm()
             .title($translate.instant('locations.remove_confirm_title'))
             .textContent($translate.instant('locations.remove_confirm_body'))
