@@ -1,19 +1,21 @@
 include ..//mixins/_style
 
-div(flex layout="column" layout-align="start center" layout-fill="layout-fill" layout-padding="layout-padding" class="layout-fill layout-padding layout-align-start-center layout-column")
-    md-content(class="md-padding layout-column layout-fill list" layout-fill flex)
-        md-card(layout-xs="row" layout="column" class="md-padding" layout-fill flex)
-            div(flex)
-              +headline('{{ page.list_title | translate }} {{ currentRegion }}')
-            .main-fab(flex)
-                md-button(class="md-fab md-accent" href="{{ urlbase }}locations/create") +
-            md-input-container()
-                md-icon.fa.fa-search()
-                input(
-                ng-model="filterStr"
-                ng-change="filterGrid()"
-                style=""
-                placeholder="Filter..."
-                type="text")
-            div(layout='column' layout-align="start center" layout-fill  flex style="height:100%; border-bottom: 1px solid #aaa;")
-                div(ag-grid="gridOptions" class="ag-material" style="height:100%; min-height: 100%; min-width: 200px; width: 100%;")
+div.list(flex layout="column" layout-align="start center"  layout-padding="layout-padding")
+    md-card(layout="column" layout-fill  layout-padding flex)
+        md-card-header
+            md-card-header-text(layout="row" layout-xs="column")
+                div(flex)
+                  +headline('{{ page.list_title | translate }} {{ currentRegion }}')
+                .main-fab(flex)
+                    md-input-container()
+                        md-icon.fa.fa-search()
+                        input(
+                        ng-model="filterStr"
+                        ng-change="filterGrid()"
+                        style=""
+                        placeholder="Filter..."
+                        type="text")
+                    md-button(class="md-fab md-accent" href="{{ urlbase }}locations/create") +
+        md-card-content(layout='column' layout-align="start center" class="layout-fille" layout-fill  flex)
+            div(layout='column' layout-align="start center" layout-fill  flex style=" position: relative; border-bottom: 1px solid #aaa; overflow:hidden;")
+                div(ag-grid="gridOptions" class="ag-material" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;")
