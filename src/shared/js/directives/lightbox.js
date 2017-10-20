@@ -1,26 +1,22 @@
 'use strict';
 
-var LightboxDirective = function ($mdDialog) {
+var LightboxDirective = function ($mdDialog, assetPath, $translate) {
     return {
+        scope: true,
         link: function (scope, elem, attrs) {
             elem.addClass('image-click');
-            elem.on('click', function () {
-                var dialog = $mdDialog.confirm({
-                    templateUrl: '/partials/_lightbox.html',
-                    clickOutsideToClose: true,
-                    controller: function controller(scope, $mdDialog) {
-                        scope.image = attrs.src;
-                        scope.cancel = function () {
-                            $mdDialog.cancel();
-                        };
-                    }
-                });
-                $mdDialog.show(dialog);
+            elem.bind('click', function () {
+                $mdDialog.show($mdDialog.confirm()
+                    .clickOutsideToClose(true)
+                    .htmlContent('<img class="spot-image" src="'+ attrs.ngOriginalUrl +'" style="width:100%" />')
+                    .hasBackdrop(false)
+                    .ariaLabel('.title')
+                    .ok($translate.instant('actions.close')));
             });
         }
     };
 };
 
-LightboxDirective.$inject = ['$mdDialog'];
+LightboxDirective.$inject = ['$mdDialog', 'assetPath', '$translate'];
 
 module.exports = LightboxDirective;

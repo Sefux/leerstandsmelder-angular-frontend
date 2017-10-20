@@ -22,7 +22,8 @@ module.exports = {
         submit: 'Submit',
         take_picture: 'Take a Picture',
         use_slider: 'Use the slider',
-        abort: 'Abort'
+        abort: 'Abort',
+        close: 'Schliessen'
     },
     table: {
         rowsPerPage: 'Rows per page',

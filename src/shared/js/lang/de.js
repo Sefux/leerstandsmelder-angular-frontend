@@ -22,7 +22,8 @@ module.exports = {
         submit: 'Absenden',
         take_picture: 'Mach ein Foto',
         use_slider: 'Benutze den Schieberegler',
-        abort: 'Abbrechen'
+        abort: 'Abbrechen',
+        close: 'Schliessen'
     },
     table: {
         rowsPerPage: 'Einträge pro Seite',
