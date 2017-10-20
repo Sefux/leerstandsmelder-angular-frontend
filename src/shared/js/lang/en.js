@@ -105,6 +105,7 @@ module.exports = {
         remove_success: 'Image has been deleted.'
     },
     locations: {
+        manage_locations: 'Manage locations',
         address: 'Address',
         building_type: 'Building Type',
         building_type_options: {

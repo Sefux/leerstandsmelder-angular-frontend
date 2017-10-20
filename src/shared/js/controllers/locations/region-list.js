@@ -10,10 +10,10 @@ var LocationsRegionListController = function ($scope, $q, $location, $mdDialog, 
     $scope.urlbase = configuration.urlbase || '/';
                                                   
     var columnDefs = [
-        {headerName: $filter('translate')("locations.title"), field: "title", width: 120, sort: 'asc' },
+        {headerName: $filter('translate')("locations.title"), field: "title", width: 120 },
         {headerName: $filter('translate')("locations.street"), field: "street", width: 90},
         {headerName: $filter('translate')("author.created"), field: "created", width: 90, cellRenderer: dateFormatter},
-        {headerName: $filter('translate')("author.updated"), field: "updated", width: 90, cellRenderer: dateFormatter},
+        {headerName: $filter('translate')("author.updated"), field: "updated", width: 90, cellRenderer: dateFormatter, sort: 'desc'},
         {headerName: $filter('translate')("locations.hidden"), field: "hidden", width: 90, cellRenderer: booleanFormatter }, //
         {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
            return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase + (params.data.region ? params.data.region.slug : params.data.region_uuid)+ '/' + (params.data.slug || params.data.uuid) + '" aria-label="' + $filter('translate')("actions.view") + '"><md-icon md-font-icon="fa-eye" class="fa fa-eye"></md-icon></a>';
@@ -25,6 +25,10 @@ var LocationsRegionListController = function ($scope, $q, $location, $mdDialog, 
         },
         {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
            return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " ng-click="clickDeleteHandler(\'' + params.value + '\')" aria-label="' + $filter('translate')("actions.delete") + '"><md-icon md-font-icon="fa-trash" class="fa fa-trash"></md-icon></a>';
+        }
+        },
+        {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
+           return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " ng-click="commentHandler(\'' + params.value + '\',' + params.rowIndex + ')" aria-label="' + $filter('translate')("actions.delete") + '"><md-icon md-font-icon="fa-trash" class="fa fa-trash"></md-icon></a>';
         }
         }
     ];
@@ -102,6 +106,9 @@ var LocationsRegionListController = function ($scope, $q, $location, $mdDialog, 
         }
         responseHandler.handleResponse(err, deferred);
     });
+    $scope.commentHandler = function (uuid) {
+        
+    };
     
     $scope.clickDeleteHandler = function (uuid) {
         var confirm = $mdDialog.confirm()

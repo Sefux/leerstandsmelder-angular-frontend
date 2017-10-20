@@ -105,6 +105,7 @@ module.exports = {
         remove_success: 'Das Bild wurde gelöscht'
     },
     locations: {
+        manage_locations: 'Leerstände verwalten',
         address: 'Adresse',
         building_type: 'Gebäudeart',
         building_type_options: {

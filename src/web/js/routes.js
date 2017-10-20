@@ -103,6 +103,11 @@ module.exports = [
         templateUrl: '/comments/update.html',
         controller: 'Comments.Update'
     },
+    {
+        route: '/admin/regions/:region_uuid/comments',
+        templateUrl: '/comments/list.html',
+        controller: 'Comments.List'
+    },
 
     //
     //
