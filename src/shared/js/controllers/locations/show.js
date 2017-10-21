@@ -9,7 +9,7 @@ var LocationsShowController = function($scope, regionService, $q, $routeParams,
     $scope.urlbase = '/';
     async.waterfall([
         function (cb) {
-            apiService('locations').actions.find($routeParams.uuid, cb);
+            apiService('locations').actions.find($routeParams.uuid, cb, function(){}, true);
         },
         function (location, cb) {
             if (!location) {
@@ -26,7 +26,7 @@ var LocationsShowController = function($scope, regionService, $q, $routeParams,
             regionService.setCurrentRegion(location.region_uuid, cb);
         },
         function (cb) {
-            apiService('locations/' + $scope.location.uuid + '/photos').actions.all(cb);
+            apiService('locations/' + $scope.location.uuid + '/photos').actions.all(cb, function(){}, true);
         },
         function (photos, cb) {
             var res = photos.results || photos;

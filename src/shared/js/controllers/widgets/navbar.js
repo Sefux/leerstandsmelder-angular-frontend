@@ -98,7 +98,7 @@ var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$
         });
         $scope.regions = self.repos;
 
-    });
+    }, function(){}, true);
 
     $scope.change = function() {
         $location.path(($scope.currentRegion.slug || $scope.currentRegion.uuid)); //

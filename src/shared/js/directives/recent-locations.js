@@ -18,7 +18,7 @@ var RecentLocationsDirective = function (apiService, assetPath, configuration) {
                         scope.$applyAsync(function () {
                             scope.locations =  locations.results || locations;
                         });
-                    });
+                    }, function(){}, true);
                 }
             });
         }

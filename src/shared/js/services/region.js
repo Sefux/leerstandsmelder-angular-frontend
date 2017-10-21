@@ -19,7 +19,7 @@ var RegionService = function (apiService, $rootScope) {
                         console.log('error getting region for ' + uuid + ': ' + (err ? err.message : null));
                     }
                     cb();
-                });
+                }, function() {}, true);
             } else {
                 cb();
             }

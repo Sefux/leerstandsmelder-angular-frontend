@@ -22,7 +22,7 @@ var RegionsShow = function ($scope, regionService, $q, $routeParams, apiService,
             regionService.setCurrentRegion(region.uuid, cb);
         },
         function (cb) {
-            apiService('regions/' + $scope.region.uuid + '/locations').actions.all(cb);
+            apiService('regions/' + $scope.region.uuid + '/locations').actions.all(cb, function() {}, true);
         },
         function (locations, cb) {
             $scope.locations = locations.results || locations;

@@ -46,7 +46,7 @@ var CommentsDirective = function (apiService, responseHandler, $q, assetPath) {
                                 scope.comments = comments;
                             }
                         });
-                    });
+                    }, function(){}, true);
                 }
             });
         }
