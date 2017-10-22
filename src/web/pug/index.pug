@@ -35,8 +35,8 @@ html(lang='en', ng-app='leerstandsmelder')
                 a(href='/site/developers') {{ 'site.subnav.developers' | translate }}
                 span &nbsp;&nbsp;
                 a(href='/site/press') {{ 'site.subnav.press' | translate }}
-
         scripts
-            script(src='/js/leerstandsmelder-apiclient-web.js?build=17102201')
-            script(src='/js/leerstandsmelder-angular-dependencies.min.js?build=17102201')
-            script(src='/js/leerstandsmelder-angular-frontend.min.js?build=17102201')
+            include ../../shared/pug/partials/_js_dependencies
+            - var build = '?build=' + Date.now().toString()
+            script(src='/js/leerstandsmelder-apiclient-web.js' + build)
+            script(src='/js/leerstandsmelder-angular-frontend.min.js' + build)

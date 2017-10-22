@@ -28,20 +28,21 @@ The mobile UI is built on [Apache Cordova](https://cordova.apache.org/) and is s
 
 ### Requirements ###
 
-[NodeJS](https://nodejs.org), [Bower](https://bower.io/) and [Gulp](http://gulpjs.com/) need to be installed. In order to build the mobile app you additionally need to install the [Cordova CLI tool](https://cordova.apache.org/#getstarted). To be able to work on the mobile UI in the browser you can install the [Ripple Emulator for Google Chrome](https://chrome.google.com/webstore/detail/ripple-emulator-beta/geelfhphabnejjhdalkjhgipohgpdnoc) (see below).
+[NodeJS](https://nodejs.org) and [Gulp](http://gulpjs.com/) need to be installed. In order to build the mobile app you additionally need to install the [Cordova CLI tool](https://cordova.apache.org/#getstarted). To be able to work on the mobile UI in the browser you can install the [Ripple Emulator for Google Chrome](https://chrome.google.com/webstore/detail/ripple-emulator-beta/geelfhphabnejjhdalkjhgipohgpdnoc) (see below).
 
 ### Setup ###
 
-Copy ``config.default.json`` to ``config.json`` and update if needed. Then, from the repo's root run:
+Clone the repo and run:
 
 ```shell
 npm install
-bower install
 ```
 
 ### Build ###
 
 You can build both the browser and mobile user interfaces in ``dist/`` by running ``gulp build``.
+
+Copy ``config.default.json`` to ``config.json`` and update if needed.
 
 To build only one of both platforms run ``gulp build --env=web`` or ``gulp build --env=mobile``. Using ``gulp release`` does a clean build and is recommended before deployment.
 

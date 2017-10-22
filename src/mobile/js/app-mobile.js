@@ -18,7 +18,7 @@ var agGrid = require('ag-grid');
         require('angular-translate-loader-static-files'),
         require('ng-file-upload'),
         require('angular-busy2'),
-        require('angular-material'),
+        'ngMaterial',
         require('angular-aria'),
         require('angular-cookies'),
         require('angular-route'),

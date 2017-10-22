@@ -89,38 +89,6 @@ function serveApp(config) {
 
 //
 //
-// Dependencies
-
-gulp.task('deps', [
-    'deps:js'
-]);
-
-gulp.task('deps:js', function (env) {
-    return Promise.map(getPathsForEnv(env, 'js/'), function (dest) {
-        var deps = [
-          'bower_components/showdown/compressed/Showdown.min.js',
-          'node_modules/marked/marked.min.js',
-          'bower_components/codemirror/lib/codemirror.js',
-          'bower_components/codemirror-spell-checker/dist/spell-checker.min.js',
-          'bower_components/simplemde/dist/simplemde.min.js',
-          'bower_components/bluebird/js/browser/bluebird.min.js',
-          'bower_components/leaflet/dist/leaflet.js',
-          'bower_components/leaflet-minimap/dist/Control.MiniMap.min.js',
-          'bower_components/airbrake-js-client/dist/client.min.js',
-          'node_modules/leaflet.markercluster/dist/leaflet.markercluster.js'
-        ];
-        var stream = gulp.src(filesExist(deps))
-            .pipe(concat('leerstandsmelder-angular-dependencies.min.js'))
-            .pipe(header(banner, {pkg: pkg})).pipe(uglify());
-        stream.pipe(gulp.dest(dest));
-        return streamToPromise(stream);
-    });
-});
-
-
-
-//
-//
 // JS
 
 gulp.task('js', function (env) {
@@ -269,7 +237,20 @@ gulp.task('assets', function (env) {
         return Promise.resolve()
             .then(function () {
                 var stream = gulp.src(filesExist([
-                    './bower_components/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.js'
+                  'node_modules/angular/angular.min.js',
+                  'node_modules/ng-cordova/dist/ng-cordova.min.js',
+                  'node_modules/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.js',
+                  'node_modules/angular/angular.min.js',
+                  'node_modules/ag-grid/dist/ag-grid.min.js',
+                  'node_modules/showdown/dist/showdown.min.js',
+                  'node_modules/marked/marked.min.js',
+                  'node_modules/codemirror/lib/codemirror.js',
+                  'node_modules/codemirror-spell-checker/dist/spell-checker.min.js',
+                  'node_modules/simplemde/dist/simplemde.min.js',
+                  'node_modules/bluebird/js/browser/bluebird.min.js',
+                  'node_modules/leaflet/dist/leaflet.js',
+                  'node_modules/leaflet-minimap/dist/Control.MiniMap.min.js',
+                  'node_modules/leaflet.markercluster/dist/leaflet.markercluster.js'
                 ]));
                 stream.pipe(gulp.dest(destBase + 'js/'));
                 return streamToPromise(stream);
@@ -277,15 +258,15 @@ gulp.task('assets', function (env) {
             .then(function () {
                 var stream = gulp.src(filesExist([
                     './assets/images/**/*.*',
-                    './bower_components/leaflet/dist/images/*',
-                    './bower_components/leaflet-minimap/dist/images/*'
+                    './node_modules/leaflet/dist/images/*',
+                    './node_modules/leaflet-minimap/dist/images/*'
                 ]));
                 stream.pipe(gulp.dest(destBase + 'images/'));
                 return streamToPromise(stream);
             })
             .then(function () {
                 var stream = gulp.src(filesExist([
-                    './bower_components/font-awesome/fonts/*',
+                    './node_modules/font-awesome/fonts/*',
                     './assets/fonts/*'
                 ]));
                 stream.pipe(gulp.dest(destBase + 'fonts/'));
@@ -389,12 +370,12 @@ gulp.task('release', [
 });
 
 gulp.task('build', [
-    'deps',
     'assets',
     'js',
     'css',
     'html'
 ]);
+
 
 // FIXME: build only works when cordova dir is removed, also runs through entire build for each update
 

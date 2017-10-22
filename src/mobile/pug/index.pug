@@ -25,7 +25,9 @@ html(lang='en')
         md-content.main_container.scrollbar_fix(role='main' flex layout="row" layout-xs="row" layout-wrap layout-fill layout-align="start stretch" ng-view cg-busy="{promise:promise, message:'Loading...', templateUrl:'partials/_busy.html',minDuration:0}")
 
         scripts
-            script(src='js/leerstandsmelder-apiclient-web.js?build=17102201')
-            script(src='js/leerstandsmelder-angular-dependencies.min.js?build=17102202')
-            script(src='js/leerstandsmelder-angular-frontend.min.js?build=17102202')
+            include ../../shared/pug/partials/_js_dependencies
+            - var build = '?build=' + Date.now().toString()
+            script(src='/js/ng-cordova.min.js')
+            script(src='/js/leerstandsmelder-apiclient-web.js' + build)
+            script(src='/js/leerstandsmelder-angular-frontend.min.js' + build)
             script(src='cordova.js')
