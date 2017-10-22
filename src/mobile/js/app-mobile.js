@@ -4,7 +4,10 @@ var lang_de = require('../../shared/js/lang/de'),
     lang_en = require('../../shared/js/lang/en'),
     routes = require('./routes'),
     angular = require('angular');
-    var agGrid = require("ag-grid");
+
+require('ng-cordova')
+
+var agGrid = require('ag-grid');
     agGrid.initialiseAgGridWithAngular1(angular);
     var app = angular.module('leerstandsmelder', [
         require('angular-animate'),
@@ -21,7 +24,7 @@ var lang_de = require('../../shared/js/lang/de'),
         require('angular-route'),
         require('angular-sanitize'),
         require('angular-marked'),
-        "agGrid",
+        'agGrid',
         'ngCordova'
     ]);
 
