@@ -18,7 +18,7 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
             selectMarker: '='
         },
         link: function (scope, element, attrs) {
-            var map, leafletView, markers = [],
+            var map, markers = [],
                 customMarker = L.Marker.extend({
                     options: {
                         data: null
@@ -45,7 +45,7 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
 
                 if(attrs.usecluster) {
                     //add Cluster
-                    var markers = L.markerClusterGroup({
+                    markers = L.markerClusterGroup({
                         polygonOptions: { stroke: true, weight: 1, color: '#999', opacity: 0.5 },
                         removeOutsideVisibleBounds: true
                     });

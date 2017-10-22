@@ -106,7 +106,7 @@ var LocationsRegionListController = function ($scope, $q, $location, $mdDialog, 
         }
         responseHandler.handleResponse(err, deferred);
     });
-    $scope.commentHandler = function (uuid) {
+    $scope.commentHandler = function (/* uuid */) {
         
     };
     
@@ -126,7 +126,7 @@ var LocationsRegionListController = function ($scope, $q, $location, $mdDialog, 
                     success: 'locations.remove_success'
                 };
                 if (responseHandler.handleResponse(err, deferred, msgs)) {
-                    var res = $scope.gridOptions.api.updateRowData({remove: [{'uuid':uuid}]});
+                    $scope.gridOptions.api.updateRowData({remove: [{'uuid':uuid}]});
                 }
             });
         });

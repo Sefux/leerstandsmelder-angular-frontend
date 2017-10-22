@@ -88,8 +88,6 @@ var LsmUserCardListDirective = function ($q, apiService, assetPath, $translate) 
             scope.editClick = function (row) {
                 if (typeof scope.clickEditHandler === 'function') {
                     scope.clickEditHandler(row.rowId);
-                } else {
-
                 }
             };
             scope.showClick = function (row) {

@@ -1,7 +1,6 @@
 'use strict';
 
 var async = require('async');
-var config = require('../../../../../config.json');
 
 var LocationsCreateController = function ($scope, $routeParams, apiService, authService, $q, $location, mapService,
                                           responseHandler, locationFormDefaults, regionService, GeolocationService, 
@@ -122,7 +121,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
     $scope.getPicture = function(type) {
         
         var options = {};
-        if(type == 'library') { //TODO: refactor: needs pass parameter to service???
+        if(type === 'library') { //TODO: refactor: needs pass parameter to service???
             //options.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
             CameraService.getLibrary(options).then(
                 function (imageData) { 
@@ -176,22 +175,22 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
             );
         }
         
-    }
+    };
 
     $scope.abort = function () {
         $location.path('/' + ($scope.location.region_slug || $scope.location.region_uuid) + '/' +
             $scope.location.slug);
-    }
+    };
     
     $scope.promiseShow = function () {
         var deferred = $q.defer();
         $scope.promise = deferred.promise;
-        
-    }
+    };
+
     $scope.promiseHide = function () {
-        var deferred = $q.defer();
+        // var deferred = $q.defer();
         $scope.promise.resolve();
-    }
+    };
 
     /*
         Submit the new location

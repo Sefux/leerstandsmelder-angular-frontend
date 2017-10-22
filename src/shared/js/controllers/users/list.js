@@ -82,7 +82,9 @@ var UsersListController = function ($scope, apiService, responseHandler, $q, $fi
             $scope.gridOptions.api.sizeColumnsToFit();
             $scope.query.total = results.total;
             deferred.resolve();
-        } else deferred.reject(err);
+        } else {
+            deferred.reject(err);
+        }
     });
 
 

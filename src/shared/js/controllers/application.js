@@ -4,7 +4,7 @@ var ApplicationController = function ($scope, $rootScope, $translate, $location,
     
     //We’re not actually assigning the currentUser object, we’re merely initializing the property on the scope so the currentUser can later be accessed throughout the application.
     $scope.userSession = null;
-    $scope.api_key = null
+    $scope.api_key = null;
     
     $scope.setUserSession = function (user) {
         $scope.userSession = user;
@@ -16,7 +16,7 @@ var ApplicationController = function ($scope, $rootScope, $translate, $location,
     //general helper functions
     $scope.back = function() {
         $window.history.back();
-    }
+    };
 
     
 

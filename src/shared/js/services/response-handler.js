@@ -27,7 +27,7 @@ var ResponseHandlerService = function ($translate, PubSub, errorReporter, $locat
                         PubSub.publish('alert', {type: 'error', message: $translate.instant(err.message)});
                     } else {
                         errorReporter.notify(err);
-                        apiService('ping').actions.ping(function (ping_err, ping_results) {
+                        apiService('ping').actions.ping(function (err, results) {
                             if (!err && results) {
                                 // some other unknown error appeared
                                 PubSub.publish('alert', {type: 'error', delay: 0, message: $translate.instant('errors.unknown') + ' Code ' + err.code});

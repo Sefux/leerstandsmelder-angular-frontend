@@ -1,6 +1,6 @@
 'use strict';
 
-var PostsListController = function ($scope, $q, apiService, responseHandler, $location,  configuration, $filter, $route) {
+var PostsListController = function ($scope, $q, apiService, responseHandler, $location,  configuration, $filter) {
     $scope.urlbase = configuration.urlbase || '/';
     $scope.settings = {
         pagesize: 25000,
@@ -71,6 +71,6 @@ var PostsListController = function ($scope, $q, apiService, responseHandler, $lo
 
 };
 
-PostsListController.$inject = ['$scope', '$q', 'apiService', 'responseHandler', '$location', 'configuration', '$filter', '$route'];
+PostsListController.$inject = ['$scope', '$q', 'apiService', 'responseHandler', '$location', 'configuration', '$filter'];
 
 module.exports = PostsListController;

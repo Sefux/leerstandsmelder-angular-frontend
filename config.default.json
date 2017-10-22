@@ -2,16 +2,12 @@
   "global": {
     "serve_web_ui_port": 9090,
     "serve_mobile_ui_port": 9292,
-    "api_url": "https://dev-api.leerstandsmelder.de",
-    "airbrake": {
-      "project_id": null,
-      "project_key": null
-    }
+    "api_url": "https://api.leerstandsmelder.de"
   },
   "author": {
     "name": "Verein Gängeviertel e.V.",
     "email": "hamburg@leerstandsmelder.de",
-    "url": "https://leerstandsmelder.de"
+    "url": "https://www.leerstandsmelder.de"
   },
   "android": {
     "app_name": "Leerstandsmelder",

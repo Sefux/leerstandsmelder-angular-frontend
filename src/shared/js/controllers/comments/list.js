@@ -18,20 +18,20 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
         {headerName: $filter('translate')("author.updated"), field: "updated", width: 90, cellRenderer: dateFormatter, sort: 'desc'},
         {headerName: $filter('translate')("locations.hidden"), field: "hidden", width: 90, cellRenderer: booleanFormatter }, //
         {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
-            if(params.node.data && !params.node.data['user_uuid']) {
+            if(params.node.data && !params.node.data.user_uuid) {
                 return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase +  'locations/' + params.value + '" aria-label="' + $filter('translate')("actions.edit") + '"><md-icon md-font-icon="fa-eye" class="fa fa-eye"></md-icon></a>';
             } else { return '';}
            
         }
         },
         {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
-            if(params.node.data && params.node.data['user_uuid']) {
+            if(params.node.data && params.node.data.user_uuid) {
                 return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase + 'admin/comments/' + params.value + '" aria-label="{{ \'actions.edit\' | translate }}"><md-icon md-font-icon="fa-pencil" class="fa fa-pencil"></md-icon></a>';
             } else { return '';}
         }
         },
         {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
-            if(params.node.data && params.node.data['user_uuid']) {
+            if(params.node.data && params.node.data.user_uuid) {
                 return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " ng-click="clickDeleteHandler(\'' + params.value + '\')" aria-label="' + $filter('translate')("actions.delete") + '"><md-icon md-font-icon="fa-trash" class="fa fa-trash"></md-icon></a>';
             } else { return '';}
         }
@@ -147,7 +147,7 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
                     success: 'comments.remove_success'
                 };
                 if (responseHandler.handleResponse(err, deferred, msgs)) {
-                    var res = $scope.gridOptions.api.updateRowData({remove: [{'uuid':uuid}]});
+                    $scope.gridOptions.api.updateRowData({remove: [{'uuid':uuid}]});
                 }
             });
         });

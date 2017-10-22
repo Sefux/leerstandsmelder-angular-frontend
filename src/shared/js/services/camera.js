@@ -1,6 +1,6 @@
 'use strict';
 
-var CameraService = function ($rootScope, $q) {
+var CameraService = function () {
     return {
         getPicture: function() {
             return '';
@@ -8,6 +8,6 @@ var CameraService = function ($rootScope, $q) {
     };
 };
 
-CameraService.$inject = ['$rootScope', '$q'];
+CameraService.$inject = [];
 
 module.exports = CameraService;
