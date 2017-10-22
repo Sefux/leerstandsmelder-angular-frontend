@@ -97,7 +97,6 @@ gulp.task('deps', [
 gulp.task('deps:js', function (env) {
     return Promise.map(getPathsForEnv(env, 'js/'), function (dest) {
         var deps = [
-          'bower_components/lodash/lodash.min.js',
           'node_modules/jquery/dist/jquery.min.js',
           'bower_components/showdown/compressed/Showdown.min.js',
           'node_modules/marked/marked.min.js',
