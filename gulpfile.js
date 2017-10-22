@@ -92,13 +92,13 @@ function serveApp(config) {
 // Dependencies
 
 gulp.task('deps', [
-    'deps:js'
+    'deps:js',
+    'deps:js:mobile'
 ]);
 
 gulp.task('deps:js', function (env) {
     return Promise.map(getPathsForEnv(env, 'js/'), function (dest) {
         var stream = gulp.src([
-                'bower_components/angular/angular.min.js',
                 'bower_components/lodash/lodash.min.js',
                 'node_modules/jquery/dist/jquery.min.js',
                 'bower_components/showdown/compressed/Showdown.min.js',
@@ -112,14 +112,25 @@ gulp.task('deps:js', function (env) {
                 'bower_components/L.GeoSearch/src/js/l.control.geosearch.js',
                 'bower_components/L.GeoSearch/src/js/l.geosearch.provider.openstreetmap.js',
                 'bower_components/airbrake-js-client/dist/client.min.js',
-	            'node_modules/leaflet.markercluster/dist/leaflet.markercluster.js',
-                'bower_components/ngCordova/dist/ng-cordova.min.js'
+                'node_modules/leaflet.markercluster/dist/leaflet.markercluster.js'
             ])
             .pipe(concat('leerstandsmelder-angular-dependencies.min.js'))
             .pipe(header(banner, {pkg: pkg})).pipe(uglify());
         stream.pipe(gulp.dest(dest));
         return streamToPromise(stream);
     });
+});
+
+gulp.task('deps:js:mobile', function (env) {
+  return Promise.map(getPathsForEnv(env, 'js/'), function (dest) {
+    var stream = gulp.src([
+      'bower_components/ngCordova/dist/ng-cordova.min.js'
+    ])
+      .pipe(concat('leerstandsmelder-angular-dependencies-mobile.min.js'))
+      .pipe(header(banner, {pkg: pkg})).pipe(uglify());
+    stream.pipe(gulp.dest(dest));
+    return streamToPromise(stream);
+  });
 });
 
 
