@@ -6,6 +6,7 @@ mixin button(TEXT, _ng_click, _class, icon, _ng_if, _ng_href)
 	class=_class
 	ng-click=_ng_click
 	aria-label=_i18n_field_key
+	title=_i18n_field_key
 	ng-if=_ng_if
 	ng-href=_ng_href
 	)
@@ -22,6 +23,7 @@ mixin button_notranslate_tmp(TEXT, _ng_click, _class, icon, _ng_if, _ng_href)
 	class=_class
 	ng-click=_ng_click
 	aria-label='{{ TEXT }}'
+	titel='{{ TEXT }}'
 	ng-if=_ng_if
 	ng-href=_ng_href
 	)
@@ -37,6 +39,7 @@ mixin button_notranslate(TEXT, _ng_click, _class, icon, _ng_if, _ng_href)
 	class=_class
 	ng-click=_ng_click
 	aria-label='{{ TEXT }}'
+	title='{{ TEXT }}'
 	ng-if=_ng_if
 	ng-href=_ng_href
 	)
@@ -52,6 +55,7 @@ mixin button_fab(TEXT, _ng_click, _class, icon, _ng_if, _ng_href)
 	class=_class
 	ng-click=_ng_click
 	aria-label=_i18n_field_key
+	title=_i18n_field_key
 	ng-if=_ng_if
 	)
 		md-icon.fa(class=icon)
@@ -63,6 +67,7 @@ mixin button_icon(TEXT, _ng_click, _class, icon, _ng_if, _ng_href)
 	class=_class
 	ng-click=_ng_click
 	aria-label=_i18n_field_key
+	title=_i18n_field_key
 	ng-if=_ng_if
 	ng-href=_ng_href
 	)

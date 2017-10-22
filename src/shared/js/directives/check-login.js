@@ -15,13 +15,14 @@ var CheckLoginDirective = function (apiService, authService, PubSub, $translate)
                             apiService('users').actions.find('me', cb);
                         },
                         function (user, cb) {
-                            scope.userSession = user;
+                            //scope.userSession = user;
+                            scope.setUserSession(user);
                             apiService('users/me/api_keys').actions.all(cb);
                         },
                         function (api_keys, cb) {
                             api_keys = api_keys.results || api_keys;
                             if (api_keys.length > 0) {
-                                scope.api_key = api_keys[0];
+                                scope.setApiKey(api_keys[0]);
                                 scope.admin_regions = [];
                                 async.eachSeries(scope.api_key.scopes, function (item, next) {
                                     if (item.indexOf('region-') === 0) {
@@ -43,15 +44,16 @@ var CheckLoginDirective = function (apiService, authService, PubSub, $translate)
                     ], function (err) {
                         if (err) {
                             PubSub.publish('alert', {type: 'error', message: $translate.instant('user.error.fetchin')});
-                            console.log('error fetching user', err.message);
-                            scope.userSession = null;
+                            console.log('error fetching user', err);
+                            scope.setUserSession(null);
+                            scope.setApiKey(null);
                             return;
                         }
                         scope.$apply();
                     });
                 } else {
-                  scope.userSession = null;
-                  scope.api_key = null;
+                    scope.setUserSession(null);
+                    scope.setApiKey(null);
                 }
             };
             scope.updateUser();
