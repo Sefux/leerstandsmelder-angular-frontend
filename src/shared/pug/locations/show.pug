@@ -7,8 +7,10 @@ include ..//mixins/_style
 div(layout layout-xs="column" layout-wrap layout-fill)
     #map(lsm-map flex flex-gt-xs="33" ng-model='location' center='mapcenter' zoom='zoom' locations='locations')
     div.md-padding(flex flex-gt-xs="66" check-login)
-        p.pull-right(ng-if='mayEdit')
-            +button_fab('actions.edit','edit()','md-primary','fa-edit','location')
+        p.pull-right()
+            +button_fab('actions.back','back()','md-secondary','fa-arrow-left','location')
+            span(ng-if='mayEdit')
+                +button_fab('actions.edit','edit()','md-primary','fa-edit','location')
         p
             strong {{location.title}}
             div(ng-if="location.demolished == true")
@@ -24,7 +26,7 @@ div(layout layout-xs="column" layout-wrap layout-fill)
         p(ng-if="location.description")
             small(marked="location.description")
         hr
-        small
+        div.md-body-1
             p(ng-if="location.emptySince") {{ 'locations.empty_for' | translate }}: {{ location.emptySince | translate }}
             p {{ 'locations.address' | translate }}: {{location.street || ('locations.unknown' | translate)}}
             p {{ 'locations.city' | translate }}: {{location.postcode}} {{location.city || ('locations.unknown' | translate)}}
