@@ -4,6 +4,8 @@ var app = require('angular').module('leerstandsmelder');
 
 // TODO: there should be quite a bit of redundancy here... look into abstracting all CRUD-related stuff
 
+app.controller('Application', require('./application'));
+
 app.controller('Locations.Create', require('./locations/create'));
 app.controller('Locations.RegionIndex', require('./locations/region-index'));
 app.controller('Locations.RegionList', require('./locations/region-list'));
