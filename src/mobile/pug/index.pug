@@ -26,7 +26,7 @@ html(lang='en')
                     span {{ alert.message }}
         md-content.main_container.scrollbar_fix(role='main' flex layout="row" layout-xs="row" layout-wrap layout-fill layout-align="start stretch" ng-view cg-busy="{promise:promise, message:'Loading...', templateUrl:'partials/_busy.html',minDuration:0}")
 
-        div(msg-popup popup-id='relaunch')
+        //div(msg-popup popup-id='relaunch')
         scripts
             
             script(src='js/leerstandsmelder-apiclient-web.js?build=17102201')
