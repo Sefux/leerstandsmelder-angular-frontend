@@ -11,6 +11,7 @@ Frankfurt: frankfurt [at] leerstandsmelder.de
 Gießen: giessen [at] leerstandsmelder.de  
 Görlitz: goerlitz [at] leerstandsmelder.de  
 Hamburg: hamburg [at] leerstandsmelder.de  
+Heidelberg: Heidelberg [at] leerstandsmelder.de  
 Kaiserslautern: kaiserslautern [at] leerstandsmelder.de  
 Kassel: kassel [at] leerstandsmelder.de  
 Luxemburg: luxemburg [at] leerstandsmelder.de  
@@ -146,6 +147,14 @@ Registernummer: VR 8796
 mail: info [at] goerlitz21.de  
 fon: 03581 - 72 75 37  
 [www.goerlitz21.de](http://www.goerlitz21.de)  
+
+**Verantwortlich für www.leerstandsmelder.de  
+und www.leerstandsmelder.de/heidelberg ist**   
+halle02 GmbH & Co KG   
+Zollhofgarten 2   
+69115 Heidelberg   
+mail: kontakt [at] halle02.de   
+fon: 06221 - 3389990   
 
 **Verantwortlich für www.leerstandsmelder.de/kaiserslautern ist**  
 Quertex GmbH  
