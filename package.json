@@ -36,7 +36,6 @@
     "fs-extra": "^4.0.2",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^2.0.13",
-    "gulp-concat": "^2.5.2",
     "gulp-cordova-access": "^1.1.0",
     "gulp-cordova-author": "^1.0.0",
     "gulp-cordova-build-android": "^1.5.1",

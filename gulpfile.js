@@ -8,7 +8,6 @@ var Promise = require('bluebird'),
     source = require('vinyl-source-stream'),
     fs = require('fs'),
     header = require('gulp-header'),
-    concat = require('gulp-concat'),
     rename = require('gulp-rename'),
     pug = require('gulp-pug'),
     less = require('gulp-less'),
@@ -24,8 +23,7 @@ var Promise = require('bluebird'),
     jsdoc = require('gulp-jsdoc3'),
     gutil = require('gulp-util'),
     filesExist = require('files-exist'),
-    pkg = require('./package.json'),
-    config = require('./config.json');
+    pkg = require('./package.json');
 
 var banner = ['/**',
     ' * <%= pkg.name %> - <%= pkg.description %>',
@@ -380,6 +378,7 @@ gulp.task('build', [
 // FIXME: build only works when cordova dir is removed, also runs through entire build for each update
 
 gulp.task('build:android', function () {
+    var config = require('./config.json');
     var icon = require('gulp-cordova-icon');
     var xml = require('gulp-cordova-xml');
     var author = require('gulp-cordova-author');
@@ -430,6 +429,7 @@ gulp.task('build:android', function () {
 });
 
 gulp.task('build:ios', function () {
+    var config = require('./config.json');
     var icon = require('gulp-cordova-icon');
     var xml = require('gulp-cordova-xml');
     var author = require('gulp-cordova-author');
