@@ -23,6 +23,7 @@ var Promise = require('bluebird'),
     disc = require('disc'),
     jsdoc = require('gulp-jsdoc3'),
     gutil = require('gulp-util'),
+    filesExist = require('files-exist'),
     pkg = require('./package.json'),
     config = require('./config.json');
 
@@ -97,7 +98,6 @@ gulp.task('deps', [
 gulp.task('deps:js', function (env) {
     return Promise.map(getPathsForEnv(env, 'js/'), function (dest) {
         var deps = [
-          'node_modules/jquery/dist/jquery.min.js',
           'bower_components/showdown/compressed/Showdown.min.js',
           'node_modules/marked/marked.min.js',
           'bower_components/codemirror/lib/codemirror.js',
@@ -106,12 +106,10 @@ gulp.task('deps:js', function (env) {
           'bower_components/bluebird/js/browser/bluebird.min.js',
           'bower_components/leaflet/dist/leaflet.js',
           'bower_components/leaflet-minimap/dist/Control.MiniMap.min.js',
-          'bower_components/L.GeoSearch/src/js/l.control.geosearch.js',
-          'bower_components/L.GeoSearch/src/js/l.geosearch.provider.openstreetmap.js',
           'bower_components/airbrake-js-client/dist/client.min.js',
           'node_modules/leaflet.markercluster/dist/leaflet.markercluster.js'
         ];
-        var stream = gulp.src(deps)
+        var stream = gulp.src(filesExist(deps))
             .pipe(concat('leerstandsmelder-angular-dependencies.min.js'))
             .pipe(header(banner, {pkg: pkg})).pipe(uglify());
         stream.pipe(gulp.dest(dest));
@@ -204,7 +202,7 @@ gulp.task('js:analyze', function (env) {
 // CSS
 
 function cssPipe(sd) {
-    var stream = gulp.src(sd.src)
+    var stream = gulp.src(filesExist(sd.src))
         .pipe(less())
         .pipe(cleanCSS())
         .pipe(header(banner, {pkg: pkg}))
@@ -246,14 +244,14 @@ gulp.task('html', function (env) {
     return Promise.resolve()
         .then(function () {
             if (!env || env === 'web') {
-                var stream = gulp.src(['./src/shared/pug/**/*.pug', './src/web/pug/**/*.pug']);
+                var stream = gulp.src(filesExist(['./src/shared/pug/**/*.pug', './src/web/pug/**/*.pug']));
                 stream.pipe(pug()).pipe(gulp.dest('./dist/web/'));
                 return streamToPromise(stream);
             }
         })
         .then(function () {
             if (!env || env === 'mobile') {
-                var stream = gulp.src(['./src/shared/pug/**/*.pug', './src/mobile/pug/**/*.pug']);
+                var stream = gulp.src(filesExist(['./src/shared/pug/**/*.pug', './src/mobile/pug/**/*.pug']));
                 stream.pipe(pug()).pipe(gulp.dest('./dist/mobile/'));
                 return streamToPromise(stream);
             }
@@ -270,42 +268,31 @@ gulp.task('assets', function (env) {
     return Promise.map(getPathsForEnv(env), function (destBase) {
         return Promise.resolve()
             .then(function () {
-                var stream = gulp.src([
-                    './bower_components/PruneCluster/dist/PruneCluster.js.map',
+                var stream = gulp.src(filesExist([
                     './bower_components/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.js'
-                ]);
+                ]));
                 stream.pipe(gulp.dest(destBase + 'js/'));
                 return streamToPromise(stream);
             })
             .then(function () {
-                var stream = gulp.src([
+                var stream = gulp.src(filesExist([
                     './assets/images/**/*.*',
                     './bower_components/leaflet/dist/images/*',
                     './bower_components/leaflet-minimap/dist/images/*'
-                ]);
+                ]));
                 stream.pipe(gulp.dest(destBase + 'images/'));
                 return streamToPromise(stream);
             })
             .then(function () {
-                var stream = gulp.src([
+                var stream = gulp.src(filesExist([
                     './bower_components/font-awesome/fonts/*',
                     './assets/fonts/*'
-                ]);
+                ]));
                 stream.pipe(gulp.dest(destBase + 'fonts/'));
                 return streamToPromise(stream);
             })
             .then(function () {
-                var stream = gulp.src([
-                    './node_modules/angular-ui-grid/ui-grid.ttf',
-                    './node_modules/angular-ui-grid/ui-grid.woff',
-                    './node_modules/angular-ui-grid/ui-grid.svg',
-                    './node_modules/angular-ui-grid/ui-grid.eot',
-                ]);
-                stream.pipe(gulp.dest(destBase + 'css/'));
-                return streamToPromise(stream);
-            })
-            .then(function () {
-                var stream = gulp.src(['./src/shared/static/md/*.md']);
+                var stream = gulp.src(filesExist(['./src/shared/static/md/*.md']));
                 stream.pipe(gulp.dest(destBase + 'static/'));
                 return streamToPromise(stream);
             });

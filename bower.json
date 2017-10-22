@@ -1,6 +1,6 @@
 {
   "name": "leerstandsmelder-frontend",
-  "version": "0.2.0",
+  "version": "1.0.7",
   "authors": [
     "A. Koch <antonymousfeedback@gmail.com>"
   ],
@@ -17,9 +17,7 @@
     "angular-locker": "^2.0.4",
     "leaflet": "^1.0.1",
     "bluebird": "^3.4.6",
-    "PruneCluster": "^1.1.0",
     "leaflet-minimap": "Norkart/Leaflet-MiniMap#^3.1.0",
-    "L.GeoSearch": "smeijer/L.GeoSearch",
     "leerstandsmelder-apiclient": "^0.1.4",
     "angular-markdown-directive": "^0.3.1",
     "simplemde": "^1.10.2",
