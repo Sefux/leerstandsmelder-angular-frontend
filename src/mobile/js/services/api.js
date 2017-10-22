@@ -3,6 +3,7 @@
 var config = require('../../../../config.json');
 
 var ApiService = function (authService, $cordovaFileTransfer) {
+    var cache = {};
     return function (resourceName, host, query) {
         var apiClient = new LMApi({
             host: host ? host : config.global.api_url,
@@ -13,11 +14,33 @@ var ApiService = function (authService, $cordovaFileTransfer) {
         return {
             client: apiClient,
             actions: {
-                all: function (callback, progress) {
-                    apiClient.resource(resourceName, query).action('get', null, callback, progress);
+                all: function (callback, progress, caching) {
+                    caching =  caching || false;
+                    if(caching && resourceName in cache) {
+                            callback(null, cache[resourceName]);
+                    } else {
+                        apiClient.resource(resourceName, query).action('get', null, function(err, result) {
+                            if(caching) {
+                                cache[resourceName] = result;
+                            } 
+                            callback(null, result);                               
+                        }, progress);
+                    
+                    }
                 },
-                find: function (uuid, callback, progress) {
-                    apiClient.resource(resourceName, query).action('get', uuid, callback, progress);
+                find: function (uuid, callback, progress, caching) {
+                    caching =  caching || false;
+                    var cacheId = resourceName + '-' + uuid;
+                    if(caching && cacheId in cache) {
+                        callback(null, cache[cacheId]);
+                    } else {
+                        apiClient.resource(resourceName, query).action('get', uuid, function(err, result) {
+                            if(caching) {
+                                cache[cacheId] = result;
+                            }
+                            callback(null, result);
+                        }, progress);    
+                    }
                 },
                 create: function (data, callback, progress) {
                     apiClient.resource(resourceName).action('post', data, callback, progress);

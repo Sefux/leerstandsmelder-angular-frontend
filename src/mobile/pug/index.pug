@@ -18,7 +18,7 @@ html(lang='en')
             .ng-cloak {
                 display: none !important;
             }
-    body.ng-cloak(layout='column' spellcheck='false' ng-cloak)
+    body.ng-cloak(layout='column' spellcheck='false' ng-cloak ng-controller="Application")
         header
             include partials/_navbar
             div(ng-controller="Widgets.Alerts")
