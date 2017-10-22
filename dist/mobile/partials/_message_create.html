@@ -1,0 +1,7 @@
+<!-- TODO: this needs to go asap! pls fix this style mess--><div class="text"><div><md-input-container class="md-block" flex-gt-sm="flex-gt-sm"><label>{{&quot;messages.to&quot; | translate }}</label><input type="text" ng-model="message.to" i18n="message.to" ng-disabled="asset.disabled"/></md-input-container></div></div><div class="textarea"><div><md-input-container><label class="_textarea">{{&quot;messages.message_text&quot; | translate }}</label><textarea cols="50" aria-label="message.body{{asset.id}}-help" ng-disabled="asset.disabled" ng-model="message.body">{{message.body}}</textarea><!--md-maxlength='500'--><!--	md-text-float(rows="4"
+cols="50"
+type="textarea"
+label="{{labels.intro}}"
+ng-model=field_key
+)= _ng_field_key
+--></md-input-container></div></div><hr/><div layout="row"><span flex="flex"></span><md-button class="md-raised" ng-click="submit()" aria-label="{{'actions.submit' | translate }}" title="{{'actions.submit' | translate }}"><span>{{'actions.submit' | translate }}</span></md-button></div>
