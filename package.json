@@ -1,6 +1,6 @@
 {
   "name": "leerstandsmelder-frontend",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Leerstandsmelder App - Angular.JS based frontend for Desktop & Mobile",
   "scripts": {
     "test": "echo \"Warning: no test specified\" && exit 0"
