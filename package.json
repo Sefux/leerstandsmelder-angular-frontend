@@ -4,7 +4,7 @@
   "description": "Leerstandsmelder App - Angular.JS based frontend for Desktop & Mobile",
   "scripts": {
     "postinstall": "gulp assets",
-    "test": "echo \"Warning: no test specified\" && exit 0"
+    "test": "gulp lint && gulp build && gulp assets"
   },
   "author": "Gängeviertel e.V. <info@das-gaengeviertel.info>",
   "license": "MIT",
@@ -22,8 +22,6 @@
     "ag-grid": "global:agGrid"
   },
   "devDependencies": {
-    "bluebird": "^3.5.1",
-    "bower": "^1.4.1",
     "browserify": "^14.0.0",
     "browserify-shim": "^3.8.13",
     "connect": "^3.5.0",
@@ -35,7 +33,7 @@
     "files-exist": "^1.0.2",
     "fs-extra": "^4.0.2",
     "gulp": "^3.9.1",
-    "gulp-clean-css": "^2.0.13",
+    "gulp-clean-css": "^3.9.0",
     "gulp-cordova-access": "^1.1.0",
     "gulp-cordova-author": "^1.0.0",
     "gulp-cordova-build-android": "^1.5.1",
@@ -88,6 +86,7 @@
     "angular-translate-storage-local": "^2.12.1",
     "angular-ui-grid": "^4.0.7",
     "async": "^2.1.1",
+    "bluebird": "^3.5.1",
     "codemirror": "^5.31.0",
     "codemirror-spell-checker": "^1.1.2",
     "font-awesome": "^4.7.0",

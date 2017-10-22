@@ -1,8 +1,9 @@
 language: node_js
 node_js:
+  - "8"
   - "6"
-  - "4"
 before_script:
   - cp config.default.json config.json
 script:
-  - gulp test
+  - npm test
+  - gulp release
