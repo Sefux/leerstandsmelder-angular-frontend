@@ -33,6 +33,11 @@ module.exports = {
         dashboard: 'Dashboard',
         menu: 'Menu'
     },
+    menu: {
+        admin: 'Administration',
+        map: 'Map',
+        user: 'User'
+    },
     asset: {
         file: 'Datei'
     },
