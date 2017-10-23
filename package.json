@@ -91,11 +91,8 @@
     "angular-translate-loader-static-files": "^2.12.1",
     "angular-translate-storage-cookie": "^2.12.1",
     "angular-translate-storage-local": "^2.12.1",
-    "angular-ui-grid": "^4.0.7",
     "async": "^2.1.1",
     "bluebird": "^3.5.1",
-    "codemirror": "^5.31.0",
-    "codemirror-spell-checker": "^1.1.2",
     "font-awesome": "^4.7.0",
     "leaflet": "^1.2.0",
     "leaflet-minimap": "^3.5.0",
@@ -106,7 +103,6 @@
     "ng-cordova": "^0.1.27-alpha",
     "ng-file-upload": "^12.2.12",
     "node-static": "^0.7.9",
-    "showdown": "^1.7.6",
     "simplemde": "^1.11.2"
   }
 }
