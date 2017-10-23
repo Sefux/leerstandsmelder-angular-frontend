@@ -2,8 +2,8 @@
 
 var lang_de = require('../../shared/js/lang/de'),
     lang_en = require('../../shared/js/lang/en'),
-    routes = require('./routes'),
-    angular = require('angular');
+    routes = require('./routes');
+    //angular = require('angular');
     var agGrid = require('ag-grid');
     agGrid.initialiseAgGridWithAngular1(angular);
 
@@ -16,7 +16,7 @@ var app = angular.module('leerstandsmelder', [
         require('angular-translate-loader-static-files'),
         require('ng-file-upload'),
         require('angular-busy2'),
-        'ngMaterial',
+        require('angular-material'),
         require('angular-aria'),
         require('angular-cookies'),
         require('angular-route'),
