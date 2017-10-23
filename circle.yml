@@ -1,5 +1,5 @@
-machine:
-  node:
+docker:
+  image: circleci/node:6
 checkout:
   post:
     # Use the node version declared in .nvmrc
