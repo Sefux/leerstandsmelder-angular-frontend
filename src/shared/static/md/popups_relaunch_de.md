@@ -1,4 +1,4 @@
-Liebe Nutzer, 
+**Liebe NutzerInnen,**
 
 die meisten von Euch werden es schon bemerkt haben: Schneller als (auch von uns) erwartet steht seit einigen Tagen die Beta-Version (!) des „neuen Leerstandsmelders“ online. Diese noch einmal komplett neu geschriebene Version ermöglicht es, ihn wie nun auch als mobile App zu betreiben. Und als Open-Source Software können den Melder jetzt auch andere interessierte Entwickler/innen bearbeiten und ihn dadurch schöner und besser machen als je zuvor. ([Weitere Infos hier](https://www.leerstandsmelder.de/posts/der-neue-leerstandsmelder)) 
 
