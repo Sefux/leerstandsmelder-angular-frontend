@@ -23,6 +23,6 @@ test:
     - npm run clean
     - npm run build-mobile
     # Build APK
-    - npm run dist-mobile
+    - npm run dist-android
     # Copy APK to artifacts
     - cp -r dist/android $CIRCLE_ARTIFACTS
