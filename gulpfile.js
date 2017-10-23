@@ -108,8 +108,8 @@ gulp.task('js', function (env) {
             .pipe(header(banner, {pkg: pkg}))
             .pipe(uglify())
             .pipe(rename('leerstandsmelder-angular-frontend.min.js'))
+            .pipe(gulp.dest(sd.dest));
             //.pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../../'}));
-        stream.pipe(gulp.dest(sd.dest));
         return streamToPromise(stream);
     });
 });
@@ -137,8 +137,8 @@ gulp.task('js:maps', function (env) {
             .pipe(header(banner, {pkg: pkg}))
             //.pipe(uglify())
             .pipe(rename('leerstandsmelder-angular-frontend.min.js'))
-            .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../../'}));
-        stream.pipe(gulp.dest(sd.dest));
+            .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../../'}))
+          .pipe(gulp.dest(sd.dest));
         return streamToPromise(stream);
     });
 });
@@ -174,8 +174,8 @@ function cssPipe(sd) {
         .pipe(header(banner, {pkg: pkg}))
         .pipe(rename({
             basename: 'leerstandsmelder-frontend-' + path.basename(sd.src, '.less')
-        }));
-    stream.pipe(gulp.dest(sd.dest));
+        }))
+      .pipe(gulp.dest(sd.dest));
     return streamToPromise(stream);
 }
 
@@ -210,15 +210,15 @@ gulp.task('html', function (env) {
     return Promise.resolve()
         .then(function () {
             if (!env || env === 'web') {
-                var stream = gulp.src(filesExist(['./src/shared/pug/**/*.pug', './src/web/pug/**/*.pug']));
-                stream.pipe(pug()).pipe(gulp.dest('./dist/web/'));
+                var stream = gulp.src(filesExist(['./src/shared/pug/**/*.pug', './src/web/pug/**/*.pug']))
+                  .pipe(pug()).pipe(gulp.dest('./dist/web/'));
                 return streamToPromise(stream);
             }
         })
         .then(function () {
             if (!env || env === 'mobile') {
-                var stream = gulp.src(filesExist(['./src/shared/pug/**/*.pug', './src/mobile/pug/**/*.pug']));
-                stream.pipe(pug()).pipe(gulp.dest('./dist/mobile/'));
+                var stream = gulp.src(filesExist(['./src/shared/pug/**/*.pug', './src/mobile/pug/**/*.pug']))
+                  .pipe(pug()).pipe(gulp.dest('./dist/mobile/'));
                 return streamToPromise(stream);
             }
         });
@@ -249,8 +249,7 @@ gulp.task('assets', function (env) {
                   'node_modules/leaflet/dist/leaflet.js',
                   'node_modules/leaflet-minimap/dist/Control.MiniMap.min.js',
                   'node_modules/leaflet.markercluster/dist/leaflet.markercluster.js'
-                ]));
-                stream.pipe(gulp.dest(destBase + 'js/'));
+                ])).pipe(gulp.dest(destBase + 'js/'));
                 return streamToPromise(stream);
             })
             .then(function () {
@@ -258,21 +257,19 @@ gulp.task('assets', function (env) {
                     './assets/images/**/*.*',
                     './node_modules/leaflet/dist/images/*',
                     './node_modules/leaflet-minimap/dist/images/*'
-                ]));
-                stream.pipe(gulp.dest(destBase + 'images/'));
+                ])).pipe(gulp.dest(destBase + 'images/'));
                 return streamToPromise(stream);
             })
             .then(function () {
                 var stream = gulp.src(filesExist([
                     './node_modules/font-awesome/fonts/*',
                     './assets/fonts/*'
-                ]));
-                stream.pipe(gulp.dest(destBase + 'fonts/'));
+                ])).pipe(gulp.dest(destBase + 'fonts/'));
                 return streamToPromise(stream);
             })
             .then(function () {
-                var stream = gulp.src(filesExist(['./src/shared/static/md/*.md']));
-                stream.pipe(gulp.dest(destBase + 'static/'));
+                var stream = gulp.src(filesExist(['./src/shared/static/md/*.md']))
+                  .pipe(gulp.dest(destBase + 'static/'));
                 return streamToPromise(stream);
             });
     });
@@ -364,7 +361,7 @@ gulp.task('clean', function () {
 gulp.task('release', [
     'clean'
 ], function () {
-    return Promise.resolve(gulp.start('build'));
+    return gulp.start('build');
 });
 
 gulp.task('build', [
@@ -384,8 +381,8 @@ gulp.task('build:android', function () {
     var author = require('gulp-cordova-author');
     var plugin = require('gulp-cordova-plugin');
     var android = require('gulp-cordova-build-android'),
-        dst = gulp.dest('dist/android'),
-        src = gulp.src('dist/mobile').pipe(require('gulp-cordova-create')({
+        dst = gulp.dest('dist/android')
+    return gulp.src('dist/mobile').pipe(require('gulp-cordova-create')({
             dir: 'dist/cordova',
             id: config.android.app_id,
             name: config.android.app_name
@@ -395,17 +392,16 @@ gulp.task('build:android', function () {
         .pipe(require('gulp-cordova-version')(pkg.version))
         .pipe(author(config.author.name,config.author.email,config.author.url))
         .pipe(require('gulp-cordova-description')(config.android.app_description))
-        .pipe(plugin(config.android.plugins));
-        // TODO: make release configurable
-        //
-
-        src.pipe(xml([
+        .pipe(plugin(config.android.plugins))
+          .pipe(xml([
             '<splash src="www/images/splash/leerstandsmelder_splash.png"  />',
             '<preference name="BackupWebStorage" value="local" />'
-        ]));
-
-
-        src.pipe(icon('www/images/icons/leerstandsmelder_icon.png', { errorHandlingStrategy: 'warn' }));
+          ]))
+          .pipe(icon('www/images/icons/leerstandsmelder_icon.png', {errorHandlingStrategy: 'warn'}))
+          .pipe(android({release: true}))
+          .pipe(dst);
+        // TODO: make release configurable
+        //
 
     //'<splash src="www/images/Default@2x~iphone.png" width="640" height="960" />',
             // <!--
@@ -424,8 +420,7 @@ gulp.task('build:android', function () {
             //     <icon src="www/images/icons/android/drawable-xxxhdpi/icon.png" density="xxxhdpi" />
             //
        // src.pipe(android({storeFile: '../keys', keyAlias: 'leerstandsmelder'}));
-        src.pipe(android({release: true}));
-    return streamToPromise(src.pipe(dst));
+    // return streamToPromise(src.pipe(dst));
 });
 
 gulp.task('build:ios', function () {
@@ -434,8 +429,8 @@ gulp.task('build:ios', function () {
     var xml = require('gulp-cordova-xml');
     var author = require('gulp-cordova-author');
     var plugin = require('gulp-cordova-plugin');
-    var dst = require('gulp-cordova-build-ios')(),
-        src = gulp.src('dist/mobile').pipe(require('gulp-cordova-create')({
+    var dst = require('gulp-cordova-build-ios')()
+    return gulp.src('dist/mobile').pipe(require('gulp-cordova-create')({
             dir: 'dist/cordova',
             id: config.ios.app_id,
             name: config.ios.app_name
@@ -443,9 +438,8 @@ gulp.task('build:ios', function () {
         .pipe(require('gulp-cordova-description')(config.android.app_description))
         .pipe(author(config.author.name,config.author.email,config.author.url))
         .pipe(require('gulp-cordova-version')(pkg.version))
-        .pipe(plugin(config.ios.plugins));
-
-        src.pipe(xml([
+        .pipe(plugin(config.ios.plugins))
+        .pipe(xml([
             '<splash src="www/images/splash/ios/Default~iphone.png" width="320" height="480"/>',
             '<splash src="www/images/splash/ios/Default@2x~iphone.png" width="640" height="960"/>',
             '<splash src="www/images/splash/ios/Default-Portrait~ipad.png" width="768" height="1024"/>',
@@ -458,10 +452,11 @@ gulp.task('build:ios', function () {
             '<splash src="www/images/splash/ios/Default-Landscape-736h.png" width="2208" height="1242"/>',
             '<splash src="www/images/splash/ios/Default@2x~universal~anyany.png" />',
             '<preference name="BackupWebStorage" value="local" />'
-        ]));
-        src.pipe(icon('www/images/icons/leerstandsmelder_icon.png', { errorHandlingStrategy: 'warn' }));
+        ]))
+        .pipe(icon('www/images/icons/leerstandsmelder_icon.png', { errorHandlingStrategy: 'warn' }))
+      .pipe(dst);
 
-    return src.pipe(dst);
+//    return src;
 });
 
 
