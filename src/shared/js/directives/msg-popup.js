@@ -1,4 +1,4 @@
-/* global Showdown */
+/* global marked */
 
 'use strict';
 
@@ -12,8 +12,7 @@ var MsgPopupDirective = function (staticContent, $mdDialog, $translate) {
             staticContent.getMarkdown('popups_' + attrs.popupId, function (err, data) {
                 if (!err) {
                     scope.popupContent = data;
-                    var converter = new Showdown.converter(),
-                        html = converter.makeHtml(data);
+                    var html = marked(data);
                     $mdDialog.show($mdDialog.confirm()
                         .clickOutsideToClose(true)
                         .title($translate.instant('popups.' + attrs.popupId + '.title'))
