@@ -4,7 +4,13 @@
   "description": "Leerstandsmelder App - Angular.JS based frontend for Desktop & Mobile",
   "scripts": {
     "postinstall": "gulp assets",
-    "test": "gulp lint && gulp build && gulp assets"
+    "test": "gulp lint && gulp build",
+    "release": "gulp release",
+    "clean": "gulp clean",
+    "build-web": "gulp build --env=web",
+    "build-mobile": "gulp build --env=mobile",
+    "dist-android": "gulp build:android",
+    "dist-ios": "gulp build:ios"
   },
   "author": "Gängeviertel e.V. <info@das-gaengeviertel.info>",
   "license": "MIT",

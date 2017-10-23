@@ -1,6 +1,9 @@
 machine:
   node:
-    version: 8
+checkout:
+  post:
+    # Use the node version declared in .nvmrc
+    - nvm use && nvm alias default $(nvm current)
 dependencies:
   pre:
     # Android SDK Platform 24
@@ -19,9 +22,10 @@ test:
     - cp config.default.json config.json
     # Copy default config
     - npm test
-    # Build mobile UI
-    - gulp release --env=mobile
+    # Build UI
+    - npm run clean
+    - npm run build-mobile
     # Build APK
-    - gulp build:android
+    - npm run dist-mobile
     # Copy APK to artifacts
     - cp -r dist/android $CIRCLE_ARTIFACTS

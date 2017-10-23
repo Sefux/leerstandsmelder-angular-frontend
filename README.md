@@ -44,7 +44,7 @@ You can build both the browser and mobile user interfaces in ``dist/`` by runnin
 
 Copy ``config.default.json`` to ``config.json`` and update if needed.
 
-To build only one of both platforms run ``gulp build --env=web`` or ``gulp build --env=mobile``. Using ``gulp release`` does a clean build and is recommended before deployment.
+To build only one of both platforms run ``npm run build-web`` or ``npm run build-mobile``. Using ``npm run release`` does a clean build and is recommended before deployment.
 
 The app packages for the mobile platform can be built running ``gulp build:android`` and ``gulp build:ios``. The Android build creates .apk files in ``dist/android/``, while the iOS build generates an XCode project in ``dist/cordova/plaforms/ios/``.
 
