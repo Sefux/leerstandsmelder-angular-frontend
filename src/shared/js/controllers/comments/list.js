@@ -6,12 +6,10 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
 
     var deferred = $q.defer();
     $scope.promise = deferred.promise;
-    
     $scope.urlbase = configuration.urlbase || '/';
 
     var columnDefs = [
         {headerName: $filter('translate')("locations.location"), field: "title", width: 90, cellRenderer: 'group'},
-        
         {headerName: $filter('translate')("comments.body"), field: "body", width: 120},
         {headerName: $filter('translate')("author.author"), field: "user_uuid", width: 90},
         {headerName: $filter('translate')("comments.created"), field: "created", width: 90, cellRenderer: dateFormatter},
@@ -21,7 +19,6 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
             if(params.node.data && !params.node.data.user_uuid) {
                 return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase +  'locations/' + params.value + '" aria-label="' + $filter('translate')("actions.edit") + '"><md-icon md-font-icon="fa-eye" class="fa fa-eye"></md-icon></a>';
             } else { return '';}
-           
         }
         },
         {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
@@ -36,9 +33,8 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
             } else { return '';}
         }
         }
-
     ];
-    
+
     if ($routeParams.region_uuid) {
         $scope.listHeadline = 'comments.comments_by_region';
     } else {
@@ -47,22 +43,18 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
 
 
     $scope.gridOptions = {
-
         columnDefs: columnDefs,
-
         rowData: null,
         rowHeight: 58,
         rowClassRules: {
             'hidden-warning': 'data.hidden'
         },
         enableSorting: true,
-
         enableFilter: true,
         animateRows: true,
         enableColResize: true,
         angularCompileRows: true,
         getRowNodeId: function(data) { return data.uuid; },
-        
         getNodeChildDetails: getNodeChildDetails,
         onGridReady: function() {
             setTimeout(function() {
@@ -70,7 +62,7 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
             }, 600);
         }
     };
-    
+
     function getNodeChildDetails(rowItem) {
         if (rowItem.comments) {
             return {
@@ -85,11 +77,11 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
             return null;
         }
     }
-    
+
     function dateFormatter(params) {
         return $filter('date')(params.value,'yyyy-MM-dd');
     }
-    
+
     function booleanFormatter(params) {
         return (params.value ? $filter('translate')("generel.yes"):$filter('translate')("generel.no"));
     }
@@ -97,7 +89,7 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
 	$scope.filterGrid = function() {
 		$scope.gridOptions.api.setQuickFilter($scope.filterStr);
 	};
-    
+
     async.waterfall([
         function (cb) {
             if ($routeParams.region_uuid) {
@@ -130,7 +122,7 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
         }
         responseHandler.handleResponse(err, deferred);
     });
-    
+
     $scope.clickDeleteHandler = function (uuid) {
         var confirm = $mdDialog.confirm()
             .title($translate.instant('comments.remove_confirm_title'))
@@ -141,7 +133,7 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
         $mdDialog.show(confirm).then(function () {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
-            
+
             apiService('comments').actions.remove(uuid, function (err) {
                 var msgs = {
                     success: 'comments.remove_success'
