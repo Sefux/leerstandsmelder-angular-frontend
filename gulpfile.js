@@ -232,25 +232,30 @@ gulp.task('html', function (env) {
 
 gulp.task('assets', function (env) {
     return Promise.map(getPathsForEnv(env), function (destBase) {
+        var files = [
+          'node_modules/angular/angular.min.js',
+          'node_modules/ng-cordova/dist/ng-cordova.min.js',
+          'node_modules/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.js',
+          'node_modules/angular-material/angular-material.min.js',
+          'node_modules/ag-grid/dist/ag-grid.min.js',
+          'node_modules/showdown/dist/showdown.min.js',
+          'node_modules/marked/marked.min.js',
+          'node_modules/codemirror/lib/codemirror.js',
+          'node_modules/codemirror-spell-checker/dist/spell-checker.min.js',
+          'node_modules/simplemde/dist/simplemde.min.js',
+          'node_modules/bluebird/js/browser/bluebird.min.js',
+          'node_modules/leaflet/dist/leaflet.js',
+          'node_modules/leaflet-minimap/dist/Control.MiniMap.min.js',
+          'node_modules/leaflet.markercluster/dist/leaflet.markercluster.js'
+        ];
         return Promise.resolve()
             .then(function () {
-                var stream = gulp.src(filesExist([
-                  'node_modules/angular/angular.min.js',
-                  'node_modules/ng-cordova/dist/ng-cordova.min.js',
-                  'node_modules/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.js',
-                  'node_modules/angular/angular.min.js',
-                  'node_modules/ag-grid/dist/ag-grid.min.js',
-                  'node_modules/showdown/dist/showdown.min.js',
-                  'node_modules/marked/marked.min.js',
-                  'node_modules/codemirror/lib/codemirror.js',
-                  'node_modules/codemirror-spell-checker/dist/spell-checker.min.js',
-                  'node_modules/simplemde/dist/simplemde.min.js',
-                  'node_modules/bluebird/js/browser/bluebird.min.js',
-                  'node_modules/leaflet/dist/leaflet.js',
-                  'node_modules/leaflet-minimap/dist/Control.MiniMap.min.js',
-                  'node_modules/leaflet.markercluster/dist/leaflet.markercluster.js'
-                ])).pipe(gulp.dest(destBase + 'js/'));
-                return streamToPromise(stream);
+              var stream = gulp.src(filesExist(files)).pipe(gulp.dest(destBase + 'js/'));
+              return streamToPromise(stream);
+            })
+            .then(function () {
+              var stream = gulp.src(files.map(file => { return `${file}.map`; })).pipe(gulp.dest(destBase + 'js/'));
+              return streamToPromise(stream);
             })
             .then(function () {
                 var stream = gulp.src(filesExist([
