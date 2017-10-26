@@ -2,6 +2,11 @@
 
 var RegionsUpdateController = function ($scope, $q, $routeParams, apiService, responseHandler) {
     var deferred;
+    $scope.marker = {
+        lat: null,
+        lng: null
+    };
+
     if ($routeParams.uuid) {
         deferred = $q.defer();
         $scope.promise = deferred.promise;
@@ -11,10 +16,36 @@ var RegionsUpdateController = function ($scope, $q, $routeParams, apiService, re
                 region.moderate = false;
             }
             $scope.region = region;
+            $scope.center = [region.lonlat[1], region.lonlat[0]];
+            $scope.marker = {
+                lng: region.lonlat[1],
+                lat: region.lonlat[0]
+            };
+            $scope.zoom = region.zoom;
             responseHandler.handleResponse(err, deferred);
         });
+    }
+    $scope.updateLocation = function (latlon) {
+        $scope.marker = {
+            lng: latlon.lng,
+            lat: latlon.lat
+        };
+        $scope.center = [latlon.lat, latlon.lng];
+        $scope.region.lonlat[0] = latlon.lng;
+        $scope.region.lonlat[1] = latlon.lat;
+        $scope.$apply();
 
     }
+    $scope.$watchGroup(['region.zoom', 'region.lonlat[1]', 'region.lonlat[0]'], function (newValues, oldValues) {
+      $scope.center = [$scope.region.lonlat[1], $scope.region.lonlat[0]];
+      $scope.marker = {
+          lng: $scope.region.lonlat[0],
+          lat: $scope.region.lonlat[1]
+      };
+      $scope.zoom = $scope.region.zoom;
+
+    });
+
     $scope.submit = function () {
         deferred = $q.defer();
         $scope.promise = deferred.promise;
@@ -27,11 +58,9 @@ var RegionsUpdateController = function ($scope, $q, $routeParams, apiService, re
                 responseHandler.handleResponse(err, deferred, msgs);
             });
         } else {
-            console.log('region_data_before',$scope.region);
             var region_data = $scope.region;
             //convert lonlat obj to array
             region_data.lonlat = Object.keys($scope.region.lonlat).map(function (key) { return $scope.region.lonlat[key]; });
-            console.log('region_data',region_data);
             apiService('regions').actions.create(region_data, function (err) {
                 var msgs = {
                     success: 'regions.create_success'
