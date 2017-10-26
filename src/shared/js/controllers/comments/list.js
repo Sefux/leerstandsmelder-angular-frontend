@@ -35,6 +35,18 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
         }
     ];
 
+    var columnDefs_regions = [
+        {headerName: $filter('translate')("regions.title"), field: "title", width: 90, cellRenderer: 'group'},
+        {headerName: $filter('translate')("comments.created"), field: "created", width: 90, cellRenderer: dateFormatter},
+        {headerName: $filter('translate')("author.updated"), field: "updated", width: 90, cellRenderer: dateFormatter, sort: 'desc'},
+        {headerName: $filter('translate')("locations.hidden"), field: "hidden", width: 90, cellRenderer: booleanFormatter }, //
+        {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
+          return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase +  'admin/regions/' + params.value + '/comments" aria-label="' + $filter('translate')("actions.edit") + '"><md-icon md-font-icon="fa-eye" class="fa fa-eye"></md-icon></a>';
+        }
+        },
+    ];
+
+
     if ($routeParams.region_uuid) {
         $scope.listHeadline = 'comments.comments_by_region';
     } else {
@@ -102,6 +114,7 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
             var region_data = regions.results || regions;
             if (Array.isArray(region_data)) {
                 $scope.data = region_data.results || region_data;
+                $scope.gridOptions.api.setColumnDefs( columnDefs_regions );
                 $scope.gridOptions.api.setRowData($scope.data);
                 $scope.gridOptions.api.sizeColumnsToFit();
                 cb();
