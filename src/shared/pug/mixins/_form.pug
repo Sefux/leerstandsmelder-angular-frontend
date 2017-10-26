@@ -1,237 +1,237 @@
 include _media
 
 mixin label(field_key)
-	- var ng_label = field_key+'{{asset._id}}'
-	//- var ng_infotext = 'infotext("'+ field_key +'")'
-	- var ng_infotext = field_key+'{{asset._id}}-help = !'+field_key+'{{asset._id}}-help'
+  - var ng_label = field_key+'{{asset._id}}'
+  //- var ng_infotext = 'infotext("'+ field_key +'")'
+  - var ng_infotext = field_key+'{{asset._id}}-help = !'+field_key+'{{asset._id}}-help'
 
-	div
-		label(
-			for=ng_label
-			i18n-source=field_key
-			control-label
-		)= field_key
-		span.info &nbsp;
-			.fa.fa-info-circle.infotext_button(ng-click='ng_infotext')
+  div
+    label(
+      for=ng_label
+      i18n-source=field_key
+      control-label
+    )= field_key
+    span.info &nbsp;
+      .fa.fa-info-circle.infotext_button(ng-click='ng_infotext')
 
 mixin helptext(field_key)
-	- var help_id = field_key+'{{asset._id}}'
-	- var help_i18n = field_key+'.helptext'
-	- var ng_infotext = field_key+'{{asset._id}}-help'
-	span.help-block(
-		id=help_id
-		i18n-source=help_i18n
-		ng-if=ng_infotext
-	)= help_i18n
+  - var help_id = field_key+'{{asset._id}}'
+  - var help_i18n = field_key+'.helptext'
+  - var ng_infotext = field_key+'{{asset._id}}-help'
+  span.help-block(
+    id=help_id
+    i18n-source=help_i18n
+    ng-if=ng_infotext
+  )= help_i18n
 
 
 mixin text(field_type, field_key, field_i18n_key, resource_list, sys_val, no_label, change_handler)
-	- var _id = field_key+'{{asset.id}}'
-	- var help_label = field_key+'{{asset.id}}-help'
-	- var repeat = 'option in '+resource_list;
-	- var options = 'option.title for option in '+resource_list;
-	- var _ng_field_key = '{{' + field_key + '}}'
-	- var _i18n_field_key = '{{"' + (field_i18n_key || field_key) + '" | translate }}'
+  - var _id = field_key+'{{asset.id}}'
+  - var help_label = field_key+'{{asset.id}}-help'
+  - var repeat = 'option in '+resource_list;
+  - var options = 'option.title for option in '+resource_list;
+  - var _ng_field_key = '{{' + field_key + '}}'
+  - var _i18n_field_key = '{{"' + (field_i18n_key || field_key) + '" | translate }}'
 
-	md-input-container(class="md-block" flex-gt-sm)
-		if no_label != false
-			label=_i18n_field_key
-		input(
-		type=field_type
-		ng-model=field_key
-		i18n=field_key
-		ng-disabled='asset.disabled'
-		ng-change=change_handler
-		)
+  md-input-container(class="md-block" flex-gt-sm)
+    if no_label != false
+      label=_i18n_field_key
+    input(
+    type=field_type
+    ng-model=field_key
+    i18n=field_key
+    ng-disabled='asset.disabled'
+    ng-change=change_handler
+    )
 
 
 mixin input(field_type, field_key, field_i18n_key, resource_list, sys_val, no_label, change_handler)
-	- var _id = field_key+'{{asset.id}}'
-	- var help_label = field_key+'{{asset.id}}-help'
-	- var repeat = 'option in '+resource_list;
-	- var options = 'option.title for option in '+resource_list;
-	- var _ng_field_key = '{{' + field_key + '}}'
-	- var _i18n_field_key = '{{"' + (field_i18n_key || field_key) + '" | translate }}'
+  - var _id = field_key+'{{asset.id}}'
+  - var help_label = field_key+'{{asset.id}}-help'
+  - var repeat = 'option in '+resource_list;
+  - var options = 'option.title for option in '+resource_list;
+  - var _ng_field_key = '{{' + field_key + '}}'
+  - var _i18n_field_key = '{{"' + (field_i18n_key || field_key) + '" | translate }}'
 
-	div(
-		class=field_type
-	)
-		if sys_val
-				span.sys_val(
-					ng-content=field_key
-				)
-		else
-			div
-				if field_type == 'file'
-					md-button.md-raised(ngf-select='', ng-model='files', ngf-multiple='true', ngf-allow-dir='true', ngf-accept="'.jpg,.png,.pdf'")
-						span.fa.fa-file-o &nbsp;
-						span() {{"Choose a file" | translate}}
+  div(
+    class=field_type
+  )
+    if sys_val
+        span.sys_val(
+          ng-content=field_key
+        )
+    else
+      div
+        if field_type == 'file'
+          md-button.md-raised(ngf-select='', ng-model='files', ngf-multiple='true', ngf-allow-dir='true', ngf-accept="'.jpg,.png,.pdf'")
+            span.fa.fa-file-o &nbsp;
+            span() {{"Choose a file" | translate}}
 
-				else if field_type == 'fileimage'
-					div(layout='row')
-						+media('image',150,100)
-					div(layout='row')
-						md-button.md-raised(
-						ngf-select
-						ng-model='files'
-						ngf-accept="'image/*'"
-						ngf-fix-orientation="true"
-						ngf-capture="'camera'"
-						ng-show='!asset.disabled'
-						ngf-keep="'distinct'"
-						ngf-multiple='true'
-						multiple
-						)
-							span.fa.fa-file-o &nbsp;
-							span() {{"Choose an image" | translate}}
-
-
-				else if field_type == 'slider'
-					md-input-container(class="md-block" flex-gt-xs)
-						if no_label != false
-							label=_i18n_field_key + "  {{"+field_key+"}} {{'months' | translate}}"
-						md-slider(
-						flex
-						min="0"
-						max="100000"
-						step=7
-						ng-model=field_key
-						)
-
-				else if field_type == 'textarea'
-					md-input-container
-						if no_label != false
-							label._textarea=_i18n_field_key
-						textarea(
-						cols="50"
-						aria-label=help_label
-						ng-disabled='asset.disabled'
-						ng-model=field_key
-						)= _ng_field_key
-						//md-maxlength='500'
+        else if field_type == 'fileimage'
+          div(layout='row')
+            +media('image',150,100)
+          div(layout='row')
+            md-button.md-raised(
+            ngf-select
+            ng-model='files'
+            ngf-accept="'image/*'"
+            ngf-fix-orientation="true"
+            ngf-capture="'camera'"
+            ng-show='!asset.disabled'
+            ngf-keep="'distinct'"
+            ngf-multiple='true'
+            multiple
+            )
+              span.fa.fa-file-o &nbsp;
+              span() {{"Choose an image" | translate}}
 
 
-						//	md-text-float(
-							rows="4"
-							cols="50"
-							type="textarea"
-							label="{{labels.intro}}"
-							ng-model=field_key
-							)= _ng_field_key
+        else if field_type == 'slider'
+          md-input-container(class="md-block" flex-gt-xs)
+            if no_label != false
+              label=_i18n_field_key + "  {{"+field_key+"}} {{'months' | translate}}"
+            md-slider(
+            flex
+            min="0"
+            max="100000"
+            step=7
+            ng-model=field_key
+            )
 
-				else if field_type == 'checkbox'
-					div(layout="column" layout-padding layout-align="space-between start" flex style="background-color:transparent")
-						//if no_label != true
-							label=_i18n_field_key
-						md-checkbox.md-primary(
-						ng-model=field_key
-						ng-disabled='asset.disabled'
-						value='{{option}}'
-						)= _i18n_field_key
+        else if field_type == 'textarea'
+          md-input-container
+            if no_label != false
+              label._textarea=_i18n_field_key
+            textarea(
+            cols="50"
+            aria-label=help_label
+            ng-disabled='asset.disabled'
+            ng-model=field_key
+            )= _ng_field_key
+            //md-maxlength='500'
 
 
-				else if field_type == 'radio'
-					div(layout="column" layout-padding layout-align="space-between start" flex)
-						if no_label != false
-							label=_i18n_field_key
-						md-radio-group(
-						ng-model=field_key
-						)
-							- _ng_radio_hide = 'asset.disabled && option != '+ field_key
-							- _ng_radio_value = field_key + ' == {{option}}'
-							md-radio-button.md-primary(
-							ng-disabled='asset.disabled'
-							ng-repeat=repeat
-							ng-value='option'
-							ng-model=field_key
-							ng-hide=_ng_radio_hide
-							aria-label='{{option | translate}}'
-							) {{option | translate}}
+            //	md-text-float(
+              rows="4"
+              cols="50"
+              type="textarea"
+              label="{{labels.intro}}"
+              ng-model=field_key
+              )= _ng_field_key
 
-				else if field_type == 'chip'
-					md-input-container.md-input-has-value.md-input-nomargin
-						if no_label != false
-							label=_i18n_field_key
-					md-chips(
-					ng-model=field_key
-					ng-disabled='asset.disabled'
-					)
+        else if field_type == 'checkbox'
+          div(layout="column" layout-padding layout-align="space-between start" flex style="background-color:transparent")
+            //if no_label != true
+              label=_i18n_field_key
+            md-checkbox.md-primary(
+            ng-model=field_key
+            ng-disabled='asset.disabled'
+            value='{{option}}'
+            )= _i18n_field_key
 
-				else if field_type == 'autocomplete'
-					md-autocomplete(
-					md-input-name="autocompleteField"
-					md-search-text="searchText"
-					md-items="item in querySearch(searchText,_sys.cities)"
-					md-item-text="option"
-					md-min-length="0"
-					placeholder=_i18n_field_key
-					)
-						md-item-template(
-						md-highlight-text='searchText'
-						) {{ option }}
 
-					// md-selected-item="ctrl.selectedItem"
-							md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
-							md-search-text="ctrl.searchText"
-							md-selected-item-change="ctrl.selectedItemChange(item)"
-				else
-					md-input-container(class="md-block" flex-gt-sm)
-						if no_label != false
-							label=_i18n_field_key
-						input(
-						type=field_type
-						ng-model=field_key
-						i18n=field_key
-						ng-disabled='asset.disabled'
-						ng-change=change_handler
-						)
+        else if field_type == 'radio'
+          div(layout="column" layout-padding layout-align="space-between start" flex)
+            if no_label != false
+              label=_i18n_field_key
+            md-radio-group(
+            ng-model=field_key
+            )
+              - _ng_radio_hide = 'asset.disabled && option != '+ field_key
+              - _ng_radio_value = field_key + ' == {{option}}'
+              md-radio-button.md-primary(
+              ng-disabled='asset.disabled'
+              ng-repeat=repeat
+              ng-value='option'
+              ng-model=field_key
+              ng-hide=_ng_radio_hide
+              aria-label='{{option | translate}}'
+              ) {{option | translate}}
+
+        else if field_type == 'chip'
+          md-input-container.md-input-has-value.md-input-nomargin
+            if no_label != false
+              label=_i18n_field_key
+          md-chips(
+          ng-model=field_key
+          ng-disabled='asset.disabled'
+          )
+
+        else if field_type == 'autocomplete'
+          md-autocomplete(
+          md-input-name="autocompleteField"
+          md-search-text="searchText"
+          md-items="item in querySearch(searchText,_sys.cities)"
+          md-item-text="option"
+          md-min-length="0"
+          placeholder=_i18n_field_key
+          )
+            md-item-template(
+            md-highlight-text='searchText'
+            ) {{ option }}
+
+          // md-selected-item="ctrl.selectedItem"
+              md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+              md-search-text="ctrl.searchText"
+              md-selected-item-change="ctrl.selectedItemChange(item)"
+        else
+          md-input-container(class="md-block" flex-gt-sm)
+            if no_label != false
+              label=_i18n_field_key
+            input(
+            type=field_type
+            ng-model=field_key
+            i18n=field_key
+            ng-disabled='asset.disabled'
+            ng-change=change_handler
+            )
 
 
 mixin select(field_key, resource_list, no_label, i18n_key, link_target)
-	- var repeat = 'option in '+resource_list;
-	//- var repeat = 'option in [1,2,3,4,5]';
-	- var options = 'option for option in '+resource_list;
-	- var _ng_field_key = '{{' + field_key + '}}'
-	- var _i18n_field_key = '{{"' + (i18n_key || field_key) + '" | translate }}'
+  - var repeat = 'option in '+resource_list;
+  //- var repeat = 'option in [1,2,3,4,5]';
+  - var options = 'option for option in '+resource_list;
+  - var _ng_field_key = '{{' + field_key + '}}'
+  - var _i18n_field_key = '{{"' + (i18n_key || field_key) + '" | translate }}'
 
-	md-input-container
-		if no_label != true
-			label=_i18n_field_key
-		md-select(
-		placeholder=_i18n_field_key
-		ng-model=field_key
-		ng-disabled='asset.disabled'
-		aria-label=_i18n_field_key
-		)
-			md-option(
-			ng-repeat=repeat
-			ng-value='option'
-			aria-label='{{option | translate}}'
-			) {{option | translate}}
+  md-input-container
+    if no_label != true
+      label=_i18n_field_key
+    md-select(
+    placeholder=_i18n_field_key
+    ng-model=field_key
+    ng-disabled='asset.disabled'
+    aria-label=_i18n_field_key
+    )
+      md-option(
+      ng-repeat=repeat
+      ng-value='option'
+      aria-label='{{option | translate}}'
+      ) {{option | translate}}
 
 
 mixin select_multiple(field_key, resource_list, no_label, i18n_key, link_target, multiple)
-	- var repeat = 'option in '+resource_list;
-	//- var repeat = 'option in [1,2,3,4,5]';
-	- var options = 'option for option in '+resource_list;
-	- var _ng_field_key = '{{' + field_key + '}}'
-	- var _i18n_field_key = '{{"' + (i18n_key || field_key) + '" | translate }}'
-	- var _multiple = multiple ? 'multiple' : ''
+  - var repeat = 'option in '+resource_list;
+  //- var repeat = 'option in [1,2,3,4,5]';
+  - var options = 'option for option in '+resource_list;
+  - var _ng_field_key = '{{' + field_key + '}}'
+  - var _i18n_field_key = '{{"' + (i18n_key || field_key) + '" | translate }}'
+  - var _multiple = multiple ? 'multiple' : ''
 
-	md-input-container
-		if no_label != true
-			label=_i18n_field_key
-		md-select(
-		placeholder=_i18n_field_key
-		ng-model=field_key
-		ng-disabled='asset.disabled'
-		aria-label=_i18n_field_key
-		multiple
+  md-input-container
+    if no_label != true
+      label=_i18n_field_key
+    md-select(
+    placeholder=_i18n_field_key
+    ng-model=field_key
+    ng-disabled='asset.disabled'
+    aria-label=_i18n_field_key
+    multiple
 
-		)
-			md-optgroup(label=_i18n_field_key)
-				md-option(
-				ng-repeat=repeat
-				ng-value='option'
-				aria-label='{{option | translate}}'
-				) {{option | translate}}
+    )
+      md-optgroup(label=_i18n_field_key)
+        md-option(
+        ng-repeat=repeat
+        ng-value='option.key'
+        aria-label='{{option.value | translate}}'
+        ) {{option.value | translate}}

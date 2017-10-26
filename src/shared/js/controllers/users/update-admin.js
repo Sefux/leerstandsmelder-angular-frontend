@@ -14,8 +14,14 @@ var UsersUpdateAdminController = function ($scope, $q, $routeParams, apiService,
     $scope._sys = {
         notify:'notify me',
         share_email:'share my email',
-        userScope: ['admin','editor','user',]
+        userScope: [{'key':'admin','value' : 'Administrator'},{'key':'editor','value':'Editor'},{'key':'user', 'value':'User'}]
     };
+
+    apiService('regions').actions.all(function (err, regions) {
+      regions.results.forEach(function(region) {
+        $scope._sys.userScope.push({'key':'region-'+region.uuid, 'value':region.title});
+      });
+    });
 
     $scope.submit = function () {
         var deferred = $q.defer();
