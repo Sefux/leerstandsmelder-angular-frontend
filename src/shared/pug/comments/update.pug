@@ -12,5 +12,6 @@ div(layout="row" layout-wrap layout-fill)
             +input('checkbox','comment.hidden','comments.hidden', '_sys.hidden', null)
             hr
             div(layout="row")
+                +button_fab('actions.back','back()','md-secondary','fa-arrow-left',null)
                 span(flex)
-                +button("actions.submit",'submit()','md-raised',null,null)
+                +button_fab('actions.submit','submit()','md-primary','fa-check',null)
