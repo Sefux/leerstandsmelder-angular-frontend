@@ -43,11 +43,11 @@ md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as 
                         md-menu-item(ng-repeat="region in admin_regions")
                             // todo: turn this into a select list.
                             +button_notranslate_tmp('region.title', 'close_sidebar()','btn-default','fa-fw fa-2x fa-globe','admin_regions', '/admin/regions/{{ region.slug }}/locations')
-                        md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
-                            +button('comments.manage_comments','','btn-default','fa-comment-o fa-fw fa-2x ','userSession', '/admin/comments')
                         md-menu-divider(ng-if="api_key.scopes.indexOf('editor') > -1 || admin_regions.length > 0" )
                         md-menu-item(ng-if="api_key.scopes.indexOf('editor') > -1 || admin_regions.length > 0" )
                             b {{ 'comments.manage_comments' | translate }}
+                        md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
+                            +button('comments.manage_comments','','btn-default','fa-comment-o fa-fw fa-2x ','userSession', '/admin/comments')
                         md-menu-item(ng-repeat="region in admin_regions")
                             // todo: turn this into a select list.
                             +button_notranslate_tmp('region.title', 'close_sidebar()','btn-default','fa-fw fa-2x fa-globe','admin_regions', '/admin/regions/{{ region.slug }}/comments')
