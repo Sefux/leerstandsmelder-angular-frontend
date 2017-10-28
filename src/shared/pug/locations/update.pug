@@ -4,9 +4,11 @@ include ..//mixins/_buttons
 include ..//mixins/_layout
 include ..//mixins/_style
 
-div.update-form(layout="row" layout-xs="column" layout-wrap layout-fill)
-    #map(lsm-map flex flex-gt-xs="40" ng-model='location' select-mode select-handler='updateLocation(latlon)' select-marker='marker' )
-    div(flex flex-gt-xs="60")
+div(layout="row" layout-xs="column" layout-wrap layout-fill)
+  md-content(flex flex-gt-xs="40" layout-align='stretch' )
+    #map(lsm-map flex layout-align='stretch' ng-model='location' select-mode select-handler='updateLocation(latlon)' select-marker='marker' )
+  md-content(flex flex-gt-xs="60" layout-align='stretch')
+    div.sidebar
         md-tabs(class="md-primary" md-dynamic-height md-border-bottom md-no-pagination="false" md-swipe-content md-selected="selectedIndex")
             md-tab(label='{{ "creator.tabs.info" | translate }}')
                 div.md-padding

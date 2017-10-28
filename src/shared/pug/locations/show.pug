@@ -4,9 +4,11 @@ include ..//mixins/_buttons
 include ..//mixins/_layout
 include ..//mixins/_style
 
-div(layout layout-xs="column" layout-wrap layout-fill)
-    #map(lsm-map flex flex-gt-xs="33" ng-model='location' center='mapcenter' zoom='zoom' locations='locations')
-    div.md-padding(flex flex-gt-xs="66" check-login)
+div(layout="row" layout-xs="column" layout-wrap layout-fill)
+  md-content(flex flex-gt-xs="35" layout-align='stretch' )
+    #map(lsm-map flex layout-align='stretch'  ng-model='location' center='mapcenter' zoom='zoom' locations='locations')
+  md-content(flex flex-gt-xs="65" layout-align='stretch')
+    div.sidebar.md-padding(check-login)
         p.pull-right()
             +button_fab('actions.back','back()','md-secondary','fa-arrow-left','location')
             span(ng-if='mayEdit')
