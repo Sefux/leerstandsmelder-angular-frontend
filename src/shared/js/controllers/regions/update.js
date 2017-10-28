@@ -35,8 +35,8 @@ var RegionsUpdateController = function ($scope, $q, $routeParams, apiService, re
         $scope.region.lonlat[1] = latlon.lat;
         $scope.$apply();
 
-    }
-    $scope.$watchGroup(['region.zoom', 'region.lonlat[1]', 'region.lonlat[0]'], function (newValues, oldValues) {
+    };
+    $scope.$watchGroup(['region.zoom', 'region.lonlat[1]', 'region.lonlat[0]'], function () {
       $scope.center = [$scope.region.lonlat[1], $scope.region.lonlat[0]];
       $scope.marker = {
           lng: $scope.region.lonlat[0],

@@ -14,9 +14,9 @@ var UsersLoginController = function ($scope, $q, $location, apiService, response
                 PubSub.publish('alert', {type: 'success', message: $translate.instant('successes.user.login')});
                 $rootScope.$broadcast('currentUser:updated', true);
                 var redirect = '/';
-                // if($routeParams.hasOwnProperty('redirectTo') {
-                // //    redirect = $routeParams.redirectTo;
-                // }
+                if($routeParams.hasOwnProperty('redirectTo')) {
+                  redirect = $routeParams.redirectTo;
+                }
                 //var redirect_path = (configuration.urlbase || '/') + redirect;
                 $location.path( redirect);
 

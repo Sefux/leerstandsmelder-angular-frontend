@@ -35,7 +35,7 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
         }
     ];
 
-    var columnDefs_regions = [
+    var columnDefsRegions = [
         {headerName: $filter('translate')("regions.title"), field: "title", width: 90, cellRenderer: 'group'},
         {headerName: $filter('translate')("comments.created"), field: "created", width: 90, cellRenderer: dateFormatter},
         {headerName: $filter('translate')("author.updated"), field: "updated", width: 90, cellRenderer: dateFormatter, sort: 'desc'},
@@ -114,7 +114,7 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
             var region_data = regions.results || regions;
             if (Array.isArray(region_data)) {
                 $scope.data = region_data.results || region_data;
-                $scope.gridOptions.api.setColumnDefs( columnDefs_regions );
+                $scope.gridOptions.api.setColumnDefs( columnDefsRegions );
                 $scope.gridOptions.api.setRowData($scope.data);
                 $scope.gridOptions.api.sizeColumnsToFit();
                 cb();
