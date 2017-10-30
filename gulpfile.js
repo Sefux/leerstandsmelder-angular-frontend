@@ -453,7 +453,8 @@ gulp.task('build:ios', function () {
             '<splash src="www/images/splash/ios/Default-736h.png" width="1242" height="2208"/>',
             '<splash src="www/images/splash/ios/Default-Landscape-736h.png" width="2208" height="1242"/>',
             '<splash src="www/images/splash/ios/Default@2x~universal~anyany.png" />',
-            '<preference name="BackupWebStorage" value="local" />'
+            '<preference name="BackupWebStorage" value="local" />',
+            '<preference name="Orientation" value="all" />'
         ]))
         .pipe(icon('www/images/icons/leerstandsmelder_icon.png', { errorHandlingStrategy: 'warn' }))
       .pipe(dst);
