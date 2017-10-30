@@ -14,11 +14,8 @@ var ApiService = function (authService, uploadService) {
         return {
             client: apiClient,
             clearCache: function(uuid, callback) {
-              console.log('clearCache ' + resourceName, uuid);
-
               delete cache[resourceName];
               delete cache[resourceName + '-' + uuid];
-              console.log('Cache ', cache);
               callback();
             },
             actions: {

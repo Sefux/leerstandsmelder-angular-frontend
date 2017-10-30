@@ -76,7 +76,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                     postcode: $scope.location.postcode,
                     country: $scope.location.country
                 }, function (err, result) {
-                    console.log('found locations',result.data);
+                    //console.log('found locations',result.data);
                     if (Array.isArray(result.data) && result.data.length > 0) {
                         $scope.marker.lat = result.data[0].lat;
                         $scope.marker.lng = result.data[0].lon;
@@ -248,18 +248,16 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                 }
             },
             function(cb) {
-              console.log('call clearcache');
-              //clearCache
+              //clearCache: location
               apiService('locations').clearCache(payload.uuid, cb);
             },
             function(cb) {
-              console.log('call clearcache regions');
-              //clearCache
+              //clearCache: region
               apiService('regions/'+payload.region_uuid+'/locations').clearCache(payload.region_uuid, cb);
               //cb();
             }
         ], function (err) {
-            console.log('update/insert error',err);
+            //console.log('update/insert error',err);
             var msgs = {
                 success: $routeParams.uuid ? 'messages.locations.update_success' : 'messages.locations.create_success'
             };
@@ -291,20 +289,16 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                     lat: location.lonlat[1]
                 };
                 $scope.formTitle = 'Edit "' + location.title + '"';
-                console.log('location',location);
                 apiService('locations/' + location.uuid + '/photos').actions.all(cb);
             },
             function (photos, cb) {
-                console.log('photos',photos);
                 $scope.photos =  photos.results || photos;
                 cb();
             },
             function (cb) {
-                console.log('setCurrentRegion',$scope.location.region_uuid);
                 regionService.setCurrentRegion($scope.location.region_uuid, cb);
             },
             function (cb) {
-                console.log('admin',regionService.currentRegion.title);
                 $scope.currentRegion = regionService.currentRegion.title;
                 $scope.isAdmin = authService.hasScopes(['admin', 'region-' + $scope.location.region_uuid]);
                 cb();
@@ -316,7 +310,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
         //create a new location: ask user to use his geoloaction
         GeolocationService.getCurrentPosition().then(
             function (position) { //
-                console.log('Position', position);
+                //console.log('Position', position);
                 $scope.marker.lat = position.coords.latitude;
                 $scope.marker.lng = position.coords.longitude;
                 $scope.updateLocation({'lat': position.coords.latitude, 'lng': position.coords.longitude});

@@ -1,6 +1,6 @@
 'use strict';
 
-var RecentLocationsDirective = function (apiService, assetPath, configuration) {
+var RecentLocationsDirective = function (apiService, assetPath, configuration, regionService) {
     return {
         restrict: 'A',
         scope: {
@@ -14,6 +14,7 @@ var RecentLocationsDirective = function (apiService, assetPath, configuration) {
             scope.$watch(attrs.region, function () {
                 scope.region = scope.$eval(attrs.region);
             });
+            //scope.locations = regionService.getCurrentLocations();
             scope.$watch(attrs.locations, function () {
                 scope.locations = scope.$eval(attrs.locations);
             });
@@ -27,6 +28,6 @@ var RecentLocationsDirective = function (apiService, assetPath, configuration) {
     };
 };
 
-RecentLocationsDirective.$inject = ['apiService', 'assetPath','configuration'];
+RecentLocationsDirective.$inject = ['apiService', 'assetPath','configuration', 'regionService'];
 
 module.exports = RecentLocationsDirective;
