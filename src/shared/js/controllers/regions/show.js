@@ -23,11 +23,23 @@ var RegionsShow = function ($scope, regionService, $q, $routeParams, apiService,
         },
         function (cb) {
             apiService('regions/' + $scope.region.uuid + '/locations').actions.all(cb, function() {}, true);
+          //regionService.setCurrentLocations($scope.region.uuid, cb);
         },
         function (locations, cb) {
             $scope.locations = locations.results || locations;
             cb();
         }
+        /*
+        ,
+        function (cb) {
+
+          var locations = regionService.getCurrentLocations($scope.region.uuid);
+          console.log('locations',locations);
+
+            $scope.locations = locations;
+            cb();
+        }
+        */
     ], function (err) {
         responseHandler.handleResponse(err, deferred);
     });

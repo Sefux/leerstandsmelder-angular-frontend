@@ -3,7 +3,7 @@
 var async = require('async');
 
 var LocationsCreateController = function ($scope, $routeParams, apiService, authService, $q, $location, mapService,
-                                          responseHandler, locationFormDefaults, regionService, GeolocationService, 
+                                          responseHandler, locationFormDefaults, regionService, GeolocationService,
                                           $mdDialog, $translate, CameraService) {
     var changeTimer, lockUpdate;
     $scope.location = {};
@@ -88,7 +88,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
             },1000);
         }
     });
-    
+
     $scope.deletePhoto = function (photo) {
         var confirm = $mdDialog.confirm()
             .title($translate.instant('photos.remove_confirm_title'))
@@ -110,22 +110,22 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
             });
         });
     };
-    
+
     /*
     Get camera image
     */
-    
+
     $scope.files = [];
     $scope.uploaded_pic = [];
-    
+
     $scope.getPicture = function(type) {
-        
+
         var options = {};
         if(type === 'library') { //TODO: refactor: needs pass parameter to service???
             //options.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
             CameraService.getLibrary(options).then(
-                function (imageData) { 
-                    //var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");    
+                function (imageData) {
+                    //var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");
                     /*
                     window.resolveLocalFileSystemURL(filePreview, function (fileEntry) {
                         file = fileEntry;
@@ -133,8 +133,8 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                         $scope.files.push(file);
                     });
                     */
-                    
-                    var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");    
+
+                    var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");
                     $scope.uploaded_pic.push(filePreview);
                     $scope.files.push(filePreview);
                 },
@@ -150,8 +150,8 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
 
         } else {
             CameraService.getPicture().then(
-                function (imageData) { 
-                    //var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");    
+                function (imageData) {
+                    //var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");
                     /*
                     window.resolveLocalFileSystemURL(filePreview, function (fileEntry) {
                         file = fileEntry;
@@ -159,8 +159,8 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                         $scope.files.push(file);
                     });
                     */
-                    
-                    var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");    
+
+                    var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");
                     $scope.uploaded_pic.push(filePreview);
                     $scope.files.push(filePreview);
                 },
@@ -174,14 +174,14 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                 }
             );
         }
-        
+
     };
 
     $scope.abort = function () {
         $location.path('/' + ($scope.location.region_slug || $scope.location.region_uuid) + '/' +
             $scope.location.slug);
     };
-    
+
     $scope.promiseShow = function () {
         var deferred = $q.defer();
         $scope.promise = deferred.promise;
@@ -246,6 +246,17 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                 } else {
                     cb();
                 }
+            },
+            function(cb) {
+              console.log('call clearcache');
+              //clearCache
+              apiService('locations').clearCache(payload.uuid, cb);
+            },
+            function(cb) {
+              console.log('call clearcache regions');
+              //clearCache
+              apiService('regions/'+payload.region_uuid+'/locations').clearCache(payload.region_uuid, cb);
+              //cb();
             }
         ], function (err) {
             console.log('update/insert error',err);
@@ -258,8 +269,8 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
             }
         });
     };
-    
-    
+
+
     /*
         Load an existing location to update
      */
@@ -323,7 +334,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
 };
 
 LocationsCreateController.$inject = ['$scope', '$routeParams', 'apiService', 'authService', '$q', '$location',
-    'mapService', 'responseHandler', 'locationFormDefaults', 'regionService','GeolocationService', '$mdDialog', 
+    'mapService', 'responseHandler', 'locationFormDefaults', 'regionService','GeolocationService', '$mdDialog',
     '$translate', 'CameraService'];
 
 module.exports = LocationsCreateController;

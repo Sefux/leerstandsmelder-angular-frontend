@@ -13,6 +13,14 @@ var ApiService = function (authService, uploadService) {
         });
         return {
             client: apiClient,
+            clearCache: function(uuid, callback) {
+              console.log('clearCache ' + resourceName, uuid);
+
+              delete cache[resourceName];
+              delete cache[resourceName + '-' + uuid];
+              console.log('Cache ', cache);
+              callback();
+            },
             actions: {
                 all: function (callback, progress, caching) {
                     caching =  caching || false;
@@ -22,10 +30,10 @@ var ApiService = function (authService, uploadService) {
                         apiClient.resource(resourceName, query).action('get', null, function(err, result) {
                             if(caching) {
                                 cache[resourceName] = result;
-                            } 
-                            callback(null, result);                               
+                            }
+                            callback(null, result);
                         }, progress);
-                    
+
                     }
                 },
                 find: function (uuid, callback, progress, caching) {
@@ -39,7 +47,7 @@ var ApiService = function (authService, uploadService) {
                                 cache[cacheId] = result;
                             }
                             callback(null, result);
-                        }, progress);    
+                        }, progress);
                     }
                 },
                 create: function (data, callback, progress) {
@@ -54,7 +62,7 @@ var ApiService = function (authService, uploadService) {
                 },
                 upload: function (data, callback, progress) {
                     data.authenticationHeader = apiClient.authUtil.getTokenHeader(authService.access_token);
-                    uploadService.upload(data, callback, progress);    
+                    uploadService.upload(data, callback, progress);
                 },
                 ping: function(callback, progress) {
                   apiClient.resource('ping').action('get', '0', callback, progress);
