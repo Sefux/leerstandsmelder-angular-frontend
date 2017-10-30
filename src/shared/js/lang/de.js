@@ -103,7 +103,7 @@ module.exports = {
       user: {
         login: 'Du hast dich erfolgreich angemeldet.',
         logout: 'Du hast dich erfolgreich abgemeldet.'
-      }  
+      }
     },
     photos: {
         remove_confirm_title: 'Bild löschen?',
@@ -295,6 +295,7 @@ module.exports = {
 	    last_login: "Letzter login",
         failed_logins: "Fehlgeschlagene Logins",
         scope: "Berechtigungen",
-	    created: 'Angemeldet'
+	    created: 'Angemeldet',
+      accept_terms: 'Ich habe die AGB gelesen und erkläre mich mit dieser einverstanden.'
     }
 };

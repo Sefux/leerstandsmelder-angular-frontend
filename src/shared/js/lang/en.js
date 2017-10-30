@@ -103,7 +103,7 @@ module.exports = {
       user: {
         login: 'You are now logged in.',
         logout: 'You have been logged out.'
-      }  
+      }
     },
     photos: {
         remove_confirm_title: 'Delete image?',
@@ -295,6 +295,7 @@ module.exports = {
 	    last_login: "Last login",
         failed_logins: "Failed logins",
         scope: "Scopes",
-	    created: 'Created'
+	    created: 'Created',
+      accept_terms: 'I have read the terms of service and accept these terms.'
     }
 };
