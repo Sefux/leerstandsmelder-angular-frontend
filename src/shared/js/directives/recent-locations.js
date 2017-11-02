@@ -1,6 +1,6 @@
 'use strict';
 
-var RecentLocationsDirective = function (apiService, assetPath, configuration, regionService) {
+var RecentLocationsDirective = function (apiService, assetPath, configuration) {
     return {
         restrict: 'A',
         scope: {
@@ -19,7 +19,6 @@ var RecentLocationsDirective = function (apiService, assetPath, configuration, r
                 scope.locations = scope.$eval(attrs.locations);
             });
             scope.more = function() {
-              console.log('click', scope.pageSize);
               scope.$applyAsync(function () {
                 scope.pageSize += 10;
               });
@@ -28,6 +27,6 @@ var RecentLocationsDirective = function (apiService, assetPath, configuration, r
     };
 };
 
-RecentLocationsDirective.$inject = ['apiService', 'assetPath','configuration', 'regionService'];
+RecentLocationsDirective.$inject = ['apiService', 'assetPath','configuration'];
 
 module.exports = RecentLocationsDirective;

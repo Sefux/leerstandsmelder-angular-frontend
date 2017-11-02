@@ -26,9 +26,6 @@ var RegionService = function (apiService, $rootScope) {
                 cb();
             }
         },
-        clearCurrentLocations: function(cb) {
-
-        },
         setCurrentLocations: function(uuid, cb) {
           var _self = this;
 
@@ -54,7 +51,7 @@ var RegionService = function (apiService, $rootScope) {
           cb();
         }
         },
-        getCurrentLocations: function(uuid, cb) {
+        getCurrentLocations: function(uuid) {
           if (!this.currentLocations || this.currentRegion.uuid !== uuid) {
             return this.setCurrentLocations(uuid);
           } else {
