@@ -18,8 +18,11 @@ var ResponseHandlerService = function ($translate, PubSub, $location, apiService
                     PubSub.publish('alert', {type: 'error', message: $translate.instant('errors.authorization_failed')});
                 } else if (err.code === 403) {
                     PubSub.publish('alert', {type: 'error', message: $translate.instant('errors.access_denied')});
-                } else if (err.code === 404) {
+                } else if (err.code === 404 || err.code === "NotFoundError") {
                     $location.path('/site/404');
+                    if (msgs && msgs.error) {
+                        PubSub.publish('alert', {type: 'error', message: $translate.instant(err.message)});
+                      }
                 } else {
                     if (msgs && msgs.error) {
                         PubSub.publish('alert', {type: 'error', message: $translate.instant(err.message)});
