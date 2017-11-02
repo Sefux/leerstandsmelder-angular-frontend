@@ -5,8 +5,10 @@ include ..//..//..//shared/pug/mixins/_layout
 include ..//..//..//shared/pug/mixins/_style
 
 div.update-form(layout="row" layout-xs="column" layout-wrap layout-fill)
-    #map(lsm-map flex flex-gt-xs="40" ng-model='location' select-mode select-handler='updateLocation(latlon)' select-marker='marker' )
-    div(flex flex-gt-xs="60")
+  md-content(flex flex-gt-xs="40" layout-align="stretch" )
+    #map(lsm-map flex layout-align="stretch" ng-model='location' select-mode select-handler='updateLocation(latlon)' select-marker='marker' )
+  md-content(flex flex-gt-xs="60" layout-align="stretch")
+    div.sidebar
         md-tabs(class="md-primary" md-dynamic-height md-border-bottom md-no-pagination="false" md-swipe-content md-selected="selectedIndex")
             md-tab(label='{{ "creator.tabs.info" | translate }}')
                 div.md-padding
@@ -107,24 +109,23 @@ div.update-form(layout="row" layout-xs="column" layout-wrap layout-fill)
                         md-grid-list(md-cols="3" md-row-height="4:3")
                             md-grid-tile(ng-repeat="photo in photos")
                                 img.photo-preview(alt="{{ photo.uuid }}" ng-src="{{ photo.thumb_large_url }}" ng-click="deletePhoto(photo)" layout-fill)
-                                    
+
                     hr
-                    p() {{ 'actions.choose_image' | translate }}    
+                    p() {{ 'actions.choose_image' | translate }}
                         div(ng-if="uploaded_pic.length > 0")
                             md-grid-list(md-cols="3" md-row-height="4:3")
                                 md-grid-tile(ng-repeat="pic in uploaded_pic")
                                     img.photo-preview(ng-src="{{ pic }}" layout-fill)
-                        button(class='md-button button-positive md-raised' ng-click="getPicture('camera')") 
+                        button(class='md-button button-positive md-raised' ng-click="getPicture('camera')")
                             span.fa.fa-file-o &nbsp;
                             span() {{ 'actions.choose_camera' | translate }}
-                        button(class='md-button button-positive md-raised' ng-click="getPicture('library')") 
+                        button(class='md-button button-positive md-raised' ng-click="getPicture('library')")
                             span.fa.fa-file-o &nbsp;
                             span() {{ 'actions.choose_library' | translate }}
-                        
+
                     hr
                     div(layout-gt-xs="row" layout-align="space-between start")
                         +button("actions.previous",'selectedIndex = selectedIndex - 1','md-raised',null,null)
                         span(flex)
                         +button("actions.abort",'abort()','md-raised',null,null)
                         +button_fab('actions.submit','submit()','md-warn','fa-check','location')
-                        
