@@ -1,7 +1,8 @@
 {
   "name": "leerstandsmelder-frontend",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Leerstandsmelder App - Angular.JS based frontend for Desktop & Mobile",
+  "homepage": "https://www.leerstandsmelder.de",
   "scripts": {
     "postinstall": "cross-env gulp assets",
     "test": "cross-env gulp lint && cross-env gulp build",
