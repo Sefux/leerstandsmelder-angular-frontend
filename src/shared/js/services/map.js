@@ -104,7 +104,7 @@ var MapService = function ($http, assetPath) {
         },
         createAddressFromGeo: function (address) {
             return {
-                city: address.city || address.town || address.village || address.hamlet || "City not found",
+                city: address.city || address.town || address.village || address.state || "City not found",
                 street: (address.road || address.path || address.footway || address.pedestrian || address.cycleway || "") + " " + (address.house_number || ""),
                 postcode: address.postcode || ""
             };
