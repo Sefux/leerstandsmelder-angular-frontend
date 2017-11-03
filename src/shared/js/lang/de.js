@@ -10,6 +10,7 @@ module.exports = {
         choose_images: 'Wähle eines oder mehrere Bilder aus, welche Du zu diesem Eintrag hinzufügen möchtest.',
         choose_image: 'Füge ein Bild zu diesem Eintrag hinzu.',
         choose_camera: 'Kamera',
+        choose_photo: 'Wähle ein Foto aus',
         choose_library: 'Library',
         delete: 'Löschen',
         dont_show_again: 'Nicht mehr anzeigen',

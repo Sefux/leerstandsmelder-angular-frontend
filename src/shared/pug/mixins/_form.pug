@@ -65,7 +65,7 @@ mixin input(field_type, field_key, field_i18n_key, resource_list, sys_val, no_la
         if field_type == 'file'
           md-button.md-raised(ngf-select='', ng-model='files', ngf-multiple='true', ngf-allow-dir='true', ngf-accept="'.jpg,.png,.pdf'")
             span.fa.fa-file-o &nbsp;
-            span() {{"Choose a file" | translate}}
+            span() {{"actions.choose_photo" | translate}}
 
         else if field_type == 'fileimage'
           div(layout='row')
@@ -83,7 +83,7 @@ mixin input(field_type, field_key, field_i18n_key, resource_list, sys_val, no_la
             multiple
             )
               span.fa.fa-file-o &nbsp;
-              span() {{"Choose an image" | translate}}
+              span() {{"actions.choose_photo" | translate}}
 
 
         else if field_type == 'slider'
