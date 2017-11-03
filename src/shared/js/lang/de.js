@@ -43,7 +43,7 @@ module.exports = {
         file: 'Datei'
     },
     author: {
-	    author: 'Autor',
+      author: 'Autor',
         by: 'von',
         created: 'Erstellt',
         in: 'in',
@@ -121,7 +121,7 @@ module.exports = {
             industrial: 'Industriell',
             historical: 'Historisch',
             public_work: 'Öffentlich',
-            other: 'was anders'
+            other: 'andere'
         },
         city: 'Stadt',
         create_new: 'Leerstand melden',
@@ -182,7 +182,7 @@ module.exports = {
             city: 'Stadt'
         },
         postcode: 'Postleitzahl',
-        recent_activity: 'Neueste Leerstände',
+        recent_activity: 'Neueste Aktivitäten',
         remove_confirm_title: 'Leerstand löschen',
         remove_confirm_body: 'Diese Aktion kann nicht rückgängig gemacht werden. Bist Du sicher?',
         remove_success: 'Leerstand wurde gelöscht',
@@ -229,8 +229,8 @@ module.exports = {
         title: 'Titel',
         update_success: 'Eintrag erfolgreich aktualisiert..',
         create_post: 'Eintrag erstellen',
-	    slug: 'Kurzform URL',
-	    static: 'Statische Seite'
+      slug: 'Kurzform URL',
+      static: 'Statische Seite'
     },
     regions: {
         settings: 'Einstellungen',

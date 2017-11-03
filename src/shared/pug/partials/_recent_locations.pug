@@ -11,7 +11,7 @@ div(layout="column" layout-align="start start")
                         h3
                             a(ng-href='{{ urlbase + (region.slug || region.uuid) + "/" + location.slug  }}' ) {{ location.title }}
                                 span  {{ "author.by" | translate }} {{ location.user.nickname }}
-                        p {{ location.description }}
+                        p {{ location.description | limitTo: 40 }}
         md-list-item(layout='row' layout-align="start center" )
           div.lsm-list-item.lsm-list-item-small(layout='row' layout-align="start center"  ng-class-odd="'odd'" ng-class-even="'even'")
             .lsm-list-item-text.md-list-item-text(flex)

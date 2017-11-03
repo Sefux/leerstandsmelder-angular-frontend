@@ -230,7 +230,7 @@ module.exports = {
         update_success: 'Post updated successfully.',
         create_post: 'Create post',
         slug: 'Slug URL',
-	    static: 'Static side'
+      static: 'Static side'
     },
     regions: {
         settings: 'Settings',
