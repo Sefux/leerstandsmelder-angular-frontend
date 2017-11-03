@@ -35,7 +35,7 @@ var AuthService = function () {
             mustHaveAll = mustHaveAll || false;
             var found = mustHaveAll;
             for (var i in scopes) {
-                if (this.api_key.scopes.indexOf(scopes[i]) && !mustHaveAll) {
+                if ((this.api_key.scopes.indexOf(scopes[i]) > -1) && !mustHaveAll) {
                     found = true;
                 } else if (mustHaveAll) {
                     found = false;
