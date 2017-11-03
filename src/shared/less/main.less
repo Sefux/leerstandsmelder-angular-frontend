@@ -563,18 +563,38 @@ md-sidenav {
 
 }
 .update-form {
-img.photo-preview:hover {
-  border: 2px solid black;
+  .remove_image {
+
+  }
+  .remove_image:hover {
     opacity: 0.5;
+    cursor: pointer;
+  }
+  .remove_image:hover .edit {
+     display: block;
+     opacity: 1;
+  }
+
+  .remove_image .edit {
+    padding-top: 0px;
+    padding-right: 0px;
+    position: absolute;
+    right: 35%;
+    top: 30%;
+    display: none;
+
+    .fa {
+      font-size: 5em;
+      line-height: .75em;
+      vertical-align: -15%;
+      color: red;
+    }
+
+  }
+
 }
 
-md-grid-list md-grid-tile figure {
-    :hover {
-      border: 2px solid black;
-        opacity: 0.5;
-    }
-}
-}
+
 
 .lightbox-image-holder {
   max-width:80%;

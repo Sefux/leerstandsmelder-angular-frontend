@@ -14,7 +14,6 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
         lat: null,
         lng: null
     };
-    $scope.selectedIndex = 0;
     $scope._sys = locationFormDefaults;
 
 
@@ -265,6 +264,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
     /*
         Load an existing location to update
      */
+    $scope.form_title = '';
     if ($routeParams.uuid) {
         var deferred = $q.defer();
         $scope.promise = deferred.promise;
@@ -294,12 +294,14 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
             function (cb) {
                 $scope.currentRegion = regionService.currentRegion.title;
                 $scope.isAdmin = authService.hasScopes(['admin', 'region-' + $scope.location.region_uuid]);
+                $scope.form_title = $translate.instant('locations.update_location');
                 cb();
             }
         ], function (err) {
             responseHandler.handleResponse(err, deferred);
         });
     } else {
+        $scope.form_title = $translate.instant('locations.create_new');
         //create a new location: ask user to use his geoloaction
         GeolocationService.getCurrentPosition().then(
             function (position) { //

@@ -8,12 +8,11 @@ div(layout="row" layout-xs="column" layout-wrap layout-fill)
   md-content(flex flex-gt-xs="40" layout-align='stretch' )
     #map(lsm-map flex layout-align='stretch' ng-model='location' select-mode select-handler='updateLocation(latlon)' select-marker='marker' )
   md-content(flex flex-gt-xs="60" layout-align='stretch')
-    div.sidebar
-        md-tabs(class="md-primary" md-dynamic-height md-border-bottom md-no-pagination="false" md-swipe-content md-selected="selectedIndex")
-            md-tab(label='{{ "creator.tabs.info" | translate }}')
-                div.md-padding
+    form.sidebar.md-padding.update-form
+                h2 {{ form_title }}
+                div
                     small {{ "locations.help.info" | translate }}
-                div.md-padding
+                div(layout="row" layout-xs="column" layout-padding)
                     div(flex)
                         div(layout-gt-xs="row" flex="60")
                             +input('text','location.title','locations.title', null, null)
@@ -21,12 +20,8 @@ div(layout="row" layout-xs="column" layout-wrap layout-fill)
                         div(layout-gt-xs="row")
                             +input('textarea','location.description','locations.description', null, null)
                 hr
-                div(layout="row" layout-align="start end")
-                    span(flex)
-                    +button("actions.next",'selectedIndex = selectedIndex + 1','md-raised',null,null)
 
-            md-tab(label='{{ "creator.tabs.location" | translate }}')
-                div.md-padding
+                div
                     small {{ "locations.help.location" | translate }}
                 div(layout="row" layout-xs="column" layout-padding)
                     div(flex)
@@ -45,13 +40,8 @@ div(layout="row" layout-xs="column" layout-wrap layout-fill)
                             span © OpenStreetMap contributors,&nbsp;
                                 a(href='http://www.openstreetmap.org/copyright', target='_blank') ODbL 1.0.
                 hr
-                div(layout="row" layout-align="start end")
-                    +button("actions.previous",'selectedIndex = selectedIndex - 1','md-raised',null,null)
-                    span(flex)
-                    +button("actions.next",'selectedIndex = selectedIndex + 1','md-raised',null,null)
 
-            md-tab(label='{{ "creator.tabs.details" | translate }}')
-                div.md-padding
+                div
                     small {{ "locations.help.details" | translate }}
                 div(layout="row" layout-xs="column" layout-padding)
                     div(flex layout-padding)
@@ -70,52 +60,32 @@ div(layout="row" layout-xs="column" layout-wrap layout-fill)
                         div(layout-gt-xs="row")
                             +input('checkbox','location.demolished','locations.demolished', '_sys.demolished', false)
                 hr
-                div(layout="row" layout-align="start end")
-                    +button("actions.previous",'selectedIndex = selectedIndex - 1','md-raised',null,null)
-                    span(flex)
-                    +button("actions.next",'selectedIndex = selectedIndex + 1','md-raised',null,null)
+                div(ng-if='isAdmin')
+                  div
+                      small {{ "locations.help.admin" | translate }}
+                  div(layout="row" layout-padding)
+                      div(flex layout-padding)
+                          div(layout-gt-xs="row")
+                              +input('checkbox','location.hidden','locations.hidden', '_sys.hidden', null)
+                  hr
 
-            md-tab(ng-if='isAdmin' label='{{ "creator.tabs.admin" | translate }}')
-                div.md-padding
-                    small {{ "locations.help.admin" | translate }}
-                div(layout="row" layout-padding)
-                    div(flex layout-padding)
-                        div(layout-gt-xs="row")
-                            +input('checkbox','location.hidden','locations.hidden', '_sys.hidden', null)
-                hr
-                div(layout="row" layout-align="start end")
-                    +button("actions.previous",'selectedIndex = selectedIndex - 1','md-raised',null,null)
-                    span(flex)
-                    +button("actions.next",'selectedIndex = selectedIndex + 1','md-raised',null,null)
+                div
 
-            md-tab(label='{{ "creator.tabs.preview" | translate }}')
-                div.md-padding
-                    p
-                        strong {{ "locations.title" | translate }} : {{location.title}}
-                    p(btf-markdown="location.description" ng-if="location.description")
-                    small
-                        p(ng-if="location.emptySince") {{ 'locations.empty_for' | translate }}: {{ location.emptySince | translate }}
-                        p {{ 'locations.address' | translate }}: {{location.street || ('locations.unknown' | translate)}}
-                        p {{ 'locations.city' | translate }}: {{location.postcode}} {{location.city || ('locations.unknown' | translate)}}
-                        p {{ 'locations.degree' | translate }}: {{(location.degree | translate) || ('locations.unknown' | translate)}}
-                        p {{ 'locations.demolished' | translate }}: {{(location.demolished ? ('locations.demolished_yes' | translate) : null) || ('site.no' | translate)}}
-                        p {{ 'locations.demolition_rumor' | translate }}: {{(location.rumor ? ('locations.demolition_rumor_yes' | translate) : null) || ('locations.unknown' | translate)}}
-                        p {{ 'locations.building_type' | translate }}: {{(location.buildingType | translate) || ('locations.unknown' | translate)}}
-                        p {{ 'locations.owner' | translate }}: {{(location.owner | translate) || ('locations.unknown' | translate)}}
-                    hr
                     div(layout="row" ng-if="photos && photos.length > 0")
                         div(flex)
                             strong {{ "locations.location_photos" | translate }}:
-                            md-grid-list(md-cols="2"  md-gutter="4px" md-row-height="4:3")
-                                md-grid-tile(ng-repeat="photo in photos" md-colspan="1")
-                                    img.photo-preview(alt="{{ photo.uuid }}" ng-src="{{ photo.thumb_large_url }}" ng-click="deletePhoto(photo)" layout-fill)
-                        hr
+                            md-grid-list(md-cols="3"  md-gutter="4px" md-row-height="4:3")
+                                md-grid-tile.remove_image(ng-repeat="photo in photos" md-colspan="1")
+                                    img.photo-preview(alt="{{ photo.uuid }}" ng-src="{{ photo.thumb_square_url }}" ng-click="deletePhoto(photo)" layout-fill)
+                                    div.edit(ng-click="deletePhoto(photo)")
+                                      i.fa.fa-trash.fa-lg
+                    hr(ng-if="photos && photos.length > 0")
                     p(ng-if='!files') {{ 'actions.choose_images' | translate }}
                         +input('fileimage','assets.file','assets.file', null, null)
                         //input(type="file" ng-model="files" name="file" accept="image/*" id="capture" ngf-capture="camera" ngf-select)
                         //button(class='md-button button-positive' camera ng-model='myPicture') camera
                     hr
                     div(layout-gt-xs="row" layout-align="space-between start")
-                        +button("actions.previous",'selectedIndex = selectedIndex - 1','md-raised',null,null)
+                        +button("actions.abort",'abort()','md-raised',null,null)
                         span(flex)
                         +button_fab('actions.submit','submit()','md-warn','fa-check','location')
