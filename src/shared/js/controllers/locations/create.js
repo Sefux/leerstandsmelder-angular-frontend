@@ -246,15 +246,6 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                 } else {
                     cb();
                 }
-            },
-            function(cb) {
-              //clearCache: location
-              apiService('locations').clearCache(payload.uuid, cb);
-            },
-            function(cb) {
-              //clearCache: region
-              apiService('regions/'+payload.region_uuid+'/locations').clearCache(payload.region_uuid, cb);
-              //cb();
             }
         ], function (err) {
             //console.log('update/insert error',err);
@@ -262,6 +253,8 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                 success: $routeParams.uuid ? 'messages.locations.update_success' : 'messages.locations.create_success'
             };
             if (responseHandler.handleResponse(err, deferred, msgs)) {
+                apiService('locations').clearCache(payload.uuid, function() {});
+                apiService('regions/'+payload.region_uuid+'/locations').clearCache(payload.region_uuid, function() {});
                 $location.path('/' + ($scope.location.region_slug || $scope.location.region_uuid) + '/' +
                     $scope.location.slug);
             }
