@@ -26,6 +26,7 @@ var app = angular.module('leerstandsmelder', [
   require('angular-marked'),
   'agGrid',
   'ngMaterial',
+  'thatisuday.ng-image-gallery',
   'ngCordova'
 ]);
 

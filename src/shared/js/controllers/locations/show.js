@@ -35,6 +35,11 @@ var LocationsShowController = function($scope, regionService, $q, $routeParams,
                 res.sort(function (a, b) {
                     return a.position - b.position;
                 });
+                for (var i = 0; i < res.length; i++) {
+                  res[i].id = res[i].uuid;
+                  res[i].url = res[i].original_url;
+                  res[i].thumbUrl = res[i].thumb_square_url;
+                }
                 $scope.photos = res;
             }
             cb();

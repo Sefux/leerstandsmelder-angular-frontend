@@ -22,7 +22,8 @@ var app = angular.module('leerstandsmelder', [
         require('angular-sanitize'),
         require('angular-marked'),
         'ngMaterial',
-        'agGrid'
+        'agGrid',
+        'thatisuday.ng-image-gallery'
     ]);
 
 require('../../shared/js/controllers');

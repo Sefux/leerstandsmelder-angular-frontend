@@ -22,11 +22,9 @@ div(layout="row" layout-xs="column" layout-wrap layout-fill)
             strong {{ location.user.nickname }}&nbsp;
             span {{ 'author.on' | translate }} {{ location.created | date : 'dd.MM.yy' }}
         div( ng-if="photos.length > 0")
-            md-grid-list(md-cols="3" md-row-height="4:3")
-                md-grid-tile(ng-repeat="photo in photos")
-                    img.photo-preview(ng-src="{{ photo.thumb_large_url }}" ng-original_url="{{ photo.original_url }}" lightbox layout-fill)
-        p(ng-if="location.description")
-            small(marked="location.description")
+          div(ng-image-gallery images="photos")
+        div(ng-if="location.description" class="md-padding")
+            p(marked="location.description")
         hr
         div.md-body-1
             p(ng-if="location.emptySince") {{ 'locations.empty_for' | translate }}: {{ location.emptySince | translate }}
