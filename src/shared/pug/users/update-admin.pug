@@ -4,8 +4,9 @@ include ..//mixins/_buttons
 include ..//mixins/_layout
 include ..//mixins/_style
 
-div(layout='column' layout-align='start center' flex layout-padding)
-    md-card()
+md-content(layout='column' layout-align='start center' flex layout-padding)
+  div(flex layout-align='stretch')
+    md-card(layout-align='stretch' flex)
         md-card-header
             md-card-header-text(layout-align="center center")
                 +headline('users.settings')
