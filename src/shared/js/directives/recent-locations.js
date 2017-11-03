@@ -23,6 +23,20 @@ var RecentLocationsDirective = function (apiService, assetPath, configuration) {
                 scope.pageSize += 10;
               });
             };
+            /*
+            var container = angular.element(elem[0].firstChild.childNodes[0]);
+            console.log('scroll elem',container);
+
+            container.bind('scroll', function () {
+                var el = container[0];
+                console.log('in scroll');
+                console.log(el.scrollTop + el.offsetHeight);
+                console.log(el.scrollHeight);
+                if (el.scrollTop + el.offsetHeight > el.scrollHeight) { //at the bottom
+                    $scope.more();
+                }
+            });
+            */
         }
     };
 };

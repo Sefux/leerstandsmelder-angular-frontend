@@ -24,7 +24,9 @@ module.exports = {
         take_picture: 'Take a Picture',
         use_slider: 'Use the slider',
         abort: 'Abort',
-        close: 'Schliessen'
+        close: 'Close',
+        more: 'Load more',
+        back: 'Back'
     },
     table: {
         rowsPerPage: 'Rows per page',

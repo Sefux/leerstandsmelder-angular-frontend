@@ -24,7 +24,9 @@ module.exports = {
         take_picture: 'Mach ein Foto',
         use_slider: 'Benutze den Schieberegler',
         abort: 'Abbrechen',
-        close: 'Schliessen'
+        close: 'Schliessen',
+        more: 'Weitere Einträge laden',
+        back: 'Zurück'
     },
     table: {
         rowsPerPage: 'Einträge pro Seite',
@@ -56,6 +58,7 @@ module.exports = {
     comments: {
         all: 'Kommentare',
         manage_comments: 'Kommentare verwalten',
+        update_comment: 'Kommentar verwalten',
         comment: 'Kommentar',
         comment_plural: 'Kommentare',
         comment_text: 'Kommentartext',
@@ -125,6 +128,7 @@ module.exports = {
         },
         city: 'Stadt',
         create_new: 'Leerstand melden',
+        update_location: 'Leerstand aktualisieren',
         degree: 'Grad des Leerstands',
         degree_options: {
             complete: 'Vollständig',
