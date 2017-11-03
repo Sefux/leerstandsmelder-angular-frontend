@@ -17,6 +17,9 @@ div(layout='column' layout-align='start center' flex layout-padding)
           +text('password','user.password', 'users.password')
           +text('password','user.password_confirm', 'users.password_confirm')
         div(layout="row" layout-xs="column")
+          h3
+            a(href="/site/terms") {{ 'users.terms' | translate  }}
+        div(layout="row" layout-xs="column")
           +input('checkbox','user.accept_terms','users.accept_terms','_sys.accept_terms',false)
     md-card-actions( layout-align="start center"  style="align-self: stretch;")
       div(layout="row" layout-align="space-around start")

@@ -291,12 +291,13 @@ module.exports = {
         notify: 'Send me an Email when my entries are updated or other users send me a message.',
         register_message: 'Register now!',
         all: 'All users',
-	    confirmed: "Confirmed",
-	    blocked: "Blocked",
-	    last_login: "Last login",
+        confirmed: "Confirmed",
+        blocked: "Blocked",
+        last_login: "Last login",
         failed_logins: "Failed logins",
         scope: "Scopes",
-	    created: 'Created',
-      accept_terms: 'I have read the terms of service and accept these terms.'
+        created: 'Created',
+        accept_terms: 'I have read the terms of service and accept these terms.',
+        terms: 'Terms of service'
     }
 };
