@@ -105,8 +105,7 @@ var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$
     };
 
     $scope.home = function() {
-        $location.path('/'); //
-        regionService.setCurrentRegion(null);
+        $location.path('/'); 
     };
 /*
     //if (navigator.geolocation) {
