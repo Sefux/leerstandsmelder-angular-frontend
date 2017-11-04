@@ -1,7 +1,7 @@
 {
   "name": "mapoz-frontend",
   "version": "1.0.2",
-  "description": "Leerstandsmelder App - Angular.JS based frontend for Desktop & Mobile",
+  "description": "City of OZ App - Angular.JS based frontend for Desktop & Mobile",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -77,8 +77,11 @@
     "leaflet.markercluster": "^1.0.3",
     "lodash": "^3.10.1",
     "mobicon": "^2.0.1",
+    "mobicon-cli": "^2.1.1",
     "mobisplash": "^0.2.0",
+    "mobisplash-cli": "^0.2.0",
     "ng-file-upload": "^12.2.12",
+    "ng-image-gallery": "^2.1.2",
     "node-static": "^0.7.9"
   }
 }

@@ -4,7 +4,7 @@
 
 const mobisplash = require('mobisplash');
 
-mobisplash('assets/images/splash/leerstandsmelder_splash.png', {
+mobisplash('assets/images/splash/mapoz_splash.png', {
 	platform: 'android',
 	dest: 'assets/images/splash/android/',
 	background: '#999999',
@@ -14,7 +14,7 @@ mobisplash('assets/images/splash/leerstandsmelder_splash.png', {
 	console.log('splashs for android generated');
 });
 
-mobisplash('assets/images/splash/leerstandsmelder_splash.png', {
+mobisplash('assets/images/splash/mapoz_splash.png', {
 	platform: 'ios',
 	dest: 'assets/images/splash/ios/',
 	background: '#999999',
