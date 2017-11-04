@@ -77,14 +77,14 @@ app.config([
         // added the oz color to the palette
 
         var ozMap = $mdThemingProvider.extendPalette('white', {
-            '500': '#000000'
+            '500': '#000000',
+            'contrastDefaultColor': 'dark'
         });
         $mdThemingProvider.definePalette('oz', ozMap);
 
         // TODO: abstract this theme style out to config
         $mdThemingProvider.theme('default')
-            .primaryPalette('grey',{
-                'default': '900'})
+            .primaryPalette('oz')
             .accentPalette('grey',{
                 'default': '700'}); //.dark();
         

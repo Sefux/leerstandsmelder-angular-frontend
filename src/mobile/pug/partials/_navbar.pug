@@ -6,18 +6,13 @@ div(ng-controller="Widgets.Navbar as ctrl")
         #navbar(name="navbar" layout='column' layout-align='center end' layout-fill )
             div.md-toolbar-tools(flex layout='row' layout-align='space-between center' )
                 +button_icon('','home()','','fa-fw fa-2x  fa-home',null)
-                md-input-container
-                    label.currentRegion {{ 'locations.location_plural' | translate }}
-                    md-select(ng-model="currentRegion" ng-model-options="{trackBy: '$value.uuid'}" ng-change="change()")
-                        md-option(ng-value="region" ng-repeat="region in regions" ) {{ region.title }}
-                //a.md-button.md-ink-ripple(ng-href='#{{ "/" + (currentRegion.slug || currentRegion.uuid)  }}') {{ currentRegion.title }}&nbsp;
-
+                
                 span(flex)
                 +button_icon('','toogle_sidebar()','','fa-fw fa-2x fa-bars')
 
 
     md-sidenav.md-sidenav-right.md-whiteframe-z2(md-component-id="right" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4" ng-click="close_sidebar()")
-        md-toolbar.md-theme-indigo
+        md-toolbar.md-theme-black
             div.md-toolbar-tools
                 h2 {{ 'admin.menu' | translate }}
                 span(flex)
@@ -26,14 +21,9 @@ div(ng-controller="Widgets.Navbar as ctrl")
         md-content(layout-padding)
             md-list
                 md-list-item(ng-if="!userSession")
-                    +button('locations.create_new','','md-primary','fa-fw fa-2x fa-minus-circle',null,'#!/users/login?redirectTo=locations/create')
-
+                    +button('locations.create_new','','','fa-fw fa-2x fa-minus-circle',null,'#!/users/login?redirectTo=locations/create')
                 md-list-item(ng-if="userSession")
-                    +button('locations.create_new','','md-primary','fa-fw fa-2x fa-minus-circle',null,'#!/locations/create')
-
-                md-list-item()
-                    +button('site.subnav.index','','','fa-fw fa-2x fa-map-o',null,'#!/locations/index')
-
+                    +button('locations.create_new','','','fa-fw fa-2x fa-minus-circle',null,'#!/locations/create')
                 md-list-item(ng-if="userSession")
                     +button('locations.my_locations','','btn-default','fa-fw fa-2x fa-list','userSession', '#!/users/me/locations')
 

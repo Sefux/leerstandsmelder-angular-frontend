@@ -113,8 +113,8 @@ gulp.task('deps:js', function (env) {
                 'bower_components/L.GeoSearch/src/js/l.geosearch.provider.openstreetmap.js',
                 'bower_components/airbrake-js-client/dist/client.min.js',
 	            'node_modules/leaflet.markercluster/dist/leaflet.markercluster.js',
-                'node_modules/exif-js/exif.js'
-                //'bower_components/ngCordova/dist/ng-cordova.min.js'
+                'node_modules/exif-js/exif.js',
+                'bower_components/ngCordova/dist/ng-cordova.min.js'
             ])
             .pipe(concat('mapoz-angular-dependencies.min.js'))
             .pipe(header(banner, {pkg: pkg})).pipe(uglify());
