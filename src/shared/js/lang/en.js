@@ -10,6 +10,7 @@ module.exports = {
         choose_images: 'You may choose one or more image to add to this entry.',
         choose_image: 'Add an image to this entry.',
         choose_camera: 'Camera',
+        choose_photo: 'Choose an image',
         choose_library: 'Library',
         delete: 'Delete',
         dont_show_again: 'Don\'t show again',
@@ -22,7 +23,10 @@ module.exports = {
         submit: 'Submit',
         take_picture: 'Take a Picture',
         use_slider: 'Use the slider',
-        abort: 'Abort'
+        abort: 'Abort',
+        close: 'Close',
+        more: 'Load more',
+        back: 'Back'
     },
     table: {
         rowsPerPage: 'Rows per page',
@@ -102,7 +106,7 @@ module.exports = {
       user: {
         login: 'You are now logged in.',
         logout: 'You have been logged out.'
-      }  
+      }
     },
     photos: {
         remove_confirm_title: 'Delete image?',
@@ -111,6 +115,7 @@ module.exports = {
         gpsfromphoto: 'Updated GPS coordinats from your photo.'
     },
     locations: {
+        manage_locations: 'Manage locations',
         address: 'Address',
         artwork_type: 'Art work type',
         artwork_type_options: {
@@ -238,7 +243,7 @@ module.exports = {
         update_success: 'Post updated successfully.',
         create_post: 'Create post',
         slug: 'Slug URL',
-	    static: 'Static side'
+      static: 'Static side'
     },
     regions: {
         settings: 'Settings',
@@ -299,11 +304,13 @@ module.exports = {
         notify: 'Send me an Email when my entries are updated or other users send me a message.',
         register_message: 'Register now!',
         all: 'All users',
-	    confirmed: "Confirmed",
-	    blocked: "Blocked",
-	    last_login: "Last login",
+        confirmed: "Confirmed",
+        blocked: "Blocked",
+        last_login: "Last login",
         failed_logins: "Failed logins",
         scope: "Scopes",
-	    created: 'Created'
+        created: 'Created',
+        accept_terms: 'I have read the terms of service and accept these terms.',
+        terms: 'Terms of service'
     }
 };

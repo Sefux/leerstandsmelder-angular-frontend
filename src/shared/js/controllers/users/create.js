@@ -14,6 +14,12 @@ var UsersCreateController = function ($scope, $q, apiService, PubSub, responseHa
             PubSub.publish('alert', {type: 'error', message: $translate.instant('errors.users.password_confirm_mismatch')});
             return deferred.reject();
         }
+
+        if (!$scope.user.accept_terms) {
+            PubSub.publish('alert', {type: 'error', message: $translate.instant('errors.users.accept_terms')});
+            return deferred.reject();
+        }
+
         $scope.promise = deferred.promise;
         apiService('users').actions.create($scope.user, function (err) {
             var msgs = {

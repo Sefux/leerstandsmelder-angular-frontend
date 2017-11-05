@@ -3,20 +3,19 @@ html(lang='en', ng-app='mapoz')
     head
         meta(http-equiv='X-UA-Compatible' content='IE=edge')
         meta(http-equiv='Content-Type' content='text/html; charset=utf-8')
-
         meta(name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=yes')
         meta(name="fragment" content="!")
         base(href='/')
 
-        title Map OZ
-        meta(name='description' content='')
-        link(rel='stylesheet', href='/css/mapoz-frontend-deps.css?build=16061002')
-        link(rel='stylesheet', href='/css/mapoz-frontend-web.css?build=16061002')
+        title City of OZ
+        meta(name='description' content='OZ hat uns die Stadt vererbt')
+        link(rel='stylesheet', href='/css/mapoz-frontend-deps.css?build=17110423')
+        link(rel='stylesheet', href='/css/mapoz-frontend-web.css?build=17110423')
         style(type='text/css').
             .ng-cloak {
                 display: none !important;
             }
-    body.ng-cloak(layout='column' spellcheck='false' ng-cloak)
+    body.ng-cloak(layout='column' spellcheck='false' ng-cloak ng-controller="Application")
         header
             include partials/_navbar
             div(ng-controller="Widgets.Alerts")
@@ -38,6 +37,7 @@ html(lang='en', ng-app='mapoz')
                 //a(href='/site/press') {{ 'site.subnav.press' | translate }}
         //div(msg-popup popup-id='relaunch')
         scripts
-            script(src='/js/leerstandsmelder-apiclient-web.js?build=16061002')
-            script(src='/js/mapoz-angular-dependencies.min.js?build=16061002')
-            script(src='/js/mapoz-angular-frontend.min.js?build=16061002')
+            include ../../shared/pug/partials/_js_dependencies
+            - var build = '?build=' + Date.now().toString()
+            script(src='/js/leerstandsmelder-apiclient-web.js' + build)
+            script(src='/js/mapoz-angular-frontend.min.js' + build)

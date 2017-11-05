@@ -31,17 +31,12 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
             selectMarker: '='
         },
         link: function (scope, element, attrs) {
-            var map, leafletView, markers = [],
+            var map, markers = [],
                 customMarker = L.Marker.extend({
                     options: {
                         data: null
                     }
                 });
-
-            var resizeMap = function (el) {
-                //console.log('height',$window.innerHeight);
-                el[0].style.height = ($window.innerHeight) + "px";
-            };
 
             var updatedMapData = function (data, callback) {
                 var icon = {
@@ -60,7 +55,7 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
 
                 if(attrs.usecluster) {
                     //add Cluster
-                    var markers = L.markerClusterGroup({
+                    markers = L.markerClusterGroup({
                         polygonOptions: { stroke: true, weight: 1, color: '#999', opacity: 0.5 },
                         removeOutsideVisibleBounds: true,
                         maxClusterRadius: 60
@@ -134,12 +129,7 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                 }
             };
 
-            angular.element($window).bind('resize', function () {
-                resizeMap(element);
-            });
-
             var setupMap = function (miniMap, geoSearch) {
-                resizeMap(element);
                 map = mapService.initMap(
                     element,
                     lsmMapconfig,

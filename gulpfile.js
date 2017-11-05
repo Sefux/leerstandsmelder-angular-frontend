@@ -8,7 +8,6 @@ var Promise = require('bluebird'),
     source = require('vinyl-source-stream'),
     fs = require('fs'),
     header = require('gulp-header'),
-    concat = require('gulp-concat'),
     rename = require('gulp-rename'),
     pug = require('gulp-pug'),
     less = require('gulp-less'),
@@ -23,9 +22,8 @@ var Promise = require('bluebird'),
     disc = require('disc'),
     jsdoc = require('gulp-jsdoc3'),
     gutil = require('gulp-util'),
-    open = require('gulp-open'),
-    pkg = require('./package.json'),
-    config = require('./config.json');
+    filesExist = require('files-exist'),
+    pkg = require('./package.json');
 
 var banner = ['/**',
     ' * <%= pkg.name %> - <%= pkg.description %>',
@@ -89,44 +87,6 @@ function serveApp(config) {
 
 //
 //
-// Dependencies
-
-gulp.task('deps', [
-    'deps:js'
-]);
-
-gulp.task('deps:js', function (env) {
-    return Promise.map(getPathsForEnv(env, 'js/'), function (dest) {
-        var stream = gulp.src([
-                'bower_components/angular/angular.min.js',
-                'bower_components/lodash/lodash.min.js',
-                'node_modules/jquery/dist/jquery.min.js',
-                'bower_components/showdown/compressed/Showdown.min.js',
-                'node_modules/marked/marked.min.js',
-                'bower_components/codemirror/lib/codemirror.js',
-                'bower_components/codemirror-spell-checker/dist/spell-checker.min.js',
-                'bower_components/simplemde/dist/simplemde.min.js',
-                'bower_components/bluebird/js/browser/bluebird.min.js',
-                'bower_components/leaflet/dist/leaflet.js',
-                'bower_components/leaflet-minimap/dist/Control.MiniMap.min.js',
-                'bower_components/L.GeoSearch/src/js/l.control.geosearch.js',
-                'bower_components/L.GeoSearch/src/js/l.geosearch.provider.openstreetmap.js',
-                'bower_components/airbrake-js-client/dist/client.min.js',
-	            'node_modules/leaflet.markercluster/dist/leaflet.markercluster.js',
-                'node_modules/exif-js/exif.js',
-                'bower_components/ngCordova/dist/ng-cordova.min.js'
-            ])
-            .pipe(concat('mapoz-angular-dependencies.min.js'))
-            .pipe(header(banner, {pkg: pkg})).pipe(uglify());
-        stream.pipe(gulp.dest(dest));
-        return streamToPromise(stream);
-    });
-});
-
-
-
-//
-//
 // JS
 
 gulp.task('js', function (env) {
@@ -148,8 +108,8 @@ gulp.task('js', function (env) {
             .pipe(header(banner, {pkg: pkg}))
             .pipe(uglify())
             .pipe(rename('mapoz-angular-frontend.min.js'))
+            .pipe(gulp.dest(sd.dest));
             //.pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../../'}));
-        stream.pipe(gulp.dest(sd.dest));
         return streamToPromise(stream);
     });
 });
@@ -177,8 +137,8 @@ gulp.task('js:maps', function (env) {
             .pipe(header(banner, {pkg: pkg}))
             //.pipe(uglify())
             .pipe(rename('mapoz-angular-frontend.min.js'))
-            .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../../'}));
-        stream.pipe(gulp.dest(sd.dest));
+            .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../../'}))
+          .pipe(gulp.dest(sd.dest));
         return streamToPromise(stream);
     });
 });
@@ -208,14 +168,14 @@ gulp.task('js:analyze', function (env) {
 // CSS
 
 function cssPipe(sd) {
-    var stream = gulp.src(sd.src)
+    var stream = gulp.src(filesExist(sd.src))
         .pipe(less())
         .pipe(cleanCSS())
         .pipe(header(banner, {pkg: pkg}))
         .pipe(rename({
             basename: 'mapoz-frontend-' + path.basename(sd.src, '.less')
-        }));
-    stream.pipe(gulp.dest(sd.dest));
+        }))
+      .pipe(gulp.dest(sd.dest));
     return streamToPromise(stream);
 }
 
@@ -250,15 +210,15 @@ gulp.task('html', function (env) {
     return Promise.resolve()
         .then(function () {
             if (!env || env === 'web') {
-                var stream = gulp.src(['./src/shared/pug/**/*.pug', './src/web/pug/**/*.pug']);
-                stream.pipe(pug()).pipe(gulp.dest('./dist/web/'));
+                var stream = gulp.src(filesExist(['./src/shared/pug/**/*.pug', './src/web/pug/**/*.pug']))
+                  .pipe(pug()).pipe(gulp.dest('./dist/web/'));
                 return streamToPromise(stream);
             }
         })
         .then(function () {
             if (!env || env === 'mobile') {
-                var stream = gulp.src(['./src/shared/pug/**/*.pug', './src/mobile/pug/**/*.pug']);
-                stream.pipe(pug()).pipe(gulp.dest('./dist/mobile/'));
+                var stream = gulp.src(filesExist(['./src/shared/pug/**/*.pug', './src/mobile/pug/**/*.pug']))
+                  .pipe(pug()).pipe(gulp.dest('./dist/mobile/'));
                 return streamToPromise(stream);
             }
         });
@@ -272,45 +232,47 @@ gulp.task('html', function (env) {
 
 gulp.task('assets', function (env) {
     return Promise.map(getPathsForEnv(env), function (destBase) {
+        var files = [
+          'node_modules/angular/angular.min.js',
+          'node_modules/ng-cordova/dist/ng-cordova.min.js',
+          'node_modules/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.js',
+          'node_modules/angular-material/angular-material.min.js',
+          'node_modules/ag-grid/dist/ag-grid.min.js',
+          'node_modules/marked/marked.min.js',
+          'node_modules/simplemde/dist/simplemde.min.js',
+          'node_modules/bluebird/js/browser/bluebird.min.js',
+          'node_modules/leaflet/dist/leaflet.js',
+          'node_modules/leaflet-minimap/dist/Control.MiniMap.min.js',
+          'node_modules/leaflet.markercluster/dist/leaflet.markercluster.js',
+          'node_modules/ng-image-gallery/dist/ng-image-gallery.min.js'
+        ];
         return Promise.resolve()
             .then(function () {
-                var stream = gulp.src([
-                    './bower_components/PruneCluster/dist/PruneCluster.js.map',
-                    './bower_components/leerstandsmelder-apiclient/dist/leerstandsmelder-apiclient-web.js'
-                ]);
-                stream.pipe(gulp.dest(destBase + 'js/'));
-                return streamToPromise(stream);
+              var stream = gulp.src(filesExist(files)).pipe(gulp.dest(destBase + 'js/'));
+              return streamToPromise(stream);
             })
             .then(function () {
-                var stream = gulp.src([
+              var stream = gulp.src(files.map(file => { return `${file}.map`; })).pipe(gulp.dest(destBase + 'js/'));
+              return streamToPromise(stream);
+            })
+            .then(function () {
+                var stream = gulp.src(filesExist([
                     './assets/images/**/*.*',
-                    './bower_components/leaflet/dist/images/*',
-                    './bower_components/leaflet-minimap/dist/images/*'
-                ]);
-                stream.pipe(gulp.dest(destBase + 'images/'));
+                    './node_modules/leaflet/dist/images/*',
+                    './node_modules/leaflet-minimap/dist/images/*'
+                ])).pipe(gulp.dest(destBase + 'images/'));
                 return streamToPromise(stream);
             })
             .then(function () {
-                var stream = gulp.src([
-                    './bower_components/font-awesome/fonts/*',
+                var stream = gulp.src(filesExist([
+                    './node_modules/font-awesome/fonts/*',
                     './assets/fonts/*'
-                ]);
-                stream.pipe(gulp.dest(destBase + 'fonts/'));
+                ])).pipe(gulp.dest(destBase + 'fonts/'));
                 return streamToPromise(stream);
             })
             .then(function () {
-                var stream = gulp.src([
-                    './node_modules/angular-ui-grid/ui-grid.ttf',
-                    './node_modules/angular-ui-grid/ui-grid.woff',
-                    './node_modules/angular-ui-grid/ui-grid.svg',
-                    './node_modules/angular-ui-grid/ui-grid.eot',
-                ]);
-                stream.pipe(gulp.dest(destBase + 'css/'));
-                return streamToPromise(stream);
-            })
-            .then(function () {
-                var stream = gulp.src(['./src/shared/static/md/*.md']);
-                stream.pipe(gulp.dest(destBase + 'static/'));
+                var stream = gulp.src(filesExist(['./src/shared/static/md/*.md']))
+                  .pipe(gulp.dest(destBase + 'static/'));
                 return streamToPromise(stream);
             });
     });
@@ -402,27 +364,28 @@ gulp.task('clean', function () {
 gulp.task('release', [
     'clean'
 ], function () {
-    return Promise.resolve(gulp.start('build'));
+    return gulp.start('build');
 });
 
 gulp.task('build', [
-    'deps',
     'assets',
     'js',
     'css',
     'html'
 ]);
 
+
 // FIXME: build only works when cordova dir is removed, also runs through entire build for each update
 
 gulp.task('build:android', function () {
+    var config = require('./config.json');
     var icon = require('gulp-cordova-icon');
     var xml = require('gulp-cordova-xml');
     var author = require('gulp-cordova-author');
     var plugin = require('gulp-cordova-plugin');
     var android = require('gulp-cordova-build-android'),
-        dst = gulp.dest('dist/android'),
-        src = gulp.src('dist/mobile').pipe(require('gulp-cordova-create')({
+        dst = gulp.dest('dist/android')
+    return gulp.src('dist/mobile').pipe(require('gulp-cordova-create')({
             dir: 'dist/cordova',
             id: config.android.app_id,
             name: config.android.app_name
@@ -432,17 +395,16 @@ gulp.task('build:android', function () {
         .pipe(require('gulp-cordova-version')(pkg.version))
         .pipe(author(config.author.name,config.author.email,config.author.url))
         .pipe(require('gulp-cordova-description')(config.android.app_description))
-        .pipe(plugin(config.android.plugins));
-        // TODO: make release configurable
-        //
-
-        src.pipe(xml([
+        .pipe(plugin(config.android.plugins))
+          .pipe(xml([
             '<splash src="www/images/splash/mapoz_splash.png"  />',
             '<preference name="BackupWebStorage" value="local" />'
-        ]));
-
-
-        src.pipe(icon('www/images/icons/mapoz_icon.png', { errorHandlingStrategy: 'warn' }));
+          ]))
+          .pipe(icon('www/images/icons/mapoz_icon.png', {errorHandlingStrategy: 'warn'}))
+          .pipe(android({release: true}))
+          .pipe(dst);
+        // TODO: make release configurable
+        //
 
     //'<splash src="www/images/Default@2x~iphone.png" width="640" height="960" />',
             // <!--
@@ -461,17 +423,17 @@ gulp.task('build:android', function () {
             //     <icon src="www/images/icons/android/drawable-xxxhdpi/icon.png" density="xxxhdpi" />
             //
        // src.pipe(android({storeFile: '../keys', keyAlias: 'mapoz'}));
-        src.pipe(android({release: true}));
-    return streamToPromise(src.pipe(dst));
+    // return streamToPromise(src.pipe(dst));
 });
 
 gulp.task('build:ios', function () {
+    var config = require('./config.json');
     var icon = require('gulp-cordova-icon');
     var xml = require('gulp-cordova-xml');
     var author = require('gulp-cordova-author');
     var plugin = require('gulp-cordova-plugin');
-    var dst = require('gulp-cordova-build-ios')(),
-        src = gulp.src('dist/mobile').pipe(require('gulp-cordova-create')({
+    var dst = require('gulp-cordova-build-ios')()
+    return gulp.src('dist/mobile').pipe(require('gulp-cordova-create')({
             dir: 'dist/cordova',
             id: config.ios.app_id,
             name: config.ios.app_name
@@ -479,9 +441,8 @@ gulp.task('build:ios', function () {
         .pipe(require('gulp-cordova-description')(config.android.app_description))
         .pipe(author(config.author.name,config.author.email,config.author.url))
         .pipe(require('gulp-cordova-version')(pkg.version))
-        .pipe(plugin(config.ios.plugins));
-
-        src.pipe(xml([
+        .pipe(plugin(config.ios.plugins))
+        .pipe(xml([
             '<splash src="www/images/splash/ios/Default~iphone.png" width="320" height="480"/>',
             '<splash src="www/images/splash/ios/Default@2x~iphone.png" width="640" height="960"/>',
             '<splash src="www/images/splash/ios/Default-Portrait~ipad.png" width="768" height="1024"/>',
@@ -493,11 +454,13 @@ gulp.task('build:ios', function () {
             '<splash src="www/images/splash/ios/Default-736h.png" width="1242" height="2208"/>',
             '<splash src="www/images/splash/ios/Default-Landscape-736h.png" width="2208" height="1242"/>',
             '<splash src="www/images/splash/ios/Default@2x~universal~anyany.png" />',
-            '<preference name="BackupWebStorage" value="local" />'
-        ]));
-        src.pipe(icon('www/images/icons/mapoz_icon.png', { errorHandlingStrategy: 'warn' }));
+            '<preference name="BackupWebStorage" value="local" />',
+            '<preference name="Orientation" value="all" />'
+        ]))
+        .pipe(icon('www/images/icons/mapoz_icon.png', { errorHandlingStrategy: 'warn' }))
+      .pipe(dst);
 
-    return src.pipe(dst);
+//    return src;
 });
 
 

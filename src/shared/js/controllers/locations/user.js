@@ -58,12 +58,18 @@ var LocationsUserController = function ($scope, $q, $location, $mdDialog ,$trans
         {headerName: $filter('translate')("author.updated"), field: "updated", width: 60, cellRenderer: dateFormatter},
         {headerName: $filter('translate')("author.created"), field: "created", width: 60, cellRenderer: dateFormatter},
         {headerName: "", field: "uuid", width: 90, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
-            return '<a class="md-icon-button md-button md-ink-ripple" href="' + $scope.urlbase + (params.data.region ? params.data.region.slug : params.data.region_uuid)+ '/' + (params.data.slug || params.data.uuid) + '" aria-label="' + $filter('translate')("actions.view") + '"><md-icon md-font-icon="fa-eye" class="fa fa-eye"></md-icon></a>'
-                + '<a class="md-icon-button md-button md-ink-ripple" href="' + $scope.urlbase +  'locations/update/' + (params.data.slug || params.data.uuid) + '" aria-label="' + $filter('translate')("actions.edit") + '"><md-icon md-font-icon="fa-pencil" class="fa fa-pencil"></md-icon></a>'
-                + '<a class="md-icon-button md-button md-ink-ripple" ng-click="clickDeleteHandler(\''+ params.data.uuid + '\')" aria-label="' + $filter('translate')("actions.delete") + '"><md-icon md-font-icon="fa-trash" class="fa fa-trash"></md-icon></a>'
-                ;
+            return '<a class="md-icon-button md-button md-ink-ripple" href="' + $scope.urlbase +
+              (params.data.region ? params.data.region.slug : params.data.region_uuid) + '/' +
+              (params.data.slug || params.data.uuid) + '" aria-label="' + $filter('translate')("actions.view") +
+              '"><md-icon md-font-icon="fa-eye" class="fa fa-eye"></md-icon></a>' +
+              '<a class="md-icon-button md-button md-ink-ripple" href="' + $scope.urlbase +  'locations/update/' +
+              (params.data.slug || params.data.uuid) + '" aria-label="' + $filter('translate')("actions.edit") +
+              '"><md-icon md-font-icon="fa-pencil" class="fa fa-pencil"></md-icon></a>' +
+              '<a class="md-icon-button md-button md-ink-ripple" ng-click="clickDeleteHandler(\'' + params.data.uuid +
+              '\')" aria-label="' + $filter('translate')("actions.delete") +
+              '"><md-icon md-font-icon="fa-trash" class="fa fa-trash"></md-icon></a>';
+            }
         }
-        },
     ];
 
     $scope.gridOptions = {
@@ -93,26 +99,15 @@ var LocationsUserController = function ($scope, $q, $location, $mdDialog ,$trans
     function translateFormatter(params) {
         if(params.value) {
             return $filter('translate')(params.value);
-        } else return '';
+        } else {
+            return '';
+        }
     }
 
     $scope.filterGrid = function() {
         $scope.gridOptions.api.setQuickFilter($scope.filterStr);
     };
 
-    function getTitleLink(params){
-
-        var id = params.value;
-        var row =  _.find($scope.data, function(item){
-            return item.id === id;
-        });
-        console.log('getLink',row);
-        if(row.region_uuid) {
-            return '<a href="/' + (row.region ? row.region.slug : row.region_uuid)+ '/' + row.slug || row.uuid  + '">' + row.title + '</a>';
-        } else {
-            return '<a href="/locations/' + seo_state + '/' + row.slug || row.uuid  + '">' + row.title + '</a>';
-        }
-    };
     $scope.query = {
         sort: $scope.settings.sort ? $scope.settings.sort : 'title',
         page: 1

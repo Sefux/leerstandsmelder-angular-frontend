@@ -1,29 +1,34 @@
+/* jshint -W100 */
+
 'use strict';
 
 var lang_de = require('../../shared/js/lang/de'),
-    lang_en = require('../../shared/js/lang/en'),
-    routes = require('./routes'),
-    angular = require('angular');
-    var agGrid = require("ag-grid");
-    agGrid.initialiseAgGridWithAngular1(angular);
-    var app = angular.module('mapoz', [
-        require('angular-animate'),
-        require('angular-messages'),
-        require('angular-translate'),
-        require('angular-translate-storage-cookie'),
-        require('angular-translate-storage-local'),
-        require('angular-translate-loader-static-files'),
-        require('ng-file-upload'),
-        require('angular-busy2'),
-        require('angular-material'),
-        require('angular-aria'),
-        require('angular-cookies'),
-        require('angular-route'),
-        require('angular-sanitize'),
-        require('angular-marked'),
-        "agGrid",
-        'ngCordova'
-    ]);
+  lang_en = require('../../shared/js/lang/en'),
+  routes = require('./routes'),
+  angular = global.angular,
+  agGrid = global.agGrid;
+
+agGrid.initialiseAgGridWithAngular1(angular);
+
+var app = angular.module('leerstandsmelder', [
+  require('angular-animate'),
+  require('angular-messages'),
+  require('angular-translate'),
+  require('angular-translate-storage-cookie'),
+  require('angular-translate-storage-local'),
+  require('angular-translate-loader-static-files'),
+  require('ng-file-upload'),
+  require('angular-busy2'),
+  require('angular-aria'),
+  require('angular-cookies'),
+  require('angular-route'),
+  require('angular-sanitize'),
+  require('angular-marked'),
+  'agGrid',
+  'ngMaterial',
+  'thatisuday.ng-image-gallery',
+  'ngCordova'
+]);
 
 require('../../shared/js/controllers');
 require('../../shared/js/directives');
@@ -42,10 +47,10 @@ app.factory('CameraService', require('./services/camera'));
 app.factory('uploadService', require('./services/upload'));
 
 app.constant("configuration", {
-    'urlbase': '#!/'
+  'urlbase': '#!/'
 });
 app.config(['$qProvider', function ($qProvider) {
-    $qProvider.errorOnUnhandledRejections(false);
+  $qProvider.errorOnUnhandledRejections(false);
 }]);
 app.config([
     '$routeProvider',
@@ -71,7 +76,7 @@ app.config([
         $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|fi‌​le|blob|cdvfile|cont‌​ent):|data:image/);
         //$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|cdvphotolibrary):/);
             // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
-        
+
         $mdThemingProvider.definePalette('white', whiteMap);
 
         // added the oz color to the palette
@@ -87,7 +92,7 @@ app.config([
             .primaryPalette('oz')
             .accentPalette('grey',{
                 'default': '700'}); //.dark();
-        
+
         $mdThemingProvider.theme("success-toast");
         $mdThemingProvider.theme("error-toast");
 
@@ -105,20 +110,20 @@ app.config([
         $animateProvider.classNameFilter(/animate-/);
 
         $locationProvider.html5Mode({
-            enabled: false
+          enabled: false
         });
 
         for (var i in routes) {
-            if (routes[i] instanceof Object) {
-                $routeProvider.when(routes[i].route, {
-                    templateUrl: routes[i].templateUrl,
-                    controller: routes[i].controller
-                });
-            }
+          if (routes[i] instanceof Object) {
+            $routeProvider.when(routes[i].route, {
+              templateUrl: routes[i].templateUrl,
+              controller: routes[i].controller
+            });
+          }
         }
 
         $routeProvider.otherwise({redirectTo: '/'});
-    }]);
+  }]);
 
 angular.element(function () {
     angular.bootstrap(document, ['mapoz']);

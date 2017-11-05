@@ -13,6 +13,7 @@ var StaticPageController = function ($scope, $q, staticContent, $routeParams, ap
             });
         } else {
             $scope.page = {
+                title: apiContent.title,
                 content: apiContent.body
             };
             deferred.resolve();

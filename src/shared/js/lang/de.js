@@ -10,6 +10,7 @@ module.exports = {
         choose_images: 'Wähle eines oder mehrere Bilder aus, welche Du zu diesem Eintrag hinzufügen möchtest.',
         choose_image: 'Füge ein Bild zu diesem Eintrag hinzu.',
         choose_camera: 'Kamera',
+        choose_photo: 'Wähle ein Foto aus',
         choose_library: 'Library',
         delete: 'Löschen',
         dont_show_again: 'Nicht mehr anzeigen',
@@ -23,7 +24,9 @@ module.exports = {
         take_picture: 'Mach ein Foto',
         use_slider: 'Benutze den Schieberegler',
         abort: 'Abbrechen',
-        close: 'Schliessen'
+        close: 'Schliessen',
+        more: 'Weitere Einträge laden',
+        back: 'Zurück'
     },
     table: {
         rowsPerPage: 'Einträge pro Seite',
@@ -43,7 +46,7 @@ module.exports = {
         choose_images: 'Foto auswählen'
     },
     author: {
-	    author: 'Autor',
+      author: 'Autor',
         by: 'von',
         created: 'Erstellt',
         in: 'in',
@@ -56,6 +59,7 @@ module.exports = {
     comments: {
         all: 'Kommentare',
         manage_comments: 'Kommentare verwalten',
+        update_comment: 'Kommentar verwalten',
         comment: 'Kommentar',
         comment_plural: 'Kommentare',
         comment_text: 'Kommentartext',
@@ -104,7 +108,7 @@ module.exports = {
       user: {
         login: 'Du hast dich erfolgreich angemeldet.',
         logout: 'Du hast dich erfolgreich abgemeldet.'
-      }  
+      }
     },
     photos: {
         remove_confirm_title: 'Bild löschen?',
@@ -113,6 +117,7 @@ module.exports = {
         gpsfromphoto: 'GPS Koordinaten wurden aus dem Foto übernommen.'
     },
     locations: {
+        manage_locations: 'Leerstände verwalten',
         address: 'Adresse',
         artwork_type: 'Werkart',
         artwork_type_options: {
@@ -128,6 +133,7 @@ module.exports = {
         },
         city: 'Stadt',
         create_new: 'Werk eintragen',
+        update_location: 'Werk aktualisieren',
         degree: 'Zustand des Werkes',
         degree_options: {
             complete: 'gut erhalten',
@@ -242,8 +248,8 @@ module.exports = {
         title: 'Titel',
         update_success: 'Eintrag erfolgreich aktualisiert..',
         create_post: 'Eintrag erstellen',
-	    slug: 'Kurzform URL',
-	    static: 'Statische Seite'
+      slug: 'Kurzform URL',
+      static: 'Statische Seite'
     },
     regions: {
         settings: 'Einstellungen',
@@ -300,15 +306,17 @@ module.exports = {
         signup: 'Registrieren',
         username: 'Benutzername',
         login: 'Anmelden',
-        message_me: 'Andere Nutzer können mir Nachrichten auf City-of-OZ schicken.',
+        message_me: 'Andere Nutzer*innen können mir Nachrichten auf City-of-OZ schicken.',
         notify: 'Benachrichtige mich per Email wenn meine Einträge geupdatet werden oder Nachrichten angekommen sind.',
         register_message: 'Registriere Dich!',
-        all: 'Alle Nutzer',
+        all: 'Alle Nutzer*innen',
         confirmed: "Bestättigt",
         blocked: "Blockiert",
         last_login: "Letzter login",
         failed_logins: "Fehlgeschlagene Logins",
         scope: "Berechtigungen",
-	    created: 'Angemeldet'
+        created: 'Angemeldet',
+        accept_terms: 'Ich habe die AGB gelesen und erkläre mich mit diesen einverstanden.',
+        terms: 'Allgemeine Geschäftsbedingungen'
     }
 };

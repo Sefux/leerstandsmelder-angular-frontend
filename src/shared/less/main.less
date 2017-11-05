@@ -505,6 +505,17 @@ a.mimetype:before {
   color:#000;
 }
 
+.editor-toolbar.fullscreen {
+    z-index: 12001;
+}
+
+.CodeMirror-fullscreen {
+    z-index: 12002;
+}
+.editor-preview-side.editor-preview-active-side {
+    z-index: 12003;
+}
+
 .md-virtual-repeat-container.md-autocomplete-suggestions-container {
   min-height: 180px;
   z-index: 20000;
@@ -554,30 +565,50 @@ md-sidenav {
 // md lightbox
 
 .photo-preview {
-  
+
   width:auto;
   min-height: auto;
 height: auto;
 max-height: 100%;
-  
+
 }
 .spot-image {
     width: 100%;
 }
 
 .update-form {
-img.photo-preview:hover {
-  border: 2px solid black;  
+  .remove_image {
+
+  }
+  .remove_image:hover {
     opacity: 0.5;
+    cursor: pointer;
+  }
+  .remove_image:hover .edit {
+     display: block;
+     opacity: 1;
+  }
+
+  .remove_image .edit {
+    padding-top: 0px;
+    padding-right: 0px;
+    position: absolute;
+    right: 35%;
+    top: 30%;
+    display: none;
+
+    .fa {
+      font-size: 5em;
+      line-height: .75em;
+      vertical-align: -15%;
+      color: red;
+    }
+
+  }
+
 }
 
-md-grid-list md-grid-tile figure {
-    :hover {
-      border: 2px solid black;  
-        opacity: 0.5;
-    }
-}
-}
+
 
 .lightbox-image-holder {
   max-width:80%;
@@ -614,6 +645,7 @@ md-sidenav {
 
 .lsm-list {
   padding: 0px;
+  width: 100%;
 
   .md-subheader {
     border-bottom: 1px solid #e3e3e3;
@@ -740,7 +772,7 @@ md-icon svg {
 }
 .update-form {
     grid-item-tile:hover {
-      border: 2px solid black;  
+      border: 2px solid black;
         opacity: 0.5;
     }
 }
@@ -771,4 +803,25 @@ md-icon svg {
         top: 10px;
         right: 10px;
     }
+}
+
+.hidden-warning {
+    background-color: #e7e7e7;
+}
+
+.pull-right {
+  float: none;
+  position: absolute;
+  right: 0px;
+}
+
+.main_container {
+  #map {
+    height: 100%;
+  }
+}
+
+
+.ng-image-gallery .ng-image-gallery-modal .ng-image-gallery-backdrop {
+  background-color: rgba(35, 34, 34, 0.9);
 }

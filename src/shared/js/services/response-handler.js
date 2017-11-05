@@ -1,6 +1,6 @@
 'use strict';
 
-var ResponseHandlerService = function ($translate, PubSub, errorReporter, $location, apiService) {
+var ResponseHandlerService = function ($translate, PubSub, $location, apiService) {
     return {
         handleResponse: function (err, deferred, msgs) {
             if (err) {
@@ -18,16 +18,18 @@ var ResponseHandlerService = function ($translate, PubSub, errorReporter, $locat
                     PubSub.publish('alert', {type: 'error', message: $translate.instant('errors.authorization_failed')});
                 } else if (err.code === 403) {
                     PubSub.publish('alert', {type: 'error', message: $translate.instant('errors.access_denied')});
-                } else if (err.code === 404) {
+                } else if (err.code === 404 || err.code === "NotFoundError") {
                     $location.path('/site/404');
+                    if (msgs && msgs.error) {
+                        PubSub.publish('alert', {type: 'error', message: $translate.instant(err.message)});
+                      }
                 } else {
                     if (msgs && msgs.error) {
                         PubSub.publish('alert', {type: 'error', message: $translate.instant(err.message)});
                     } else if (err.message) {
                         PubSub.publish('alert', {type: 'error', message: $translate.instant(err.message)});
                     } else {
-                        errorReporter.notify(err);
-                        apiService('ping').actions.ping(function (ping_err, ping_results) {
+                        apiService('ping').actions.ping(function (err, results) {
                             if (!err && results) {
                                 // some other unknown error appeared
                                 PubSub.publish('alert', {type: 'error', delay: 0, message: $translate.instant('errors.unknown') + ' Code ' + err.code});
@@ -54,6 +56,6 @@ var ResponseHandlerService = function ($translate, PubSub, errorReporter, $locat
     };
 };
 
-ResponseHandlerService.$inject = ['$translate', 'PubSub', 'errorReporter', '$location', 'apiService'];
+ResponseHandlerService.$inject = ['$translate', 'PubSub', '$location', 'apiService'];
 
 module.exports = ResponseHandlerService;

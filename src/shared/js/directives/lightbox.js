@@ -1,24 +1,11 @@
 'use strict';
 
-var LightboxDirective = function ($mdDialog, $translate) {
+var LightboxDirective = function ($mdDialog, assetPath, $translate) {
     return {
+        scope: true,
         link: function (scope, elem, attrs) {
             elem.addClass('image-click');
-            elem.on('click', function () {
-                /*
-                var dialog = $mdDialog.confirm({
-                    templateUrl: '/partials/_lightbox.html',
-                    clickOutsideToClose: true,
-                    controller: function controller(scope, $mdDialog) {
-                        scope.image = attrs.src;
-                        scope.cancel = function () {
-                            $mdDialog.cancel();
-                        };
-                    }
-                });
-                console.log('dialog',dialog);
-                $mdDialog.show(dialog);
-                */
+            elem.bind('click', function () {
                 $mdDialog.show($mdDialog.confirm()
                     .clickOutsideToClose(true)
                     .htmlContent('<img class="spot-image" src="'+ attrs.ngOriginalUrl +'" style="width:100%" />')
@@ -30,6 +17,6 @@ var LightboxDirective = function ($mdDialog, $translate) {
     };
 };
 
-LightboxDirective.$inject = ['$mdDialog', '$translate'];
+LightboxDirective.$inject = ['$mdDialog', 'assetPath', '$translate'];
 
 module.exports = LightboxDirective;

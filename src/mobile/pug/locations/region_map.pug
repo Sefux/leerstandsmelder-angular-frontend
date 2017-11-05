@@ -4,6 +4,8 @@ include ..//..//..//shared/pug/mixins/_layout
 include ..//..//..//shared/pug/mixins/_style
 
 div(layout="row" layout-xs="column" layout-wrap layout-fill)
-	#map(flex lsm-map ng-model=mapModel geosearch=0 zoom=6 urlbase="urlbase" center='mapcenter' style=mapStyle mapType='mapType' locations='locations')
-	div(flex layout='column')
-		div(flex recent-posts page-size='10')
+  md-content(flex flex-gt-xs="65" layout-align='stretch' )
+    #map(flex lsm-map ng-model=mapModel geosearch=0 zoom=6 urlbase="urlbase" center='mapcenter' style=mapStyle mapType='mapType' locations='locations')
+  md-content(flex flex-gt-xs="35" layout-align='stretch')
+    div.sidebar.scrollbar_fix()
+      div(flex recent-posts page-size='10')

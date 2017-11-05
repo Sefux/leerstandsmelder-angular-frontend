@@ -498,3 +498,7 @@
 .ag-material .ag-body-viewport {
   overflow-x: hidden;
 }
+
+.ag-material .hidden-warning {
+    background-color: #e7e7e7;
+}

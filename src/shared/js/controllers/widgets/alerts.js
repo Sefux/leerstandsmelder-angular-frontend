@@ -5,7 +5,7 @@
 var WidgetsAlertsController = function ($scope, $translate, $mdToast, $mdDialog, PubSub) {
     $scope.alerts = [];
     $scope.addAlert = function ( message) {
-        if(message.type == 'critical') {
+        if(message.type === 'critical') {
           var dialog = $mdDialog.alert()
           .title($translate.instant('errors.critical.title'))
           .textContent(message.message)
@@ -24,7 +24,6 @@ var WidgetsAlertsController = function ($scope, $translate, $mdToast, $mdDialog,
           if(message.hasOwnProperty(delay)) {
             delay = message.delay;
           }
-          console.log('alert:' ,message);
           $mdToast.hide();
           $mdToast.show(
             $mdToast.simple()

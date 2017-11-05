@@ -9,11 +9,12 @@ var LocationsShowController = function($scope, regionService, $q, $routeParams,
     $scope.urlbase = '/';
     async.waterfall([
         function (cb) {
-            apiService('locations').actions.find($routeParams.uuid, cb);
+            apiService('locations').actions.find($routeParams.uuid, cb, function() {}, true);
         },
         function (location, cb) {
-            if (!location) {
-                return cb(new Error('errors.location.no_data'));
+            if (!location || location.code) {
+              responseHandler.handleResponse(location, deferred);
+              //return cb(new Error('errors.location.no_data'));
             }
             $scope.locations = [location];
             $scope.location = location;
@@ -26,7 +27,7 @@ var LocationsShowController = function($scope, regionService, $q, $routeParams,
             regionService.setCurrentRegion(location.region_uuid, cb);
         },
         function (cb) {
-            apiService('locations/' + $scope.location.uuid + '/photos').actions.all(cb);
+            apiService('locations/' + $scope.location.uuid + '/photos').actions.all(cb, function(){}, true);
         },
         function (photos, cb) {
             var res = photos.results || photos;
@@ -34,6 +35,11 @@ var LocationsShowController = function($scope, regionService, $q, $routeParams,
                 res.sort(function (a, b) {
                     return a.position - b.position;
                 });
+                for (var i = 0; i < res.length; i++) {
+                  res[i].id = res[i].uuid;
+                  res[i].url = res[i].original_url;
+                  res[i].thumbUrl = res[i].thumb_large_url;
+                }
                 $scope.photos = res;
             }
             cb();

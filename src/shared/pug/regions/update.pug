@@ -3,8 +3,9 @@ include ..//mixins/_buttons
 include ..//mixins/_layout
 include ..//mixins/_style
 
-div(layout='column' layout-align='start center' flex layout-padding)
-    md-card()
+md-content(layout='column' layout-align='start center' flex layout-padding)
+  div(flex layout-align='stretch')
+    md-card(layout-align='stretch' flex)
         md-card-header
             md-card-header-text(layout-align="center center")
                 +headline('regions.settings')
@@ -15,11 +16,13 @@ div(layout='column' layout-align='start center' flex layout-padding)
                     +input('text', 'region.zoom', 'regions.zoom', null, null)
                     +input('text', 'region.lonlat[1]', 'regions.latitude', null, null)
                     +input('text', 'region.lonlat[0]', 'regions.longitude', null, null)
-                div(layout="column" flex-gt-xs="50" layout-xs="column" layout-padding)
+                div(layout="column" flex-gt-xs="50" layout-xs="column" layout-padding layout-fill flex)
                     md-checkbox(ng-model="region.moderate" aria-label="{{ 'regions.set_moderate' | translate }}") {{ 'regions.set_moderate' | translate }}
                     md-checkbox(ng-model="region.hide" aria-label="{{ 'regions.set_hide' | translate }}") {{ 'regions.set_hide' | translate }}
                     +input('textarea', 'region.hide_message', 'regions.hide_message')
+                    #map(lsm-map flex flex-gt-xs="40" ng-model='location' style="min-height:400px;" select-mode center="center" zoom="zoom" select-handler='updateLocation(latlon)' select-marker='marker' )
         md-card-actions( layout-align="start center"  style="align-self: stretch;")
             div(layout="row" layout-align="space-around start")
+                +button_fab('actions.back','back()','md-secondary','fa-arrow-left',null)
                 span(flex)
-                +button_fab('actions.submit','submit()','md-warn','fa-check')
+                +button_fab('actions.submit','submit()','md-primary','fa-check')

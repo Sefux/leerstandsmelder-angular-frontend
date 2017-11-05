@@ -1,8 +1,9 @@
 machine:
   node:
-    version: 6.9.1
+    version: 6
 dependencies:
   pre:
+    - sudo apt-get update; sudo apt-get install graphicsmagick
     # Android SDK Platform 24
     - if [ ! -d "/usr/local/android-sdk-linux/platforms/android-24" ]; then echo y | android update sdk --no-ui --all --filter "android-24"; fi
     # Android SDK Build-tools, revision 24.0.1
@@ -15,16 +16,14 @@ dependencies:
     - /usr/local/android-sdk-linux/extras/android/m2repository
 test:
   override:
-    # Install Gulp & Bower CLI
-    - npm install -g gulp
-    - npm install -g bower
-    # Install dependencies
-    - bower install
     # Copy default config
     - cp config.default.json config.json
-    # Build mobile UI
-    - gulp release --env=mobile
+    # Copy default config
+    - npm test
+    # Build UI
+    - npm run clean
+    - npm run build-mobile
     # Build APK
-    - gulp build:android
+    - npm run dist-android
     # Copy APK to artifacts
     - cp -r dist/android $CIRCLE_ARTIFACTS

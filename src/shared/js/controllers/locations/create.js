@@ -1,10 +1,9 @@
 'use strict';
 
 var async = require('async');
-var config = require('../../../../../config.json');
 
 var LocationsCreateController = function ($scope, $routeParams, apiService, authService, $q, $location, mapService,
-                                          responseHandler, locationFormDefaults, regionService, GeolocationService, 
+                                          responseHandler, locationFormDefaults, regionService, GeolocationService,
                                           $mdDialog, $translate, CameraService, PubSub) {
     var changeTimer, lockUpdate;
     $scope.location = {};
@@ -47,7 +46,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
     };
 
     $scope.$watch('files', function(files) {
-        if(files.length > 0) {    
+        if(files.length > 0) {
             var file = files[files.length-1];
             EXIF.getData(file, function() {
               var GPSLat = EXIF.getTag(this,"GPSLatitude");
@@ -59,8 +58,8 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                   $scope.updateLocation({lat: lat, lng: long});
                   PubSub.publish('alert',{type: 'success', message: $translate.instant('photos.gpsfromphoto')});
               }
-            }); 
-         }  
+            });
+         }
     });
     /*
         Watches the address fields for updates
@@ -93,7 +92,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                     postcode: $scope.location.postcode,
                     country: $scope.location.country
                 }, function (err, result) {
-                    console.log('found locations',result.data);
+                    //console.log('found locations',result.data);
                     if (Array.isArray(result.data) && result.data.length > 0) {
                         $scope.marker.lat = result.data[0].lat;
                         $scope.marker.lng = result.data[0].lon;
@@ -105,7 +104,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
             },1000);
         }
     });
-    
+
     $scope.deletePhoto = function (photo) {
         var confirm = $mdDialog.confirm()
             .title($translate.instant('photos.remove_confirm_title'))
@@ -127,22 +126,22 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
             });
         });
     };
-    
+
     /*
     Get camera image
     */
-    
+
     $scope.files = [];
     $scope.uploaded_pic = [];
-    
+
     $scope.getPicture = function(type) {
-        
+
         var options = {};
-        if(type == 'library') { //TODO: refactor: needs pass parameter to service???
+        if(type === 'library') { //TODO: refactor: needs pass parameter to service???
             //options.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
             CameraService.getLibrary(options).then(
-                function (imageData) { 
-                    //var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");    
+                function (imageData) {
+                    //var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");
                     /*
                     window.resolveLocalFileSystemURL(filePreview, function (fileEntry) {
                         file = fileEntry;
@@ -150,8 +149,8 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                         $scope.files.push(file);
                     });
                     */
-                    
-                    var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");    
+
+                    var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");
                     $scope.uploaded_pic.push(filePreview);
                     $scope.files.push(filePreview);
                 },
@@ -167,8 +166,8 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
 
         } else {
             CameraService.getPicture().then(
-                function (imageData) { 
-                    //var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");    
+                function (imageData) {
+                    //var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");
                     /*
                     window.resolveLocalFileSystemURL(filePreview, function (fileEntry) {
                         file = fileEntry;
@@ -176,8 +175,8 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                         $scope.files.push(file);
                     });
                     */
-                    
-                    var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");    
+
+                    var filePreview = imageData.replace("assets-library://", "cdvfile://localhost/assets-library/");
                     $scope.uploaded_pic.push(filePreview);
                     $scope.files.push(filePreview);
                 },
@@ -191,23 +190,23 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                 }
             );
         }
-        
-    }
+
+    };
 
     $scope.abort = function () {
         $location.path('/' + ($scope.location.region_slug || $scope.location.region_uuid) + '/' +
             $scope.location.slug);
-    }
-    
+    };
+
     $scope.promiseShow = function () {
         var deferred = $q.defer();
         $scope.promise = deferred.promise;
-        
-    }
+    };
+
     $scope.promiseHide = function () {
-        var deferred = $q.defer();
+        // var deferred = $q.defer();
         $scope.promise.resolve();
-    }
+    };
 
     /*
         Submit the new location
@@ -265,21 +264,24 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                 }
             }
         ], function (err) {
-            console.log('update/insert error',err);
+            //console.log('update/insert error',err);
             var msgs = {
                 success: $routeParams.uuid ? 'messages.locations.update_success' : 'messages.locations.create_success'
             };
             if (responseHandler.handleResponse(err, deferred, msgs)) {
+                apiService('locations').clearCache(payload.uuid, function() {});
+                apiService('regions/'+payload.region_uuid+'/locations').clearCache(payload.region_uuid, function() {});
                 $location.path('/' + ($scope.location.region_slug || $scope.location.region_uuid) + '/' +
                     $scope.location.slug);
             }
         });
     };
-    
-    
+
+
     /*
         Load an existing location to update
      */
+    $scope.form_title = '';
     if ($routeParams.uuid) {
         var deferred = $q.defer();
         $scope.promise = deferred.promise;
@@ -297,32 +299,30 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                     lat: location.lonlat[1]
                 };
                 $scope.formTitle = 'Edit "' + location.title + '"';
-                console.log('location',location);
                 apiService('locations/' + location.uuid + '/photos').actions.all(cb);
             },
             function (photos, cb) {
-                console.log('photos',photos);
                 $scope.photos =  photos.results || photos;
                 cb();
             },
             function (cb) {
-                console.log('setCurrentRegion',$scope.location.region_uuid);
                 regionService.setCurrentRegion($scope.location.region_uuid, cb);
             },
             function (cb) {
-                console.log('admin',regionService.currentRegion.title);
                 $scope.currentRegion = regionService.currentRegion.title;
                 $scope.isAdmin = authService.hasScopes(['admin', 'region-' + $scope.location.region_uuid]);
+                $scope.form_title = $translate.instant('locations.update_location');
                 cb();
             }
         ], function (err) {
             responseHandler.handleResponse(err, deferred);
         });
     } else {
+        $scope.form_title = $translate.instant('locations.create_new');
         //create a new location: ask user to use his geoloaction
         GeolocationService.getCurrentPosition().then(
             function (position) { //
-                console.log('Position', position);
+                //console.log('Position', position);
                 $scope.marker.lat = position.coords.latitude;
                 $scope.marker.lng = position.coords.longitude;
                 $scope.updateLocation({'lat': position.coords.latitude, 'lng': position.coords.longitude});
@@ -332,9 +332,9 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                     PubSub.publish('alert',{type: 'error', message: 'GeoLocation is not supported by browser.'});
                 }
                 else if (errorCode === 1) {
-                    //TODO: change for https 
+                    //TODO: change for https
                     //PubSub.publish('alert',{type: 'error', message: 'User either denied GeoLocation or waited for long to respond.'});
-                    
+
                 }
             }
         );
@@ -342,7 +342,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
 };
 
 LocationsCreateController.$inject = ['$scope', '$routeParams', 'apiService', 'authService', '$q', '$location',
-    'mapService', 'responseHandler', 'locationFormDefaults', 'regionService','GeolocationService', '$mdDialog', 
+    'mapService', 'responseHandler', 'locationFormDefaults', 'regionService','GeolocationService', '$mdDialog',
     '$translate', 'CameraService', 'PubSub'];
 
 module.exports = LocationsCreateController;

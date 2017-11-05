@@ -7,18 +7,16 @@ html(lang='en')
         meta(name='msapplication-tap-highlight' content='no')
         meta(name='viewport' content='user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width')
         meta(http-equiv='Content-Security-Policy' content="default-src 'self' data: gap: blob: assets-library: cdvfile: 'unsafe-eval' http://* https://* ; style-src 'self' 'unsafe-inline'; script-src http://* https://* 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' blob: cdvphotolibrary: filesystem: cdvfile: 'unsafe-eval' cdvfile://* http://* https://* data: file: file://*; media-src * blob:")
-        // meta(name="fragment" content="!")
-        // base(href='/')
 
-        title MapOZ
-        meta(name='description' content='Dokumentiert das Werk von OZ')
-        link(rel='stylesheet', href='css/mapoz-frontend-deps.css?build=16050301')
-        link(rel='stylesheet', href='css/mapoz-frontend-mobile.css?build=16050301')
+        title City of OZ
+        meta(name='description' content='OZ hat uns die Stdt vererbt')
+        link(rel='stylesheet', href='css/mapoz-frontend-deps.css?build=17110423')
+        link(rel='stylesheet', href='css/mapoz-frontend-mobile.css?build=17110423')
         style(type='text/css').
             .ng-cloak {
                 display: none !important;
             }
-    body.ng-cloak(layout='column' spellcheck='false' ng-cloak)
+    body.ng-cloak(layout='column' spellcheck='false' ng-cloak ng-controller="Application")
         header
             include partials/_navbar
             div(ng-controller="Widgets.Alerts")
@@ -26,10 +24,10 @@ html(lang='en')
                     span {{ alert.message }}
         md-content.main_container.scrollbar_fix(role='main' flex layout="row" layout-xs="row" layout-wrap layout-fill layout-align="start stretch" ng-view cg-busy="{promise:promise, message:'Loading...', templateUrl:'partials/_busy.html',minDuration:0}")
 
-        //div(msg-popup popup-id='relaunch')
         scripts
-            
-            script(src='js/leerstandsmelder-apiclient-web.js?build=16050301')
-            script(src='js/mapoz-angular-dependencies.min.js?build=16050301')
-            script(src='js/mapoz-angular-frontend.min.js?build=16061002')
+            include partials/_js_dependencies
+            - var build = '?build=' + Date.now().toString()
+            script(src='js/ng-cordova.min.js')
+            script(src='js/leerstandsmelder-apiclient-web.js' + build)
+            script(src='js/mapoz-angular-frontend.min.js' + build)
             script(src='cordova.js')

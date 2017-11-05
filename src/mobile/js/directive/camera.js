@@ -1,3 +1,5 @@
+/* global Camera */
+
 'use strict';
 
 var CameraDirective = function ($cordovaCamera) {
@@ -26,7 +28,7 @@ var CameraDirective = function ($cordovaCamera) {
                         ctrl.$setViewValue(imageURI);
                     });
                     */
-                }, function (err) {
+                }, function (/* err */) {
                     ctrl.$setValidity('error', false);
                 });
             });

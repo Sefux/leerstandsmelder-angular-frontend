@@ -1,8 +1,9 @@
+/* global Camera */
 'use strict';
 
 var CameraService = function ($rootScope, DeviceReadyService, $cordovaCamera, $q) {
     return {
-        getPicture: function(onSuccess, onError, options) {
+        getPicture: function(onSuccess, onError/*, options */) {
             return DeviceReadyService.ready.then(function () {
                 var options =  {
                     quality : 50,
@@ -16,7 +17,7 @@ var CameraService = function ($rootScope, DeviceReadyService, $cordovaCamera, $q
                     saveToPhotoAlbum: false
                 };
                 
-                //var options = angular.extend({}, doptions, options);
+                // var options = angular.extend({}, doptions, options);
                 
                 var deferred;
                 deferred = $q.defer();
@@ -24,7 +25,7 @@ var CameraService = function ($rootScope, DeviceReadyService, $cordovaCamera, $q
                     var _this = this,
                         args = arguments;
                     var file = args[0];
-                    //file = file.replace("assets-library://", "cdvfile://localhost/assets-library/");    
+                    // file = file.replace("assets-library://", "cdvfile://localhost/assets-library/");
                     if (typeof onSuccess === 'function') {
                         console.log('success function', _this);
                         $rootScope.$apply(function () {
@@ -47,7 +48,7 @@ var CameraService = function ($rootScope, DeviceReadyService, $cordovaCamera, $q
                 return deferred.promise;
             });
         },
-        getLibrary: function(onSuccess, onError, options) {
+        getLibrary: function(onSuccess, onError/*, options*/) {
             return DeviceReadyService.ready.then(function () {
                 var options =  {
                     quality : 50,
