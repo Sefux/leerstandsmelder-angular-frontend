@@ -11,6 +11,7 @@ var RecentLocationsDirective = function (apiService, assetPath, configuration) {
         templateUrl: assetPath + 'partials/_recent_locations.html',
         link: function (scope, elem, attrs) {
             scope.urlbase = configuration.urlbase || '/';
+            scope.pageSize = 10;
             scope.$watch(attrs.region, function () {
                 scope.region = scope.$eval(attrs.region);
             });
