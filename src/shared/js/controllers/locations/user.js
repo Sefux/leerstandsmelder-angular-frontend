@@ -41,14 +41,21 @@ var LocationsUserController = function ($scope, $q, $location, $mdDialog ,$trans
         }
     ];
     $scope.settings = {
-        row_select: false,
-        multiple: false,
-        pagination: true,
         sort: '-created',
         pagesize: 25,
-        limit_options: [25, 50, 100],
         resource: 'users/me/locations'
     };
+
+    function dateFormatter(params) {
+        return $filter('date')(params.value,'yyyy-MM-dd');
+    }
+    function translateFormatter(params) {
+        if(params.value) {
+            return $filter('translate')(params.value);
+        } else {
+            return '';
+        }
+    }
 
     var columnDefs = [
         {headerName: $filter('translate')("locations.title"), field: "title", width: 120, sort: 'asc' },
@@ -92,17 +99,6 @@ var LocationsUserController = function ($scope, $q, $location, $mdDialog ,$trans
             }, 600);
         }
     };
-
-    function dateFormatter(params) {
-        return $filter('date')(params.value,'yyyy-MM-dd');
-    }
-    function translateFormatter(params) {
-        if(params.value) {
-            return $filter('translate')(params.value);
-        } else {
-            return '';
-        }
-    }
 
     $scope.filterGrid = function() {
         $scope.gridOptions.api.setQuickFilter($scope.filterStr);

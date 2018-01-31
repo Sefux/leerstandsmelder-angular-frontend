@@ -12,6 +12,15 @@ var LocationsRegionIndexControlller = function ($scope, apiService, $q, $locatio
     seo_state = 'index';
   }
   var columnDefs;
+
+  function dateFormatter (params) {
+    return $filter('date')(params.value, 'yyyy-MM-dd');
+  }
+
+  function translateFormatter (params) {
+    return $filter('translate')(params.value);
+  }
+
   if ($routeParams.region_uuid) {
     columnDefs = [
       {headerName: $filter('translate')("locations.title"), field: "title", width: 120, sort: 'asc'},
@@ -20,17 +29,13 @@ var LocationsRegionIndexControlller = function ($scope, apiService, $q, $locatio
         headerName: $filter('translate')("locations.building_type"),
         field: "buildingType",
         width: 90,
-        cellRenderer: function (params) {
-          return $filter('translate')(params.value);
-        }
+        cellRenderer: translateFormatter
       },
       {
         headerName: $filter('translate')("locations.owner"),
         field: "owner",
         width: 90,
-        cellRenderer: function (params) {
-          return $filter('translate')(params.value);
-        }
+        cellRenderer: translateFormatter
       },
       {headerName: $filter('translate')("author.updated"), field: "updated", width: 90, cellRenderer: dateFormatter},
       {
@@ -52,29 +57,19 @@ var LocationsRegionIndexControlller = function ($scope, apiService, $q, $locatio
 
   }
   $scope.gridOptions = {
-
     columnDefs: columnDefs,
-
     rowData: null,
     rowHeight: 58,
-
     enableSorting: true,
-
     enableFilter: true,
     animateRows: true,
-
     enableColResize: true,
-
     onGridReady: function () {
       setTimeout(function () {
         $scope.gridOptions.api.sizeColumnsToFit();
       }, 600);
     }
   };
-
-  function dateFormatter (params) {
-    return $filter('date')(params.value, 'yyyy-MM-dd');
-  }
 
   $scope.filterGrid = function () {
     $scope.gridOptions.api.setQuickFilter($scope.filterStr);

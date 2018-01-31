@@ -7,9 +7,12 @@ var PostsListController = function ($scope, $q, apiService, responseHandler, $lo
         resource: 'posts'
     };
 
-
     if($location.path().indexOf('static')>0) {
         $scope.settings.resource = 'posts/static';
+    }
+
+    function dateFormatter(params) {
+        return $filter('date')(params.value,'yyyy-MM-dd');
     }
 
     var columnDefs = [
@@ -25,19 +28,13 @@ var PostsListController = function ($scope, $q, apiService, responseHandler, $lo
 
 
     $scope.gridOptions = {
-
         columnDefs: columnDefs,
-
         rowData: null,
         rowHeight: 58,
-
         enableSorting: true,
-
         enableFilter: true,
         animateRows: true,
-
         enableColResize: true,
-
         onGridReady: function() {
             setTimeout(function() {
                 $scope.gridOptions.api.sizeColumnsToFit();
@@ -48,10 +45,6 @@ var PostsListController = function ($scope, $q, apiService, responseHandler, $lo
     $scope.filterGrid = function() {
         $scope.gridOptions.api.setQuickFilter($scope.filterStr);
     };
-
-    function dateFormatter(params) {
-        return $filter('date')(params.value,'yyyy-MM-dd');
-    }
 
     $scope.query = {
         sort: $scope.settings.sort ? $scope.settings.sort : 'title',

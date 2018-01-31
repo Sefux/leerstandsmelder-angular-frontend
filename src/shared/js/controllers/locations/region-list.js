@@ -4,11 +4,19 @@ var async = require('async');
 
 var LocationsRegionListController = function ($scope, $q, $location, $mdDialog, $translate, responseHandler,
                                               apiService, regionService, $routeParams, configuration, $filter) {
-    
+
     var deferred = $q.defer();
     $scope.promise = deferred.promise;
     $scope.urlbase = configuration.urlbase || '/';
-                                                  
+
+    function dateFormatter(params) {
+        return $filter('date')(params.value,'yyyy-MM-dd');
+    }
+
+    function booleanFormatter(params) {
+        return (params.value ? $filter('translate')("generel.yes"):$filter('translate')("generel.no"));
+    }
+
     var columnDefs = [
         {headerName: $filter('translate')("locations.title"), field: "title", width: 120 },
         {headerName: $filter('translate')("locations.street"), field: "street", width: 90},
@@ -32,13 +40,13 @@ var LocationsRegionListController = function ($scope, $q, $location, $mdDialog, 
         }
         }
     ];
-    
+
     if ($routeParams.region_uuid) {
         $scope.listHeadline = 'locations.locations_by_region';
     } else {
         $scope.listHeadline = 'locations.my_locations';
     }
-    
+
     $scope.gridOptions = {
         columnDefs: columnDefs,
         rowData: null,
@@ -59,21 +67,13 @@ var LocationsRegionListController = function ($scope, $q, $location, $mdDialog, 
         }
     };
 
-    function dateFormatter(params) {
-        return $filter('date')(params.value,'yyyy-MM-dd');
-    }
-    
-    function booleanFormatter(params) {
-        return (params.value ? $filter('translate')("generel.yes"):$filter('translate')("generel.no"));
-    }
-
     $scope.filterGrid = function() {
         $scope.gridOptions.api.setQuickFilter($scope.filterStr);
     };
     regionService.setCurrentRegion($routeParams.region_uuid, function () {
         $scope.currentRegion = regionService.currentRegion.title;
     });
-    
+
     async.waterfall([
         function (cb) {
             if ($routeParams.region_uuid) {
@@ -107,9 +107,9 @@ var LocationsRegionListController = function ($scope, $q, $location, $mdDialog, 
         responseHandler.handleResponse(err, deferred);
     });
     $scope.commentHandler = function (/* uuid */) {
-        
+
     };
-    
+
     $scope.clickDeleteHandler = function (uuid) {
         var confirm = $mdDialog.confirm()
             .title($translate.instant('locations.remove_confirm_title'))
@@ -120,7 +120,7 @@ var LocationsRegionListController = function ($scope, $q, $location, $mdDialog, 
         $mdDialog.show(confirm).then(function () {
             var deferred = $q.defer();
             $scope.promise = deferred.promise;
-            
+
             apiService('locations').actions.remove(uuid, function (err) {
                 var msgs = {
                     success: 'locations.remove_success'

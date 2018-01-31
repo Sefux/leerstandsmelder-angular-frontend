@@ -8,6 +8,29 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
     $scope.promise = deferred.promise;
     $scope.urlbase = configuration.urlbase || '/';
 
+    function dateFormatter(params) {
+        return $filter('date')(params.value,'yyyy-MM-dd');
+    }
+
+    function booleanFormatter(params) {
+        return (params.value ? $filter('translate')("generel.yes"):$filter('translate')("generel.no"));
+    }
+
+    function getNodeChildDetails(rowItem) {
+        if (rowItem.comments) {
+            return {
+                group: true,
+                expanded: true,
+                // provide ag-Grid with the children of this group
+                children: rowItem.comments,
+                // the key is used by the default group cellRenderer
+                key: rowItem.title
+            };
+        } else {
+            return null;
+        }
+    }
+
     var columnDefs = [
         {headerName: $filter('translate')("locations.location"), field: "title", width: 90, cellRenderer: 'group'},
         {headerName: $filter('translate')("comments.body"), field: "body", width: 120},
@@ -75,32 +98,9 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
         }
     };
 
-    function getNodeChildDetails(rowItem) {
-        if (rowItem.comments) {
-            return {
-                group: true,
-                expanded: true,
-                // provide ag-Grid with the children of this group
-                children: rowItem.comments,
-                // the key is used by the default group cellRenderer
-                key: rowItem.title
-            };
-        } else {
-            return null;
-        }
-    }
-
-    function dateFormatter(params) {
-        return $filter('date')(params.value,'yyyy-MM-dd');
-    }
-
-    function booleanFormatter(params) {
-        return (params.value ? $filter('translate')("generel.yes"):$filter('translate')("generel.no"));
-    }
-
-	$scope.filterGrid = function() {
-		$scope.gridOptions.api.setQuickFilter($scope.filterStr);
-	};
+    $scope.filterGrid = function() {
+      $scope.gridOptions.api.setQuickFilter($scope.filterStr);
+    };
 
     async.waterfall([
         function (cb) {
