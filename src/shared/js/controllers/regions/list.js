@@ -17,20 +17,7 @@ var RegionsListController = function ($scope, $q, $location, $mdDialog ,$transla
         },
     ];
 
-    $scope.gridOptions = {
-        columnDefs: columnDefs,
-        rowData: null,
-        rowHeight: 58,
-        enableSorting: true,
-        enableFilter: true,
-        animateRows: true,
-        enableColResize: true,
-        onGridReady: function() {
-            setTimeout(function() {
-                $scope.gridOptions.api.sizeColumnsToFit();
-            }, 600);
-        }
-    };
+    $scope.gridOptions.columnDefs = columnDefs;
 
     $scope.filterGrid = function() {
         $scope.gridOptions.api.setQuickFilter($scope.filterStr);

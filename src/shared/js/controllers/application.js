@@ -34,6 +34,23 @@ var ApplicationController = function ($scope, $rootScope, $translate, $location,
         return (params.value ? $filter('translate')("generel.yes"):$filter('translate')("generel.no"));
     };
 
+    $scope.gridOptions = {
+        rowData: null,
+        rowHeight: 58,
+        enableSorting: true,
+        enableFilter: true,
+        animateRows: true,
+        enableColResize: true,
+        onGridReady: function() {
+            setTimeout(function() {
+                $scope.gridOptions.api.sizeColumnsToFit();
+            }, 600);
+        },
+        onViewportChanged: function () {
+          $scope.gridOptions.api.sizeColumnsToFit();
+        }
+    };
+
 };
 
 ApplicationController.$inject = ['$scope','$rootScope','$translate','$location','$timeout', '$q', 'apiService', 'authService', 'regionService', '$mdSidenav', '$window', '$filter'];

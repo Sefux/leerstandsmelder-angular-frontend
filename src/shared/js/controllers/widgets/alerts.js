@@ -13,14 +13,10 @@ var WidgetsAlertsController = function ($scope, $translate, $mdToast, $mdDialog,
           .ok($translate.instant('errors.critical.resolve'));
           dialog.escapeToClose = false;
 
-          $mdDialog.show(dialog)
-          .then(function() {
-            isDlgOpen = false;
-          });
+          $mdDialog.show(dialog);
         } else {
 
           var delay = 8000;
-          var isDlgOpen = false;
           if(message.hasOwnProperty(delay)) {
             delay = message.delay;
           }

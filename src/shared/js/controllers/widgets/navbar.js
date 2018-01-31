@@ -77,13 +77,6 @@ var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$
 
     apiService('regions').actions.all(function (err, regions) {
         regions = regions.results || regions;
-        if (!regions || !Array.isArray(regions)) {
-            if (err) {
-                console.log(err);
-                //throw err;
-            }
-            return;
-        }
         self.repos = regions.sort(function (a, b) {
             if (a.title < b.title) {
                 return -1;

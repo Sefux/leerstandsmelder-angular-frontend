@@ -68,26 +68,8 @@ var LocationsUserController = function ($scope, $q, $location, $mdDialog ,$trans
         }
     ];
 
-    $scope.gridOptions = {
-
-        columnDefs: columnDefs,
-
-        rowData: null,
-        rowHeight: 58,
-
-        enableSorting: true,
-
-        enableFilter: true,
-        animateRows: true,
-        angularCompileRows: true,
-        enableColResize: true,
-
-        onGridReady: function() {
-            setTimeout(function() {
-                $scope.gridOptions.api.sizeColumnsToFit();
-            }, 600);
-        }
-    };
+    $scope.gridOptions.columnDefs =  columnDefs;
+    $scope.gridOptions.angularCompileRows = true;
 
     $scope.filterGrid = function() {
         $scope.gridOptions.api.setQuickFilter($scope.filterStr);

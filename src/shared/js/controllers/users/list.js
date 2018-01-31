@@ -34,24 +34,7 @@ var UsersListController = function ($scope, apiService, responseHandler, $q, $fi
         }
     ];
 
-
-    $scope.gridOptions = {
-        columnDefs: columnDefs,
-        rowData: null,
-        rowHeight: 58,
-        enableSorting: true,
-        enableFilter: true,
-        animateRows: true,
-        enableColResize: true,
-        onGridReady: function() {
-            setTimeout(function() {
-                $scope.gridOptions.api.sizeColumnsToFit();
-            }, 600);
-        },
-        onViewportChanged: function () {
-          $scope.gridOptions.api.sizeColumnsToFit();
-        }
-    };
+    $scope.gridOptions.columnDefs = columnDefs;
 
     $scope.filterGrid = function() {
         $scope.gridOptions.api.setQuickFilter($scope.filterStr);
@@ -75,8 +58,6 @@ var UsersListController = function ($scope, apiService, responseHandler, $q, $fi
             deferred.reject(err);
         }
     });
-
-
 };
 
 UsersListController.$inject = ['$scope', 'apiService', 'responseHandler', '$q', '$filter', 'configuration'];

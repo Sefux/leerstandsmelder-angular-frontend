@@ -19,29 +19,13 @@ var PostsListController = function ($scope, $q, apiService, responseHandler, $lo
             return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase + 'admin/posts/' + params.value + '" aria-label="' + $filter('translate')("actions.edit") + '"><md-icon md-font-icon="fa-pencil" class="fa fa-pencil"></md-icon></a>';
         }
         },
-
     ];
 
-
-    $scope.gridOptions = {
-        columnDefs: columnDefs,
-        rowData: null,
-        rowHeight: 58,
-        enableSorting: true,
-        enableFilter: true,
-        animateRows: true,
-        enableColResize: true,
-        onGridReady: function() {
-            setTimeout(function() {
-                $scope.gridOptions.api.sizeColumnsToFit();
-            }, 600);
-        }
-    };
+    $scope.gridOptions.columnDefs = columnDefs;
 
     $scope.filterGrid = function() {
         $scope.gridOptions.api.setQuickFilter($scope.filterStr);
     };
-
     $scope.query = {
         sort: $scope.settings.sort ? $scope.settings.sort : 'title',
         page: 1
