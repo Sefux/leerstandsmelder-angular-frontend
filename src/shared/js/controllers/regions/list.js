@@ -6,14 +6,11 @@ var RegionsListController = function ($scope, $q, $location, $mdDialog ,$transla
         pagesize: 25000,
         resource: 'regions'
     };
-    function dateFormatter(params) {
-        return $filter('date')(params.value,'yyyy-MM-dd');
-    }
 
     var columnDefs = [
         {headerName: $filter('translate')("regions.title"), field: "title", width: 120, sort: 'asc'},
-        {headerName: $filter('translate')("regions.created"), field: "created", width: 90, cellRenderer: dateFormatter},
-        {headerName: $filter('translate')("regions.updated"), field: "updated", width: 90, cellRenderer: dateFormatter},
+        {headerName: $filter('translate')("regions.created"), field: "created", width: 90, cellRenderer: $scope.dateFormatter},
+        {headerName: $filter('translate')("regions.updated"), field: "updated", width: 90, cellRenderer: $scope.dateFormatter},
         {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function(params) {      // Function cell renderer
             return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase + 'admin/regions/' + params.value + '" aria-label="' + $filter('translate')("actions.edit") + '"><md-icon md-font-icon="fa-pencil" class="fa fa-pencil"></md-icon></a>';
         }

@@ -46,24 +46,13 @@ var LocationsUserController = function ($scope, $q, $location, $mdDialog ,$trans
         resource: 'users/me/locations'
     };
 
-    function dateFormatter(params) {
-        return $filter('date')(params.value,'yyyy-MM-dd');
-    }
-    function translateFormatter(params) {
-        if(params.value) {
-            return $filter('translate')(params.value);
-        } else {
-            return '';
-        }
-    }
-
     var columnDefs = [
         {headerName: $filter('translate')("locations.title"), field: "title", width: 120, sort: 'asc' },
         {headerName: $filter('translate')("locations.street"), field: "street", width: 90},
-        {headerName: $filter('translate')("locations.building_type"), field: "buildingType", width: 90, cellRenderer: translateFormatter},
-        {headerName: $filter('translate')("locations.owner"), field: "owner", width: 90, cellRenderer: translateFormatter},
-        {headerName: $filter('translate')("author.updated"), field: "updated", width: 60, cellRenderer: dateFormatter},
-        {headerName: $filter('translate')("author.created"), field: "created", width: 60, cellRenderer: dateFormatter},
+        {headerName: $filter('translate')("locations.building_type"), field: "buildingType", width: 90, cellRenderer: $scope.translateFormatter},
+        {headerName: $filter('translate')("locations.owner"), field: "owner", width: 90, cellRenderer: $scope.translateFormatter},
+        {headerName: $filter('translate')("author.updated"), field: "updated", width: 60, cellRenderer: $scope.dateFormatter},
+        {headerName: $filter('translate')("author.created"), field: "created", width: 60, cellRenderer: $scope.dateFormatter},
         {headerName: "", field: "uuid", width: 90, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
             return '<a class="md-icon-button md-button md-ink-ripple" href="' + $scope.urlbase +
               (params.data.region ? params.data.region.slug : params.data.region_uuid) + '/' +

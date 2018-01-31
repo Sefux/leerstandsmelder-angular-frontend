@@ -7,19 +7,11 @@ var LocationsRegionIndexControlller = function ($scope, apiService, $q, $locatio
   $scope.promise = deferred.promise;
   $scope.urlbase = configuration.urlbase || '/';
   //find out if on seo page
-  var seo_state = 'all';
+  var seoState = 'all';
   if ($location.path().indexOf('index') > 0) {
-    seo_state = 'index';
+    seoState = 'index';
   }
   var columnDefs;
-
-  function dateFormatter (params) {
-    return $filter('date')(params.value, 'yyyy-MM-dd');
-  }
-
-  function translateFormatter (params) {
-    return $filter('translate')(params.value);
-  }
 
   if ($routeParams.region_uuid) {
     columnDefs = [
@@ -29,15 +21,15 @@ var LocationsRegionIndexControlller = function ($scope, apiService, $q, $locatio
         headerName: $filter('translate')("locations.building_type"),
         field: "buildingType",
         width: 90,
-        cellRenderer: translateFormatter
+        cellRenderer: $scope.translateFormatter
       },
       {
         headerName: $filter('translate')("locations.owner"),
         field: "owner",
         width: 90,
-        cellRenderer: translateFormatter
+        cellRenderer: $scope.translateFormatter
       },
-      {headerName: $filter('translate')("author.updated"), field: "updated", width: 90, cellRenderer: dateFormatter},
+      {headerName: $filter('translate')("author.updated"), field: "updated", width: 90, cellRenderer: $scope.dateFormatter},
       {
         headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
         return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase + (params.data.region ? params.data.region.slug : params.data.region_uuid) + '/' + (params.data.slug || params.data.uuid) + '" aria-label="' + $filter('translate')("actions.edit") + '"><md-icon md-font-icon="fa-eye" class="fa fa-eye"></md-icon></a>';
@@ -50,7 +42,7 @@ var LocationsRegionIndexControlller = function ($scope, apiService, $q, $locatio
       {headerName: $filter('translate')("regions.count"), field: "locations", width: 90},
       {
         headerName: "", field: "slug", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
-        return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase + 'locations/' + seo_state + '/' + params.value + '" aria-label="' + $filter('translate')("actions.edit") + '"><md-icon md-font-icon="fa-eye" class="fa fa-eye"></md-icon></a>';
+        return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase + 'locations/' + seoState + '/' + params.value + '" aria-label="' + $filter('translate')("actions.edit") + '"><md-icon md-font-icon="fa-eye" class="fa fa-eye"></md-icon></a>';
       }
       },
     ];
@@ -83,7 +75,7 @@ var LocationsRegionIndexControlller = function ($scope, apiService, $q, $locatio
     if (item.region_uuid) {
       $location.path('/' + (item.region ? item.region.slug : item.region_uuid) + '/' + (item.slug || item.uuid));
     } else {
-      $location.path('/locations/' + seo_state + '/' + item.slug || item.uuid);
+      $location.path('/locations/' + seoState + '/' + item.slug || item.uuid);
     }
   };
 
@@ -96,15 +88,15 @@ var LocationsRegionIndexControlller = function ($scope, apiService, $q, $locatio
       }
     },
     function (regions, cb) {
-      var region_data = regions.results || regions;
-      if (Array.isArray(region_data)) {
-        $scope.data = region_data.results || region_data;
+      var regionData = regions.results || regions;
+      if (Array.isArray(regionData)) {
+        $scope.data = regionData.results || regionData;
         $scope.gridOptions.api.setRowData($scope.data);
         $scope.gridOptions.api.sizeColumnsToFit();
         cb();
       } else {
-        $scope.region = region_data;
-        apiService('regions/' + region_data.uuid + '/locations').actions.all(cb);
+        $scope.region = regionData;
+        apiService('regions/' + regionData.uuid + '/locations').actions.all(cb);
       }
     }
   ], function (err, locations) {

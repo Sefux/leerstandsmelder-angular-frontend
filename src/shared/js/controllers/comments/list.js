@@ -8,14 +8,6 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
     $scope.promise = deferred.promise;
     $scope.urlbase = configuration.urlbase || '/';
 
-    function dateFormatter(params) {
-        return $filter('date')(params.value,'yyyy-MM-dd');
-    }
-
-    function booleanFormatter(params) {
-        return (params.value ? $filter('translate')("generel.yes"):$filter('translate')("generel.no"));
-    }
-
     function getNodeChildDetails(rowItem) {
         if (rowItem.comments) {
             return {
@@ -35,9 +27,9 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
         {headerName: $filter('translate')("locations.location"), field: "title", width: 90, cellRenderer: 'group'},
         {headerName: $filter('translate')("comments.body"), field: "body", width: 120},
         {headerName: $filter('translate')("author.author"), field: "user_uuid", width: 90},
-        {headerName: $filter('translate')("comments.created"), field: "created", width: 90, cellRenderer: dateFormatter},
-        {headerName: $filter('translate')("author.updated"), field: "updated", width: 90, cellRenderer: dateFormatter, sort: 'desc'},
-        {headerName: $filter('translate')("locations.hidden"), field: "hidden", width: 90, cellRenderer: booleanFormatter }, //
+        {headerName: $filter('translate')("comments.created"), field: "created", width: 90, cellRenderer: $scope.dateFormatter},
+        {headerName: $filter('translate')("author.updated"), field: "updated", width: 90, cellRenderer: $scope.dateFormatter, sort: 'desc'},
+        {headerName: $filter('translate')("locations.hidden"), field: "hidden", width: 90, cellRenderer: $scope.booleanFormatter }, //
         {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
             if(params.node.data && !params.node.data.user_uuid) {
                 return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase +  'locations/' + params.value + '" aria-label="' + $filter('translate')("actions.edit") + '"><md-icon md-font-icon="fa-eye" class="fa fa-eye"></md-icon></a>';
@@ -60,9 +52,9 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
 
     var columnDefsRegions = [
         {headerName: $filter('translate')("regions.title"), field: "title", width: 90, cellRenderer: 'group'},
-        {headerName: $filter('translate')("comments.created"), field: "created", width: 90, cellRenderer: dateFormatter},
-        {headerName: $filter('translate')("author.updated"), field: "updated", width: 90, cellRenderer: dateFormatter, sort: 'desc'},
-        {headerName: $filter('translate')("locations.hidden"), field: "hidden", width: 90, cellRenderer: booleanFormatter }, //
+        {headerName: $filter('translate')("comments.created"), field: "created", width: 90, cellRenderer: $scope.dateFormatter},
+        {headerName: $filter('translate')("author.updated"), field: "updated", width: 90, cellRenderer: $scope.dateFormatter, sort: 'desc'},
+        {headerName: $filter('translate')("locations.hidden"), field: "hidden", width: 90, cellRenderer: $scope.booleanFormatter }, //
         {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
           return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase +  'admin/regions/' + params.value + '/comments" aria-label="' + $filter('translate')("actions.edit") + '"><md-icon md-font-icon="fa-eye" class="fa fa-eye"></md-icon></a>';
         }
@@ -111,16 +103,16 @@ var CommentsListController = function ($scope, $q, apiService, responseHandler, 
             }
         },
         function (regions, cb) {
-            var region_data = regions.results || regions;
-            if (Array.isArray(region_data)) {
-                $scope.data = region_data.results || region_data;
+            var regionData = regions.results || regions;
+            if (Array.isArray(regionData)) {
+                $scope.data = regionData.results || regionData;
                 $scope.gridOptions.api.setColumnDefs( columnDefsRegions );
                 $scope.gridOptions.api.setRowData($scope.data);
                 $scope.gridOptions.api.sizeColumnsToFit();
                 cb();
             } else {
-                $scope.region = region_data;
-                apiService('regions/' + region_data.uuid + '/comments').actions.all(cb);
+                $scope.region = regionData;
+                apiService('regions/' + regionData.uuid + '/comments').actions.all(cb);
             }
         }
     ], function (err, comments) {
