@@ -5,9 +5,9 @@ include ..//mixins/_layout
 include ..//mixins/_style
 
 div(layout="row" layout-xs="column" layout-wrap layout-fill)
-  md-content(flex flex-gt-xs="35" layout-align='stretch' )
+  md-content(flex flex-gt-md="35" layout-align='stretch' )
     #map(lsm-map flex layout-align='stretch'  ng-model='location' center='mapcenter' zoom='zoom' locations='locations')
-  md-content(flex flex-gt-xs="65" layout-align='stretch')
+  md-content(flex flex-gt-md="65" layout-align='stretch')
     div.sidebar.md-padding(check-login)
         p.pull-right()
             +button_fab('actions.back','back()','md-secondary','fa-arrow-left','location')
