@@ -18,6 +18,16 @@ var ApplicationController = function ($scope, $rootScope, $translate, $location,
         $window.history.back();
     };
 
+    $scope.$on('currentRegion:updated', function (event, region) {
+        $scope.currentRegion = region;
+        // TODO: check how to update floating label on autocomplete
+        // $scope.searchTitleAdd = $translate.instant('author.in') + ' ' + region.title;
+    });
+
+    $scope.regionOverview = function() {
+      $location.path('/' + $scope.currentRegion.slug || $scope.currentRegion.uuid );
+    };
+
     $scope.dateFormatter = function(params) {
       return $filter('date')(params.value, 'yyyy-MM-dd');
     };

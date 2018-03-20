@@ -7,7 +7,7 @@ md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as 
             div(flex="20" layout='row' layout-align='start center')
                 a(href='/')
                     img(src="/images/logo_cropped_alt.png", alt="{{ 'site.title' | translate }}" class="lm-logo logo-main" )
-                div.currentLocation(style="position:absolute;left:54px;top:60px;text-align:center;width:150px;color:white!important")
+                div.currentLocation(ng-class="{'currentLocation-sm': $mdMedia('sm'), 'currentLocation-md': $mdMedia('md'), 'currentLocation-xs': $mdMedia('xs')}")
                     //h2
                         a(href='/') {{ 'site.title' | translate }}
                     strong

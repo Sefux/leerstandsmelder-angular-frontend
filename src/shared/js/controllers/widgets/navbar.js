@@ -1,12 +1,14 @@
 'use strict';
 
-var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$timeout, $q, apiService, regionService, $mdSidenav) {
+var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$timeout, $q, apiService, regionService, $mdSidenav, $mdMedia) {
     // var deferred = $q.defer();
     var self = this;
     self.currentSearchText = null;
     self.repos = [];
     self.simulateQuery = false;
     self.isDisabled    = false;
+
+    $scope.$mdMedia = $mdMedia;
 
     // sidenav changes
     $scope.open_sidebar = function () {
@@ -23,12 +25,6 @@ var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$
     $scope.close_sidebar = function () {
         $mdSidenav('right').close();
     };
-
-    $scope.$on('currentRegion:updated', function (event, region) {
-        $scope.currentRegion = region;
-        // TODO: check how to update floating label on autocomplete
-        // $scope.searchTitleAdd = $translate.instant('author.in') + ' ' + region.title;
-    });
 
     $scope.siteLocation = $rootScope.siteLocation;
 
@@ -103,6 +99,6 @@ var WidgetsNavbarController = function ($scope,$rootScope,$translate,$location,$
     };
 };
 
-WidgetsNavbarController.$inject = ['$scope','$rootScope','$translate','$location','$timeout', '$q', 'apiService','regionService', '$mdSidenav'];
+WidgetsNavbarController.$inject = ['$scope','$rootScope','$translate','$location','$timeout', '$q', 'apiService','regionService', '$mdSidenav', '$mdMedia'];
 
 module.exports = WidgetsNavbarController;
