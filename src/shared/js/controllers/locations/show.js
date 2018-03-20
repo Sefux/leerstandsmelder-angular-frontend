@@ -14,7 +14,7 @@ var LocationsShowController = function($scope, regionService, $q, $routeParams,
         function (location, cb) {
             if (!location || location.code) {
               responseHandler.handleResponse(location, deferred);
-              //return cb(new Error('errors.location.no_data'));
+              return cb(new Error('errors.location.no_data'));
             }
             $scope.locations = [location];
             $scope.location = location;

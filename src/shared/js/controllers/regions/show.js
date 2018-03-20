@@ -11,10 +11,12 @@ var RegionsShow = function ($scope, regionService, $q, $routeParams, apiService,
             apiService('regions').actions.find($routeParams.uuid, cb);
         },
         function (region, cb) {
-            if (!region) {
-                return cb(new Error('errors.region.no_data'));
-            }
             region = region.results || region;
+            if (!region || region.code) {
+              responseHandler.handleResponse(region, deferred);
+              //return cb(new Error('errors.region.no_data'));
+              return cb(new Error('errors.region.no_data'));
+            }
             $scope.region = region;
             $scope.mapcenter = [$scope.region.lonlat[1], $scope.region.lonlat[0]];
             $scope.zoom = $scope.region.zoom;
