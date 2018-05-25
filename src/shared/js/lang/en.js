@@ -270,7 +270,8 @@ module.exports = {
             imprint: 'Imprint',
             index: 'City index',
             press: 'Press',
-            terms: 'Terms'
+            terms: 'Terms',
+            dataprotection: 'Data protection'
         },
         title: 'Leerstandsmelder'
     },

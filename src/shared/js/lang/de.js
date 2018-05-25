@@ -272,7 +272,8 @@ module.exports = {
             imprint: 'Impressum',
             index: 'Stadtindex',
             press: 'Presse',
-            terms: 'AGB'
+            terms: 'AGB',
+            dataprotection: 'Datenschutz'
         },
         title: 'Leerstandsmelder'
     },
