@@ -4,7 +4,7 @@ var async = require('async');
 var config = require('../../../../../config.json');
 
 var RegionsShow = function ($scope, regionService, $q, $routeParams, apiService, responseHandler, configuration) {
-    if($routeParams.uuid == undefined) {
+    if($routeParams.uuid === undefined) {
         //TODO: miesser hack um nur eine region anzuzeigen...
         $routeParams.uuid = config.global.default_region;
     }

@@ -1,9 +1,9 @@
 'use strict';
 
-var angular = require('angular'),
-    async = require('async'),
+//var angular = require('angular');
+var async = require('async'),
     lsmMapconfig = require('../lsm-mapconfig');
-    
+
 var getIcon = {
     'locations.unknown': '_andere',
     'locations.artwork_type_options.mural': '_pizza',
@@ -15,7 +15,7 @@ var getIcon = {
     'locations.artwork_type_options.for_oz': '_fueroz',
     'locations.artwork_type_options.line': '_linien',
     'locations.artwork_type_options.others': '_andere'
-    };    
+    };
 
 var MapDirective = function ($window, $timeout, mapService, $translate, assetPath) {
     return {
@@ -46,12 +46,11 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                     iconUrl: assetPath + 'images/marker-active_andere.png',
                     iconRetinaUrl: assetPath + 'images/marker-active_andere@2x.png'
                 };
-                var iconActive = L.icon(icon);
                 icon.iconUrl = assetPath + 'images/marker-inactive_andere.png';
                 icon.iconRetinaUrl = assetPath + 'images/marker-inactive_andere@2x.png';
-                var iconInactive = L.icon(icon);
-                
-                var showIcon = L.icon(icon); 
+
+
+                var showIcon = L.icon(icon);
 
                 if(attrs.usecluster) {
                     //add Cluster
@@ -71,7 +70,7 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                                 icon.iconUrl = assetPath + 'images/marker-active'+ getIcon[entry.artworkType] +'.png';
                                 icon.iconRetinaUrl = assetPath + 'images/marker-active'+ getIcon[entry.artworkType] +'@2x.png';
                             }
-                            showIcon = L.icon(icon); 
+                            showIcon = L.icon(icon);
                         }
                         
                         var options = {

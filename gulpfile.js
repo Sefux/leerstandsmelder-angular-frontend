@@ -244,7 +244,8 @@ gulp.task('assets', function (env) {
           'node_modules/leaflet/dist/leaflet.js',
           'node_modules/leaflet-minimap/dist/Control.MiniMap.min.js',
           'node_modules/leaflet.markercluster/dist/leaflet.markercluster.js',
-          'node_modules/ng-image-gallery/dist/ng-image-gallery.min.js'
+          'node_modules/ng-image-gallery/dist/ng-image-gallery.min.js',
+          'node_modules/exif-js/exif.js',
         ];
         return Promise.resolve()
             .then(function () {

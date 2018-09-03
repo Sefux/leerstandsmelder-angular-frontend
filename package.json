@@ -26,7 +26,8 @@
   },
   "browserify-shim": {
     "angular": "global:angular",
-    "ag-grid": "global:agGrid"
+    "ag-grid": "global:agGrid",
+    "EXIF": "global:EXIF"
   },
   "devDependencies": {
     "browserify": "^14.0.0",
