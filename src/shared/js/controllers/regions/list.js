@@ -7,43 +7,17 @@ var RegionsListController = function ($scope, $q, $location, $mdDialog ,$transla
         resource: 'regions'
     };
 
-
     var columnDefs = [
         {headerName: $filter('translate')("regions.title"), field: "title", width: 120, sort: 'asc'},
-        {headerName: $filter('translate')("regions.created"), field: "created", width: 90, cellRenderer: dateFormatter},
-        {headerName: $filter('translate')("regions.updated"), field: "updated", width: 90, cellRenderer: dateFormatter},
-        {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
+        {headerName: $filter('translate')("regions.created"), field: "created", width: 90, cellRenderer: $scope.dateFormatter},
+        {headerName: $filter('translate')("regions.updated"), field: "updated", width: 90, cellRenderer: $scope.dateFormatter},
+        {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function(params) {      // Function cell renderer
             return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase + 'admin/regions/' + params.value + '" aria-label="' + $filter('translate')("actions.edit") + '"><md-icon md-font-icon="fa-pencil" class="fa fa-pencil"></md-icon></a>';
         }
         },
-
     ];
 
-
-    $scope.gridOptions = {
-
-        columnDefs: columnDefs,
-
-        rowData: null,
-        rowHeight: 58,
-
-        enableSorting: true,
-
-        enableFilter: true,
-        animateRows: true,
-
-        enableColResize: true,
-
-        onGridReady: function() {
-            setTimeout(function() {
-                $scope.gridOptions.api.sizeColumnsToFit();
-            }, 600);
-        }
-    };
-
-    function dateFormatter(params) {
-        return $filter('date')(params.value,'yyyy-MM-dd');
-    }
+    $scope.gridOptions.columnDefs = columnDefs;
 
     $scope.filterGrid = function() {
         $scope.gridOptions.api.setQuickFilter($scope.filterStr);
@@ -66,19 +40,13 @@ var RegionsListController = function ($scope, $q, $location, $mdDialog ,$transla
     });
 
     $scope.settings = {
-        row_select: false,
-        multiple: false,
-        pagination: true,
         pagesize: 25,
-        limit_options: [25, 50, 100],
         resource: 'regions'
     };
     $scope.clickEditHandler = function (uuid) {
         $location.path('/admin/regions/' + uuid);
     };
     $scope.clickShowHandler =  function (uuid) {
-        console.log('uuid',uuid);
-
         $location.path('/admin/regions/' + uuid + '/locations');
     };
 

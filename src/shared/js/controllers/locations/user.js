@@ -3,60 +3,18 @@
 var LocationsUserController = function ($scope, $q, $location, $mdDialog ,$translate, responseHandler, apiService, configuration, $filter) {
 
     $scope.urlbase = configuration.urlbase || '/';
-    $scope.fields = [
-        {
-            label: 'locations.title',
-            property: 'title'
-        },
-        {
-            label: 'locations.street',
-            property: 'street'
-        },
-        {
-            label: 'regions.region',
-            property: 'region.title',
-            sort: false
-        },
-        {
-            label: 'author.created',
-            property: 'created',
-            date: true
-        },
-        {
-            label: 'author.updated',
-            property: 'updated',
-            date: true
-        },
-        {
-            label: '',
-            property: 'edit'
-        },
-        {
-            label: '',
-            property: 'show'
-        },
-        {
-            label: '',
-            property: 'delete'
-        }
-    ];
     $scope.settings = {
-        row_select: false,
-        multiple: false,
-        pagination: true,
         sort: '-created',
         pagesize: 25,
-        limit_options: [25, 50, 100],
         resource: 'users/me/locations'
     };
 
     var columnDefs = [
         {headerName: $filter('translate')("locations.title"), field: "title", width: 120, sort: 'asc' },
         {headerName: $filter('translate')("locations.street"), field: "street", width: 90},
-        {headerName: $filter('translate')("locations.building_type"), field: "buildingType", width: 90, cellRenderer: translateFormatter},
-        {headerName: $filter('translate')("locations.owner"), field: "owner", width: 90, cellRenderer: translateFormatter},
-        {headerName: $filter('translate')("author.updated"), field: "updated", width: 60, cellRenderer: dateFormatter},
-        {headerName: $filter('translate')("author.created"), field: "created", width: 60, cellRenderer: dateFormatter},
+        {headerName: $filter('translate')("locations.artwork_type"), field: "artworkType", width: 90, cellRenderer: $scope.translateFormatter},
+        {headerName: $filter('translate')("author.updated"), field: "updated", width: 60, cellRenderer: $scope.dateFormatter},
+        {headerName: $filter('translate')("author.created"), field: "created", width: 60, cellRenderer: $scope.dateFormatter},
         {headerName: "", field: "uuid", width: 90, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
             return '<a class="md-icon-button md-button md-ink-ripple" href="' + $scope.urlbase +
               (params.data.region ? params.data.region.slug : params.data.region_uuid) + '/' +
@@ -72,37 +30,8 @@ var LocationsUserController = function ($scope, $q, $location, $mdDialog ,$trans
         }
     ];
 
-    $scope.gridOptions = {
-
-        columnDefs: columnDefs,
-
-        rowData: null,
-        rowHeight: 58,
-
-        enableSorting: true,
-
-        enableFilter: true,
-        animateRows: true,
-        angularCompileRows: true,
-        enableColResize: true,
-
-        onGridReady: function() {
-            setTimeout(function() {
-                $scope.gridOptions.api.sizeColumnsToFit();
-            }, 600);
-        }
-    };
-
-    function dateFormatter(params) {
-        return $filter('date')(params.value,'yyyy-MM-dd');
-    }
-    function translateFormatter(params) {
-        if(params.value) {
-            return $filter('translate')(params.value);
-        } else {
-            return '';
-        }
-    }
+    $scope.gridOptions.columnDefs =  columnDefs;
+    $scope.gridOptions.angularCompileRows = true;
 
     $scope.filterGrid = function() {
         $scope.gridOptions.api.setQuickFilter($scope.filterStr);

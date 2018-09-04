@@ -38,6 +38,12 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                     }
                 });
 
+            var resizeMap = function (el) {
+              if(el[0].clientHeight === 0) {
+                el[0].style.height = ($window.innerHeight) + "px";
+              }
+            };
+
             var updatedMapData = function (data, callback) {
                 var icon = {
                     iconSize: [32, 44],
@@ -128,7 +134,12 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                 }
             };
 
+            angular.element($window).bind('resize', function () {
+                resizeMap(element);
+            });
+
             var setupMap = function (miniMap, geoSearch) {
+                resizeMap(element);
                 map = mapService.initMap(
                     element,
                     lsmMapconfig,

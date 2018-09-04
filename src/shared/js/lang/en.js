@@ -265,7 +265,7 @@ module.exports = {
     },
     site: {
         banned: 'Banned',
-        copyright_notice: '© 2017 city-of-oz.hamburg',
+        copyright_notice: '© 2018 city-of-oz.hamburg',
         map_notice: 'Maps: © OpenStreetMap contributors, ODbL 1.0.',
         lang: 'Language',
         lang_de: 'Deutsch',
@@ -281,7 +281,8 @@ module.exports = {
             imprint: 'Imprint',
             index: 'City index',
             press: 'Press',
-            terms: 'Terms'
+            terms: 'Terms',
+            dataprotection: 'Data protection'
         },
         title: 'City of OZ'
     },

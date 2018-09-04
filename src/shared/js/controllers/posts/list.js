@@ -7,52 +7,25 @@ var PostsListController = function ($scope, $q, apiService, responseHandler, $lo
         resource: 'posts'
     };
 
-
     if($location.path().indexOf('static')>0) {
         $scope.settings.resource = 'posts/static';
     }
 
     var columnDefs = [
         {headerName: $filter('translate')("posts.title"), field: "title", width: 120, sort: 'asc'},
-        {headerName: $filter('translate')("author.created"), field: "created", width: 90, cellRenderer: dateFormatter},
-        {headerName: $filter('translate')("author.updated"), field: "updated", width: 90, cellRenderer: dateFormatter},
+        {headerName: $filter('translate')("author.created"), field: "created", width: 90, cellRenderer: $scope.dateFormatter},
+        {headerName: $filter('translate')("author.updated"), field: "updated", width: 90, cellRenderer: $scope.dateFormatter},
         {headerName: "", field: "uuid", width: 60, suppressFilter: true, cellRenderer: function (params) {      // Function cell renderer
             return '<a class="md-icon-button md-table-button md-raised  md-fab  md-mini " href="' + $scope.urlbase + 'admin/posts/' + params.value + '" aria-label="' + $filter('translate')("actions.edit") + '"><md-icon md-font-icon="fa-pencil" class="fa fa-pencil"></md-icon></a>';
         }
         },
-
     ];
 
-
-    $scope.gridOptions = {
-
-        columnDefs: columnDefs,
-
-        rowData: null,
-        rowHeight: 58,
-
-        enableSorting: true,
-
-        enableFilter: true,
-        animateRows: true,
-
-        enableColResize: true,
-
-        onGridReady: function() {
-            setTimeout(function() {
-                $scope.gridOptions.api.sizeColumnsToFit();
-            }, 600);
-        }
-    };
+    $scope.gridOptions.columnDefs = columnDefs;
 
     $scope.filterGrid = function() {
         $scope.gridOptions.api.setQuickFilter($scope.filterStr);
     };
-
-    function dateFormatter(params) {
-        return $filter('date')(params.value,'yyyy-MM-dd');
-    }
-
     $scope.query = {
         sort: $scope.settings.sort ? $scope.settings.sort : 'title',
         page: 1

@@ -1,6 +1,6 @@
 {
   "name": "mapoz-frontend",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "City of OZ App - Angular.JS based frontend for Desktop & Mobile",
   "homepage": "http://map.city-of-oz.hamburg",
   "scripts": {

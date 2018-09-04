@@ -28,11 +28,7 @@ var MessagesListController = function ($scope, apiService, responseHandler, $q) 
         }
     ];
     $scope.settings = {
-        row_select: false,
-        multiple: false,
-        pagination: true,
         pagesize: 25,
-        limit_options: [25, 50, 100],
         resource: 'users/me/messages'
     };
     $scope.actions = [

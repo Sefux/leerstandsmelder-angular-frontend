@@ -23,7 +23,7 @@ html(lang='en', ng-app='mapoz')
                     span {{ alert.message }}
         md-content.main_container.scrollbar_fix(role='main' flex layout="row" layout-wrap layout-fill layout-align="start stretch" ng-view cg-busy="{promise:promise,message:'Loading...',templateUrl:'partials/_busy.html',minDuration:0}")
         footer()
-            div.metatext.metatext-bl(layout='row' layout-align='start end' layout-padding)
+            div.metatext.metatext-bl(layout='row' layout-align='start end' layout-padding hide-xs)
                 span {{ 'site.copyright_notice' | translate }}
                 span {{ 'site.map_notice' | translate }}
                 span(flex)

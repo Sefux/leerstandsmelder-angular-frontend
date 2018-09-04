@@ -4,13 +4,13 @@ include ..//mixins/_buttons
 include ..//mixins/_layout
 include ..//mixins/_style
 
-div(layout="row" layout-xs="column" layout-wrap layout-fill)
-  md-content(flex flex-gt-xs="40" layout-align='stretch' )
+div(layout="column" layout-gt-sm="row" layout-wrap layout-fill)
+  md-content(flex flex-gt-sm="40" layout-align='stretch' )
     #map(lsm-map flex layout-align='stretch' ng-model='location' select-mode select-handler='updateLocation(latlon)' select-marker='marker' )
-  md-content(flex flex-gt-xs="60" layout-align='stretch')
+  md-content(flex flex-gt-sm="60" layout-align='stretch')
     md-tabs(class="md-primary" md-dynamic-height md-border-bottom md-no-pagination="false" md-swipe-content md-selected="selectedIndex")
       md-tab(label='{{ form_title }}')
-        form.sidebar.md-padding.update-form
+          form.sidebar.md-padding.update-form
                 div.md-padding
                   small {{ "locations.help.photo" | translate }}
                 div(layout="row" layout-xs="column" layout-padding)
