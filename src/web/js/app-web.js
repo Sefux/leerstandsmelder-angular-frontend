@@ -21,6 +21,7 @@ var app = angular.module('mapoz', [
         require('angular-route'),
         require('angular-sanitize'),
         require('angular-marked'),
+        require('ng-masonry'),
         'ngMaterial',
         'agGrid',
         'thatisuday.ng-image-gallery'

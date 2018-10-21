@@ -1,0 +1,20 @@
+include ..//mixins/_form
+include ..//mixins/_buttons
+include ..//mixins/_layout
+include ..//mixins/_style
+
+div.scrollbar_fix(layout="column" layout-gt-sm="row"  layout-wrap layout-fill)
+    md-content(flex flex-gt-sm="100" layout-align='stretch' )
+      md-subheader
+          h2(ng-if="locations.length > 0") {{ "locations.recent_activity" | translate }}
+            span(ng-if="user") :&nbsp; {{user.nickname}}
+          h2(ng-if="locations.length === 0") {{ "locations.no_recent_activity" | translate }}
+      div.lsm-list.lsm-grid(data-masonry data-masonry-options='{ "columnWidth": 360 }')
+        div.masonry-item(data-masonry-item data-ng-repeat="location in locations")
+          .lsm-list-item-img-big(ng-if="location.photo.thumb_large_url")
+            a(ng-href='{{ urlbase  + location.slug  }}' )
+              img(ng-if='location.photo.thumb_large_url' ng-src='{{location.photo.thumb_large_url}}')
+          span.lsm-list-item-text
+            a(ng-href='{{ urlbase  + location.slug  }}' ) {{ location.title }}
+
+//    div(flex galerie region='region' page-size='100' locations="locations")

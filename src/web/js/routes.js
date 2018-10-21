@@ -15,14 +15,25 @@ module.exports = [
         templateUrl: '/regions/show.html',
         controller: 'Regions.Show'
     },
-    
+    {
+        route: '/galerie',
+        //templateUrl: '/locations/region_map.html',
+        //controller: 'Regions.MapIndex'
+        templateUrl: '/regions/galerie.html',
+        controller: 'Regions.Show'
+    },
+    {
+        route: '/galerie/:user',
+        //templateUrl: '/locations/region_map.html',
+        //controller: 'Regions.MapIndex'
+        templateUrl: '/regions/galerie.html',
+        controller: 'Locations.Gallery'
+    },
     {
         route: '/site/:slug',
         templateUrl: '/site/static_page.html',
         controller: 'Widgets.StaticPage'
     },
-
-
     //
     //
     // Regions

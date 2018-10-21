@@ -116,6 +116,7 @@ module.exports = {
     },
     locations: {
         manage_locations: 'Manage locations',
+        gallery: 'Gallery',
         address: 'Address',
         artwork_type: 'Art work type',
         artwork_type_options: {

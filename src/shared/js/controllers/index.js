@@ -11,6 +11,7 @@ app.controller('Locations.RegionIndex', require('./locations/region-index'));
 app.controller('Locations.RegionList', require('./locations/region-list'));
 app.controller('Locations.Show', require('./locations/show'));
 app.controller('Locations.User', require('./locations/user'));
+app.controller('Locations.Gallery', require('./locations/gallery'));
 
 app.controller('Messages.List', require('./messages/list'));
 app.controller('Messages.Create', require('./messages/create'));

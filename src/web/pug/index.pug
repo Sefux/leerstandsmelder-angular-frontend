@@ -1,3 +1,4 @@
+- var build = '?build=' + Date.now().toString()
 doctype html
 html(lang='en', ng-app='mapoz')
     head
@@ -9,8 +10,8 @@ html(lang='en', ng-app='mapoz')
 
         title City of OZ
         meta(name='description' content='OZ hat uns die Stadt vererbt')
-        link(rel='stylesheet', href='/css/mapoz-frontend-deps.css?build=17110423')
-        link(rel='stylesheet', href='/css/mapoz-frontend-web.css?build=17110423')
+        link(rel='stylesheet', href='/css/mapoz-frontend-deps.css' + build)
+        link(rel='stylesheet', href='/css/mapoz-frontend-web.css' + build)
         style(type='text/css').
             .ng-cloak {
                 display: none !important;
@@ -38,6 +39,7 @@ html(lang='en', ng-app='mapoz')
         //div(msg-popup popup-id='relaunch')
         scripts
             include ../../shared/pug/partials/_js_dependencies
-            - var build = '?build=' + Date.now().toString()
+            script(src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js")
+            script(src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.2.0/imagesloaded.pkgd.min.js")
             script(src='/js/leerstandsmelder-apiclient-web.js' + build)
             script(src='/js/mapoz-angular-frontend.min.js' + build)

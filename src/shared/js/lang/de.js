@@ -118,6 +118,7 @@ module.exports = {
     },
     locations: {
         manage_locations: 'Leerstände verwalten',
+        gallery: 'Galerie',
         address: 'Adresse',
         artwork_type: 'Werkart',
         artwork_type_options: {

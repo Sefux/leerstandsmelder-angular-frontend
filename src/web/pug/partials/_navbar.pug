@@ -64,7 +64,8 @@ md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as 
                             //+button('site.subnav.index','','','fa-fw fa-2x fa-map-o',null,'/locations/index')
                         md-menu-item(ng-if="userSession")
                             +button('locations.my_locations','','btn-default','fa-fw fa-2x fa-list','userSession', '/users/me/locations')
-
+                        md-menu-item()
+                            +button('locations.gallery','','btn-default','fa-fw fa-2x fa-th',null, '/galerie')
                         // search
                         md-menu-item(layout="row" layout-align="start center")
                             md-input-container(class="md-icon-float md-block")
