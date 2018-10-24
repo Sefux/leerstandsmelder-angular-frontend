@@ -60,6 +60,8 @@ md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as 
                             +button('locations.create_new','','md-primary','fa-fw fa-2x fa-plus-circle',null,'/users/login?redirectTo=locations/create')
                         md-menu-item(ng-if="userSession")
                             +button('locations.create_new','','md-primary','fa-fw fa-2x fa-plus-circle',null,'/locations/create')
+                        md-menu-item(ng-if="userSession")
+                            +button('locations.multiple.create','','md-primary','fa-fw fa-2x fa-image',null,'/locations/multiple')
                         //md-menu-item()
                             //+button('site.subnav.index','','','fa-fw fa-2x fa-map-o',null,'/locations/index')
                         md-menu-item(ng-if="userSession")

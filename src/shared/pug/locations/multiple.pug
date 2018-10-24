@@ -1,0 +1,70 @@
+include ..//mixins/_form
+include ..//mixins/_media
+include ..//mixins/_buttons
+include ..//mixins/_layout
+include ..//mixins/_style
+
+div(layout="column" layout-gt-sm="row" layout-wrap layout-fill)
+  md-content(flex layout-align='stretch')
+    md-tabs(class="md-primary" md-dynamic-height md-border-bottom md-no-pagination="false" md-swipe-content md-selected="selectedIndex")
+      md-tab(label='{{ "locations.multiple.create" | translate }}')
+          form.sidebar.md-padding.update-form
+                div.md-padding
+                  small {{ "locations.multiple.help" | translate }}
+                div.md-padding
+                    p(ng-if='!files') {{ 'actions.choose_images' | translate }}
+                      div(ng-if="files.length > 0" layout="row")
+                        div(style="width:150px")
+                          small {{ 'locations.multiple.select_all' | translate }}
+                        div(layout-gt-xs="row")
+                            +select('setAttribute(artworkSince)', '_sys.artworkSince', false, 'locations.artwork_for')
+                        div(layout-gt-xs="row")
+                            +select('setAttribute(artworkType)', '_sys.artworkType', false, 'locations.artwork_type')
+
+                      div(layout='column')
+                        div(ng-repeat='file in files')
+                          div(layout="column" layout-gt-sm="row" layout-wrap layout-fill)
+                            div(layout="row" layout-xs="column" layout-padding)
+                              hr
+                              div()
+                                img(
+                                ngf-src="file"
+                                ngf-size="{width: 80, height: 80, quality: 0.6}"
+                                style='max-width:150px;max-height:100px;text-align:center'
+                                )
+                              div(layout="row")
+                                div(layout-gt-xs="row")
+                                    +select('file.location.artworkSince', '_sys.artworkSince', false, 'locations.artwork_for')
+                                div(layout-gt-xs="row")
+                                    +select('file.location.artworkType', '_sys.artworkType', false, 'locations.artwork_type')
+                                p(ng-if="file.exifdata.GPSLatitude")
+                                  small GPS Daten:
+                                  br
+                                  small Latitude: {{ file.exifdata.GPSLatitude }}
+                                  br
+                                  small Longitude: {{ file.exifdata.GPSLongitude }}
+
+                      div(layout='row')
+                        div.drop-box.md-raised(
+                        ngf-select=""
+                        ngf-drop=""
+                        ng-model='files'
+                        ngf-accept="'image/*'"
+                        ngf-fix-orientation='true'
+                        ngf-capture="'camera'"
+                        ng-show='!asset.disabled'
+                        ngf-keep="'distinct'"
+                        ngf-multiple='true'
+                        ngf-include-dir='true'
+                        ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}"
+                        multiple
+                        )
+                          span.fa.fa-file-o &nbsp;
+                          span() {{ "assets.choose_images" | translate }}
+                        //+input('fileimage','assets.file','assets.file', null, null)
+                        //input(type="file" ng-model="files" name="file" accept="image/*" id="capture" ngf-capture="camera" ngf-select)
+                        //button(class='md-button button-positive' camera ng-model='myPicture') camera
+                hr
+                div(layout-gt-xs="row" layout-align="space-between start")
+                    span(flex)
+                    +button_fab('actions.submit','submit()','md-warn','fa-upload','files')

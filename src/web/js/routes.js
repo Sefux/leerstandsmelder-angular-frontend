@@ -248,6 +248,11 @@ module.exports = [
         controller: 'Locations.Create'
     },
     {
+        route: '/locations/multiple',
+        templateUrl: '/locations/multiple.html',
+        controller: 'Locations.CreateMultiple'
+    },
+    {
         route: '/locations/update/:uuid',
         templateUrl: '/locations/update.html',
         controller: 'Locations.Create'

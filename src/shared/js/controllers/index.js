@@ -7,6 +7,7 @@ var app = require('angular').module('mapoz');
 app.controller('Application', require('./application'));
 
 app.controller('Locations.Create', require('./locations/create'));
+app.controller('Locations.CreateMultiple', require('./locations/multiple'));
 app.controller('Locations.RegionIndex', require('./locations/region-index'));
 app.controller('Locations.RegionList', require('./locations/region-list'));
 app.controller('Locations.Show', require('./locations/show'));

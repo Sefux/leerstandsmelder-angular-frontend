@@ -294,10 +294,12 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                     location.hidden = false;
                 }
                 $scope.location = location;
+                if(location.lonlat) {
                 $scope.marker = {
                     lng: location.lonlat[0],
                     lat: location.lonlat[1]
                 };
+                }
                 $scope.formTitle = 'Edit "' + location.title + '"';
                 apiService('locations/' + location.uuid + '/photos').actions.all(cb);
             },
@@ -351,6 +353,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
             }
         );
     }
+
 };
 
 LocationsCreateController.$inject = ['$scope', '$routeParams', 'apiService', 'authService', '$q', '$location',
