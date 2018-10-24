@@ -257,8 +257,9 @@ module.exports = {
         title: 'Titel',
         update_success: 'Eintrag erfolgreich aktualisiert..',
         create_post: 'Eintrag erstellen',
-      slug: 'Kurzform URL',
-      static: 'Statische Seite'
+        create_success: 'Eintrag erfolgreich angelegt.',
+        slug: 'Kurzform URL',
+        static: 'Statische Seite'
     },
     regions: {
         settings: 'Einstellungen',

@@ -14,7 +14,11 @@ div.scrollbar_fix(layout="column" layout-gt-sm="row"  layout-wrap layout-fill)
           .lsm-list-item-img-big(ng-if="location.photo.thumb_large_url")
             a(ng-href='{{ urlbase  + location.slug  }}' )
               img(ng-if='location.photo.thumb_large_url' ng-src='{{location.photo.thumb_large_url}}')
-          span.lsm-list-item-text
-            a(ng-href='{{ urlbase  + location.slug  }}' ) {{ location.title }}
+          div
+            span.lsm-list-item-text
+              a(ng-href='{{ urlbase  + location.slug  }}' ) {{ location.title }}
+          div.meta
+            div.cell {{ location.created | date : 'dd.MM.yy' }}
+            div.cell(ng-class="{{location.artworkType | translate}}") &nbsp;
 
 //    div(flex galerie region='region' page-size='100' locations="locations")

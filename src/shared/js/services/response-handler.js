@@ -14,11 +14,11 @@ var ResponseHandlerService = function ($translate, PubSub, $location, apiService
                     } else {
                         PubSub.publish('alert', {type: 'error', message: $translate.instant(err.message)});
                     }
-                } else if (err.code === 401) {
+                } else if (err.code === 401 || err.code === 'Unauthorized') {
                     PubSub.publish('alert', {type: 'error', message: $translate.instant('errors.authorization_failed')});
-                } else if (err.code === 403) {
+                } else if (err.code === 403  || err.code === 'Forbidden') {
                     PubSub.publish('alert', {type: 'error', message: $translate.instant('errors.access_denied')});
-                } else if (err.code === 404 || err.code === "NotFoundError") {
+                } else if (err.code === 404 || err.code === "NotFound") {
                     $location.path('/site/404');
                     if (msgs && msgs.error) {
                         PubSub.publish('alert', {type: 'error', message: $translate.instant(err.message)});
@@ -28,6 +28,8 @@ var ResponseHandlerService = function ($translate, PubSub, $location, apiService
                         PubSub.publish('alert', {type: 'error', message: $translate.instant(err.message)});
                     } else if (err.message) {
                         PubSub.publish('alert', {type: 'error', message: $translate.instant(err.message)});
+                    } else if (err.code) {
+                        PubSub.publish('alert', {type: 'error', message: $translate.instant(err.code)});
                     } else {
                         apiService('ping').actions.ping(function (err, results) {
                             if (!err && results) {
