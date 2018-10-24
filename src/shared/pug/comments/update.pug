@@ -9,10 +9,14 @@ md-content(layout='column' layout-align='start center' flex layout-padding)
         md-card-header
             md-card-header-text(layout-align="center center")
               +headline('comments.update_comment')
+              p.metatext-lg
+                | {{ 'author.by' | translate }}&nbsp;
+                strong {{ comment.user.nickname || user.nickname }}&nbsp;
+                span {{ 'author.on' | translate }} {{ comment.created | date : 'dd.MM.yy HH:mm' }}
         md-card-content()
             div(layout-padding)
                 div(layout="column" layout-xs="column")
-                  textarea(markdown-editor ng-model='post.body')
+                  textarea(markdown-editor ng-model='comment.body')
                   +input('checkbox','comment.hidden','comments.hidden', '_sys.hidden', null)
         md-card-actions( layout-align="start center"  style="align-self: stretch;")
             div(layout="row" layout-align="space-around start")

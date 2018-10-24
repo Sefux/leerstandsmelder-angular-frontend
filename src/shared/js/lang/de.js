@@ -68,7 +68,10 @@ module.exports = {
         no_comments: 'Keine Kommentare',
         body: 'Nachricht',
         hidden: 'Kommentar ausblenden',
-        created: 'Erstellt'
+        created: 'Erstellt',
+        remove_confirm_title: 'Kommentar ausblenden?',
+        remove_confirm_body: 'Bist du dir wirklich ganz sicher das du den Kommentar verstecken willst?',
+
     },
     creator: {
         tabs: {

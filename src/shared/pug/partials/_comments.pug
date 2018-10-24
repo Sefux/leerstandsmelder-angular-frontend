@@ -12,6 +12,9 @@ div(ng-if="comments" ng-repeat="comment in comments")
         strong {{ comment.user.nickname || user.nickname }}&nbsp;
         span {{ 'author.on' | translate }} {{ comment.created | date : 'dd.MM.yy HH:mm' }}
     p.md-body-1(marked="comment.body")
+    span(ng-if='mayEdit')
+      +button_fab('actions.edit','edit(comment.uuid)','md-primary','fa-edit','location')
+      +button_fab('actions.delete','hideComment(comment.uuid, $index)','md-primary','fa-trash','location')
 p(ng-if="comments.length === 0")
     small {{ "comments.no_comments" | translate }}
 hr
@@ -31,4 +34,3 @@ div(check-login flex="50")
     div(ng-if="!userSession")
         p
             a(href="/users/login") {{ 'comments.new_comment_login' | translate }}
-            

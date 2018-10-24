@@ -1,6 +1,6 @@
 'use strict';
 
-var CommentsDirective = function (apiService, responseHandler, $q, assetPath) {
+var CommentsDirective = function (apiService, responseHandler, $q, assetPath, $mdDialog, $translate) {
     return {
         restrict: 'A',
         templateUrl: assetPath + 'partials/_comments.html',
@@ -32,6 +32,32 @@ var CommentsDirective = function (apiService, responseHandler, $q, assetPath) {
                     }
                 });
             };
+            scope.hideComment = function (uuid, index) {
+
+
+                  var confirm = $mdDialog.confirm()
+                      .title($translate.instant('comments.remove_confirm_title'))
+                      .textContent($translate.instant('comments.remove_confirm_body'))
+                      .ariaLabel('comments.remove_confirm_title')
+                      .ok($translate.instant('actions.ok'))
+                      .cancel($translate.instant('actions.cancel'));
+                  $mdDialog.show(confirm).then(function () {
+                      var deferred = $q.defer();
+                      scope.promise = deferred.promise;
+                      apiService('comments').actions.remove(uuid, function (err) {
+                          var msgs = {
+                              success: 'comments.remove_success'
+                          };
+                          if (responseHandler.handleResponse(err, deferred, msgs)) {
+
+                              scope.$applyAsync(function () {
+                                //scope.comments.splice(scope.comments.indexOf(comment));
+                                scope.comments.splice(index);
+                              });
+                          }
+                      });
+                  });
+            };
             scope.$watch(attrs.uuid, function () {
                 var uuid = scope.$eval(attrs.uuid);
                 if (uuid) {
@@ -46,13 +72,13 @@ var CommentsDirective = function (apiService, responseHandler, $q, assetPath) {
                                 scope.comments = comments;
                             }
                         });
-                    }, function(){}, true);
+                    }, function(){}, false);
                 }
             });
         }
     };
 };
 
-CommentsDirective.$inject = ['apiService', 'responseHandler', '$q', 'assetPath'];
+CommentsDirective.$inject = ['apiService', 'responseHandler', '$q', 'assetPath', '$mdDialog', '$translate'];
 
 module.exports = CommentsDirective;

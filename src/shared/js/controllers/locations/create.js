@@ -312,6 +312,16 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
                 $scope.currentRegion = regionService.currentRegion.title;
                 $scope.isAdmin = authService.hasScopes(['admin', 'region-' + $scope.location.region_uuid]);
                 $scope.form_title = $translate.instant('locations.update_location');
+                if (
+                    ($scope.userSession && $scope.location.user_uuid === $scope.userSession.uuid) ||
+                    $scope.api_key && ($scope.api_key.scopes.indexOf('region-' + $scope.location.region_uuid) > -1 ||
+                    $scope.api_key.scopes.indexOf('admin') > -1)
+                ) {
+                    $scope.mayEdit = true;
+                    $scope.edit = function (uuid) {
+                        $location.path('/admin/comments/' + uuid);
+                    };
+                }
                 cb();
             }
         ], function (err) {

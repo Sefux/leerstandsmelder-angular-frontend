@@ -5,8 +5,8 @@ var CommentsUpdateController = function ($scope, $q, $routeParams, apiService, r
     if ($routeParams.uuid) {
         deferred = $q.defer();
         $scope.promise = deferred.promise;
-        apiService('comments').actions.find($routeParams.uuid, function (err, post) {
-            $scope.post = post;
+        apiService('comments').actions.find($routeParams.uuid, function (err, comment) {
+            $scope.comment = comment;
             responseHandler.handleResponse(err, deferred);
         });
     }

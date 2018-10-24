@@ -81,3 +81,6 @@ div(layout="column" layout-gt-sm="row" layout-wrap layout-fill)
                 div(layout-gt-xs="row" layout-align="space-between start")
                     span(flex)
                     +button_fab('actions.submit','submit()','md-warn','fa-check','location')
+      md-tab(label='{{ "comments.comment_plural" | translate }}')
+        div.md-padding
+          div(comments uuid='location.uuid' resource='locations')
