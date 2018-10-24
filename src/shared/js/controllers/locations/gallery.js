@@ -1,7 +1,7 @@
 'use strict';
 
 var async = require('async');
-var config = require('../../../../../config.json');
+//var config = require('../../../../../config.json');
 
 var LocationsGallery = function ($scope, regionService, $q, $routeParams, apiService, responseHandler, configuration) {
 

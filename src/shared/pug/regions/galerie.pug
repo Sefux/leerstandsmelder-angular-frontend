@@ -19,6 +19,6 @@ div.scrollbar_fix(layout="column" layout-gt-sm="row"  layout-wrap layout-fill)
               a(ng-href='{{ urlbase  + location.slug  }}' ) {{ location.title }}
           div.meta
             div.cell {{ location.created | date : 'dd.MM.yy' }}
-            div.cell(ng-class="{{location.artworkType | translate}}") &nbsp;
+            div.cell(class="{{ location.artworkType | translate }}") &nbsp; {{ location.artworkType | translate}}
 
 //    div(flex galerie region='region' page-size='100' locations="locations")

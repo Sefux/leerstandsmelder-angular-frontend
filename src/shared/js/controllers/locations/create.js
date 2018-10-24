@@ -1,6 +1,7 @@
 'use strict';
 
 var async = require('async');
+var EXIF = require('exif-js');
 
 var LocationsCreateController = function ($scope, $routeParams, apiService, authService, $q, $location, mapService,
                                           responseHandler, locationFormDefaults, regionService, GeolocationService,

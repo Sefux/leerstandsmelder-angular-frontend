@@ -1,11 +1,12 @@
 'use strict';
 
 var async = require('async');
+var EXIF = require('exif-js');
 
 var LocationsCreateMultipleController = function ($scope, $routeParams, apiService, authService, $q, $location, mapService,
                                           responseHandler, locationFormDefaults, regionService, GeolocationService,
                                           $mdDialog, $translate, CameraService, PubSub) {
-    var changeTimer, lockUpdate;
+    var lockUpdate;
     $scope.location = {};
     $scope.assets = {
         file: null
@@ -114,7 +115,7 @@ var LocationsCreateMultipleController = function ($scope, $routeParams, apiServi
         var isUpdate = false;
         async.forEachLimit($scope.files, 1, function(file, userCallback){
           var payload = file.location || {};
-          console.log('file',file);
+          //console.log('file',file);
           async.waterfall([
               function (cb) {
                   /*
@@ -132,26 +133,19 @@ var LocationsCreateMultipleController = function ($scope, $routeParams, apiServi
                       /*
                           Are we updating or creating?
                        */
-                       console.log('payload',payload);
+                       //console.log('payload',payload);
                       if (payload.uuid) {
                           isUpdate = true;
                           apiService('locations').actions.update(payload.uuid, payload, cb);
                       } else {
-                          apiService('locations').actions.create(payload, function (err, status) {
-                              if(err) {
-                                  console.log('inner err', err);
-                                  console.log('inner err', status);
-                                  responseHandler.handleResponse(err, deferred, status);
-                                  userCallback();
-                              }
-                          });
+                          apiService('locations').actions.create(payload, cb);
                       }
                   } else {
                       cb(new Error('errors.regions.fetch_failed'),null);
                   }
               },
               function (location, cb) {
-                console.log('location',location);
+                //console.log('location',location);
                   if (!isUpdate) {
                       $scope.location.uuid = location.uuid;
                   }
@@ -168,21 +162,21 @@ var LocationsCreateMultipleController = function ($scope, $routeParams, apiServi
                       cb();
                   }
               }
-          ], function (err, status) {
-              console.log('update/insert error',err);
-              console.log('update/insert error status',status);
+          ], function (err) {
+              //console.log('update/insert error',err);
+              //console.log('update/insert error status',status);
               var msgs = {
                   success: $routeParams.uuid ? 'messages.locations.update_success' : 'messages.locations.create_success'
               };
               if (responseHandler.handleResponse(err, deferred, msgs)) {
-                userCallback();
+                  userCallback();
                   //apiService('locations').clearCache(payload.uuid, function() {});
-                  //apiService('regions/'+payload.region_uuid+'/locations').clearCache(payload.region_uuid, function() {});
+                  apiService('/galerie').clearCache('me',function() {});
                   $location.path('/galerie/me' );
               }
           });
-        }, function(err){
-          console.log("Location Loop Completed");
+        }, function(){
+          //console.log("Location Loop Completed", err);
         });
     };
 
