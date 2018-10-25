@@ -936,3 +936,70 @@ md-icon svg {
 .ng-image-gallery .ng-image-gallery-modal .ng-image-gallery-backdrop {
   background-color: rgba(35, 34, 34, 0.9);
 }
+
+
+
+// mobile specific styles go here
+
+md-toolbar.site-content-toolbar {
+  height: 40px;
+  padding-top: 0px;
+  min-height:40px;
+}
+
+#navbar {
+  .md-button {
+    min-width: 38px;
+    min-height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+
+    md-icon {
+      margin: 0;
+    }
+
+  }
+  .md-button {
+    background-color: rgba(0,0,0, 0.8);
+  }
+  .md-button.md-default-theme:hover:not([disabled]), .md-button:hover:not([disabled]) {
+    background-color: rgba(54, 51, 51, 0.2);
+  }
+}
+md-sidenav {
+    md-toolbar.md-theme-black,
+    md-toolbar.md-theme-black md-icon {
+        color: #fff;
+
+
+    }
+  md-content {
+    .layout-padding {
+      padding: 8px 0px;
+    }
+    .layout-padding md-list {
+      padding: 0px;
+    }
+    md-input-container {
+      margin: 0px;
+      md-icon {
+        margin: 0px 0 0 0;
+      }
+      md-autocomplete {
+        margin-left: 37px;
+      }
+    }
+    .md-button {
+      border-radius: 0px;
+      margin: 0px;
+      padding: 4px 14px;
+      line-height: 40px;
+      width: 100%;
+      text-align: left;
+
+      > span {
+        padding-left: 1.28571em;
+      }
+    }
+  }
+}

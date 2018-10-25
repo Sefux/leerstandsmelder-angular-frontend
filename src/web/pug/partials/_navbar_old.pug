@@ -1,0 +1,141 @@
+include ../../../shared/pug/mixins/_form
+include ../../../shared/pug/mixins/_buttons
+
+md-toolbar.md-medium-tall.site-content-toolbar(ng-controller="Widgets.Navbar as ctrl" check-login)
+    #navbar(name="navbar" layout='column' layout-align='center end' layout-fill )
+        div.md-toolbar-tools(flex layout='row' layout-align='space-between center')
+            div(flex="20" layout='row' layout-align='start center')
+                a(href='/')
+                    img(src="/images/coo_logo.jpg", alt="{{ 'site.title' | translate }}" style="width:200px; z-index:100000")
+            // menu
+            div(flex="25" layout="row" layout-align="end center")
+                // admin
+                md-menu(ng-if="api_key.scopes.indexOf('admin') > -1 || api_key.scopes.indexOf('editor') > -1 || admin_regions.length > 0")
+                    +button_fab('menu.admin','$mdOpenMenu()','md-primary md-hue-1','fa-rocket')
+                    md-menu-content(width='4')
+                        md-menu-item.cursor_link(flex ng-click='$mdCloseMenu()')
+                            h3(flex) &nbsp;&nbsp;Admin
+                            .fa.fa-fw.fa-close.fa-2x(flex="20")
+                        md-menu-item(ng-if="api_key.scopes.indexOf('editor') > -1")
+                            +button('posts.manage_posts',null,'btn-default','fa-newspaper-o fa-fw fa-2x','userSession', '/admin/posts')
+                        md-menu-item(ng-if="api_key.scopes.indexOf('editor') > -1")
+                            +button('posts.site_post_plural',null,'btn-default','fa-newspaper-o fa-fw fa-2x','userSession', '/admin/posts/static')
+                        md-menu-item(ng-if="api_key.scopes.indexOf('editor') > -1")
+                            +button('posts.create_post',null,'btn-default','fa-pencil-square-o fa-fw fa-2x','userSession', '/admin/posts/create')
+                        md-menu-divider
+                        md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
+                            +button('regions.manage_regions','','btn-default','fa-globe fa-fw fa-2x ','userSession', '/admin/regions')
+                        md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
+                            +button('regions.create_regions','','btn-default','fa-shower fa-fw fa-2x ','userSession', '/admin/regions/create')
+                        md-menu-divider(ng-if="api_key.scopes.indexOf('editor') > -1 || admin_regions.length > 0" )
+                        md-menu-item(ng-if="api_key.scopes.indexOf('editor') > -1 || admin_regions.length > 0" )
+                            b {{ 'locations.manage_locations' | translate }}
+                        md-menu-item(ng-repeat="region in admin_regions")
+                            // todo: turn this into a select list.
+                            +button_notranslate_tmp('region.title', 'close_sidebar()','btn-default','fa-fw fa-2x fa-globe','admin_regions', '/admin/regions/{{ region.slug }}/locations')
+                        md-menu-divider(ng-if="api_key.scopes.indexOf('editor') > -1 || admin_regions.length > 0" )
+                        md-menu-item(ng-if="api_key.scopes.indexOf('editor') > -1 || admin_regions.length > 0" )
+                            b {{ 'comments.manage_comments' | translate }}
+                        md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
+                            +button('comments.manage_comments','','btn-default','fa-comment-o fa-fw fa-2x ','userSession', '/admin/comments')
+                        md-menu-item(ng-repeat="region in admin_regions")
+                            // todo: turn this into a select list.
+                            +button_notranslate_tmp('region.title', 'close_sidebar()','btn-default','fa-fw fa-2x fa-globe','admin_regions', '/admin/regions/{{ region.slug }}/comments')
+                        md-menu-divider
+                        md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
+                            +button('users.manage_users','','btn-default','fa-user fa-fw fa-2x ','userSession', '/admin/users/list')
+                        md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
+                            +button('users.create_user','','btn-default','fa-user-plus fa-fw fa-2x ','userSession', '/admin/users/create')
+                        //md-menu-item(ng-if="api_key.scopes.indexOf('admin') > -1")
+                            //+button('admin.dashboard', '','btn-default','fa-fw fa-2x fa-dashboard','userSession', '/admin/dashboard')
+                // map
+                md-menu()
+                    +button_fab('menu.map','$mdOpenMenu()','md-primary md-hue-1','fa-map-marker')
+                    md-menu-content(width='4' style="overflow-y:hidden")
+                        md-menu-item.cursor_link(ng-click='$mdCloseMenu()' flex)
+                            h3(flex) &nbsp;&nbsp;{{ 'locations.location_plural' | translate }}
+                            .fa.fa-fw.fa-close.fa-2x(flex="20")
+                        md-menu-divider()
+                        md-menu-item(ng-if="!userSession")
+                            +button('locations.create_new','','md-primary','fa-fw fa-2x fa-plus-circle',null,'/users/login?redirectTo=locations/create')
+                        md-menu-item(ng-if="userSession")
+                            +button('locations.create_new','','md-primary','fa-fw fa-2x fa-plus-circle',null,'/locations/create')
+                        md-menu-item(ng-if="userSession")
+                            +button('locations.multiple.create','','md-primary','fa-fw fa-2x fa-image',null,'/locations/multiple')
+                        //md-menu-item()
+                        //+button('site.subnav.index','','','fa-fw fa-2x fa-map-o',null,'/locations/index')
+                        md-menu-divider
+                        md-menu-item(ng-if="userSession")
+                            +button('locations.my_locations','','btn-default','fa-fw fa-2x fa-list','userSession', '/users/me/locations')
+                        md-menu-item(ng-if="userSession")
+                            +button('locations.my_locations','','btn-default','fa-fw fa-2x fa-th','userSession', '/galerie/me')
+                        md-menu-item()
+                            +button('locations.gallery','','btn-default','fa-fw fa-2x fa-th',null, '/galerie')
+                        // search
+                        md-menu-item(layout="row" layout-align="start center")
+                            md-input-container(class="md-icon-float md-block")
+                                md-icon.fa.fa-search.fa-2x(style="margin:10px 0 0 20px")
+                                md-autocomplete(
+                                style="margin-left:38px"
+                                ng-disabled="ctrl.isDisabled"
+                                md-no-cache="ctrl.noCache"
+                                md-selected-item="ctrl.selectedItem"
+                                md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                                md-search-text="ctrl.searchText"
+                                md-selected-item-change="ctrl.selectedItemChange(item)"
+                                md-items="item in ctrl.querySearch(ctrl.searchText)"
+                                md-item-text="item.title"
+                                md-min-length="3"
+                                md-delay="400"
+                                md-floating-label="{{ 'locations.search' | translate }} ({{ currentRegion.title || 'DE' }}) {{ searchTitleAdd }}"
+                                md-menu-class="autocomplete-custom-template")
+                                    md-item-template(style="z-index:100000;margin-top:10px!important;")
+                                        span.item-title
+                                            span {{item.title}}
+                                        span.item-metadata
+                                            span.item-metastat {{item.street}}, {{item.postcode}} {{item.city}}
+                                    md-not-found {{'locations.none_found' | translate}}
+
+                // user
+                md-menu()
+                    +button_fab('menu.user','$mdOpenMenu()','md-primary md-hue-1','fa-user')
+                    md-menu-content(width='4')
+                        md-menu-item.cursor_link(ng-click='$mdCloseMenu()' flex)
+                            h3(flex ng-if="userSession") &nbsp;{{userSession.nickname}}
+                            h3(flex ng-if="!userSession") &nbsp;{{'users.anonymous' | translate}}
+                            .fa.fa-fw.fa-close.fa-2x(flex="20")
+
+                        md-menu-divider()
+                        md-menu-item(ng-if="!userSession")
+                            +button('users.login','','btn-default btn-small','fa-fw fa-2x fa-sign-in','!userSession', '/users/login')
+                        md-menu-item(ng-if="!userSession")
+                            +button('users.signup','','btn-default','fa-fw fa-2x fa-user-plus','!userSession','/users/create')
+                        //md-menu-item(ng-if="userSession")
+                            +button('users.messages','','btn-default','fa-fw fa-2x fa-envelope','userSession', '/users/messages')
+                            //span.badge.messageNo(ng-if="user.messages") {{user.messages}} 12
+                            span.badge.messageNo() 12
+
+                        md-menu-item(ng-if="userSession")
+                            +button('users.settings','','btn-default','fa-fw fa-2x fa-user','userSession', '/users/me')
+                        md-menu-item(ng-if="userSession")
+                            +button('users.logout','','btn-default','fa-fw fa-2x fa-sign-out','userSession', '/users/logout')
+                        md-menu-divider
+                        // Language Change
+                        md-menu-item(layout="row" layout-align="start start")
+                            md-button.btn-default.btn-small(
+                            ng-click="useLanguage('de')"
+                            aria-label='{{ "site.lang_de" || translate }}'
+                            )
+                                md-icon
+                                    span.fa.fa-fw.fa-2x.fa-check-square-o(ng-if="lang_active=='de'")
+                                    span.fa.fa-fw.fa-2x.fa-square-o(ng-if="lang_active!='de'")
+                                span(translate='site.lang_de')
+                        md-menu-item(layout="row" layout-align="start start")
+                            md-button.btn-default.btn-small(
+                            ng-click="useLanguage('en')"
+                            aria-label='{{ "site.lang_en" || translate }}'
+                            )
+                                md-icon
+                                    span.fa.fa-fw.fa-2x.fa-check-square-o(ng-if="lang_active=='en'")
+                                    span.fa.fa-fw.fa-2x.fa-square-o(ng-if="lang_active!='en'")
+                                span(translate='site.lang_en')
