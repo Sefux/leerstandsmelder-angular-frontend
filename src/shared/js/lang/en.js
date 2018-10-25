@@ -115,7 +115,7 @@ module.exports = {
         gpsfromphoto: 'Updated GPS coordinats from your photo.'
     },
     locations: {
-        manage_locations: 'Manage locations',
+        manage_locations: 'Manage art works',
         gallery: 'Gallery',
         address: 'Address',
         artwork_type: 'Art work type',

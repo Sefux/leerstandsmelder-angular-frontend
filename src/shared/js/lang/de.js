@@ -120,7 +120,7 @@ module.exports = {
         gpsfromphoto: 'GPS Koordinaten wurden aus dem Foto übernommen.'
     },
     locations: {
-        manage_locations: 'Leerstände verwalten',
+        manage_locations: 'Werke verwalten',
         gallery: 'Galerie',
         address: 'Adresse',
         artwork_type: 'Werkart',
