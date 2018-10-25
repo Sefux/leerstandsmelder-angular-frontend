@@ -740,7 +740,22 @@ md-sidenav {
   .masonry-item {
     margin-bottom: 10px;
     margin-left: 10px;
+    width: 360px;
+    a {
+      display: block;
+    }
+    .lsm-list-item-info {
+      border: 1px solid black;
+      padding: 5px 0px 0;
+    }
+    .lsm-list-item-text {
+      padding:10px 20px;
+    }
     .meta {
+      border-top: 1px solid black;
+      .divider {
+        border-left: 1px solid black;
+      }
       .cell {
         display: table-cell;
         position: relative;
@@ -754,11 +769,47 @@ md-sidenav {
         line-height: 48px;
         font-size: 11px;
         font-weight: 700;
-        background-color: rgba(0, 0, 0, 0.5);
+
+        &.category {
+          background-position: 10px;
+          background-repeat: no-repeat;
+          padding-left: 50px;
+          min-width: 220px;
+          background-image: url(/images/category-small/andere.png);
+        }
+        &.others {
+          background-image: url(/images/category-small/andere.png);
+        }
+        &.smiley {
+          background-image: url(/images/category-small/smily.png);
+        }
+        &.tag {
+          background-image: url(/images/category-small/tag.png);
+        }
+        &.kringel {
+          background-image: url(/images/category-small/kringel.png);
+        }
+        &.line {
+          background-image: url(/images/category-small/linie.png);
+        }
+        &.pieces {
+          background-image: url(/images/category-small/pieces.png);
+        }
+        &.for_oz {
+          background-image: url(/images/category-small/fueroz.png);
+        }
+        &.parole {
+          background-image: url(/images/category-small/parole.png);
+        }
+        &.mural {
+          background-image: url(/images/category-small/pizza.png);
+        }
       }
     }
   }
 }
+
+
 /*
 #map {
   width:100%!important;
