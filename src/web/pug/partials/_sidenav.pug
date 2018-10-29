@@ -10,7 +10,7 @@ span(ng-controller="Widgets.Navbar as ctrl")
               span(hide-gt-lg)
                 +button_icon('','toogle_sidebar()','','fa-fw fa-2x fa-bars')
 
-      md-content(layout-padding)
+      md-content()
           md-list
               md-list-item(ng-if="!userSession")
                   +button('locations.create_new','','','fa-fw fa-2x fa-minus-circle',null,'/users/login?redirectTo=locations/create')
