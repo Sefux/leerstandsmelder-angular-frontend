@@ -41,8 +41,9 @@ module.exports = {
         map: 'Map',
         user: 'User'
     },
-    asset: {
-        file: 'Datei'
+    assets: {
+        file: 'File',
+        choose_images: 'Choose photos'
     },
     author: {
         author: 'Author',
