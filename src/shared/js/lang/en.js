@@ -203,7 +203,13 @@ module.exports = {
         search: 'Search',
         street: 'Street',
         title: 'Title',
-        unknown: 'Unknown'
+        unknown: 'Unknown',
+        multiple: {
+          create: 'Create many art works',
+          help: 'Upload many photos of different art works. Choose one or more photos from your computer. They will be shown here. By saving them we will create an entry for each photo.',
+          select_all: 'Set attribute for all entries:',
+          use_for_all: 'Use GPS data for all entries'
+        }
     },
     messages: {
         answer_message: 'Reply to Message',

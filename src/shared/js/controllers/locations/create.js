@@ -76,7 +76,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
             return;
         }
         for (var i = 0; i < keys.length; i += 1) {
-            if (newValues[keys[i]] != undefined && newValues[keys[i]] != "" && newValues[keys[i]] !== oldValues[keys[i]]) {
+            if (newValues[keys[i]] !== undefined && newValues[keys[i]] !== "" && newValues[keys[i]] !== oldValues[keys[i]]) {
                 changed = true;
             }
         }

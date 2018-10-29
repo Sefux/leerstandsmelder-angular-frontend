@@ -61,7 +61,7 @@ var LocationsCreateMultipleController = function ($scope, $routeParams, apiServi
                   file.exifdata = {
                     GPSLatitude: lat,
                     GPSLongitude: long
-                  }
+                  };
                   async.waterfall([
                       function (cb) {
                         $scope.updateLocation({lat: lat, lng: long}, cb);
@@ -79,10 +79,13 @@ var LocationsCreateMultipleController = function ($scope, $routeParams, apiServi
                             country: address.country
                           };
                         }
+                        cb();
                       }
 
                     ], function (err) {
-
+                      if(err) {
+                          PubSub.publish('alert',{type: 'error', message: err});
+                      }
                     });
                   PubSub.publish('alert',{type: 'success', message: $translate.instant('photos.gpsfromphoto')});
               }
@@ -102,10 +105,24 @@ var LocationsCreateMultipleController = function ($scope, $routeParams, apiServi
           file.location = {
             "artworkType" : $scope.artworkTypeForAll,
             "artworkSince" : $scope.artworkSinceForAll
-          }
+          };
       });
     });
 
+    $scope.$watchGroup(['location.useForAll'], function () {
+      $scope.files.forEach(function(file) {
+          console.log('useForall',file);
+          if(file.location === undefined) {
+            file.location = {};
+          }
+          file.location = {
+            street: $scope.location.street,
+            city: $scope.location.city,
+            postcode: $scope.location.postcode,
+            country: $scope.location.country
+          };
+      });
+    });
 
 
     $scope.deletePhoto = function (photo) {
@@ -287,8 +304,8 @@ var LocationsCreateMultipleController = function ($scope, $routeParams, apiServi
                 }, function(error, address) {
                   console.log('address', address);
                   if(address) {
-                    $scope.location.latitude = position.coords.latitude,
-                    $scope.location.longitude = position.coords.longitude,
+                    $scope.location.latitude = position.coords.latitude;
+                    $scope.location.longitude = position.coords.longitude;
                     $scope.location.street = address.street;
                     $scope.location.city = address.city;
                     $scope.location.postcode = address.postcode;

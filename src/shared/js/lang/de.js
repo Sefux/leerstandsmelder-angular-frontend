@@ -216,7 +216,8 @@ module.exports = {
         multiple: {
           create: 'Verzeichnisse eintragen',
           help: 'Lade Fotos von verschiedenen Werken hoch. Wähle eines oder mehrer Fotos von deinem Computer aus. Diese werden dir daraufhin angezeigt. Durch speichern wird für jedes Foto ein Werk-Eintrag erstellt.',
-          select_all: 'Attribute für alle Einträge setzen:'
+          select_all: 'Attribute für alle Einträge setzen:',
+          use_for_all: 'GPS Daten für alle Einträge nutzen'
         }
     },
     messages: {
