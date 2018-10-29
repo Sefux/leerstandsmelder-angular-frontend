@@ -11,59 +11,76 @@ div(layout="column" layout-gt-sm="row" layout-wrap layout-fill)
           form.sidebar.md-padding.update-form
                 div.md-padding
                   small {{ "locations.multiple.help" | translate }}
+                hr
                 div.md-padding
-                    p(ng-if='!files') {{ 'actions.choose_images' | translate }}
-                      div(ng-if="files.length > 0" layout="row")
-                        div(style="width:150px")
-                          small {{ 'locations.multiple.select_all' | translate }}
-                        div(layout-gt-xs="row")
-                            +select('setAttribute(artworkSince)', '_sys.artworkSince', false, 'locations.artwork_for')
-                        div(layout-gt-xs="row")
-                            +select('setAttribute(artworkType)', '_sys.artworkType', false, 'locations.artwork_type')
-
-                      div(layout='column')
-                        div(ng-repeat='file in files')
-                          div(layout="column" layout-gt-sm="row" layout-wrap layout-fill)
-                            div(layout="row" layout-xs="column" layout-padding)
-                              hr
-                              div()
-                                img(
-                                ngf-src="file"
-                                ngf-size="{width: 80, height: 80, quality: 0.6}"
-                                style='max-width:150px;max-height:100px;text-align:center'
-                                )
-                              div(layout="row")
-                                div(layout-gt-xs="row")
-                                    +select('file.location.artworkSince', '_sys.artworkSince', false, 'locations.artwork_for')
-                                div(layout-gt-xs="row")
-                                    +select('file.location.artworkType', '_sys.artworkType', false, 'locations.artwork_type')
-                                p(ng-if="file.exifdata.GPSLatitude")
-                                  small GPS Daten:
-                                  br
-                                  small Latitude: {{ file.exifdata.GPSLatitude }}
-                                  br
-                                  small Longitude: {{ file.exifdata.GPSLongitude }}
-
-                      div(layout='row')
-                        div.drop-box.md-raised(
-                        ngf-select=""
-                        ngf-drop=""
-                        ng-model='files'
-                        ngf-accept="'image/*'"
-                        ngf-fix-orientation='true'
-                        ngf-capture="'camera'"
-                        ng-show='!asset.disabled'
-                        ngf-keep="'distinct'"
-                        ngf-multiple='true'
-                        ngf-include-dir='true'
-                        ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}"
-                        multiple
-                        )
-                          span.fa.fa-file-o &nbsp;
-                          span() {{ "assets.choose_images" | translate }}
-                        //+input('fileimage','assets.file','assets.file', null, null)
-                        //input(type="file" ng-model="files" name="file" accept="image/*" id="capture" ngf-capture="camera" ngf-select)
-                        //button(class='md-button button-positive' camera ng-model='myPicture') camera
+                    div( layout="row")
+                      div.md-padding(style="width:150px")
+                        small {{ 'locations.multiple.select_all' | translate }}
+                      div()
+                          +select('artworkSinceForAll', '_sys.artworkSince', false, 'locations.artwork_for')
+                      div()
+                          +select('artworkTypeForAll', '_sys.artworkType', false, 'locations.artwork_type')
+                      div(layout-padding layout="row" ng-if="location.latitude")
+                        div(flex layout-padding)
+                            div(layout-gt-xs="row")
+                                +input('checkbox','location.useForAll','', '_sys.hidden', null)
+                        div(flex layout-padding)
+                          small GPS Daten des Users:
+                          br
+                          small Latitude: {{ location.latitude }}
+                          br
+                          small Longitude: {{ location.longitude }}
+                          br
+                          small {{ "locations.street" | translate }}: {{ location.street }}
+                          br
+                          small {{ "locations.city" | translate }}: {{ location.postcode }} {{ location.city }}
+                hr
+                div.md-padding
+                    div(layout='column')
+                      div(ng-repeat='file in files')
+                          div(layout="row")
+                            div.md-padding(style="width:150px;")
+                              img(
+                              ngf-src="file"
+                              ngf-size="{width: 80, height: 80, quality: 0.6}"
+                              style='max-width:150px;max-height:100px;text-align:center'
+                              )
+                            div(layout="row")
+                              div(layout-gt-xs="row")
+                                  +select('file.location.artworkSince', '_sys.artworkSince', false, 'locations.artwork_for')
+                              div(layout-gt-xs="row")
+                                  +select('file.location.artworkType', '_sys.artworkType', false, 'locations.artwork_type')
+                              p.md-padding(ng-if="file.exifdata.GPSLatitude")
+                                small GPS Daten:
+                                br
+                                small Latitude: {{ file.exifdata.GPSLatitude }}
+                                br
+                                small Longitude: {{ file.exifdata.GPSLongitude }}
+                                br
+                                small {{ "locations.street" | translate }}: {{ file.location.street }}
+                                br
+                                small {{ "locations.city" | translate }}: {{ file.location.postcode }} {{ file.location.city }}
+                div.md-padding
+                    div(layout='row')
+                      div.drop-box.md-raised(
+                      ngf-select=""
+                      ngf-drop=""
+                      ng-model='files'
+                      ngf-accept="'image/*'"
+                      ngf-fix-orientation='true'
+                      ngf-capture="'camera'"
+                      ng-show='!asset.disabled'
+                      ngf-keep="'distinct'"
+                      ngf-multiple='true'
+                      ngf-include-dir='true'
+                      ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}"
+                      multiple
+                      )
+                        span.fa.fa-file-o &nbsp;
+                        span() {{ "assets.choose_images" | translate }}
+                      //+input('fileimage','assets.file','assets.file', null, null)
+                      //input(type="file" ng-model="files" name="file" accept="image/*" id="capture" ngf-capture="camera" ngf-select)
+                      //button(class='md-button button-positive' camera ng-model='myPicture') camera
                 hr
                 div(layout-gt-xs="row" layout-align="space-between start")
                     span(flex)

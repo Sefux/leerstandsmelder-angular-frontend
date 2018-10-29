@@ -2,6 +2,7 @@
 
 var async = require('async');
 var EXIF = require('exif-js');
+var config = require('../../../../../config.json');
 
 var LocationsCreateMultipleController = function ($scope, $routeParams, apiService, authService, $q, $location, mapService,
                                           responseHandler, locationFormDefaults, regionService, GeolocationService,
@@ -23,7 +24,7 @@ var LocationsCreateMultipleController = function ($scope, $routeParams, apiServi
         Update the map to a new geolocation
         Also retrieves the new address
     */
-    $scope.updateLocation = function (latlon) {
+    $scope.updateLocation = function (latlon, callback) {
         $scope.marker = latlon;
 
         mapService.reverseGeoCode(latlon.lat,latlon.lng,function(err, result){
@@ -35,20 +36,21 @@ var LocationsCreateMultipleController = function ($scope, $routeParams, apiServi
                 console.log('updateLocation',result.data);
 
                 var address = mapService.createAddressFromGeo(result.data.address);
-                if (address) {
-                    $scope.location.street = address.street;
-                    $scope.location.city = address.city;
-                    $scope.location.postcode = address.postcode;
-                    $scope.location.country = address.country;
-                }
+
+                callback(null, address);
+                //if (address) {
+                    // $scope.location.street = address.street;
+                    // $scope.location.city = address.city;
+                    // $scope.location.postcode = address.postcode;
+                    // $scope.location.country = address.country;
+                //}
             }
         });
-        $scope.showLatLng = false;
     };
 
-    $scope.$watch('files', function(files) {
-        if(files.length > 0) {
-            var file = files[files.length-1];
+    $scope.$watch('files', function(newFile) {
+        newFile.forEach(function(file) {
+          //  var file = files[files.length-1];
             EXIF.getData(file, function() {
               var GPSLat = EXIF.getTag(this,"GPSLatitude");
               var GPSLong = EXIF.getTag(this,"GPSLongitude");
@@ -56,12 +58,54 @@ var LocationsCreateMultipleController = function ($scope, $routeParams, apiServi
                   var lat = GPSLat[0] + (GPSLat[1]/60) + (GPSLat[2]/3600);
                   var long = GPSLong[0] + (GPSLong[1]/60) + (GPSLong[2]/3600);
                   console.log('latlng',{lat: lat, lng: long});
-                  $scope.updateLocation({lat: lat, lng: long});
+                  file.exifdata = {
+                    GPSLatitude: lat,
+                    GPSLongitude: long
+                  }
+                  async.waterfall([
+                      function (cb) {
+                        $scope.updateLocation({lat: lat, lng: long}, cb);
+                      },
+                      function (address, cb) {
+                        console.log('address',address);
+                        if(address) {
+                          if(file.location === undefined) {
+                            file.location = {};
+                          }
+                          file.location = {
+                            street: address.street,
+                            city: address.city,
+                            postcode: address.postcode,
+                            country: address.country
+                          };
+                        }
+                      }
+
+                    ], function (err) {
+
+                    });
                   PubSub.publish('alert',{type: 'success', message: $translate.instant('photos.gpsfromphoto')});
               }
             });
-         }
+         });
     });
+
+    $scope.artworkTypeForAll = "";
+    $scope.artworkSinceForAll = "";
+
+    $scope.$watchGroup(['artworkTypeForAll','artworkSinceForAll'], function () {
+      $scope.files.forEach(function(file) {
+          console.log('setAttribute',file);
+          if(file.location === undefined) {
+            file.location = {};
+          }
+          file.location = {
+            "artworkType" : $scope.artworkTypeForAll,
+            "artworkSince" : $scope.artworkSinceForAll
+          }
+      });
+    });
+
 
 
     $scope.deletePhoto = function (photo) {
@@ -94,17 +138,6 @@ var LocationsCreateMultipleController = function ($scope, $routeParams, apiServi
         $location.path('/' + ($scope.location.region_slug || $scope.location.region_uuid) + '/' +
             $scope.location.slug);
     };
-
-    $scope.promiseShow = function () {
-        var deferred = $q.defer();
-        $scope.promise = deferred.promise;
-    };
-
-    $scope.promiseHide = function () {
-        // var deferred = $q.defer();
-        $scope.promise.resolve();
-    };
-
     /*
         Submit the new location
      */
@@ -119,16 +152,27 @@ var LocationsCreateMultipleController = function ($scope, $routeParams, apiServi
           async.waterfall([
               function (cb) {
                   /*
-                      Fetch the nearest region
+                      Fallback: use default region if no coordinates are given
                    */
-                  // TODO: this must be limited through region admins!
-                  apiService('regions?lat=' + $scope.marker.lat + '&lon=' + $scope.marker.lng).actions.all(cb);
+                   if ($scope.location && $scope.location.useForAll) {
+                      apiService('regions?lat=' + $scope.location.latitude + '&lon=' + $scope.location.longitude).actions.all(cb);
+                   } else {
+                      apiService('regions').actions.find(config.global.default_region, cb);
+                   }
               },
               function (region, cb) {
                   region = region.results || region;
-                  if (region && region.length > 0) {
+                  if (region) {
                       if (!payload.hasOwnProperty('region_uuid')) {
+                        if (region.uuid) {
+                          payload.region_uuid = region.uuid;
+                        } else {
                           payload.region_uuid = region[0].uuid;
+                        }
+                      }
+                      if ($scope.marker.lat === null) {
+                        payload.lonlat = region.lonlat;
+                        console.log('payload',payload);
                       }
                       /*
                           Are we updating or creating?
@@ -235,10 +279,25 @@ var LocationsCreateMultipleController = function ($scope, $routeParams, apiServi
         //create a new location: ask user to use his geoloaction
         GeolocationService.getCurrentPosition().then(
             function (position) { //
-                //console.log('Position', position);
                 $scope.marker.lat = position.coords.latitude;
                 $scope.marker.lng = position.coords.longitude;
-                $scope.updateLocation({'lat': position.coords.latitude, 'lng': position.coords.longitude});
+                $scope.updateLocation({
+                  'lat': position.coords.latitude,
+                  'lng': position.coords.longitude
+                }, function(error, address) {
+                  console.log('address', address);
+                  if(address) {
+                    $scope.location.latitude = position.coords.latitude,
+                    $scope.location.longitude = position.coords.longitude,
+                    $scope.location.street = address.street;
+                    $scope.location.city = address.city;
+                    $scope.location.postcode = address.postcode;
+                    $scope.location.country = address.country;
+                  }
+                  if (error) {
+                      PubSub.publish('alert',{type: 'error', message: 'Can not set user position: ' + error});
+                  }
+                });
             },
             function (errorCode) {
                 if (errorCode === false) {
@@ -247,7 +306,7 @@ var LocationsCreateMultipleController = function ($scope, $routeParams, apiServi
                 /*
                 else if (errorCode === 1) {
                     //TODO: change for https
-                    //PubSub.publish('alert',{type: 'error', message: 'User either denied GeoLocation or waited for long to respond.'});
+                    //PubSub.publish('alert',{type: 'error', message: 'User either denied GeoLocation or waited for to long to respond.'});
 
                 }
                 */

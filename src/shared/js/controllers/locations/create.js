@@ -2,6 +2,7 @@
 
 var async = require('async');
 var EXIF = require('exif-js');
+var config = require('../../../../../config.json');
 
 var LocationsCreateController = function ($scope, $routeParams, apiService, authService, $q, $location, mapService,
                                           responseHandler, locationFormDefaults, regionService, GeolocationService,
@@ -74,9 +75,8 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
             lockUpdate = false;
             return;
         }
-
         for (var i = 0; i < keys.length; i += 1) {
-            if (newValues[keys[i]] !== oldValues[keys[i]]) {
+            if (newValues[keys[i]] != undefined && newValues[keys[i]] != "" && newValues[keys[i]] !== oldValues[keys[i]]) {
                 changed = true;
             }
         }
@@ -199,16 +199,6 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
             $scope.location.slug);
     };
 
-    $scope.promiseShow = function () {
-        var deferred = $q.defer();
-        $scope.promise = deferred.promise;
-    };
-
-    $scope.promiseHide = function () {
-        // var deferred = $q.defer();
-        $scope.promise.resolve();
-    };
-
     /*
         Submit the new location
      */
@@ -220,18 +210,32 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
         var isUpdate = false;
         async.waterfall([
             function (cb) {
-                /*
-                    Fetch the nearest region
-                 */
-                // TODO: this must be limited through region admins!
-                apiService('regions?lat=' + $scope.marker.lat + '&lon=' + $scope.marker.lng).actions.all(cb);
+              /*
+                  Fallback: use default region if no coordinates are given
+               */
+               if ($scope.marker && $scope.marker.lat) {
+                  apiService('regions?lat=' + $scope.marker.lat + '&lon=' + $scope.marker.lng).actions.all(cb);
+               } else {
+                  apiService('regions').actions.find(config.global.default_region, cb);
+               }
             },
             function (region, cb) {
+
                 region = region.results || region;
-                if (region && region.length > 0) {
+                console.log('region',region);
+                if (region) {
                     if (!payload.hasOwnProperty('region_uuid')) {
+                      if (region.uuid) {
+                        payload.region_uuid = region.uuid;
+                      } else {
                         payload.region_uuid = region[0].uuid;
+                      }
                     }
+                    if ($scope.marker.lat === null) {
+                      payload.lonlat = region.lonlat;
+                      console.log('payload',payload);
+                    }
+
                     /*
                         Are we updating or creating?
                      */
