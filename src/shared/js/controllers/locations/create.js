@@ -18,7 +18,7 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
     };
     $scope.selectedIndex = 0;
     $scope._sys = locationFormDefaults;
-
+    $scope.zoom = 15;
 
     /*
         Update the map to a new geolocation

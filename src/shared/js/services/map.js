@@ -1,9 +1,11 @@
 'use strict';
 
 var MapService = function ($http, assetPath) {
+    var map = {};
     return {
+        getMap: function() {return map;},
         initMap: function (el, config, settings, addMiniMap, addGeoSearch) {
-            var map, geoConf = config.geoSearch.main;
+            var geoConf = config.geoSearch.main;
 
             if (!settings.latlon) {
                 // todo:nice to maybe reverse ip location of the user? or pull their GPS once every 5 minutes...

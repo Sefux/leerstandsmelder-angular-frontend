@@ -42,6 +42,10 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
               if(el[0].clientHeight === 0) {
                 el[0].style.height = ($window.innerHeight) + "px";
               }
+
+              window.setTimeout(function () {
+                  map.invalidateSize();
+              }, 500);
             };
 
             var updatedMapData = function (data, callback) {
@@ -174,7 +178,9 @@ var MapDirective = function ($window, $timeout, mapService, $translate, assetPat
                         if (changed) {
                             var mapCoords = new L.LatLng(newVal.lat, newVal.lng);
                             marker.setLatLng(mapCoords);
-                            map.setView(mapCoords, scope.zoom || 16);
+
+                            var zoomie = map.getZoom();
+                            map.setView(mapCoords, zoomie || scope.zoom || 16);
                         }
                     });
                 } else {
