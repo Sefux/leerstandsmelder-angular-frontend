@@ -71,13 +71,14 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
         var changed = false,
             keys = Object.keys(newValues);
 
-        if (lockUpdate) {
-            lockUpdate = false;
-            return;
-        }
+
         for (var i = 0; i < keys.length; i += 1) {
             if (newValues[keys[i]] !== undefined && newValues[keys[i]] !== "" && newValues[keys[i]] !== oldValues[keys[i]]) {
                 changed = true;
+                if (lockUpdate ) {
+                    lockUpdate = false;
+                    return;
+                }
             }
         }
 
@@ -290,6 +291,8 @@ var LocationsCreateController = function ($scope, $routeParams, apiService, auth
     if ($routeParams.uuid) {
         var deferred = $q.defer();
         $scope.promise = deferred.promise;
+
+        lockUpdate = true;
         async.waterfall([
             function (cb) {
                 apiService('locations').actions.find($routeParams.uuid, cb);
